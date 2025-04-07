@@ -23,7 +23,7 @@ import { Accordion } from "@/components/ui/accordion";
 import {
   FileText, Fingerprint, User, MapPin, Globe, Briefcase, CreditCard, Plane, Shield,
   GraduationCap, Library, Languages, BookOpen, 
-  ArrowLeft, Bell, MessageSquare, Eye, Download, HeartPulse, Church, Camera, BookUser, Building2
+  ArrowLeft, Bell, MessageSquare, Eye, Download, HeartPulse, Church, Camera, BookUser
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -138,7 +138,6 @@ export default function OfficialReviewPage() {
     travel: { title: 'Travel Details', icon: <Plane className="h-5 w-5 text-cyan-500" /> },
     travelInsurance: { title: 'Travel Insurance', icon: <Shield className="h-5 w-5 text-pink-500" /> },
     documents: { title: 'Required Documents', icon: <FileText className="h-5 w-5 text-amber-500" /> },
-    sponsorshipAndRole: { title: 'Sponsorship & Role Details', icon: <Building2 className="h-5 w-5 text-cyan-600" /> },
     // Student Sections
     study: { title: 'Course & Institution', icon: <Library className="h-5 w-5 text-indigo-500" /> },
     cas: { title: 'Confirmation of Acceptance (CAS)', icon: <BookOpen className="h-5 w-5 text-teal-500" /> },

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Eye, Calendar, Hospital, UserCog, FileText as FileTextIcon, DollarSign } from 'lucide-react'; // Renamed FileText to avoid conflict
+import { Eye, Calendar, Hospital, FileText as FileTextIcon, DollarSign } from 'lucide-react'; // Renamed FileText to avoid conflict
 import { formatDate, formatCurrency } from '@/utils/formatters'; // Assuming formatters are moved to utils
 
 interface MedicalSectionDetailsProps {
@@ -75,7 +75,7 @@ export default function MedicalSectionDetails({ data }: MedicalSectionDetailsPro
                {data.destinationHospitalOrClinic.name && <div className="sm:col-span-2"><p className="text-xs text-gray-500">Name</p><p className="text-sm font-medium flex items-center gap-1"><Hospital className="h-4 w-4 text-gray-400"/> {data.destinationHospitalOrClinic.name}</p></div>}
                {data.destinationHospitalOrClinic.address && <div><p className="text-xs text-gray-500">Address</p><p className="text-sm">{data.destinationHospitalOrClinic.address}</p></div>}
                {data.destinationHospitalOrClinic.department && <div><p className="text-xs text-gray-500">Department</p><p className="text-sm">{data.destinationHospitalOrClinic.department}</p></div>}
-               {data.destinationHospitalOrClinic.consultantName && <div><p className="text-xs text-gray-500">Consultant</p><p className="text-sm font-medium flex items-center gap-1"><UserCog className="h-4 w-4 text-gray-400"/> {data.destinationHospitalOrClinic.consultantName}</p></div>}
+               {data.destinationHospitalOrClinic.consultantName && <div><p className="text-xs text-gray-500">Consultant</p><p className="text-sm font-medium flex items-center gap-1"><UserMd className="h-4 w-4 text-gray-400"/> {data.destinationHospitalOrClinic.consultantName}</p></div>}
             </div>
         </div>
        )}

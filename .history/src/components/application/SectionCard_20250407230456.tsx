@@ -29,7 +29,6 @@ import FinancialSectionDetails from './sections/FinancialSectionDetails';
 import TravelSectionDetails from './sections/TravelSectionDetails'; 
 import TravelInsuranceSectionDetails from './sections/TravelInsuranceSectionDetails';
 import DocumentsSectionDetails from './sections/DocumentsSectionDetails'; 
-import SponsorshipAndRoleDetails from './sections/SponsorshipAndRoleDetails'; 
 import MedicalSectionDetails from './sections/MedicalSectionDetails';
 import ReligiousSectionDetails from './sections/ReligiousSectionDetails';
 import AcademicQualificationsSectionDetails from './sections/AcademicQualificationsSectionDetails'; 
@@ -89,9 +88,6 @@ const SectionDetailsRenderer: React.FC<{ section: ApplicationSection }> = ({ sec
 
     case 'documents':
       return <DocumentsSectionDetails data={data} />;
-
-    case 'sponsorshipAndRole':
-      return <SponsorshipAndRoleDetails data={data} />;
 
     case 'academicQualifications':
       return <AcademicQualificationsSectionDetails data={data} />;

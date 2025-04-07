@@ -520,50 +520,6 @@ export const mockApplicationData: ApplicationData = {
     },
     updatedAt: '2025-04-10T10:15:00Z'
 },
-// --- NEW: Sponsorship and Role Section ---
-sponsorshipAndRole: {
-  status: 'complete',
-  validationStatus: 'success', // Assuming CoS number is verified, etc.
-  data: {
-    sectionId: 'sponsorshipAndRole',
-    // Certificate of Sponsorship (CoS) Details
-    certificateOfSponsorship: {
-      cosNumber: 'SPON-XYZ-123456789',
-      status: 'Assigned', // 'Assigned', 'Used', 'Withdrawn'
-      issueDate: '2025-04-15',
-      expiryDate: '2025-07-14', // CoS has a validity period
-    },
-    // Local (Sponsoring) Employer Details
-    localEmployer: {
-      name: 'Tech Solutions UK Ltd',
-      address: '1 Tech Park, Manchester, M1 4BT, United Kingdom',
-      sponsorLicenseNumber: 'SPN12345678'
-    },
-     // Role Details (as defined on CoS for UK role)
-    localRole: {
-      jobTitle: 'Senior Software Architect',
-      socCode: '2136', // Standard Occupational Classification code
-      mainDutiesSummary: 'Leading the design and development of the next-gen platform architecture, mentoring junior engineers, and collaborating with international teams.', // Summary from CoS
-      salaryGbpAnnual: 85000,
-      workHoursWeekly: 37.5,
-      startDate: '2025-09-01', // Planned start date in UK
-      endDate: '2028-08-31',   // Planned end date (if applicable)
-    },
-    // Overseas Employer & Role Details (for ICT)
-    overseasEmployment: { // Specific to ICT, might be null for Skilled Worker
-      employerName: 'Tech Solutions Global Inc.',
-      employerAddress: '1 Innovation Plaza, San Jose, CA 95110, USA',
-      natureOfBusiness: 'Global Software Development & Consultancy',
-      jobTitle: 'Lead Software Engineer',
-      startDate: '2020-03-01', // Date started with overseas company
-      continuousEmploymentVerified: true, // Flag indicating proof checked (e.g., >12 months)
-      overseasSalaryEquivalentGbp: 92000, // Optional: for comparison/context
-      overseasSalaryOriginal: { amount: 120000, currency: 'USD' }, // Optional
-    },
-    completedAt: '2025-04-16T09:00:00Z'
-  },
-  updatedAt: '2025-04-16T09:00:00Z'
-},
 
 // --- NEW: Religious Worker Section ---
 religiousWorker: {

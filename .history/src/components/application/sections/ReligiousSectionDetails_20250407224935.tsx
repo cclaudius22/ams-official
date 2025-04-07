@@ -2,8 +2,8 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Eye, Building, Briefcase, GraduationCap, HandCoins, CheckSquare } from 'lucide-react';
-import { formatDate, formatCurrency } from '@/utils/formatters'; // Import formatDate here
+import { Eye, Building, Briefcase, GraduationCap, HandCoins, CheckSquare } from 'lucide-react'; // Use relevant icons
+import { formatCurrency } from '@/utils/formatters'; // Assuming currency formatter exists
 
 interface ReligiousSectionDetailsProps {
   data: any; // Ideally: ReligiousWorkerData type
