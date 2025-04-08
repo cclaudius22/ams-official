@@ -1,0 +1,32 @@
+// src/components/ui/CustomTooltip.tsx 
+import React from 'react';
+// Color palette import might be needed if not passed via props/payload
+const SUBTLE_COLORS = [ '#60a5fa', '#34d399', '#facc15', '#fb923c', '#a78bfa', '#fb7185', '#9ca3af' ];
+
+export const CustomTooltip = ({ active, payload, label }: any) => { // Using any for brevity, define proper types if needed
+    if (active && payload && payload.length) {
+        return (
+            <div className="bg-white dark:bg-gray-800 p-2 border border-gray-200 dark:border-gray-700 rounded shadow-lg text-xs text-gray-700 dark:text-gray-200 z-50">
+                <p className="font-medium mb-1 text-gray-900 dark:text-gray-100">{label}</p>
+                {payload.map((entry: any, index: number) => {
+                    const color = entry.payload?.fill || entry.color || entry.stroke || entry.payload?.stroke || SUBTLE_COLORS[index % SUBTLE_COLORS.length];
+                    const value = entry.value;
+                    const name = entry.name || entry.dataKey;
+                    const formattedValue = typeof value === 'number' ? value.toLocaleString(undefined, {maximumFractionDigits: 1}) : value; // Basic formatting
+
+                    return (
+                        <div key={index} className="flex items-center py-0.5">
+                            <span
+                                className="w-2 h-2 rounded-full mr-1.5 flex-shrink-0"
+                                style={{ backgroundColor: color }}
+                            ></span>
+                            <span>{name}:</span>
+                            <span className="font-semibold ml-1">{formattedValue}{entry.unit}</span>
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    }
+    return null;
+};

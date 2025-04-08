@@ -1,0 +1,144 @@
+// app/components/knowledgebase/RAGChat.tsx
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import { Send, Bot, User, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+  citations?: {
+    text: string;
+    link: string;
+  }[];
+}
+
+export function RAGChat() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const userMessage = input;
+    setInput('');
+    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/knowledgebase/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage })
+      });
+
+      if (!response.ok) throw new Error('Failed to get response');
+
+      const data = await response.json();
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: data.response,
+        citations: data.citations
+      }]);
+    } catch (error) {
+      console.error('Chat error:', error);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'Sorry, I encountered an error processing your request.'
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col h-[600px] border rounded-lg bg-white dark:bg-gray-900">
+      <div className="p-4 border-b">
+        <h2 className="text-lg font-semibold">Visa Knowledge Assistant</h2>
+        <p className="text-sm text-gray-500">Ask questions about visa procedures and requirements</p>
+      </div>
+
+      <ScrollArea className="flex-1 p-4">
+        <div className="space-y-4">
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`flex ${message.role === 'assistant' ? 'flex-row' : 'flex-row-reverse'}`}
+            >
+              <div
+                className={`flex items-start gap-2.5 max-w-[80%] ${
+                  message.role === 'assistant' ? 'flex-row' : 'flex-row-reverse'
+                }`}
+              >
+                <div className={`p-2 rounded-lg ${
+                  message.role === 'assistant' 
+                    ? 'bg-gray-100 dark:bg-gray-800' 
+                    : 'bg-blue-500 text-white'
+                }`}>
+                  {message.content}
+                  
+                  {message.citations && (
+                    <div className="mt-2 text-xs border-t pt-2">
+                      <p className="font-semibold">Sources:</p>
+                      {message.citations.map((citation, idx) => (
+                        <a
+                          key={idx}
+                          href={citation.link}
+                          className="block text-blue-500 hover:underline mt-1"
+                        >
+                          {citation.text}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                {message.role === 'assistant' ? (
+                  <Bot className="w-6 h-6 text-gray-500" />
+                ) : (
+                  <User className="w-6 h-6 text-gray-500" />
+                )}
+              </div>
+            </div>
+          ))}
+          {isLoading && (
+            <div className="flex items-center gap-2 text-gray-500">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Thinking...
+            </div>
+          )}
+          <div ref={chatEndRef} />
+        </div>
+      </ScrollArea>
+
+      <form onSubmit={handleSubmit} className="p-4 border-t">
+        <div className="flex gap-2">
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask about visa procedures..."
+            className="flex-1"
+            disabled={isLoading}
+          />
+          <Button type="submit" disabled={isLoading}>
+            <Send className="h-4 w-4" />
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+}

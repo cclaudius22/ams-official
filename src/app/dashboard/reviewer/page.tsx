@@ -1,302 +1,133 @@
 // src/app/dashboard/reviewer/page.tsx
-'use client'
+'use client' // May need client components for stats fetching later or interactions
 
-import React, { useState, useMemo } from 'react' // Added useMemo
-import SidebarNavigation from '@/components/dashboard/SidebarNavigation'
-import ApplicationHeader from '@/components/application/ApplicationHeader'
-import AIScanResultsRedesigned from '@/components/application/AIScanResults'
-import SectionCard from '@/components/application/SectionCard'
-import DecisionFooter from '@/components/application/DecisionFooter' // Import the updated footer
-import NoteDialog from '@/components/dialogs/NoteDialog'
-import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog'
-import ContactApplicantDialog from '@/components/dialogs/ContactApplicantDialog'; // Import new dialog
-// Import placeholder dialogs if you create them later
-// import RequestInfoDialog from '@/components/dialogs/RequestInfoDialog';
-// import EscalateDialog from '@/components/dialogs/EscalateDialog';
-// import MakeDecisionDialog from '@/components/dialogs/MakeDecisionDialog';
-
-import { ApplicationData } from '@/types/application'
-import { AIScanResult } from '@/types/aiScan'
-import { getApplication } from '@/lib/api/applications' // Assuming these work
-import { getAIScanResult, triggerNewScan } from '@/lib/api/scans' // Assuming these work
-import { Accordion } from "@/components/ui/accordion";
+import React from 'react';
+import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // Use Card for stats
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'; // For alerts
 import {
-  FileText, Fingerprint, User, MapPin, Globe, Briefcase, CreditCard, Plane, Shield,
-  GraduationCap, Library, Languages, BookOpen, 
-  ArrowLeft, Bell, MessageSquare, Eye, Download, HeartPulse, Church, Camera, BookUser, Building2
-} from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+  Clock,
+  Inbox,
+  AlertTriangle,
+  CheckCircle2,
+  Activity,
+  AlertCircle,
+  ShieldCheck,
+  ArrowRight
+} from 'lucide-react'; // Import relevant icons
 
-// Mock data imports (keep for now if API isn't ready)
-import { mockApplicationData } from '@/lib/mockdata'
-import { mockScanResult } from '@/lib/mockdata'
+// Mock data for stats (replace with TanStack Query later)
+const mockDashboardStats = {
+  activeQueueCount: 23,
+  pendingReviewsCount: 12,
+  slaWarningsCount: 3,
+  highPriorityCount: 4,
+  accuracyRate: 99.2, // Example
+  completedToday: 15,
+  targetToday: 20,
+};
 
-export default function OfficialReviewPage() {
-  // --- State management ---
-  const [notes, setNotes] = useState<Record<string, string>>({});
-  const [decisions, setDecisions] = useState<Record<string, 'approve' | 'refer' | 'pending'>>({});
-  const [activeNoteSection, setActiveNoteSection] = useState<string | null>(null);
-  const [noteText, setNoteText] = useState('');
-  const [finalDecision, setFinalDecision] = useState<'approve' | 'refer' | null>(null); // For original confirm dialog
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false); // For original confirm dialog
+export default function ReviewerDashboardPage() {
+  // In the future, fetch stats using useQuery from TanStack Query
+  const stats = mockDashboardStats;
 
-  // Application data state
-  const [applicationData, setApplicationData] = useState<ApplicationData>(mockApplicationData);
-  const [scanResult, setScanResult] = useState<AIScanResult>(mockScanResult);
-  const [isLoading, setIsLoading] = useState(false);
+  const tasksOnTrack = stats.completedToday >= stats.targetToday; // Simple example logic
 
-  // --- State for NEW Dialogs ---
-  const [showContactDialog, setShowContactDialog] = useState(false);
-  const [showRequestInfoDialog, setShowRequestInfoDialog] = useState(false); // Placeholder
-  const [showEscalateDialog, setShowEscalateDialog] = useState(false);       // Placeholder
-  const [showMakeDecisionDialog, setShowMakeDecisionDialog] = useState(false); // Placeholder
-
-  // --- Event Handlers & Helper Functions ---
-  const getIssuesForSection = (sectionId: string) => {
-    return scanResult.issues.filter(issue => issue.sectionId === sectionId);
-  };
-  const handleApproveSection = (sectionId: string) => {
-    setDecisions(prev => ({ ...prev, [sectionId]: 'approve' }));
-  };
-  const handleReferSection = (sectionId: string) => {
-     setDecisions(prev => ({ ...prev, [sectionId]: 'refer' }));
-  };
-  const handleAddNote = (sectionId: string) => {
-    setActiveNoteSection(sectionId);
-    setNoteText(notes[sectionId] || '');
-  };
-  const saveNote = () => {
-    if (activeNoteSection) {
-      setNotes(prev => ({ ...prev, [activeNoteSection]: noteText }));
-      setActiveNoteSection(null);
-      setNoteText('');
-    }
-  };
-
-  // --- Handlers for NEW Footer Actions/Dialogs ---
-  const handleOpenContactDialog = () => setShowContactDialog(true);
-
-  const handleOpenRequestInfoDialog = () => {
-    setShowContactDialog(false); // Close contact dialog first
-    // Logic to prepare for Request Info (e.g., set target applicant?)
-    setShowRequestInfoDialog(true); // Open request info dialog (to be built)
-    console.log("Opening Request Info Dialog - Placeholder");
-    // You'll likely need state here to hold the message being typed
-  };
-
-  const handleScheduleCall = () => {
-    // Logic to schedule call - TBD
-    console.log("Schedule Video Call Clicked - Placeholder");
-    alert("Video scheduling not yet implemented."); // Placeholder feedback
-  };
-
-  const handleOpenEscalateDialog = () => {
-    setShowEscalateDialog(true);
-    console.log("Opening Escalate Dialog - Placeholder");
-    // You'll likely need state here for escalation reason/notes
-  };
-
-  const handleOpenMakeDecisionDialog = () => {
-    setShowMakeDecisionDialog(true);
-    console.log("Opening Make Decision Dialog - Placeholder");
-    // This dialog will likely contain Approve/Reject buttons triggering final submission
-  };
-
-  // Submit final decision (example from original ConfirmationDialog)
-  // This logic might move into the MakeDecisionDialog submission handler later
-  const submitFinalDecision = async (decision: 'approve' | 'reject') => { // Accept decision type
-    setIsLoading(true);
-    console.log('Submitting final decision:', decision); // Use passed decision
-    console.log('Section decisions:', decisions);
-    console.log('Notes:', notes);
-    try {
-      // Replace alert with actual API call
-      alert(`Application ${decision === 'approve' ? 'approved' : 'rejected'}`);
-      // Close relevant dialogs
-      setShowMakeDecisionDialog(false); // Assuming this triggers it
-      setShowConfirmDialog(false); // Close old one if still used
-    } catch (error) {
-      console.error('Error submitting decision:', error);
-      alert('Failed to submit decision');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-
-  // --- Define Section Icons & Titles ---
-  // Using useMemo to prevent recreating this map on every render
-  const sectionDefinitions = useMemo(() => ({
-    passport: { title: 'Passport Information', icon: <FileText className="h-5 w-5 text-blue-500" /> },
-    kyc: { title: 'Identity Verification', icon: <Fingerprint className="h-5 w-5 text-purple-500" /> },
-    residency: { title: 'Residence Information', icon: <MapPin className="h-5 w-5 text-red-500" /> },
-    photo: { title: 'Visa Photo Analysis', icon: <Camera className="h-5 w-5 text-gray-500" /> },
-    visas: { title: 'Existing Visas & Status', icon: <BookUser className="h-5 w-5 text-orange-500" /> },
-    professional: { title: 'Professional Information', icon: <Briefcase className="h-5 w-5 text-orange-500" /> }, 
-    financial: { title: 'Financial Information', icon: <CreditCard className="h-5 w-5 text-emerald-500" /> },
-    travel: { title: 'Travel Details', icon: <Plane className="h-5 w-5 text-cyan-500" /> },
-    travelInsurance: { title: 'Travel Insurance', icon: <Shield className="h-5 w-5 text-pink-500" /> },
-    documents: { title: 'Required Documents', icon: <FileText className="h-5 w-5 text-amber-500" /> },
-    sponsorshipAndRole: { title: 'Sponsorship & Role Details', icon: <Building2 className="h-5 w-5 text-cyan-600" /> },
-    // Student Sections
-    study: { title: 'Course & Institution', icon: <Library className="h-5 w-5 text-indigo-500" /> },
-    cas: { title: 'Confirmation of Acceptance (CAS)', icon: <BookOpen className="h-5 w-5 text-teal-500" /> },
-    englishProficiency: { title: 'English Language Proficiency', icon: <Languages className="h-5 w-5 text-rose-500" /> },
-    academicQualifications: { title: 'Academic Qualifications', icon: <GraduationCap className="h-5 w-5 text-lime-500" /> },
-     // --- ADD NEW SECTION DEFINITIONS ---
-     medical: { title: 'Medical Information', icon: <HeartPulse className="h-5 w-5 text-red-600" /> }, // Or Stethoscope
-     religiousWorker: { title: 'Religious Worker Details', icon: <Church className="h-5 w-5 text-purple-600" /> }, // Or Scroll
-
- 
-  }), []); // Empty dependency array means it only computes once
-
-
-  // --- Calculate derived data ---
-  // Filter the sections to only include those present in the application data
-  const availableSectionKeys = useMemo(() =>
-      Object.keys(sectionDefinitions)
-            .filter(key => applicationData.sections[key]),
-      [applicationData.sections, sectionDefinitions]
-  );
-
-  const allSectionsDecided = useMemo(() =>
-      availableSectionKeys.every(key => decisions[key] === 'approve' || decisions[key] === 'refer'),
-      [availableSectionKeys, decisions]
-  );
-
-  // Extract contact details safely
-  const applicantContact = useMemo(() => ({
-        name: `${applicationData.applicantDetails?.givenNames || applicationData.sections?.passport?.data?.givenNames || ''} ${applicationData.applicantDetails?.surname || applicationData.sections?.passport?.data?.surname || ''}`.trim() || null,
-        email: applicationData.applicantDetails?.email || null,
-        phoneNumber: applicationData.applicantDetails?.phoneNumber || null
-    }), [applicationData.applicantDetails, applicationData.sections?.passport?.data]);
-
-
-  // --- Loading state ---
-  if (isLoading) {
-    return <div className="flex h-screen items-center justify-center">Loading application data...</div>;
-  }
-
-  // --- Render JSX ---
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Left Sidebar */}
-      <SidebarNavigation />
-
-      {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto"> {/* Changed to overflow-y-auto */}
-        {/* Top Navigation Bar */}
-        <div className="sticky top-0 z-20 bg-white border-b"> {/* Made top bar sticky */}
-          <div className="flex justify-between items-center px-6 py-3">
-            <div className="flex items-center">
-              <Button variant="ghost" size="sm" className="mr-2">
-                <ArrowLeft className="h-4 w-4 mr-1" />
-                Back to Queue
-              </Button>
-              {/* <h1 className="text-xl font-medium ml-2">Application Review</h1> */}
-            </div>
-            <div className="flex items-center space-x-4"> {/* Reduced spacing */}
-              <button className="relative p-1 rounded-full hover:bg-gray-100">
-                <Bell className="h-5 w-5 text-gray-600" />
-                <span className="absolute -top-0.5 -right-0.5 h-4 w-4 text-[10px] bg-red-500 rounded-full text-white flex items-center justify-center border border-white">3</span>
-              </button>
-              <button className="relative p-1 rounded-full hover:bg-gray-100">
-                <MessageSquare className="h-5 w-5 text-gray-600" />
-                <span className="absolute -top-0.5 -right-0.5 h-4 w-4 text-[10px] bg-blue-500 rounded-full text-white flex items-center justify-center border border-white">5</span>
-              </button>
-               {/* Add User profile/menu here */}
-            </div>
-          </div>
+    <div className="space-y-6">
+        {/* Welcome Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+           <h1 className="text-2xl font-semibold text-gray-800">Reviewer Dashboard</h1>
+           {/* Maybe add a date/time display here */}
         </div>
 
-        {/* Page Content with Padding */}
-        <div className="p-4 md:p-6">
-          {/* Application Header */}
-          <ApplicationHeader application={applicationData} />
+       {/* Priority Alerts */}
+       {stats.slaWarningsCount > 0 && (
+          <Alert variant="destructive" className="bg-red-50 border-red-200">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>SLA Breach Alert</AlertTitle>
+            <AlertDescription>
+               {stats.slaWarningsCount} application(s) are approaching SLA breach soon. Please prioritize accordingly.
+            </AlertDescription>
+          </Alert>
+       )}
+       {stats.highPriorityCount > 0 && !stats.slaWarningsCount && ( // Show only if no SLA warning
+             <Alert variant="warning" className="bg-orange-50 border-orange-200">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>High Priority Items</AlertTitle>
+                <AlertDescription>
+                   You have {stats.highPriorityCount} high priority application(s) in your queue.
+                </AlertDescription>
+             </Alert>
+        )}
 
-          {/* AI Scan Results */}
-          <AIScanResultsRedesigned
-            scanResult={scanResult}
-            onRefreshScan={() => triggerNewScan(applicationData.applicationId)} // Ensure this function exists and works
-          />
 
-          {/* Main Application Sections Accordion */}
-          <Accordion type="multiple" className="w-full space-y-3 mt-6">
-            {availableSectionKeys.map(sectionKey => {
-              const sectionDef = sectionDefinitions[sectionKey as keyof typeof sectionDefinitions];
-              const currentSectionData = applicationData.sections[sectionKey];
-              // Render SectionCard only if section definition and data exist
-              if (!sectionDef || !currentSectionData) return null;
+      {/* Quick Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="bg-white">
+             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+               <CardTitle className="text-sm font-medium">Active Queue</CardTitle>
+               <Inbox className="h-4 w-4 text-muted-foreground" />
+             </CardHeader>
+             <CardContent>
+               <div className="text-2xl font-bold">{stats.activeQueueCount}</div>
+               <p className="text-xs text-muted-foreground">Applications needing review</p>
+             </CardContent>
+          </Card>
 
-              return (
-                <SectionCard
-                  key={sectionKey}
-                  value={sectionKey} // Use the section key as the unique value
-                  title={sectionDef.title}
-                  icon={sectionDef.icon}
-                  section={currentSectionData} // Pass the specific section data
-                  scanIssues={getIssuesForSection(sectionKey)}
-                  onApprove={() => handleApproveSection(sectionKey)}
-                  onRefer={() => handleReferSection(sectionKey)} // Still needed for internal state? Or remove if Escalate handles referral logic
-                  onAddNote={() => handleAddNote(sectionKey)}
-                />
-              );
-            })}
-          </Accordion>
+          <Card className="bg-white">
+             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+               <CardTitle className="text-sm font-medium">Today's Progress</CardTitle>
+               <Activity className="h-4 w-4 text-muted-foreground" />
+             </CardHeader>
+             <CardContent>
+               <div className="text-2xl font-bold">{stats.completedToday}/{stats.targetToday}</div>
+               <p className={`text-xs ${tasksOnTrack ? 'text-green-600' : 'text-amber-600'}`}>
+                   {tasksOnTrack ? 'Target met/exceeded' : 'Below daily target'}
+               </p>
+             </CardContent>
+          </Card>
 
-          {/* Message if no sections exist */}
-          {availableSectionKeys.length === 0 && !isLoading && (
-             <div className="p-6 text-center text-gray-500 border rounded-lg mt-6">
-                No application sections found for this applicant.
-             </div>
-          )}
+          <Card className="bg-white">
+             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+               <CardTitle className="text-sm font-medium">SLA Warnings</CardTitle>
+               <Clock className="h-4 w-4 text-muted-foreground" />
+             </CardHeader>
+             <CardContent>
+               <div className={`text-2xl font-bold ${stats.slaWarningsCount > 0 ? 'text-red-600' : 'text-green-600'}`}>{stats.slaWarningsCount}</div>
+               <p className="text-xs text-muted-foreground">Applications nearing breach</p>
+             </CardContent>
+          </Card>
 
-          {/* Decision Footer - STICKY */}
-          {/* Wrap footer in a div to manage its position if needed, but sticky on DecisionFooter itself should work */}
-           <DecisionFooter
-              totalSections={availableSectionKeys.length}
-              decidedSections={Object.keys(decisions).length} // Counts sections with 'approve' or 'refer' decision
-              allDecided={allSectionsDecided} // Pass the calculated value
-              applicantContact={applicantContact} // Pass extracted contact info
-              onContact={handleOpenContactDialog}
-              onEscalate={handleOpenEscalateDialog}
-              onMakeDecision={handleOpenMakeDecisionDialog}
-           />
-        </div> {/* End Page Content Padding */}
-      </div> {/* End Main Content Area */}
+          <Card className="bg-white">
+             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+               <CardTitle className="text-sm font-medium">Accuracy Rate (Avg)</CardTitle>
+               <ShieldCheck className="h-4 w-4 text-muted-foreground" />
+             </CardHeader>
+             <CardContent>
+               <div className="text-2xl font-bold">{stats.accuracyRate}%</div>
+                <p className="text-xs text-muted-foreground">Based on recent reviews</p>
+             </CardContent>
+          </Card>
+      </div>
 
-      {/* --- Dialogs --- */}
-      <NoteDialog
-        isOpen={activeNoteSection !== null}
-        onClose={() => setActiveNoteSection(null)}
-        noteText={noteText}
-        onNoteChange={setNoteText}
-        onSave={saveNote}
-      />
+      {/* Action / Link to Queue */}
+      <div className="mt-8 text-center sm:text-left">
+          <Link href="/dashboard/reviewer/queue" passHref>
+              <Button size="lg">
+                 Go to My Review Queue
+                 <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+          </Link>
+      </div>
 
-      {/* Confirmation Dialog (Keep or remove depending on final workflow) */}
-      {/* <ConfirmationDialog
-        isOpen={showConfirmDialog}
-        onClose={() => setShowConfirmDialog(false)}
-        decision={finalDecision} // This state might become redundant
-        onConfirm={() => submitFinalDecision(finalDecision!)} // Pass decision
-      /> */}
+      {/* Placeholder for other potential dashboard widgets */}
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <Card> <CardHeader><CardTitle>Recent Activity</CardTitle></CardHeader> <CardContent>...</CardContent> </Card>
+          <Card> <CardHeader><CardTitle>Team Updates</CardTitle></CardHeader> <CardContent>...</CardContent> </Card>
+      </div> */}
 
-      {/* New Contact Dialog */}
-       <ContactApplicantDialog
-          isOpen={showContactDialog}
-          onClose={() => setShowContactDialog(false)}
-          contact={applicantContact} // Pass extracted contact info
-          onRequestInfo={handleOpenRequestInfoDialog}
-          onScheduleCall={handleScheduleCall}
-       />
-
-       {/* Placeholder Renders for Future Dialogs */}
-       {/* {showRequestInfoDialog && <RequestInfoDialog isOpen={showRequestInfoDialog} onClose={() => setShowRequestInfoDialog(false)} onSubmit={(message) => console.log('Request Info:', message)} />} */}
-       {/* {showEscalateDialog && <EscalateDialog isOpen={showEscalateDialog} onClose={() => setShowEscalateDialog(false)} onSubmit={(reason) => console.log('Escalate Reason:', reason)} />} */}
-       {/* {showMakeDecisionDialog && <MakeDecisionDialog isOpen={showMakeDecisionDialog} onClose={() => setShowMakeDecisionDialog(false)} onSubmit={submitFinalDecision} />} */}
-
-    </div> // End flex h-screen
+    </div>
   );
 }
