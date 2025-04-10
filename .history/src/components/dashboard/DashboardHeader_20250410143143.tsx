@@ -27,8 +27,8 @@ export default function DashboardHeader({}: DashboardHeaderProps) {
   return (
     <div className="sticky top-0 z-20 bg-white border-b">
       <div className="flex justify-between items-center px-4 md:px-6 py-3">
-        {/* Left Side: Logo and Title */}
-        <div className="flex items-center">
+        {/* Left Side: Back Button or Placeholder */}
+        <div className="flex items-center min-w-[150px]"> {/* Min width to prevent layout shift */}
           {isReviewPage ? (
             <Link href="/dashboard/reviewer/queue" passHref>
               <Button variant="ghost" size="sm" className="mr-2 text-gray-600 hover:text-gray-900">
@@ -37,22 +37,11 @@ export default function DashboardHeader({}: DashboardHeaderProps) {
               </Button>
             </Link>
           ) : (
-            <div className="flex items-center">
-              <Link href="/dashboard" className="flex items-center">
-                <div className="relative h-10 w-10 mr-3">
-                  <Image 
-                    src="/logo/ov_logo.png" 
-                    alt="OpenVisa Logo" 
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <h1 className="text-2xl  bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-400 drop-shadow-sm">
-                  AMS
-                </h1>
-              </Link>
-            </div>
+             // Placeholder or Dashboard Title if needed when not on review page
+             <div className="h-8"></div> // Keep space consistent
           )}
+          {/* Optional: Page Title could go here, passed via props or context */}
+          {/* <h1 className="text-xl font-medium ml-2">{pageTitle || 'Dashboard'}</h1> */}
         </div>
 
         {/* Right Side: Icons & Availability */}

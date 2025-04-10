@@ -117,6 +117,7 @@ export default function SidebarNavigation() {
         {/* Tools & Integrations Section */}
         <NavSection title="Tools & Integrations" icon="/icons/tools.svg">
           <NavLink href="/dashboard/tools/verification">Verification Tools</NavLink>
+          <NavLink href="#">Visa Base</NavLink>
           <NavLink href="/dashboard/knowledgebase">AI Knowledgebase</NavLink>
         </NavSection>
 

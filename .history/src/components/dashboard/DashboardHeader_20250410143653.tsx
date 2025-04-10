@@ -47,7 +47,7 @@ export default function DashboardHeader({}: DashboardHeaderProps) {
                     className="object-contain"
                   />
                 </div>
-                <h1 className="text-2xl  bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-400 drop-shadow-sm">
+                <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-400 drop-shadow-sm">
                   AMS
                 </h1>
               </Link>

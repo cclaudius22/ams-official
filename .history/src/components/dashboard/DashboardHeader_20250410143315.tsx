@@ -39,7 +39,7 @@ export default function DashboardHeader({}: DashboardHeaderProps) {
           ) : (
             <div className="flex items-center">
               <Link href="/dashboard" className="flex items-center">
-                <div className="relative h-10 w-10 mr-3">
+                <div className="relative h-8 w-8 mr-2">
                   <Image 
                     src="/logo/ov_logo.png" 
                     alt="OpenVisa Logo" 
@@ -47,7 +47,7 @@ export default function DashboardHeader({}: DashboardHeaderProps) {
                     className="object-contain"
                   />
                 </div>
-                <h1 className="text-2xl  bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-400 drop-shadow-sm">
+                <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-400">
                   AMS
                 </h1>
               </Link>
