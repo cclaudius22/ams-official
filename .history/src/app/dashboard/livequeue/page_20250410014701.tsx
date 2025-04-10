@@ -70,14 +70,6 @@ export default function LiveQueuePage() {
     };
   }, [applications]); // Recalculate if source applications change
 
-  // Sync searchQuery with filters.search
-  useEffect(() => {
-    setFilters(prev => ({
-      ...prev,
-      search: searchQuery
-    }));
-  }, [searchQuery]);
-
   // Apply filters and search to applications
   const filteredApplications = useMemo(() => {
     let result = [...applications]; // Start with all applications
@@ -198,7 +190,6 @@ export default function LiveQueuePage() {
   const applyAdvancedFilters = (newFilters: LiveQueueFilters) => {
     console.log("Applying advanced filters:", newFilters);
     setFilters(newFilters);
-    setSearchQuery(newFilters.search); // Sync search input with filters
     setCurrentPage(1); // Reset to first page when filters change
     setShowAdvancedFilters(false); // Close panel
   };

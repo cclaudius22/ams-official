@@ -70,14 +70,6 @@ export default function LiveQueuePage() {
     };
   }, [applications]); // Recalculate if source applications change
 
-  // Sync searchQuery with filters.search
-  useEffect(() => {
-    setFilters(prev => ({
-      ...prev,
-      search: searchQuery
-    }));
-  }, [searchQuery]);
-
   // Apply filters and search to applications
   const filteredApplications = useMemo(() => {
     let result = [...applications]; // Start with all applications
@@ -198,7 +190,6 @@ export default function LiveQueuePage() {
   const applyAdvancedFilters = (newFilters: LiveQueueFilters) => {
     console.log("Applying advanced filters:", newFilters);
     setFilters(newFilters);
-    setSearchQuery(newFilters.search); // Sync search input with filters
     setCurrentPage(1); // Reset to first page when filters change
     setShowAdvancedFilters(false); // Close panel
   };
@@ -235,11 +226,9 @@ export default function LiveQueuePage() {
           <div className="flex gap-2 w-full sm:w-auto justify-end">
             <Button variant="outline" onClick={() => setShowAdvancedFilters(true)}>
               <Filter className="h-4 w-4 mr-2" /> Filters
-              {(filters.status.length > 0 || filters.visaType.length > 0 || 
-                filters.country.length > 0 || (filters.assignedTo && filters.assignedTo.length > 0)) && ( 
+              {Object.values(filters).flat().filter(Boolean).length > 0 && ( 
                 <Badge className="ml-2 bg-blue-100 text-blue-800 hover:bg-blue-100"> 
-                  {filters.status.length + filters.visaType.length + 
-                   filters.country.length + (filters.assignedTo?.length || 0)} 
+                  {Object.values(filters).flat().filter(Boolean).length} 
                 </Badge> 
               )}
             </Button>

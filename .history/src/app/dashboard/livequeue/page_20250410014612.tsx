@@ -17,7 +17,7 @@ import AdvancedFilterPanel from '@/components/dashboard/AdvancedFilterPanel'
 import LiveQueueMetrics from '@/components/dashboard/LiveQueueMetrics'
 
 // --- Type and Mock Data Imports ---
-import { LiveApplication, LiveQueueFilters, LiveQueueStats } from '@/types/liveQueue' // Adjust path if needed
+import { LiveApplication, LiveQueueFilters, QueueStats } from '@/types/liveQueue' // Adjust path if needed
 import { mockLiveQueue, mockOfficials, calculateQueueStats } from '@/lib/mockdata-livequeue' // Adjust path if needed
 
 export default function LiveQueuePage() {
@@ -34,7 +34,6 @@ export default function LiveQueuePage() {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [filters, setFilters] = useState<LiveQueueFilters>({
     // Initialize filter arrays as empty
-    search: '',
     status: [],
     visaType: [],
     country: [],
@@ -51,7 +50,7 @@ export default function LiveQueuePage() {
 
   // --- Data Calculations (using useMemo) ---
   // Calculate stats based on the *source* application list (before filtering)
-  const stats: LiveQueueStats = useMemo(() => calculateQueueStats(applications), [applications]);
+  const stats: QueueStats = useMemo(() => calculateQueueStats(applications), [applications]);
 
   // Derive filter options from the *source* application list
   const filterOptions = useMemo(() => {
@@ -69,14 +68,6 @@ export default function LiveQueuePage() {
       assignedTo: assignableOfficials // Use mockOfficials for dropdown
     };
   }, [applications]); // Recalculate if source applications change
-
-  // Sync searchQuery with filters.search
-  useEffect(() => {
-    setFilters(prev => ({
-      ...prev,
-      search: searchQuery
-    }));
-  }, [searchQuery]);
 
   // Apply filters and search to applications
   const filteredApplications = useMemo(() => {
@@ -111,7 +102,7 @@ export default function LiveQueuePage() {
     }
 
     // Apply assigned to filter
-    if (filters.assignedTo && filters.assignedTo.length > 0) {
+    if (filters.assignedTo?.length > 0) {
       const assignedToFilter = filters.assignedTo; // Help TS narrowing
       result = result.filter(app =>
         app.assignedTo && assignedToFilter.includes(app.assignedTo.id)
@@ -198,7 +189,6 @@ export default function LiveQueuePage() {
   const applyAdvancedFilters = (newFilters: LiveQueueFilters) => {
     console.log("Applying advanced filters:", newFilters);
     setFilters(newFilters);
-    setSearchQuery(newFilters.search); // Sync search input with filters
     setCurrentPage(1); // Reset to first page when filters change
     setShowAdvancedFilters(false); // Close panel
   };
@@ -235,11 +225,9 @@ export default function LiveQueuePage() {
           <div className="flex gap-2 w-full sm:w-auto justify-end">
             <Button variant="outline" onClick={() => setShowAdvancedFilters(true)}>
               <Filter className="h-4 w-4 mr-2" /> Filters
-              {(filters.status.length > 0 || filters.visaType.length > 0 || 
-                filters.country.length > 0 || (filters.assignedTo && filters.assignedTo.length > 0)) && ( 
+              {Object.values(filters).flat().filter(Boolean).length > 0 && ( 
                 <Badge className="ml-2 bg-blue-100 text-blue-800 hover:bg-blue-100"> 
-                  {filters.status.length + filters.visaType.length + 
-                   filters.country.length + (filters.assignedTo?.length || 0)} 
+                  {Object.values(filters).flat().filter(Boolean).length} 
                 </Badge> 
               )}
             </Button>

@@ -116,7 +116,8 @@ export default function SidebarNavigation() {
           <NavLink href="/dashboard/tools/verification">Verification Tools</NavLink>
           <NavLink href="#">Visa Base</NavLink>
           <NavLink href="#">AI Tools</NavLink>
-          <NavLink href="/dashboard/knowledgebase">AI Knowledgebase</NavLink>
+          <NavLink href="#">Security Checks</NavLink>
+          <NavLink href="#">Knowledgebase</NavLink>
         </NavSection>
 
         <div className="my-2 border-t" />
