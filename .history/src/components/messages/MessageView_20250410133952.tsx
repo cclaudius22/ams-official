@@ -92,14 +92,13 @@ export default function MessageView({ thread }: MessageViewProps) {
                 <p className="text-xs text-gray-500 truncate">
                     Participants: {thread.participants.map(p => p.name).join(', ')}
                 </p>
-                 {/* Optional: Link to related Application - Uncomment when relatedApplicationId is added to the Message interface
+                 {/* Optional: Link to related Application */}
                 {thread.messages[0]?.relatedApplicationId && (
                      <a href={`/dashboard/reviewer/${thread.messages[0].relatedApplicationId}`} target="_blank" rel="noopener noreferrer"
                         className="text-xs text-blue-600 hover:underline">
                         Related Application: {thread.messages[0].relatedApplicationId}
                      </a>
                  )}
-                 */}
             </div>
 
             {/* Message List Area (Scrollable) */}
