@@ -116,68 +116,44 @@ export default function MessagesPage() {
         // Main container using flexbox for side-by-side layout
         <div className="flex h-full border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
             {/* Left Panel: Tabs and Message List */}
-            <div className="w-full md:w-[350px] lg:w-[400px] border-r border-gray-200 flex flex-col bg-gray-50">
-                {/* Header Area with cleaner design */}
-                <div className="p-5 flex justify-between items-center bg-white">
-                    <h2 className="text-lg font-medium text-gray-800">Messages</h2>
+            <div className="w-full md:w-[350px] lg:w-[400px] border-r border-gray-200 flex flex-col">
+                 {/* Header Area (Optional: Could have search or compose) */}
+                 <div className="p-4 border-b flex justify-between items-center">
+                    <h2 className="text-lg font-semibold">Messages</h2>
                     <Button 
                         variant="ghost" 
                         size="icon" 
-                        className="h-9 w-9 rounded-full hover:bg-gray-100"
+                        className="h-8 w-8"
                         onClick={() => setComposeDialogOpen(true)}
                     >
-                        <PenSquare className="h-4 w-4 text-gray-600" />
+                        <PenSquare className="h-4 w-4" />
                         <span className="sr-only">Compose Message</span>
                     </Button>
-                </div>
+                 </div>
 
-                {/* Simplified Tabs */}
-                <div className="px-5 pt-4 pb-2 bg-white border-b border-gray-100">
-                    <Tabs value={selectedTab} onValueChange={setSelectedTab} className="flex-shrink-0">
-                        <TabsList className="w-full bg-gray-50/80 p-1 rounded-md">
-                            {/* Primary tabs with cleaner design */}
-                            {['Inbox', 'Sent', 'Drafts'].map(tab => (
-                                <TabsTrigger 
-                                    key={tab} 
-                                    value={tab} 
-                                    className="relative text-sm px-3 py-1.5 data-[state=active]:bg-white data-[state=active]:shadow-sm"
-                                >
-                                    {tab}
-                                    {unreadCounts[tab] > 0 && (
-                                        <Badge className="ml-1.5 h-5 min-w-[20px] px-1 rounded-full text-[10px] flex items-center justify-center bg-blue-500 text-white">
-                                            {unreadCounts[tab]}
-                                        </Badge>
-                                    )}
-                                </TabsTrigger>
-                            ))}
-                        </TabsList>
-                        
-                        {/* Secondary tabs as links */}
-                        <div className="flex gap-3 mt-3 px-1 text-xs text-gray-500">
-                            {['InMail', 'Applications', 'Unread'].map(tab => (
-                                <button 
-                                    key={tab}
-                                    onClick={() => setSelectedTab(tab)}
-                                    className={`flex items-center ${selectedTab === tab ? 'text-blue-600 font-medium' : 'hover:text-gray-800'}`}
-                                >
-                                    {tab}
-                                    {unreadCounts[tab] > 0 && (
-                                        <span className="ml-1 text-[10px] font-medium text-blue-600">
-                                            ({unreadCounts[tab]})
-                                        </span>
-                                    )}
-                                </button>
-                            ))}
-                        </div>
-                    </Tabs>
-                </div>
+                 {/* Tabs */}
+                <Tabs value={selectedTab} onValueChange={setSelectedTab} className="flex-shrink-0">
+                    <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 h-auto px-1 py-1"> {/* Adjusted for more tabs */}
+                        {/* Map over tabs for dynamic rendering */}
+                        {['Inbox', 'InMail', 'Applications', 'Unread', 'Sent', 'Drafts'].map(tab => (
+                            <TabsTrigger key={tab} value={tab} className="relative text-xs px-2 h-8">
+                                {tab}
+                                {unreadCounts[tab] > 0 && (
+                                    <Badge className="absolute -top-1 -right-1 h-4 w-auto min-w-[1rem] px-1 rounded-full text-[9px] flex items-center justify-center bg-red-500 text-white">
+                                        {unreadCounts[tab]}
+                                    </Badge>
+                                )}
+                            </TabsTrigger>
+                         ))}
+                    </TabsList>
+                </Tabs>
 
-                {/* Message List Area (Scrollable) with improved spacing */}
-                <div className="flex-1 overflow-y-auto bg-white">
+                {/* Message List Area (Scrollable) */}
+                <div className="flex-1 overflow-y-auto">
                     <MessageList
                         threads={filteredThreads}
                         selectedThreadId={selectedThreadId}
-                        onSelectThread={setSelectedThreadId}
+                        onSelectThread={setSelectedThreadId} // Pass setter function
                     />
                 </div>
             </div>
