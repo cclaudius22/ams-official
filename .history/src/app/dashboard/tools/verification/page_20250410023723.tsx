@@ -258,7 +258,7 @@ export default function VerificationHub() {
                     placeholder={
                       inputType === 'passport' 
                         ? 'Enter passport number...' 
-                        : 'Format: First Last/DD/MM/YYYY (e.g. Jane Saldo/25/08/1956)'
+                        : 'Enter full name and date of birth...'
                     }
                   />
                 </div>
@@ -318,7 +318,7 @@ export default function VerificationHub() {
       {/* Systems Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {systems.map((system) => (
-          <Card key={system.id} className="p-6 bg-white shadow-sm hover:shadow-md transition-shadow">
+          <Card key={system.id} className="p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className={`p-2 rounded-lg ${system.bgColor}`}>
@@ -338,7 +338,7 @@ export default function VerificationHub() {
             <div className="space-y-3">
               {/* Results Display */}
               {results[system.id] && !checkingSystem && (
-                <div className="text-sm bg-white border rounded-lg p-3">
+                <div className="text-sm bg-gray-50 rounded-lg p-3">
                   {formatResult(results[system.id])}
                 </div>
               )}

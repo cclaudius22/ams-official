@@ -109,7 +109,7 @@ export default function SidebarNavigation() {
           <NavLink href="#">Completed</NavLink>
           <NavLink href="#" badge="3" badgeColor="text-red-600 bg-gray-100">Escalated</NavLink>
           <NavLink href="#">Decisions</NavLink>
-          <NavLink href="/dashboard/messages" badge="4" badgeColor="text-blue-600 bg-gray-100">Messages</NavLink>
+          <NavLink href="#" badge="4" badgeColor="text-blue-600 bg-gray-100">Messages</NavLink>
         </NavSection>
 
         <div className="my-2 border-t" />

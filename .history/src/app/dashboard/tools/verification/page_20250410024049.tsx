@@ -258,7 +258,7 @@ export default function VerificationHub() {
                     placeholder={
                       inputType === 'passport' 
                         ? 'Enter passport number...' 
-                        : 'Format: First Last/DD/MM/YYYY (e.g. Jane Saldo/25/08/1956)'
+                        : 'Enter full name and date of birth...'
                     }
                   />
                 </div>

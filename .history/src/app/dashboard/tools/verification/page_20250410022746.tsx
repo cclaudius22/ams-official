@@ -27,8 +27,7 @@ import {
   Ban,
   GraduationCap,
   Gavel,
-  Users,
-  Image as ImageIcon
+  Users
 } from 'lucide-react';
 
 export default function VerificationHub() {
@@ -36,8 +35,6 @@ export default function VerificationHub() {
   const [checkingSystem, setCheckingSystem] = useState<string | null>(null);
   const [results, setResults] = useState<Record<string, any>>({});
   const [showAlert, setShowAlert] = useState(false);
-  const [inputType, setInputType] = useState<'passport' | 'name' | 'photo'>('passport');
-  const [filePreview, setFilePreview] = useState<string | null>(null);
 
   // Extended systems array with all checks
   const systems = [
@@ -47,8 +44,7 @@ export default function VerificationHub() {
       desc: 'Passport Verification & MRZ',
       icon: FileSearch,
       iconColor: 'text-blue-600',
-      bgColor: 'bg-blue-100',
-      inputType: 'passport'
+      bgColor: 'bg-blue-100'
     },
     {
       id: 'biometric',
@@ -56,8 +52,7 @@ export default function VerificationHub() {
       desc: 'INTERPOL AFIS Integration',
       icon: Fingerprint,
       iconColor: 'text-purple-600',
-      bgColor: 'bg-purple-100',
-      inputType: 'passport'
+      bgColor: 'bg-purple-100'
     },
     {
       id: 'interpol',
@@ -65,8 +60,7 @@ export default function VerificationHub() {
       desc: 'Red Notices & Alerts',
       icon: Shield,
       iconColor: 'text-red-600',
-      bgColor: 'bg-red-100',
-      inputType: 'passport'
+      bgColor: 'bg-red-100'
     },
     {
       id: 'sanctions',
@@ -74,8 +68,7 @@ export default function VerificationHub() {
       desc: 'UN & EU Sanctions Lists',
       icon: Ban,
       iconColor: 'text-orange-600',
-      bgColor: 'bg-orange-100',
-      inputType: 'passport'
+      bgColor: 'bg-orange-100'
     },
     {
       id: 'immigration',
@@ -83,8 +76,7 @@ export default function VerificationHub() {
       desc: 'Previous Refusals & Overstays',
       icon: BookX,
       iconColor: 'text-indigo-600',
-      bgColor: 'bg-indigo-100',
-      inputType: 'passport'
+      bgColor: 'bg-indigo-100'
     },
     {
       id: 'travel',
@@ -92,35 +84,7 @@ export default function VerificationHub() {
       desc: 'Border Crossings & Duration',
       icon: Globe,
       iconColor: 'text-green-600',
-      bgColor: 'bg-green-100',
-      inputType: 'passport'
-    },
-    {
-      id: 'education',
-      title: 'Education Verification',
-      desc: 'Degree & Institution Validation',
-      icon: GraduationCap,
-      iconColor: 'text-amber-600',
-      bgColor: 'bg-amber-100',
-      inputType: 'name'
-    },
-    {
-      id: 'criminal',
-      title: 'Criminal Records',
-      desc: 'National Police Database Check',
-      icon: Gavel,
-      iconColor: 'text-rose-600',
-      bgColor: 'bg-rose-100',
-      inputType: 'name'
-    },
-    {
-      id: 'social',
-      title: 'Social Media Screening',
-      desc: 'Online Presence Analysis',
-      icon: Users,
-      iconColor: 'text-sky-600',
-      bgColor: 'bg-sky-100',
-      inputType: 'photo'
+      bgColor: 'bg-green-100'
     }
   ];
 
@@ -156,15 +120,9 @@ export default function VerificationHub() {
     setResults({});
     setShowAlert(false);
     
-    // Only run checks compatible with current input type
-    const compatibleSystems = systems.filter(s => s.inputType === inputType);
-    for (const system of compatibleSystems) {
+    for (const system of systems) {
       await runSystemCheck(system.id);
     }
-  };
-
-  const isSystemCompatible = (systemInputType: string) => {
-    return systemInputType === inputType;
   };
 
   const formatResult = (result: any) => {
@@ -205,103 +163,24 @@ export default function VerificationHub() {
       {/* Search and Alert Section */}
       <div className="space-y-4 mb-6">
         <Card className="p-6">
-          <div className="flex flex-col gap-4">
-            {inputType === 'photo' ? (
-              <div className="flex flex-col gap-4">
-                {filePreview ? (
-                  <div className="relative h-40 w-full rounded-lg border">
-                    <img 
-                      src={filePreview} 
-                      alt="Upload preview"
-                      className="h-full w-full object-contain"
-                    />
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="absolute top-2 right-2"
-                      onClick={() => setFilePreview(null)}
-                    >
-                      <XCircle className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center w-full">
-                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-50">
-                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <ImageIcon className="h-8 w-8 text-gray-400 mb-2" />
-                        <p className="text-sm text-gray-500">Click to upload or drag and drop</p>
-                      </div>
-                      <input 
-                        type="file" 
-                        className="hidden"
-                        accept="image/*"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            setFilePreview(URL.createObjectURL(file));
-                            setDocumentId(file.name);
-                          }
-                        }}
-                      />
-                    </label>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex gap-4">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input
-                    value={documentId}
-                    onChange={(e) => setDocumentId(e.target.value)}
-                    className="pl-9"
-                    placeholder={
-                      inputType === 'passport' 
-                        ? 'Enter passport number...' 
-                        : 'Format: First Last/DD/MM/YYYY (e.g. Jane Saldo/25/08/1956)'
-                    }
-                  />
-                </div>
-                <Button 
-                  onClick={runAllChecks} 
-                  disabled={!documentId || !!checkingSystem}
-                  title={`Run all ${inputType} checks`}
-                >
-                  {checkingSystem ? (
-                    <>
-                      <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                      Checking...
-                    </>
-                  ) : 'Verify All'}
-                </Button>
-              </div>
-            )}
-            <div className="flex gap-2">
-              <Button 
-                variant={inputType === 'passport' ? 'default' : 'outline'} 
-                size="sm"
-                onClick={() => setInputType('passport')}
-              >
-                <FileSearch className="h-4 w-4 mr-2" />
-                Passport
-              </Button>
-              <Button 
-                variant={inputType === 'name' ? 'default' : 'outline'} 
-                size="sm"
-                onClick={() => setInputType('name')}
-              >
-                <UserCheck className="h-4 w-4 mr-2" />
-                Name/DOB
-              </Button>
-              <Button 
-                variant={inputType === 'photo' ? 'default' : 'outline'} 
-                size="sm"
-                onClick={() => setInputType('photo')}
-              >
-                <ImageIcon className="h-4 w-4 mr-2" />
-                Upload Photo
-              </Button>
+          <div className="flex gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                value={documentId}
+                onChange={(e) => setDocumentId(e.target.value)}
+                className="pl-9"
+                placeholder="Enter test passport number..."
+              />
             </div>
+            <Button onClick={runAllChecks} disabled={!documentId || !!checkingSystem}>
+              {checkingSystem ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Checking...
+                </>
+              ) : 'Verify All'}
+            </Button>
           </div>
         </Card>
 
@@ -318,7 +197,7 @@ export default function VerificationHub() {
       {/* Systems Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {systems.map((system) => (
-          <Card key={system.id} className="p-6 bg-white shadow-sm hover:shadow-md transition-shadow">
+          <Card key={system.id} className="p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className={`p-2 rounded-lg ${system.bgColor}`}>
@@ -338,7 +217,7 @@ export default function VerificationHub() {
             <div className="space-y-3">
               {/* Results Display */}
               {results[system.id] && !checkingSystem && (
-                <div className="text-sm bg-white border rounded-lg p-3">
+                <div className="text-sm bg-gray-50 rounded-lg p-3">
                   {formatResult(results[system.id])}
                 </div>
               )}
@@ -346,10 +225,9 @@ export default function VerificationHub() {
               {/* Action Button */}
               <Button
                 variant="outline"
-                className={`w-full ${!isSystemCompatible(system.inputType) ? 'opacity-70' : ''}`}
+                className="w-full"
                 onClick={() => runSystemCheck(system.id)}
-                disabled={!documentId || !!checkingSystem || !isSystemCompatible(system.inputType)}
-                title={!isSystemCompatible(system.inputType) ? `Requires ${system.inputType} input` : ''}
+                disabled={!documentId || !!checkingSystem}
               >
                 {checkingSystem === system.id ? (
                   <>
