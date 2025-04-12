@@ -1,3 +1,4 @@
+// src/app/dashboard/reviewer/page.tsx
 'use client'
 
 import React, { useState, useMemo } from 'react' // Added useMemo
@@ -6,12 +7,11 @@ import AIScanResultsRedesigned from '@/components/application/AIScanResults'
 import SectionCard from '@/components/application/SectionCard'
 import DecisionFooter from '@/components/application/DecisionFooter' 
 import NoteDialog from '@/components/dialogs/NoteDialog'
-import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog' 
+import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog' // Keep for now? Or remove if MakeDecisionDialog replaces it fully
 import ContactApplicantDialog from '@/components/dialogs/ContactApplicantDialog';
 // Import NEW dialogs
 import EscalateDialog from '@/components/dialogs/EscalateDialog';
-import ApproveDialog from '@/components/dialogs/ApproveDialog';
-import RejectDialog from '@/components/dialogs/RejectDialog';
+import MakeDecisionDialog from '@/components/dialogs/MakeDecisionDialog';
 // Import placeholder dialogs if you create them later
 // import RequestInfoDialog from '@/components/dialogs/RequestInfoDialog';
 
@@ -50,9 +50,7 @@ export default function OfficialReviewPage() {
   const [showContactDialog, setShowContactDialog] = useState(false);
   const [showRequestInfoDialog, setShowRequestInfoDialog] = useState(false); // Placeholder
   const [showEscalateDialog, setShowEscalateDialog] = useState(false);       // Placeholder
-  const [showApproveDialog, setShowApproveDialog] = useState(false);
-  const [showRejectDialog, setShowRejectDialog] = useState(false);
-  const [isSubmittingDecision, setIsSubmittingDecision] = useState(false); // Rename isLoading for clarity
+  const [showMakeDecisionDialog, setShowMakeDecisionDialog] = useState(false); // Placeholder
 
   // --- Event Handlers & Helper Functions ---
   const getIssuesForSection = (sectionId: string) => {
@@ -99,8 +97,11 @@ export default function OfficialReviewPage() {
     // You'll likely need state here for escalation reason/notes
   };
 
-  const handleOpenApproveDialog = () => setShowApproveDialog(true);
-  const handleOpenRejectDialog = () => setShowRejectDialog(true);
+  const handleOpenMakeDecisionDialog = () => {
+    setShowMakeDecisionDialog(true);
+    console.log("Opening Make Decision Dialog - Placeholder");
+    // This dialog will likely contain Approve/Reject buttons triggering final submission
+  };
 
   // --- Handlers for NEW Dialog Submissions ---
   const handleEscalateSubmit = (reasons: string[], notes: string) => {
@@ -112,23 +113,26 @@ export default function OfficialReviewPage() {
   };
 
   // Renamed and adapted from original submitFinalDecision
-  const handleSubmitFinalDecision = async (decision: 'approve' | 'reject', rationale?: string) => {
-    setIsSubmittingDecision(true); // Use correct state setter
+  const handleSubmitFinalDecision = async (decision: 'approve' | 'reject', notes?: string) => {
+    setIsLoading(true);
     console.log('Submitting final decision:', decision);
-    console.log('Rationale Notes:', rationale);
+    console.log('Rationale Notes:', notes);
+    console.log('Section decisions (at time of decision):', decisions);
+    console.log('Notes:', notes);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API delay
-      alert(`Mock API: Application ${decision === 'approve' ? 'approved' : 'rejected'}. Rationale: ${rationale || 'None'}`);
-      // Close the relevant dialog upon success
-      if (decision === 'approve') setShowApproveDialog(false);
-      if (decision === 'reject') setShowRejectDialog(false);
+      // Replace alert with actual API call
+      alert(`Application ${decision === 'approve' ? 'approved' : 'rejected'}`);
+      // Close the MakeDecisionDialog (handled within the dialog via onClose)
+      // setShowMakeDecisionDialog(false);
+      // setShowConfirmDialog(false); // Remove if old dialog is gone
     } catch (error) {
       console.error('Error submitting final decision:', error);
       alert('Failed to submit decision');
     } finally {
-      setIsSubmittingDecision(false); // Use correct state setter
+      setIsLoading(false);
     }
   };
+
 
   // --- Define Section Icons & Titles ---
   // Using useMemo to prevent recreating this map on every render
@@ -149,10 +153,13 @@ export default function OfficialReviewPage() {
     cas: { title: 'Confirmation of Acceptance (CAS)', icon: <BookOpen className="h-5 w-5 text-teal-500" /> },
     englishProficiency: { title: 'English Language Proficiency', icon: <Languages className="h-5 w-5 text-rose-500" /> },
     academicQualifications: { title: 'Academic Qualifications', icon: <GraduationCap className="h-5 w-5 text-lime-500" /> },
-    // --- ADD NEW SECTION DEFINITIONS ---
-    medical: { title: 'Medical Information', icon: <HeartPulse className="h-5 w-5 text-red-600" /> }, // Or Stethoscope
-    religiousWorker: { title: 'Religious Worker Details', icon: <Church className="h-5 w-5 text-purple-600" /> }, // Or Scroll
+     // --- ADD NEW SECTION DEFINITIONS ---
+     medical: { title: 'Medical Information', icon: <HeartPulse className="h-5 w-5 text-red-600" /> }, // Or Stethoscope
+     religiousWorker: { title: 'Religious Worker Details', icon: <Church className="h-5 w-5 text-purple-600" /> }, // Or Scroll
+
+ 
   }), []); // Empty dependency array means it only computes once
+
 
   // --- Calculate derived data ---
   // Filter the sections to only include those present in the application data
@@ -181,6 +188,7 @@ export default function OfficialReviewPage() {
       return { name, email, phoneNumber };
     }, [applicationData?.sections?.passport?.data]); // Dependency on passport data
 
+
   // --- Loading state ---
   if (isLoading) {
     return <div className="flex h-screen items-center justify-center">Loading application data...</div>;
@@ -193,6 +201,7 @@ export default function OfficialReviewPage() {
       {/* Main Content Area */}
       <div className="flex-1 overflow-y-auto"> {/* Changed to overflow-y-auto */}
        
+
         {/* Page Content with Padding */}
         <div className="p-4 md:p-6">
           {/* Application Header */}
@@ -244,8 +253,7 @@ export default function OfficialReviewPage() {
               applicantContact={applicantContact} // Pass extracted contact info
               onContact={handleOpenContactDialog}
               onEscalate={handleOpenEscalateDialog}
-              onApprove={handleOpenApproveDialog}
-              onReject={handleOpenRejectDialog}
+              onMakeDecision={handleOpenMakeDecisionDialog}
            />
         </div> {/* End Page Content Padding */}
       </div> {/* End Main Content Area */}
@@ -270,10 +278,10 @@ export default function OfficialReviewPage() {
       {/* New Contact Dialog */}
        <ContactApplicantDialog
           isOpen={showContactDialog}
-          onClose={() => setShowContactDialog(false)}
-          contact={applicantContact}
-          onRequestInfo={handleOpenRequestInfoDialog}
-          onScheduleCall={handleScheduleCall}
+        onClose={() => setShowContactDialog(false)}
+        contact={applicantContact}
+        onRequestInfo={handleOpenRequestInfoDialog}
+        onScheduleCall={handleScheduleCall}
        />
 
        {/* New Escalate Dialog */}
@@ -284,22 +292,18 @@ export default function OfficialReviewPage() {
           onSubmit={handleEscalateSubmit}
        />
 
-       {/* --- Render NEW Approve/Reject Dialogs --- */}
-      <ApproveDialog
-          isOpen={showApproveDialog}
-          onClose={() => setShowApproveDialog(false)}
+       {/* New Make Decision Dialog */}
+       <MakeDecisionDialog
+          isOpen={showMakeDecisionDialog}
+          onClose={() => setShowMakeDecisionDialog(false)}
           applicationData={applicationData}
-          onSubmitDecision={handleSubmitFinalDecision} // Use the shared handler
-          isSubmitting={isSubmittingDecision} // Pass loading state
-      />
+          onSubmitDecision={handleSubmitFinalDecision} // Use the adapted handler
+       />
 
-      <RejectDialog
-          isOpen={showRejectDialog}
-          onClose={() => setShowRejectDialog(false)}
-          applicationData={applicationData}
-          onSubmitDecision={handleSubmitFinalDecision} // Use the shared handler
-          isSubmitting={isSubmittingDecision} // Pass loading state
-      />
-    </div>
+       {/* Placeholder Renders for Future Dialogs */}
+       {/* {showRequestInfoDialog && <RequestInfoDialog isOpen={showRequestInfoDialog} onClose={() => setShowRequestInfoDialog(false)} onSubmit={(message) => console.log('Request Info:', message)} />} */}
+
+
+    </div> // End flex h-screen
   );
 }

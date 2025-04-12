@@ -1,3 +1,4 @@
+// src/app/dashboard/reviewer/page.tsx
 'use client'
 
 import React, { useState, useMemo } from 'react' // Added useMemo
@@ -99,8 +100,10 @@ export default function OfficialReviewPage() {
     // You'll likely need state here for escalation reason/notes
   };
 
+
   const handleOpenApproveDialog = () => setShowApproveDialog(true);
   const handleOpenRejectDialog = () => setShowRejectDialog(true);
+    };
 
   // --- Handlers for NEW Dialog Submissions ---
   const handleEscalateSubmit = (reasons: string[], notes: string) => {
@@ -130,6 +133,7 @@ export default function OfficialReviewPage() {
     }
   };
 
+
   // --- Define Section Icons & Titles ---
   // Using useMemo to prevent recreating this map on every render
   const sectionDefinitions = useMemo(() => ({
@@ -149,10 +153,13 @@ export default function OfficialReviewPage() {
     cas: { title: 'Confirmation of Acceptance (CAS)', icon: <BookOpen className="h-5 w-5 text-teal-500" /> },
     englishProficiency: { title: 'English Language Proficiency', icon: <Languages className="h-5 w-5 text-rose-500" /> },
     academicQualifications: { title: 'Academic Qualifications', icon: <GraduationCap className="h-5 w-5 text-lime-500" /> },
-    // --- ADD NEW SECTION DEFINITIONS ---
-    medical: { title: 'Medical Information', icon: <HeartPulse className="h-5 w-5 text-red-600" /> }, // Or Stethoscope
-    religiousWorker: { title: 'Religious Worker Details', icon: <Church className="h-5 w-5 text-purple-600" /> }, // Or Scroll
+     // --- ADD NEW SECTION DEFINITIONS ---
+     medical: { title: 'Medical Information', icon: <HeartPulse className="h-5 w-5 text-red-600" /> }, // Or Stethoscope
+     religiousWorker: { title: 'Religious Worker Details', icon: <Church className="h-5 w-5 text-purple-600" /> }, // Or Scroll
+
+ 
   }), []); // Empty dependency array means it only computes once
+
 
   // --- Calculate derived data ---
   // Filter the sections to only include those present in the application data
@@ -181,6 +188,7 @@ export default function OfficialReviewPage() {
       return { name, email, phoneNumber };
     }, [applicationData?.sections?.passport?.data]); // Dependency on passport data
 
+
   // --- Loading state ---
   if (isLoading) {
     return <div className="flex h-screen items-center justify-center">Loading application data...</div>;
@@ -193,6 +201,7 @@ export default function OfficialReviewPage() {
       {/* Main Content Area */}
       <div className="flex-1 overflow-y-auto"> {/* Changed to overflow-y-auto */}
        
+
         {/* Page Content with Padding */}
         <div className="p-4 md:p-6">
           {/* Application Header */}
@@ -270,10 +279,10 @@ export default function OfficialReviewPage() {
       {/* New Contact Dialog */}
        <ContactApplicantDialog
           isOpen={showContactDialog}
-          onClose={() => setShowContactDialog(false)}
-          contact={applicantContact}
-          onRequestInfo={handleOpenRequestInfoDialog}
-          onScheduleCall={handleScheduleCall}
+        onClose={() => setShowContactDialog(false)}
+        contact={applicantContact}
+        onRequestInfo={handleOpenRequestInfoDialog}
+        onScheduleCall={handleScheduleCall}
        />
 
        {/* New Escalate Dialog */}
@@ -285,21 +294,25 @@ export default function OfficialReviewPage() {
        />
 
        {/* --- Render NEW Approve/Reject Dialogs --- */}
-      <ApproveDialog
++      <ApproveDialog
           isOpen={showApproveDialog}
           onClose={() => setShowApproveDialog(false)}
           applicationData={applicationData}
           onSubmitDecision={handleSubmitFinalDecision} // Use the shared handler
           isSubmitting={isSubmittingDecision} // Pass loading state
-      />
+            />
 
-      <RejectDialog
-          isOpen={showRejectDialog}
-          onClose={() => setShowRejectDialog(false)}
-          applicationData={applicationData}
-          onSubmitDecision={handleSubmitFinalDecision} // Use the shared handler
-          isSubmitting={isSubmittingDecision} // Pass loading state
-      />
-    </div>
+        <RejectDialog
+        isOpen={showRejectDialog}
+        onClose={() => setShowRejectDialog(false)}
+        applicationData={applicationData}
+        onSubmitDecision={handleSubmitFinalDecision} // Use the shared handler
+        isSubmitting={isSubmittingDecision} // Pass loading state
+        />
+
+       
+
+    </div> // End flex h-screen
   );
 }
+

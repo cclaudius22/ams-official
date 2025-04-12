@@ -1,7 +1,6 @@
 // src/components/application/DecisionFooter.tsx
 import React from 'react';
 import { Button } from '@/components/ui/button';
-// Icons needed: Contact, Escalate, Approve, Reject
 import { MessageSquare, ArrowUpCircle, CheckCircle, XCircle } from 'lucide-react';
 
 // --- Define Applicant Contact Details Structure ---
@@ -38,9 +37,10 @@ export default function DecisionFooter({
   // Calculate progress percentage
   const progressPercent = totalSections > 0 ? Math.round((decidedSections / totalSections) * 100) : 0;
 
-  // Determine if final actions should be enabled (FORCING ENABLED FOR TESTING)
-  // const enableFinalActions = allDecided;
-  const enableFinalActions = true; // <-- UNCOMMENTED FOR TESTING
+  // Determine if final actions should be enabled (based on all sections decided)
+  // Set to true temporarily for testing if needed
+  const enableFinalActions = allDecided;
+  // const enableFinalActions = true; // <-- UNCOMMENT FOR TESTING
 
   return (
     <div className="mt-8 p-4 bg-white rounded-lg shadow-md border sticky bottom-4 z-10">
@@ -81,8 +81,8 @@ export default function DecisionFooter({
             size="sm" // Consistent size
             className="border-amber-300 text-amber-700 bg-amber-50 hover:bg-amber-100"
             onClick={onEscalate}
-            disabled={false} // Forced to false for testing
-            title="Escalate for supervisor review"
+            disabled={!enableFinalActions} // Use the derived boolean
+            title={!enableFinalActions ? `Review all ${totalSections} sections first` : "Escalate for supervisor review"}
           >
             <ArrowUpCircle className="h-4 w-4 mr-1.5" /> {/* Adjusted margin */}
             Escalate
@@ -90,11 +90,11 @@ export default function DecisionFooter({
 
            {/* --- Reject Button --- */}
            <Button
-             className="bg-red-600 hover:bg-red-700 text-white" // Explicit red styling instead of variant="destructive"
+             variant="destructive" // Destructive style
              size="sm" // Consistent size
              onClick={onReject} // Use onReject handler
-             disabled={false} // Forced to false for testing
-             title="Reject this application"
+             disabled={!enableFinalActions} // Use the derived boolean
+             title={!enableFinalActions ? `Review all ${totalSections} sections first` : "Reject this application"}
            >
              <XCircle className="h-4 w-4 mr-1.5" /> {/* Adjusted margin */}
              Reject
@@ -106,8 +106,8 @@ export default function DecisionFooter({
             className="bg-green-600 hover:bg-green-700 text-white" // Explicit green
             size="sm" // Consistent size
             onClick={onApprove} // Use onApprove handler
-            disabled={false} // Forced to false for testing
-            title="Approve this application"
+            disabled={!enableFinalActions} // Use the derived boolean
+             title={!enableFinalActions ? `Review all ${totalSections} sections first` : "Approve this application"}
           >
             <CheckCircle className="h-4 w-4 mr-1.5" /> {/* Adjusted margin */}
             Approve

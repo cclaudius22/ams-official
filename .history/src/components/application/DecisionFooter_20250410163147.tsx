@@ -90,7 +90,7 @@ export default function DecisionFooter({
 
            {/* --- Reject Button --- */}
            <Button
-             className="bg-red-600 hover:bg-red-700 text-white" // Explicit red styling instead of variant="destructive"
+             variant="destructive" // Destructive style
              size="sm" // Consistent size
              onClick={onReject} // Use onReject handler
              disabled={false} // Forced to false for testing
