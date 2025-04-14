@@ -1,0 +1,20 @@
+      <StageConfigurator
+        fixedStages={fixedStages}
+        conditionalStages={conditionalStages}
+        finalStages={finalStages}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        visaCategories={visaCategories}
+        toggleStage={toggleStage}
+        handleDragEnd={handleDragEnd}
+        sensors={sensors}
+      />
+      <DocumentConfigurator
+        documentTypes={documentTypes}
+        selectedCategory={selectedCategory}
+        conditionalStages={conditionalStages} // Needed to check if dynamic stage is enabled
+        toggleDocumentEnabled={toggleDocumentEnabled}
+        addDocumentType={addDocumentType}
+        removeDocumentType={removeDocumentType}
+        openDocumentModal={openDocumentModal}
+      />
