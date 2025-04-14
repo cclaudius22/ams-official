@@ -1,0 +1,76 @@
+
+
+{
+    "id": "config-sample-employee-v1",
+    "name": "Sample Employee Onboarding",
+    "key": "employee-standard-v1",
+    "targetUserType": "employee",
+    "targetOrgType": "all",
+    "version": 1,
+    "isActive": true,
+    "securityLevel": "standard",
+    "steps": [
+      {
+        "id": "step-basic-info",
+        "title": "Basic Information",
+        "description": "Your personal and employment details.",
+        "order": 0,
+        "fields": [
+          { "id": "fld-fullname", "type": "text", "label": "Full Name", "fieldName": "basicInfo.fullName", "isRequired": true, "order": 0, "placeholder": "Enter your full name" },
+          { "id": "fld-empid", "type": "text", "label": "Employee ID", "fieldName": "basicInfo.employeeId", "isRequired": true, "order": 1, "placeholder": "e.g., EMP-2024-1234" },
+          { "id": "fld-emptype", "type": "select", "label": "Employment Type", "fieldName": "basicInfo.employmentType", "isRequired": true, "order": 2, "options": [{ "label": "Select type...", "value": "" }, { "label": "Permanent", "value": "permanent" }, { "label": "Temporary", "value": "temporary" }, { "label": "Contractor", "value": "contractor" }] },
+          { "id": "fld-location", "type": "select", "label": "Office Location", "fieldName": "basicInfo.officeLocation", "isRequired": true, "order": 3, "options": [{ "label": "Select location...", "value": "" }, { "label": "London HQ", "value": "london-hq" }, { "label": "Manchester", "value": "manchester" }] },
+          { "id": "fld-startdate", "type": "date", "label": "Start Date", "fieldName": "basicInfo.startDate", "isRequired": true, "order": 4 },
+          { "id": "fld-workemail", "type": "email", "label": "Work Email", "fieldName": "basicInfo.workEmail", "isRequired": true, "order": 5, "placeholder": "name@company.com" },
+          { "id": "fld-emergencyname", "type": "text", "label": "Emergency Contact Name", "fieldName": "basicInfo.emergencyContactName", "isRequired": true, "order": 6 },
+          { "id": "fld-emergencyphone", "type": "phone", "label": "Emergency Contact Phone", "fieldName": "basicInfo.emergencyContactPhone", "isRequired": true, "order": 7 }
+        ]
+      },
+      {
+        "id": "step-documents",
+        "title": "Document Upload",
+        "description": "Please upload the required documents.",
+        "order": 1,
+        "fields": [
+          { "id": "fld-idscan", "type": "identityDocumentScan", "label": "Scan Identity Document", "fieldName": "documents.idScanResult", "isRequired": true, "order": 0, "config": { "allowedTypes": ["passport", "driving_license"] } },
+          { "id": "fld-proofaddress", "type": "documentSelectUpload", "label": "Proof of Address", "fieldName": "documents.proofOfAddress", "isRequired": true, "order": 1, "config": { "allowedDocumentTypes": ["utility_bill", "bank_statement", "council_tax"] } },
+          { "id": "fld-righttowork", "type": "documentSelectUpload", "label": "Right to Work", "fieldName": "documents.rightToWork", "isRequired": true, "order": 2, "config": { "allowedDocumentTypes": ["visa", "brp", "passport_uk"] } }
+        ]
+      },
+      {
+          "id": "step-training",
+          "title": "Training Verification (Mock)",
+          "description": "Confirm completion of required training modules.",
+          "order": 2,
+          "fields": [
+              { "id": "fld-trainingmods", "type": "repeater", "label": "Training Modules", "fieldName": "training.modules", "isRequired": false, "order": 0, "config": {
+                  "addButtonLabel": "Add Training Module",
+                  "subFields": [
+                      { "id": "sub-modname", "type": "text", "label": "Module Name", "fieldName": "name", "isRequired": true, "order": 0},
+                      { "id": "sub-modstatus", "type": "select", "label": "Status", "fieldName": "status", "isRequired": true, "order": 1, "options": [{"label": "Completed", "value": "completed"}, {"label":"Pending", "value":"pending"}]},
+                      { "id": "sub-moddate", "type": "date", "label": "Completion Date", "fieldName": "completionDate", "isRequired": false, "order": 2}
+                  ]
+              }}
+          ]
+      },
+      {
+        "id": "step-kyc",
+        "title": "Identity Verification",
+        "description": "Please complete the identity check.",
+        "order": 3,
+        "fields": [
+          { "id": "fld-kyc", "type": "kycTrigger", "label": "Identity Verification Check", "fieldName": "kyc.status", "isRequired": true, "order": 0, "config": { "checkLevel": "standard" } }
+        ]
+      },
+      {
+        "id": "step-review",
+        "title": "Review",
+        "description": "Review your information before submitting.",
+        "order": 4,
+        "fields": [
+          { "id": "fld-reviewsummary", "type": "infoBlock", "label": "Summary Placeholder", "fieldName": "review.summary", "isRequired": false, "order": 0, "config": {"content": "A summary of entered data will be shown here."} },
+          { "id": "fld-confirm", "type": "checkbox", "label": "I confirm all information is accurate.", "fieldName": "review.confirmation", "isRequired": true, "order": 1 }
+        ]
+      }
+    ]
+  }
