@@ -4,23 +4,25 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Button } from '@/components/ui/button'; // Make sure Button is imported
-import { GripVertical, Trash2, Settings } from 'lucide-react'; // Make sure Settings is imported
-import { useConfigurator } from '@/contexts/ConfiguratorContext'; // Adjust path if needed
+import { Button } from '@/components/ui/button';
+import { GripVertical, Trash2, Settings } from 'lucide-react';
+import { useConfigurator } from '@/contexts/ConfiguratorContext';
 import { FieldConfig } from './types';
-import { AVAILABLE_FIELD_COMPONENTS } from './ComponentLibraryPanel'; // Adjust path if needed
+
+// Replace the import for AVAILABLE_FIELD_COMPONENTS with our registry
+import { getFieldType } from '@/components/onboarding/registry/fieldTypeRegistry';
 
 interface SortableFieldItemProps {
   field: FieldConfig;
   stepId: string;
-  onOpenSettings: () => void; // Callback to open the settings modal
+  onOpenSettings: () => void;
 }
 
 const SortableFieldItem = ({ field, stepId, onOpenSettings }: SortableFieldItemProps) => {
   const { dispatch } = useConfigurator();
   const {
     attributes,
-    listeners, // These listeners are for the drag handle
+    listeners,
     setNodeRef,
     transform,
     transition,
@@ -42,37 +44,38 @@ const SortableFieldItem = ({ field, stepId, onOpenSettings }: SortableFieldItemP
     opacity: isDragging ? 0.7 : 1,
   };
 
-  // Find display info for the field type
-  const fieldDefinition = AVAILABLE_FIELD_COMPONENTS.find(c => c.id === field.type);
-  const Icon = fieldDefinition?.icon; // Get the specific icon for the field type
+  // Get field type information from our registry instead
+  const fieldDefinition = getFieldType(field.type);
+  
+  // If we can't find it in registry, use a fallback icon
+  const Icon = fieldDefinition?.icon || (() => <span className="w-4 h-4 bg-muted rounded" />);
 
   // Handler for deleting the field
   const handleDeleteField = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent triggering other clicks
-     if (confirm(`Are you sure you want to remove field "${field.label}"?`)) {
+    e.stopPropagation();
+    if (confirm(`Are you sure you want to remove field "${field.label}"?`)) {
         dispatch({ type: 'DELETE_FIELD', payload: { stepId, fieldId: field.id } });
-     }
+    }
   };
 
-  // Handler for opening settings (calls the prop function)
+  // Handler for opening settings
   const handleOpenSettings = (e: React.MouseEvent) => {
-     e.stopPropagation();
-     onOpenSettings(); // Trigger the function passed from the parent
+    e.stopPropagation();
+    onOpenSettings();
   }
 
   return (
-    // Main container for the field item, applying DND ref and styles
     <div
       ref={setNodeRef}
       style={style}
       className={`p-3 border rounded bg-white group flex items-center justify-between hover:border-primary/50 transition-colors ${isDragging ? 'shadow-lg ring-2 ring-primary ring-offset-2' : ''}`}
     >
        {/* Left side: Drag handle, icon, label, type */}
-       <div className="flex items-center flex-1 min-w-0"> {/* Ensure left side can shrink */}
-         {/* Drag Handle - Apply DND listeners here */}
+       <div className="flex items-center flex-1 min-w-0">
+         {/* Drag Handle */}
          <button
-            {...attributes} // DND attributes for accessibility
-            {...listeners} // DND listeners to initiate drag
+            {...attributes}
+            {...listeners}
             className="p-1 mr-2 text-muted-foreground flex-shrink-0 cursor-grab focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
             aria-label="Drag field to reorder"
             title="Drag to reorder"
@@ -81,41 +84,41 @@ const SortableFieldItem = ({ field, stepId, onOpenSettings }: SortableFieldItemP
          </button>
 
          {/* Field Type Icon */}
-         {Icon && <Icon className="h-4 w-4 mr-2 text-muted-foreground flex-shrink-0" />}
+         <Icon className="h-4 w-4 mr-2 text-muted-foreground flex-shrink-0" />
 
          {/* Field Label and Type */}
-         <div className="flex-1 overflow-hidden"> {/* Allow text to truncate */}
+         <div className="flex-1 overflow-hidden">
             <p className="text-sm font-medium truncate" title={field.label}>
                 {field.label || 'Untitled Field'}
-                {field.isRequired && <span className="text-destructive ml-1">*</span>} {/* Use theme color */}
+                {field.isRequired && <span className="text-destructive ml-1">*</span>}
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-                {fieldDefinition?.name || field.type} {/* Show readable name */}
+                {fieldDefinition?.name || field.type}
             </p>
          </div>
        </div>
 
-      {/* Right side: Action Buttons - *** THIS IS WHERE THE ICONS ARE *** */}
-       <div className={`flex items-center flex-shrink-0 space-x-1 ml-2 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity`}> {/* Ensure buttons show if focused within */}
+      {/* Right side: Action Buttons */}
+       <div className={`flex items-center flex-shrink-0 space-x-1 ml-2 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity`}>
           {/* Settings Button */}
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7" // Smaller icon button
+            className="h-7 w-7"
             title="Field Settings"
-            onClick={handleOpenSettings} // Use the correct handler
+            onClick={handleOpenSettings}
           >
-            <Settings className="h-3.5 w-3.5" /> {/* Settings Icon */}
+            <Settings className="h-3.5 w-3.5" />
           </Button>
           {/* Delete Button */}
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 text-destructive hover:bg-destructive/10" // Destructive hover state
-            onClick={handleDeleteField} // Use the correct handler
+            className="h-7 w-7 text-destructive hover:bg-destructive/10"
+            onClick={handleDeleteField}
             title="Remove Field"
           >
-            <Trash2 className="h-3.5 w-3.5" /> {/* Delete Icon */}
+            <Trash2 className="h-3.5 w-3.5" />
           </Button>
         </div>
     </div>

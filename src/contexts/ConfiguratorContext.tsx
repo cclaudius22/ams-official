@@ -5,7 +5,7 @@ import React, { createContext, useContext, useReducer, ReactNode, Dispatch, useM
 import { arrayMove } from '@dnd-kit/sortable'; // Import arrayMove utility
 import { OnboardingConfiguration, StepConfig, FieldConfig, FieldType } from '@/components/onboarding/configurator/types'; // Adjust path if needed
 // Import the definitions if needed within the reducer (e.g., for default values on ADD_FIELD)
-import { AVAILABLE_FIELD_COMPONENTS } from '@/components/onboarding/configurator/ComponentLibraryPanel'; // Adjust path if needed
+import { getFieldType } from '@/components/onboarding/registry/fieldTypeRegistry';
 
 // --- State Definition ---
 export interface ConfiguratorState {
@@ -258,41 +258,43 @@ function configuratorReducer(state: ConfiguratorState, action: ConfiguratorActio
       const { stepId, fieldType } = action.payload;
       const stepIndex = state.configuration.steps.findIndex(s => s.id === stepId);
       if (stepIndex === -1) return state;
-
+    
       const currentStep = state.configuration.steps[stepIndex];
       const newFieldOrder = currentStep.fields.length;
-
-       // Find component definition to get default label/name
-       const componentDef = AVAILABLE_FIELD_COMPONENTS.find(c => c.id === fieldType);
-       const defaultLabel = componentDef ? componentDef.name : `New ${fieldType}`;
-       // Generate a slightly better default fieldName (still needs improvement/user input)
-       const defaultFieldName = `${defaultLabel.toLowerCase().replace(/\s+/g, '_')}_${newFieldOrder + 1}`;
-
-
+    
+      // Get field type definition from registry instead of AVAILABLE_FIELD_COMPONENTS
+      const fieldTypeDef = getFieldType(fieldType as string);
+      
+      // Default values if field type not found in registry
+      const defaultLabel = fieldTypeDef ? fieldTypeDef.name : `New ${fieldType}`;
+      const defaultFieldName = `${defaultLabel.toLowerCase().replace(/\s+/g, '_')}_${newFieldOrder + 1}`;
+      
+      // Create a new field with default values or values from registry
       const newField: FieldConfig = {
-          id: `field-${Date.now()}`,
-          type: fieldType,
-          label: defaultLabel,
-          fieldName: defaultFieldName,
-          isRequired: false,
-          order: newFieldOrder,
-          // Add other default properties based on fieldType later
+        id: `field-${Date.now()}`,
+        type: fieldType,
+        label: defaultLabel,
+        fieldName: defaultFieldName,
+        isRequired: fieldTypeDef?.defaultProps?.isRequired || false,
+        order: newFieldOrder,
+        // Add any other properties from defaultProps
+        ...(fieldTypeDef?.defaultProps || {})
       };
-
+    
       const updatedSteps = state.configuration.steps.map((step, index) => {
-          if (index === stepIndex) {
-              return {
-                  ...step,
-                  fields: [...step.fields, newField] // Add new field immutably
-              };
-          }
-          return step;
+        if (index === stepIndex) {
+          return {
+            ...step,
+            fields: [...step.fields, newField] // Add new field immutably
+          };
+        }
+        return step;
       });
-
+    
       return {
-          ...state,
-          configuration: { ...state.configuration, steps: updatedSteps },
-          isModified: true,
+        ...state,
+        configuration: { ...state.configuration, steps: updatedSteps },
+        isModified: true,
       };
     }
 

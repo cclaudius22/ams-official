@@ -8,8 +8,8 @@ import * as z from 'zod'; // Optional: if using Zod
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight, Send } from 'lucide-react';
-import { OnboardingConfiguration, StepConfig } from '@/components/onboarding/configurator/types'; // Adjust path
-import RenderStepWrapper from './RenderStepWrapper'; // We'll create this next
+import { OnboardingConfiguration, StepConfig } from '@/components/onboarding/configurator/types'; 
+import RenderStepWrapper from './RenderStepWrapper'; 
 import { toast } from 'sonner';
 
 interface OnboardingFormRendererProps {

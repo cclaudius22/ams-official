@@ -1,11 +1,20 @@
-import React from 'react';
-import { RAGChat } from './RAGChat'; // Ensure named import is used
+// app/knowledgebase/page.tsx
+'use client';
 
-// Define the page component
+import React from 'react';
+import { RAGChat } from '@/components/knowledgebase/RAGChat';
+import { Metadata } from 'next';
+
+
+
 const KnowledgebasePage = () => {
-  // Render the imported RAGChat component
-  return <RAGChat />;
+  return (
+    
+      
+      <RAGChat />
+      
+    
+  );
 };
 
-// Export the page component as the default export
 export default KnowledgebasePage;

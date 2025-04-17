@@ -2,7 +2,7 @@
 'use client'; // Essential for using hooks and rendering the form renderer
 
 import React from 'react';
-import OnboardingFormRenderer from '@/components/onboarding/renderer/OnboardingFormRenderer'; // Adjust path if needed
+import OnboardingFormRenderer from '@/components/onboarding/renderer/OnboardingFormRenderer'; 
 
 // Import the static configuration directly
 // Make sure the path is correct relative to this file

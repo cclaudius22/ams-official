@@ -40,12 +40,13 @@ export interface ValidationRule {
   
   // Form field interface
   export interface FormField {
+    id: string;
     fieldName: string;
     label: string;
     fieldType: 'text' | 'textarea' | 'email' | 'password' | 'number' | 'date' | 
-                'select' | 'multiselect' | 'checkbox' | 'radio' | 'file' | 
-                'info' | 'heading' | 'array' | 'biometric' | 'device' | 'objectGroup' | 'phone' |
-                'repeater' | 'documentSelectUpload' | 'identityDocumentScan' | 'kycTrigger' | 'infoBlock';
+              'select' | 'multiselect' | 'checkbox' | 'radio' | 'file' | 
+              'info' | 'heading' | 'array' | 'biometric' | 'device' | 'objectGroup' | 'phone' |
+              'repeater' | 'documentSelectUpload' | 'identityDocumentScan' | 'kycTrigger' | 'infoBlock';
     dataType?: 'string' | 'number' | 'boolean' | 'date' | 'object' | 'array';
     order: number;
     placeholder?: string;

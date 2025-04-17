@@ -16,6 +16,7 @@ import StepsListPanel from './StepsListPanel';
 import StepEditorPanel from './StepEditorPanel';
 import ComponentLibraryPanel from './ComponentLibraryPanel';
 import FieldSettingsModal from './FieldSettingsModal';
+import PreviewRenderer from '../form/PreviewRenderer';
 
 // Import UI Components
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -23,7 +24,7 @@ import { Loader2, Layers, Settings, Eye } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 // Import Types
-import { OnboardingConfiguration } from './types';
+import { OnboardingConfiguration } from '@/types/onboarding';
 
 // --- Mock fetch function - Replace with your actual API service call ---
 const getConfiguration = async (id: string): Promise<OnboardingConfiguration> => {
@@ -36,6 +37,9 @@ const getConfiguration = async (id: string): Promise<OnboardingConfiguration> =>
   return {
     id: id,
     name: `Loaded Config ${id}`,
+    createdBy: 'system',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
     key: `loaded-config-${id}`,
     targetUserType: 'admin',
     targetOrgType: 'enterprise',
@@ -49,8 +53,28 @@ const getConfiguration = async (id: string): Promise<OnboardingConfiguration> =>
         description: 'Basic user identification.',
         order: 0,
         fields: [
-            { id: `field-sample-${id}-1`, type: 'text', label: 'Full Name', fieldName: 'fullName', isRequired: true, order: 0 },
-            { id: `field-sample-${id}-2`, type: 'email', label: 'Work Email', fieldName: 'workEmail', isRequired: true, order: 1, placeholder: 'Enter work email' },
+            { 
+              id: `field-sample-${id}-1`, 
+              type: 'text', 
+              label: 'Full Name', 
+              fieldName: 'fullName', 
+              isRequired: true,
+              order: 0,
+              validationRules: [{ rule: 'required', message: 'Full name is required' }]
+            },
+            { 
+              id: `field-sample-${id}-2`, 
+              type: 'email', 
+              label: 'Work Email', 
+              fieldName: 'workEmail', 
+              isRequired: true,
+              order: 1, 
+              placeholder: 'Enter work email',
+              validationRules: [
+                { type: 'required', message: 'Email is required' },
+                { type: 'email', message: 'Invalid email format' }
+              ]
+            },
         ]
       },
       {
@@ -59,8 +83,24 @@ const getConfiguration = async (id: string): Promise<OnboardingConfiguration> =>
         description: 'How to reach the user.',
         order: 1,
         fields: [
-             { id: `field-sample-${id}-3`, type: 'phone', label: 'Mobile Phone', fieldName: 'mobilePhone', isRequired: false, order: 0 },
-             { id: `field-sample-${id}-4`, type: 'text', label: 'Office Extension', fieldName: 'officeExt', isRequired: false, order: 1 },
+             { 
+               id: `field-sample-${id}-3`, 
+               type: 'phone', 
+               label: 'Mobile Phone', 
+               fieldName: 'mobilePhone', 
+               isRequired: false,
+               order: 0,
+               validationRules: []
+             },
+             { 
+               id: `field-sample-${id}-4`, 
+               type: 'text', 
+               label: 'Office Extension', 
+               fieldName: 'officeExt', 
+               isRequired: false,
+               order: 1,
+               validationRules: []
+             },
         ]
       }
     ]
@@ -226,16 +266,12 @@ function ConfiguratorUI() {
               <TabsContent value="preview" className="h-full overflow-y-auto p-0 m-0">
                 <div className="max-w-screen-lg mx-auto py-8 px-4">
                   <h2 className="text-2xl font-semibold mb-6">Form Preview</h2>
-                  <div className="bg-card rounded-xl border shadow-sm p-8 flex flex-col items-center justify-center min-h-[400px]">
-                    <div className="text-center p-8">
-                      <div className="bg-muted/50 rounded-full p-4 inline-flex mb-4">
-                        <Eye className="h-8 w-8 text-muted-foreground" />
-                      </div>
-                      <h3 className="text-xl font-medium mb-2">Preview Coming Soon</h3>
-                      <p className="text-muted-foreground max-w-md mx-auto">
-                        The preview functionality will be implemented in Phase 6. You'll be able to see a live version of your form here.
-                      </p>
-                    </div>
+                  <div className="bg-card rounded-xl border shadow-sm p-8">
+                    <PreviewRenderer 
+                      configuration={state.configuration}
+                      mode="preview"
+                      className="w-full"
+                    />
                   </div>
                 </div>
               </TabsContent>
@@ -308,8 +344,28 @@ export default function ConfiguratorBuilder({ configId }: { configId?: string })
     );
   }
 
+  // Transform configuration data to bridge between configurator and preview types
+  const transformedConfig = initialConfigData ? {
+    ...initialConfigData,
+    createdBy: initialConfigData.createdBy || 'system',
+    targetOrgType: initialConfigData.targetOrgType || 'all',
+    securityLevel: initialConfigData.securityLevel || 'standard',
+    steps: initialConfigData.steps.map(step => ({
+      ...step,
+      // Include both id and key for compatibility
+      id: step.id,
+      key: step.key || step.id,
+      fields: step.fields.map(field => ({
+        ...field,
+        // Include both type and fieldType for compatibility
+        fieldType: field.fieldType || field.type,
+        type: field.type || field.fieldType
+      }))
+    }))
+  } : undefined;
+
   return (
-    <ConfiguratorProvider initialConfig={initialConfigData || undefined}>
+    <ConfiguratorProvider initialConfig={transformedConfig}>
       <ConfiguratorUI />
     </ConfiguratorProvider>
   );
