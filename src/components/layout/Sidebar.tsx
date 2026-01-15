@@ -42,6 +42,7 @@ import {
   FileCheck,     // Used in Visa Builder
   Tags,          // Used in Visa Builder
   Puzzle,        // Used in Visa Builder
+  Zap,           // Used for VisaKey
 
   // Icons for Nexus Onboard
   SlidersHorizontal,
@@ -158,11 +159,11 @@ const navItems: NavItem[] = [
         // Option 1: Parent has no href, rely on sub-item activation.
         // Option 2: Rename tool href, e.g., '/visa-builder/tool'. Let's go with Option 2 for clarity.
         { href: '/visa-builder', label: 'Visa Builder Tool', icon: Wrench, isActive: checkActive },
+        { href: '/visa-builder/visakey', label: 'VisaKey Visas', icon: Zap, isActive: checkActive },
+        { href: '/visa-builder/ai', label: 'Visa AI', icon: BrainCircuit, isActive: checkActive },
         { href: '/visa-builder/new-list', label: 'New Visa Types', icon: FilePlus, isActive: checkActive },
         { href: '/visa-builder/published-list', label: 'Published Visa Types', icon: FileCheck, isActive: checkActive },
         { href: '/visa-builder/categories', label: 'Visa Categories', icon: Tags, isActive: checkActive },
-        { href: '/visa-builder/components', label: 'Visa Components', icon: Puzzle, isActive: checkActive },
-        { href: '/visa-builder/database', label: 'Visa database', icon: DatabaseZap, isActive: checkActive },
         { href: '/visa-builder/knowledgebase', label: 'Visa Knowledgebase', icon: Library, isActive: checkActive },
       ]
     },
