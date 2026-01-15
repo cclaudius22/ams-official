@@ -18,7 +18,7 @@ const SortableStepItem: React.FC<SortableStepItemProps> = ({ step, isActive }) =
   
   // Get counts for fields in this step
   const fieldCount = step.fields?.length || 0;
-  const requiredFieldCount = step.fields?.filter(f => f.isRequired)?.length || 0;
+  const requiredFieldCount = step.fields?.filter((f: { isRequired?: boolean }) => f.isRequired)?.length || 0;
   
   // Setup sortable functionality
   const {

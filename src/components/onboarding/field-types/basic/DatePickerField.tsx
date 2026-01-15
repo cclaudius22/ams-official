@@ -33,7 +33,7 @@ export interface DatePickerFieldProps {
 }
 
 export const DatePickerField: React.FC<DatePickerFieldProps> = ({ field, disabled = false }) => {
-  const { control } = useFormContext();
+  const { control, formState } = useFormContext();
   
   // Create validation rules
   const validationRules: Record<string, any> = {};

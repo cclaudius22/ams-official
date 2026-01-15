@@ -295,7 +295,6 @@ export const ProcessingMetricsTab = () => {
                                         labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
                                         animate={true}
                                         theme={THEME_COLORS}
-                                        maxValue={100}
                                     />
                                 </div>
                             </CardContent>

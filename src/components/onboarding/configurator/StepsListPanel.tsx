@@ -21,12 +21,12 @@ import SortableStepItem from './SortableStepItem';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 
 // Updated SortableStepItem with improved styling
-const EnhancedSortableStepItem = ({ step, isActive }) => {
+const EnhancedSortableStepItem = ({ step, isActive }: { step: any; isActive: boolean }) => {
   const { dispatch } = useConfigurator();
-  
+
   // Get counts for fields in this step
   const fieldCount = step.fields?.length || 0;
-  const requiredFieldCount = step.fields?.filter(f => f.isRequired)?.length || 0;
+  const requiredFieldCount = step.fields?.filter((f: { isRequired?: boolean }) => f.isRequired)?.length || 0;
   
   const handleSelectStep = () => {
     dispatch({ type: 'SET_ACTIVE_STEP', payload: step.id });
