@@ -13,13 +13,17 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
-import { 
-  Plus, 
-  Trash2, 
+import {
+  Plus,
+  Trash2,
   AlertCircle,
-  AndIcon,
-  OrIcon
+  Ampersand,
+  Divide
 } from 'lucide-react';
+
+// Alias icons for AND/OR logic
+const AndIcon = Ampersand;
+const OrIcon = Divide;
 
 // Types for conditional logic
 interface Condition {

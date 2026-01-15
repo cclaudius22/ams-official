@@ -49,13 +49,14 @@ const getConfiguration = async (id: string): Promise<OnboardingConfiguration> =>
     steps: [
       {
         id: sampleStepId1,
+        key: 'user-profile',
         title: 'User Profile',
         description: 'Basic user identification.',
         order: 0,
         fields: [
             { 
               id: `field-sample-${id}-1`, 
-              type: 'text', 
+              fieldType: 'text', 
               label: 'Full Name', 
               fieldName: 'fullName', 
               isRequired: true,
@@ -64,28 +65,29 @@ const getConfiguration = async (id: string): Promise<OnboardingConfiguration> =>
             },
             { 
               id: `field-sample-${id}-2`, 
-              type: 'email', 
+              fieldType: 'email', 
               label: 'Work Email', 
               fieldName: 'workEmail', 
               isRequired: true,
               order: 1, 
               placeholder: 'Enter work email',
               validationRules: [
-                { type: 'required', message: 'Email is required' },
-                { type: 'email', message: 'Invalid email format' }
+                { rule: 'required', message: 'Email is required' },
+                { rule: 'email', message: 'Invalid email format' }
               ]
             },
         ]
       },
       {
         id: sampleStepId2,
+        key: 'contact-info',
         title: 'Contact Information',
         description: 'How to reach the user.',
         order: 1,
         fields: [
              { 
                id: `field-sample-${id}-3`, 
-               type: 'phone', 
+               fieldType: 'phone', 
                label: 'Mobile Phone', 
                fieldName: 'mobilePhone', 
                isRequired: false,
@@ -94,7 +96,7 @@ const getConfiguration = async (id: string): Promise<OnboardingConfiguration> =>
              },
              { 
                id: `field-sample-${id}-4`, 
-               type: 'text', 
+               fieldType: 'text', 
                label: 'Office Extension', 
                fieldName: 'officeExt', 
                isRequired: false,
@@ -267,8 +269,8 @@ function ConfiguratorUI() {
                 <div className="max-w-screen-lg mx-auto py-8 px-4">
                   <h2 className="text-2xl font-semibold mb-6">Form Preview</h2>
                   <div className="bg-card rounded-xl border shadow-sm p-8">
-                    <PreviewRenderer 
-                      configuration={state.configuration}
+                    <PreviewRenderer
+                      configuration={state.configuration as any}
                       mode="preview"
                       className="w-full"
                     />
@@ -357,15 +359,13 @@ export default function ConfiguratorBuilder({ configId }: { configId?: string })
       key: step.key || step.id,
       fields: step.fields.map(field => ({
         ...field,
-        // Include both type and fieldType for compatibility
-        fieldType: field.fieldType || field.type,
-        type: field.type || field.fieldType
+        fieldType: field.fieldType
       }))
     }))
   } : undefined;
 
   return (
-    <ConfiguratorProvider initialConfig={transformedConfig}>
+    <ConfiguratorProvider initialConfig={transformedConfig as any}>
       <ConfiguratorUI />
     </ConfiguratorProvider>
   );

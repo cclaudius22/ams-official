@@ -32,7 +32,7 @@ const initialFormState: SuperAdminFormData = {
   },
   biometrics: {
     registered: false,
-    completedAt: null,
+    completedAt: undefined,
     methods: []
   },
   devices: {

@@ -43,12 +43,13 @@ export interface ValidationRule {
     id: string;
     fieldName: string;
     label: string;
-    fieldType: 'text' | 'textarea' | 'email' | 'password' | 'number' | 'date' | 
-              'select' | 'multiselect' | 'checkbox' | 'radio' | 'file' | 
+    fieldType: 'text' | 'textarea' | 'email' | 'password' | 'number' | 'date' |
+              'select' | 'multiselect' | 'checkbox' | 'radio' | 'file' |
               'info' | 'heading' | 'array' | 'biometric' | 'device' | 'objectGroup' | 'phone' |
               'repeater' | 'documentSelectUpload' | 'identityDocumentScan' | 'kycTrigger' | 'infoBlock';
     dataType?: 'string' | 'number' | 'boolean' | 'date' | 'object' | 'array';
     order: number;
+    isRequired?: boolean;
     placeholder?: string;
     helpText?: string;
     validationRules?: ValidationRule[];
@@ -61,6 +62,7 @@ export interface ValidationRule {
   
   // Onboarding step interface
   export interface OnboardingStep {
+    id?: string;
     key: string;
     title: string;
     description?: string;
@@ -80,7 +82,7 @@ export interface ValidationRule {
     isActive: boolean;
     securityLevel?: 'standard' | 'enhanced' | 'high';
     steps: OnboardingStep[];
-    createdBy: string;
+    createdBy?: string;
     updatedBy?: string;
     createdAt?: string;
     updatedAt?: string;

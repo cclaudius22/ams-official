@@ -45,8 +45,8 @@ const ConfiguratorHeader = () => {
         dispatch({ type: 'LOAD_CONFIG', payload: savedConfig });
       }
     } catch (error) {
-      toast.error("Error Saving", { 
-        description: error.message || "Could not save configuration." 
+      toast.error("Error Saving", {
+        description: error instanceof Error ? error.message : "Could not save configuration."
       });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
@@ -60,7 +60,7 @@ const ConfiguratorHeader = () => {
           label: "Discard", 
           onClick: () => router.push('/nexus-onboard/configurations') 
         },
-        cancel: { label: "Keep Editing" },
+        cancel: { label: "Keep Editing", onClick: () => {} },
         duration: 10000,
       });
     } else {
@@ -79,7 +79,7 @@ const ConfiguratorHeader = () => {
         label: "Yes, Reset", 
         onClick: () => {/* reset logic */} 
       },
-      cancel: { label: "No" },
+      cancel: { label: "No", onClick: () => {} },
       duration: 10000,
     });
   };

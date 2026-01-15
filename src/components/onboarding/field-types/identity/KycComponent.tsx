@@ -108,3 +108,6 @@ export const kycComponentDefaultProps = {
   isRequired: false,
   validationRules: []
 };
+
+// Icon for registry
+export const KycComponentIcon = ShieldCheck;

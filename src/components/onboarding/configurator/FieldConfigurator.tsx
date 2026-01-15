@@ -20,7 +20,7 @@ import {
   SelectValue 
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from 'sonner';
 import { 
   Settings, 
   Eye, 
@@ -61,7 +61,7 @@ const FieldConfigurator: React.FC<FieldConfiguratorProps> = ({ field, onUpdate }
   const handleOptionsChange = (options: string[]) => {
     onUpdate({
       ...field,
-      options,
+      options: options.map(opt => ({ label: opt, value: opt })),
     });
   };
   
@@ -72,7 +72,7 @@ const FieldConfigurator: React.FC<FieldConfiguratorProps> = ({ field, onUpdate }
     });
   };
   
-  const handleWidthChange = (width: string) => {
+  const handleWidthChange = (width: 'full' | 'half' | 'third' | 'quarter') => {
     onUpdate({
       ...field,
       uiHints: {
@@ -229,10 +229,10 @@ const FieldConfigurator: React.FC<FieldConfiguratorProps> = ({ field, onUpdate }
         {/* Validation Tab */}
         <TabsContent value="validation" className="space-y-4 pt-4">
           <ValidationRuleEditor
-            rules={field.validationRules || []}
+            rules={(field.validationRules || []) as any}
             fieldType={field.fieldType}
-            dataType={field.dataType}
-            onChange={handleValidationChange}
+            dataType={field.dataType || 'string'}
+            onChange={handleValidationChange as any}
           />
         </TabsContent>
         

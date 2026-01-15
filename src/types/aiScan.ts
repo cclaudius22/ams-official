@@ -26,7 +26,10 @@ export interface ScanIssue {
     recommendations: ScanRecommendation[];
     score: number;
     rootednessScore?: number; // Optional scores for different visa types
+    rootednessSummary?: string; // Summary text for rootedness analysis
     intentScore?: number;
+    intentSummary?: string; // Summary text for intent analysis
+    documentSummary?: string; // Summary text for document analysis
     error?: string;
   }
   

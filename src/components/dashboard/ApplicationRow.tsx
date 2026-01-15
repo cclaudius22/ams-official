@@ -89,7 +89,7 @@ export default function ApplicationRow({
 
       {/* Submitted Date Cell */}
       <td className="py-3 px-4 text-gray-600" suppressHydrationWarning>
-        {formatDate(application.submittedDate, { year: 'numeric', month: 'short', day: 'numeric' })} {/* Use short date format */}
+        {formatDate(application.submittedAt, { year: 'numeric', month: 'short', day: 'numeric' })} {/* Use short date format */}
       </td>
 
       {/* Status Cell */}

@@ -22,7 +22,7 @@ import { ProcessingMetricsTab } from '@/components/dashboard/ProcessingMetricsTa
 export default function LiveIntelligencePage() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
-  const [timeframe, setTimeframe] = useState('today');
+  const [timeframe, setTimeframe] = useState<'today' | 'week' | 'month' | 'quarter' | 'year'>('today');
 
   // Function to refresh data
   const refreshData = () => {

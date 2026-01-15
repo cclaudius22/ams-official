@@ -15,7 +15,7 @@ export interface ConsulateOfficial {
     visaType: string;      // Type of visa (e.g., 'Tourist, 30 Days')
     category?: string;     // Visa category (e.g., 'Business', 'Medical')
     submittedAt: string;   // Timestamp or relative time
-    status: 'In Progress' | 'Approved' | 'Pending' | 'Rejected';
+    status: 'In Progress' | 'Approved' | 'Pending' | 'Rejected' | 'Escalated' | 'Pending Assignment' | 'Awaiting Info';
     assignedTo?: {
       id: string;
       name: string;

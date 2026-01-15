@@ -68,7 +68,7 @@ export default function SponsorshipAndRoleDetails({ data }: SponsorshipAndRoleDe
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-3">
                 <div><p className="text-xs text-gray-500">CoS Number</p><p className="text-sm font-mono font-medium">{cos.cosNumber || 'N/A'}</p></div>
                 <div><p className="text-xs text-gray-500">Status</p>
-                    <Badge variant={cos.status?.toLowerCase() === 'assigned' ? 'success' : 'outline'} className="capitalize">
+                    <Badge variant={cos.status?.toLowerCase() === 'assigned' ? 'default' : 'outline'} className={`capitalize ${cos.status?.toLowerCase() === 'assigned' ? 'bg-green-100 text-green-800 border-green-200' : ''}`}>
                          {cos.status?.toLowerCase() === 'assigned' ? <CheckCircle className="h-3 w-3 mr-1"/> : <CircleDotDashed className="h-3 w-3 mr-1"/> }
                          {cos.status || 'N/A'}
                     </Badge>

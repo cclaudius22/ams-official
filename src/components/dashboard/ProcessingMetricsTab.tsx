@@ -227,7 +227,6 @@ export const ProcessingMetricsTab = () => {
                                 }
                             ]}
                             fill={[{ match: '*', id: 'gradientArea' }]}
-                            stroke={{ from: 'color' }}
                             useMesh={true}
                             gridYValues={[75, 80, 85, 90, 95, 100]}
                             theme={{
@@ -295,8 +294,6 @@ export const ProcessingMetricsTab = () => {
                                         labelSkipHeight={12}
                                         labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
                                         animate={true}
-                                        motionStiffness={90}
-                                        motionDamping={15}
                                         theme={THEME_COLORS}
                                         maxValue={100}
                                     />
@@ -592,16 +589,16 @@ export const ProcessingMetricsTab = () => {
             noteHeight: 30,
             noteBackgroundColor: 'rgba(255, 255, 255, 0.8)',
             note: 'Peak Load 🔔',
-        },
+        } as any,
     ]}
     hoverTarget="cell"
-    cellHoverOthersOpacity={0.5}
-    cellOpacity={1}
     motionConfig="gentle"
     theme={{
         background: 'transparent',
-        textColor: '#6b7280',
-        fontSize: 12,
+        text: {
+            fill: '#6b7280',
+            fontSize: 12,
+        },
         axis: {
             domain: {
                 line: {

@@ -2,6 +2,7 @@
 export type VisaType = {
   id: string;
   name: string;
+  category?: string;
 };
 
 export const ukVisaTypes: VisaType[] = [

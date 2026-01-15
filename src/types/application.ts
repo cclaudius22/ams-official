@@ -18,6 +18,16 @@ export interface ApplicationStage {
     updatedAt: string;
   }
   
+  export interface ApplicantDetails {
+    email?: string;
+    emailVerified?: boolean;
+    phoneNumber?: string;
+    phoneVerified?: boolean;
+    name?: string;
+    givenNames?: string;
+    surname?: string;
+  }
+
   export interface ApplicationData {
     applicationId: string;
     userId: string;
@@ -30,6 +40,15 @@ export interface ApplicationStage {
     progress: ApplicationProgress;
     metadata: any;
     timeline: Array<any>;
+    // Contact/applicant fields
+    applicantDetails?: ApplicantDetails;
+    email?: string;
+    emailVerified?: boolean;
+    phoneNumber?: string;
+    phoneVerified?: boolean;
+    // Timestamps
+    createdAt?: string;
+    updatedAt?: string;
   }
   
   // Specific visa type interfaces for stronger typing

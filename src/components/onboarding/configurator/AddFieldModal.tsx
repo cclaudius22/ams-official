@@ -112,7 +112,7 @@ const FIELD_TYPES = [
 ];
 
 // Get default data type based on field type
-const getDefaultDataType = (fieldType: FieldType | 'heading'): string => {
+const getDefaultDataType = (fieldType: FieldType | 'heading'): 'string' | 'number' | 'boolean' | 'object' | 'date' | 'array' => {
   switch (fieldType) {
     case 'number':
     case 'phone':

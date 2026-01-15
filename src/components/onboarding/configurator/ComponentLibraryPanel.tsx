@@ -11,11 +11,11 @@ import { Plus, Search } from 'lucide-react';
 import { useConfigurator } from '@/contexts/ConfiguratorContext';
 import { toast } from 'sonner';
 
-// Import the registry functions
-import { getAllFieldTypes } from '../registry/fieldTypeRegistry';
+// Import the registry functions and types
+import { getAllFieldTypes, FieldTypeDefinition } from '../registry/fieldTypeRegistry';
 
 // Custom category pill component
-const CategoryPill = ({ value, label, count, isActive, onClick }) => (
+const CategoryPill = ({ value, label, count, isActive, onClick }: { value: string; label: string; count: number; isActive: boolean; onClick: (value: string) => void }) => (
   <button
     onClick={() => onClick(value)}
     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
@@ -41,7 +41,7 @@ const CategoryPill = ({ value, label, count, isActive, onClick }) => (
 const ComponentLibraryPanel = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
-  const [fieldTypes, setFieldTypes] = useState([]);
+  const [fieldTypes, setFieldTypes] = useState<FieldTypeDefinition[]>([]);
   const { state, dispatch } = useConfigurator();
   
   // Load field types from registry
@@ -50,7 +50,7 @@ const ComponentLibraryPanel = () => {
   }, []);
   
   // Add field to step
-  const handleAddField = (fieldType) => {
+  const handleAddField = (fieldType: FieldTypeDefinition) => {
     if (!state.activeStepId) {
       toast.error("No step selected", { 
         description: "Please select a step before adding fields."
@@ -62,7 +62,7 @@ const ComponentLibraryPanel = () => {
       type: 'ADD_FIELD',
       payload: {
         stepId: state.activeStepId,
-        fieldType: fieldType.id
+        fieldType: fieldType.id as any
       }
     });
     
@@ -85,7 +85,7 @@ const ComponentLibraryPanel = () => {
   });
   
   // Count components by category
-  const countByCategory = (category) => {
+  const countByCategory = (category: string) => {
     return fieldTypes.filter(c => c.category === category).length;
   };
   

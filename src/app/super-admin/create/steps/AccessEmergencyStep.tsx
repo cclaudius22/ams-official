@@ -29,9 +29,10 @@ export const AccessEmergencyStep: React.FC = () => {
   const [backupVerified, setBackupVerified] = useState(false);
   
   // Setup field array for IP addresses
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "access.allowedIPs"
+    name: "access.allowedIPs" as any
   });
 
   const handleVerifyBackup = () => {

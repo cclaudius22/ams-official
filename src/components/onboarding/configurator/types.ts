@@ -8,6 +8,11 @@ export type ValidationRule = {
   message?: string;
 };
 
+export interface FieldOption {
+  label: string;
+  value: string;
+}
+
 export type ConditionOperator = 'eq' | 'neq' | 'gt' | 'gte' | 'lt' | 'lte' | 'contains' | 'notContains';
 
 export interface Condition {

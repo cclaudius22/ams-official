@@ -1,23 +1,38 @@
 // app/api/super-admin/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
+
+// TODO: Replace with JWT or Firebase auth when implemented
+async function verifyAuth(req: NextRequest): Promise<{ authenticated: boolean; user?: { id: string; permissions: string[] } }> {
+  const authHeader = req.headers.get('authorization');
+  if (!authHeader?.startsWith('Bearer ')) {
+    return { authenticated: false };
+  }
+  // Placeholder: In production, verify JWT/Firebase token here
+  // For now, allow requests in development
+  if (process.env.NODE_ENV === 'development') {
+    return {
+      authenticated: true,
+      user: { id: 'dev-user', permissions: ['manage_super_admin'] }
+    };
+  }
+  return { authenticated: false };
+}
 
 export async function POST(req: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const auth = await verifyAuth(req);
+    if (!auth.authenticated || !auth.user) {
       return NextResponse.json(
-        { error: 'Unauthorized' }, 
+        { error: 'Unauthorized' },
         { status: 401 }
       );
     }
-    
-    // Check authorization (this would use your permission system)
-    if (!hasPermission(session, 'manage_super_admin')) {
+
+    // Check authorization
+    if (!hasPermission(auth.user, 'manage_super_admin')) {
       return NextResponse.json(
-        { error: 'Insufficient permissions' }, 
+        { error: 'Insufficient permissions' },
         { status: 403 }
       );
     }
@@ -65,10 +80,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// Mock permissions check - replace with your actual auth logic
-function hasPermission(session: any, permission: string) {
-  // For demo purposes, assume the user has permission
-  return true;
+// Permission check - uses user permissions from auth
+function hasPermission(user: { id: string; permissions: string[] }, permission: string) {
+  return user.permissions.includes(permission);
 }
 
 // Validation function for super admin data

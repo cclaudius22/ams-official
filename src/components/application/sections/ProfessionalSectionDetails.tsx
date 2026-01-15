@@ -277,7 +277,7 @@ export default function ProfessionalSectionDetails({ data }: ProfessionalSection
                   // Filter out non-boolean verification flags (like method, date, notes)
                   .filter(([key, value]) => typeof value === 'boolean' && key !== 'overallResult') // Adjust filter as needed
                   .map(([key, value]) => (
-                      <Badge key={key} variant={value ? "success" : "destructive"} className="capitalize gap-1.5">
+                      <Badge key={key} variant={value ? "default" : "destructive"} className={`capitalize gap-1.5 ${value ? "bg-green-100 text-green-800 border-green-200" : ""}`}>
                            {value ? <CheckCircle2 className="h-3 w-3"/> : <XCircle className="h-3 w-3"/>}
                            {key.replace(/Verified$/, '').replace(/([A-Z])/g, ' $1').trim()} {/* Format key */}
                       </Badge>

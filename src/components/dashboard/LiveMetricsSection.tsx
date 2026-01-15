@@ -22,7 +22,7 @@ const SUBTLE_COLORS = [
 ];
 
 // Define Status colors with concrete HEX codes
-const STATUS_COLORS = {
+const STATUS_COLORS: Record<string, string> = {
     Pending: '#f59e0b', // amber-500
     'In Progress': '#3b82f6', // blue-500
     Approved: '#10b981', // emerald-500
@@ -104,7 +104,7 @@ const useVisaMetrics = () => {
     // Process data for charts (Memoized)
     const processedData = useMemo(() => {
         // Helper for Top N + Other
-        const getTopNData = (data, valueKey, nameKey = 'name') => {
+        const getTopNData = (data: any[], valueKey: string, nameKey = 'name') => {
             if (!data || data.length === 0) return [];
             if (data.length <= TOP_N_ITEMS) {
                 return data.map(item => ({ ...item, isOther: false })); // Ensure isOther is present
@@ -149,7 +149,7 @@ const useVisaMetrics = () => {
 
 
 // --- Custom Tooltip ---
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: any[]; label?: string }) => {
     if (active && payload && payload.length) {
         return (
             <div className="bg-white dark:bg-gray-800 p-2 border border-gray-200 dark:border-gray-700 rounded shadow-lg text-xs text-gray-700 dark:text-gray-200 z-50">
@@ -179,7 +179,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 // --- Chart Components ---
 
-const ApplicationsChart = React.memo(({ data }) => ( // Use React.memo for performance if data doesn't change often without refresh
+const ApplicationsChart = React.memo(({ data }: { data: any[] }) => ( // Use React.memo for performance if data doesn't change often without refresh
     <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <defs>
@@ -202,7 +202,7 @@ const ApplicationsChart = React.memo(({ data }) => ( // Use React.memo for perfo
     </ResponsiveContainer>
 ));
 
-const ProcessingTimeChart = React.memo(({ data }) => (
+const ProcessingTimeChart = React.memo(({ data }: { data: any[] }) => (
     <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} layout="vertical" margin={{ top: 5, right: 30, left: 10, bottom: 5 }} barCategoryGap="25%">
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-gray-600" horizontal={false}/>
@@ -222,7 +222,7 @@ const ProcessingTimeChart = React.memo(({ data }) => (
     </ResponsiveContainer>
 ));
 
-const StatusDistributionChart = React.memo(({ data }) => (
+const StatusDistributionChart = React.memo(({ data }: { data: any[] }) => (
     <ResponsiveContainer width="100%" height="100%">
         <PieChart>
             <Pie
@@ -254,7 +254,7 @@ const StatusDistributionChart = React.memo(({ data }) => (
     </ResponsiveContainer>
 ));
 
-const SlaChart = React.memo(({ data }) => (
+const SlaChart = React.memo(({ data }: { data: any[] }) => (
      <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-gray-600" />
@@ -284,7 +284,7 @@ const SlaChart = React.memo(({ data }) => (
     </ResponsiveContainer>
 ));
 
-const CountryApprovalChart = React.memo(({ data }) => (
+const CountryApprovalChart = React.memo(({ data }: { data: any[] }) => (
      <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} layout="vertical" margin={{ top: 5, right: 30, left: 10, bottom: 5 }} barCategoryGap="25%">
              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-gray-600" horizontal={false} />

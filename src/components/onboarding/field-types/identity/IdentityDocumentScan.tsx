@@ -107,3 +107,6 @@ export const identityDocumentScanDefaultProps = {
   isRequired: false,
   validationRules: []
 };
+
+// Icon for registry
+export const IdentityDocumentScanIcon = ScanLine;

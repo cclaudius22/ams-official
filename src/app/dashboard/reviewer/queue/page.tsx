@@ -21,7 +21,7 @@ interface ApplicationReview {
   applicant: string;
   riskScore: number;
   slaRemaining: string;
-  aiRecommendation: string;
+  aiRecommendation: 'Approve' | 'Reject' | 'Review';
   priority: 'high' | 'medium' | 'low';
   status: 'active' | 'pending' | 'completed' | 'escalated';
   flags: string[];
@@ -30,23 +30,24 @@ interface ApplicationReview {
   documents: string[];
   type: string;
   country: string;
+  submissionDate: string;
+  passport: string;
 }
 
 // Mock Data (Keep this within the component for now, or import from lib/mockdata)
 const mockReviews: ApplicationReview[] = [
   {
-    id: '#VK-2024-1835', // ID used for display
-    applicant: 'Robert Mendoza', riskScore: 78, slaRemaining: '4h 30m', aiRecommendation: 'Manual Review', priority: 'high', status: 'active', flags: ['Background Check Required', 'Multiple Applications'], team: { background: 'Sarah Johnson', identity: 'Uma Khan', document: 'Justin Time' }, lastUpdated: '2 hours ago', documents: ['Passport', 'Bank Statements', 'Employment Letter'], type: 'Business Visa', country: 'Cambodia'
+    id: '#VK-2024-1835', applicant: 'Robert Mendoza', riskScore: 78, slaRemaining: '4h 30m', aiRecommendation: 'Review', priority: 'high', status: 'active', flags: ['Background Check Required', 'Multiple Applications'], team: { background: 'Sarah Johnson', identity: 'Uma Khan', document: 'Justin Time' }, lastUpdated: '2 hours ago', documents: ['Passport', 'Bank Statements', 'Employment Letter'], type: 'Business Visa', country: 'Cambodia', submissionDate: '2024-01-10', passport: 'KH12345678'
   },
   {
-    id: '#VK-2024-1836', // ID used for display
-    applicant: 'Emma Thompson', riskScore: 45, slaRemaining: '6h 15m', aiRecommendation: 'Approve', priority: 'high', status: 'active', flags: ['First Time Applicant'], team: { background: 'Sarah Johnson', identity: 'Mike Fitzgerald', document: 'Alex Mckenna' }, lastUpdated: '1 hour ago', documents: ['Passport', 'Financial Documents'], type: 'Tourist Visa', country: 'Australia'
+    id: '#VK-2024-1836', applicant: 'Emma Thompson', riskScore: 45, slaRemaining: '6h 15m', aiRecommendation: 'Approve', priority: 'high', status: 'active', flags: ['First Time Applicant'], team: { background: 'Sarah Johnson', identity: 'Mike Fitzgerald', document: 'Alex Mckenna' }, lastUpdated: '1 hour ago', documents: ['Passport', 'Financial Documents'], type: 'Tourist Visa', country: 'Australia', submissionDate: '2024-01-12', passport: 'AU98765432'
   },
-   { // Add examples for other tabs if needed
-     id: '#UK-2024-1837', applicant: 'Maria Garcia', riskScore: 60, slaRemaining: 'N/A', aiRecommendation: 'Refer', priority: 'medium', status: 'pending', flags: ['Incomplete Financials'], team: { background: 'Justin Time', identity: 'Mike Fitzgerald', document: 'Alex Mckenna' }, lastUpdated: '1 day ago', documents: ['Passport'], type: 'Student Visa', country: 'Spain'
-   },
-    { id: '#UK-2024-1838', applicant: 'Ben Carter', riskScore: 85, slaRemaining: 'N/A', aiRecommendation: 'Escalate', priority: 'high', status: 'escalated', flags: ['Potential Fraud Indicators'], team: { background: 'Supervisor', identity: 'Supervisor', document: 'Supervisor' }, lastUpdated: '3 hours ago', documents: ['All'], type: 'Investor Visa', country: 'USA'
-   }
+  {
+    id: '#UK-2024-1837', applicant: 'Maria Garcia', riskScore: 60, slaRemaining: 'N/A', aiRecommendation: 'Review', priority: 'medium', status: 'pending', flags: ['Incomplete Financials'], team: { background: 'Justin Time', identity: 'Mike Fitzgerald', document: 'Alex Mckenna' }, lastUpdated: '1 day ago', documents: ['Passport'], type: 'Student Visa', country: 'Spain', submissionDate: '2024-01-08', passport: 'ES11223344'
+  },
+  {
+    id: '#UK-2024-1838', applicant: 'Ben Carter', riskScore: 85, slaRemaining: 'N/A', aiRecommendation: 'Reject', priority: 'high', status: 'escalated', flags: ['Potential Fraud Indicators'], team: { background: 'Supervisor', identity: 'Supervisor', document: 'Supervisor' }, lastUpdated: '3 hours ago', documents: ['All'], type: 'Investor Visa', country: 'USA', submissionDate: '2024-01-05', passport: 'US55667788'
+  }
 ];
 // --- End Mock Data ---
 

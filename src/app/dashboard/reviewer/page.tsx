@@ -53,7 +53,7 @@ export default function ReviewerDashboardPage() {
           </Alert>
        )}
        {stats.highPriorityCount > 0 && !stats.slaWarningsCount && ( // Show only if no SLA warning
-             <Alert variant="warning" className="bg-orange-50 border-orange-200">
+             <Alert variant="default" className="bg-orange-50 border-orange-200">
                 <AlertCircle className="h-4 w-4" />
                 <AlertTitle>High Priority Items</AlertTitle>
                 <AlertDescription>
