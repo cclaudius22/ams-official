@@ -215,28 +215,30 @@ export const AddressField: React.FC<AddressFieldProps> = ({
           rules={validationRules}
           defaultValue=""
           render={({ field: formField, fieldState }) => (
-            <div className="relative">
-              <div className="absolute left-3 top-3 text-muted-foreground">
-                <MapPin className="h-4 w-4" />
+            <>
+              <div className="relative">
+                <div className="absolute left-3 top-3 text-muted-foreground">
+                  <MapPin className="h-4 w-4" />
+                </div>
+                <Textarea
+                  id={field.fieldName}
+                  placeholder={field.placeholder}
+                  className={`pl-9 min-h-[100px] ${fieldState.error ? 'border-destructive' : ''}`}
+                  {...formField}
+                  disabled={disabled}
+                />
               </div>
-              <Textarea
-                id={field.fieldName}
-                placeholder={field.placeholder}
-                className={`pl-9 min-h-[100px] ${fieldState.error ? 'border-destructive' : ''}`}
-                {...formField}
-                disabled={disabled}
-              />
-            </div>
+
+              {field.helpText && (
+                <p className="text-xs text-muted-foreground">{field.helpText}</p>
+              )}
+
+              {fieldState.error && (
+                <p className="text-xs text-destructive">{fieldState.error.message}</p>
+              )}
+            </>
           )}
         />
-        
-        {field.helpText && (
-          <p className="text-xs text-muted-foreground">{field.helpText}</p>
-        )}
-        
-        {fieldState.error && (
-          <p className="text-xs text-destructive">{fieldState.error.message}</p>
-        )}
       </div>
     );
   }

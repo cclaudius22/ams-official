@@ -6,8 +6,18 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ScanLine, Upload, Check } from 'lucide-react';
 
+interface FieldProps {
+  field: {
+    fieldName: string;
+    label: string;
+    helpText?: string;
+    isRequired?: boolean;
+  };
+  disabled?: boolean;
+}
+
 // Form Component (used in actual forms)
-export const IdentityDocumentScanField = ({ field, disabled = false }) => {
+export const IdentityDocumentScanField: React.FC<FieldProps> = ({ field, disabled = false }) => {
   const { control } = useFormContext();
   
   return (
@@ -81,7 +91,7 @@ export const IdentityDocumentScanField = ({ field, disabled = false }) => {
 };
 
 // Preview Component (used in preview mode - simplified version)
-export const IdentityDocumentScanPreview = ({ field }) => {
+export const IdentityDocumentScanPreview: React.FC<Pick<FieldProps, 'field'>> = ({ field }) => {
   return (
     <div className="space-y-2">
       <div className="font-medium text-sm">{field.label}</div>

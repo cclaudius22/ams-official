@@ -71,29 +71,31 @@ export const PhoneField: React.FC<PhoneFieldProps> = ({
         rules={validationRules}
         defaultValue=""
         render={({ field: formField, fieldState }) => (
-          <div className="relative">
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
-              <Phone className="h-4 w-4" />
+          <>
+            <div className="relative">
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+                <Phone className="h-4 w-4" />
+              </div>
+              <Input
+                id={field.fieldName}
+                type="tel"
+                placeholder={field.placeholder}
+                className={`pl-9 ${fieldState.error ? 'border-destructive' : ''}`}
+                {...formField}
+                disabled={disabled}
+              />
             </div>
-            <Input
-              id={field.fieldName}
-              type="tel"
-              placeholder={field.placeholder}
-              className={`pl-9 ${fieldState.error ? 'border-destructive' : ''}`}
-              {...formField}
-              disabled={disabled}
-            />
-          </div>
+
+            {field.helpText && (
+              <p className="text-xs text-muted-foreground">{field.helpText}</p>
+            )}
+
+            {fieldState.error && (
+              <p className="text-xs text-destructive">{fieldState.error.message}</p>
+            )}
+          </>
         )}
       />
-      
-      {field.helpText && (
-        <p className="text-xs text-muted-foreground">{field.helpText}</p>
-      )}
-      
-      {fieldState.error && (
-        <p className="text-xs text-destructive">{fieldState.error.message}</p>
-      )}
     </div>
   );
 };

@@ -1,132 +1,166 @@
-// app/api/super-admin/route.ts
+// src/app/api/super-admin/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/db';
+import { hashPassword } from '@/lib/auth';
 
-// TODO: Replace with JWT or Firebase auth when implemented
-async function verifyAuth(req: NextRequest): Promise<{ authenticated: boolean; user?: { id: string; permissions: string[] } }> {
-  const authHeader = req.headers.get('authorization');
-  if (!authHeader?.startsWith('Bearer ')) {
-    return { authenticated: false };
-  }
-  // Placeholder: In production, verify JWT/Firebase token here
-  // For now, allow requests in development
-  if (process.env.NODE_ENV === 'development') {
-    return {
-      authenticated: true,
-      user: { id: 'dev-user', permissions: ['manage_super_admin'] }
-    };
-  }
-  return { authenticated: false };
+interface CreateOrganizationRequest {
+  organization: {
+    name: string;
+    country: string;
+    department: string;
+  };
+  account: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  };
+  security: {
+    requiredClearanceLevel: string;
+    mfaRequired: boolean;
+    sessionDurationHours: number;
+    mfaMethod: string;
+  };
 }
 
 export async function POST(req: NextRequest) {
   try {
-    // Check authentication
-    const auth = await verifyAuth(req);
-    if (!auth.authenticated || !auth.user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
+    const data: CreateOrganizationRequest = await req.json();
 
-    // Check authorization
-    if (!hasPermission(auth.user, 'manage_super_admin')) {
-      return NextResponse.json(
-        { error: 'Insufficient permissions' },
-        { status: 403 }
-      );
-    }
-    
-    // Parse the request body
-    const data = await req.json();
-    
     // Validate required fields
-    const validationErrors = validateSuperAdminData(data);
+    const validationErrors = validateRequest(data);
     if (validationErrors.length > 0) {
       return NextResponse.json(
-        { error: 'Validation failed', details: validationErrors }, 
+        { success: false, error: 'Validation failed', details: validationErrors },
         { status: 400 }
       );
     }
-    
-    // In a real application, you would save to your database here
-    // For example:
-    // const result = await db.superAdmin.create({
-    //   data: {
-    //     governmentId: data.governmentId,
-    //     departmentId: data.departmentId,
-    //     firstName: data.personalDetails.firstName,
-    //     lastName: data.personalDetails.lastName,
-    //     email: data.personalDetails.email,
-    //     // ... map all other fields
-    //   }
-    // });
-    
-    // Simulate a successful response
+
+    // Check if email already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email: data.account.email.toLowerCase() },
+    });
+
+    if (existingUser) {
+      return NextResponse.json(
+        { success: false, error: 'An account with this email already exists' },
+        { status: 409 }
+      );
+    }
+
+    // Hash the password
+    const passwordHash = await hashPassword(data.account.password);
+
+    // Create organization, user, and config in a transaction
+    const result = await prisma.$transaction(async (tx) => {
+      // Create organization
+      const organization = await tx.organization.create({
+        data: {
+          name: data.organization.name,
+          country: data.organization.country,
+          department: data.organization.department,
+        },
+      });
+
+      // Create super admin user
+      const user = await tx.user.create({
+        data: {
+          email: data.account.email.toLowerCase(),
+          passwordHash,
+          firstName: data.account.firstName,
+          lastName: data.account.lastName,
+          role: 'SUPER_ADMIN',
+          mfaEnabled: data.security.mfaRequired,
+          organizationId: organization.id,
+        },
+      });
+
+      // Create system config
+      const config = await tx.systemConfig.create({
+        data: {
+          organizationId: organization.id,
+          requiredClearanceLevel: data.security.requiredClearanceLevel || null,
+          mfaRequired: data.security.mfaRequired,
+          sessionDurationHours: data.security.sessionDurationHours,
+        },
+      });
+
+      return { organization, user, config };
+    });
+
     return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Super Admin created successfully',
-        userId: 'SA-' + Math.floor(Math.random() * 10000)
-      }, 
+      {
+        success: true,
+        message: 'Organization created successfully',
+        organizationId: result.organization.id,
+        userId: result.user.id,
+      },
       { status: 201 }
     );
   } catch (error) {
-    console.error('Error creating super admin:', error);
+    console.error('Error creating organization:', error);
     return NextResponse.json(
-      { error: 'Failed to create super admin' }, 
+      { success: false, error: 'Failed to create organization. Please try again.' },
       { status: 500 }
     );
   }
 }
 
-// Permission check - uses user permissions from auth
-function hasPermission(user: { id: string; permissions: string[] }, permission: string) {
-  return user.permissions.includes(permission);
-}
-
-// Validation function for super admin data
-function validateSuperAdminData(data: any): string[] {
+// Validation function
+function validateRequest(data: CreateOrganizationRequest): string[] {
   const errors: string[] = [];
-  
-  // Required fields validation
-  if (!data.governmentId) errors.push('Government is required');
-  if (!data.departmentId) errors.push('Department is required');
-  
-  // Personal details validation
-  if (!data.personalDetails?.firstName) errors.push('First name is required');
-  if (!data.personalDetails?.lastName) errors.push('Last name is required');
-  if (!data.personalDetails?.email) {
+
+  // Organization validation
+  if (!data.organization?.name?.trim()) {
+    errors.push('Organization name is required');
+  }
+  if (!data.organization?.country) {
+    errors.push('Country is required');
+  }
+  if (!data.organization?.department) {
+    errors.push('Department is required');
+  }
+
+  // Account validation
+  if (!data.account?.firstName?.trim()) {
+    errors.push('First name is required');
+  }
+  if (!data.account?.lastName?.trim()) {
+    errors.push('Last name is required');
+  }
+  if (!data.account?.email?.trim()) {
     errors.push('Email is required');
-  } else if (!/^.+@.+\..+$/.test(data.personalDetails.email)) {
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.account.email)) {
     errors.push('Email format is invalid');
   }
-  if (!data.personalDetails?.email?.endsWith('.gov.uk')) {
-    errors.push('Email must be a government email');
+  if (!data.account?.password) {
+    errors.push('Password is required');
+  } else if (data.account.password.length < 8) {
+    errors.push('Password must be at least 8 characters');
   }
-  
-  // Clearance validation
-  if (!data.clearance?.level) errors.push('Clearance level is required');
-  if (!data.clearance?.number) errors.push('Clearance number is required');
-  
-  // Biometrics validation
-  if (!data.biometrics?.registered) {
-    errors.push('Biometric registration is required');
+
+  // Security validation
+  if (data.security?.sessionDurationHours === undefined) {
+    errors.push('Session duration is required');
   }
-  
-  // Device validation
-  if (!data.devices?.workstation && !data.devices?.securityToken && !data.devices?.mobileDevice) {
-    errors.push('At least one device must be registered');
-  }
-  
-  // Emergency contact validation
-  if (!data.emergency?.phone) errors.push('Emergency phone is required');
-  if (!data.emergency?.email) errors.push('Emergency email is required');
-  
-  // Access restrictions validation
-  if (!data.access?.allowedIPs || data.access.allowedIPs.length === 0) {
-    errors.push('At least one allowed IP range is required');
-  }
-  
+
   return errors;
+}
+
+// GET endpoint to check if any organization exists (for first-time setup check)
+export async function GET() {
+  try {
+    const orgCount = await prisma.organization.count();
+
+    return NextResponse.json({
+      hasOrganizations: orgCount > 0,
+      count: orgCount,
+    });
+  } catch (error) {
+    console.error('Error checking organizations:', error);
+    return NextResponse.json(
+      { error: 'Failed to check organizations' },
+      { status: 500 }
+    );
+  }
 }

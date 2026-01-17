@@ -1,154 +1,143 @@
-// src/super-admin/create/hooks/useSuperAdminForm.tsx
+// src/app/super-admin/create/hooks/useSuperAdminForm.tsx
+'use client';
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { SuperAdminFormData } from '../types';
+import { useRouter } from 'next/navigation';
+import { SuperAdminFormData, ValidationError, CreateOrganizationResponse } from '../types';
+import { validatePasswordStrength } from '@/lib/password-utils';
 
-// Initial form state with required fields
+// Initial form state
 const initialFormState: SuperAdminFormData = {
-  // Step 1: Identity & Government
-  governmentId: '',
-  departmentId: '',
-  personalDetails: {
+  organization: {
+    name: '',
+    country: '',
+    department: '',
+  },
+  account: {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
-    employeeId: '',
-    positionTitle: ''
+    password: '',
+    confirmPassword: '',
   },
-
-  // Step 2: Security & Clearance
-  clearance: {
-    level: '',
-    authority: '',
-    number: '',
-    expiryDate: '',
-    vettingDetails: {
-      lastVettingDate: '',
-      nextVettingDue: '',
-      vettingReference: '',
-      vettingAuthority: ''
-    }
+  security: {
+    requiredClearanceLevel: 'NONE',
+    mfaRequired: true,
+    sessionDurationHours: 8,
+    mfaMethod: 'TOTP',
   },
-  biometrics: {
-    registered: false,
-    completedAt: undefined,
-    methods: []
-  },
-  devices: {
-    workstation: null,
-    securityToken: null,
-    mobileDevice: null
-  },
-
-  // Step 3: Access & Emergency
-  backup: {
-    primaryAdmin: '',
-    secondaryAdmin: '',
-    verified: false
-  },
-  emergency: {
-    phone: '',
-    email: '',
-    levels: [],
-  },
-  access: {
-    allowedIPs: [],
-    workHours: {
-      start: '',
-      end: ''
-    },
-    allowedLocations: []
-  }
+  termsAccepted: false,
 };
 
-export interface ValidationError {
-  step: number;
-  field: string;
-  message: string;
-}
-
 export function useSuperAdminForm() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState<ValidationError[]>([]);
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const formMethods = useForm<SuperAdminFormData>({
     defaultValues: initialFormState,
-    mode: 'onChange'
+    mode: 'onChange',
   });
 
-  // Validation functions for each step
+  // Validation for Step 1: Organization
   const validateStep1 = (): ValidationError[] => {
     const stepErrors: ValidationError[] = [];
-    const { getValues } = formMethods;
-    const values = getValues();
-    const { personalDetails } = values;
+    const values = formMethods.getValues();
+    const { organization } = values;
 
-    if (!values.governmentId) {
-      stepErrors.push({ step: 1, field: 'governmentId', message: 'Government selection is required' });
+    if (!organization.name?.trim()) {
+      stepErrors.push({ step: 1, field: 'organization.name', message: 'Organization name is required' });
     }
 
-    if (!personalDetails.firstName) {
-      stepErrors.push({ step: 1, field: 'firstName', message: 'First name is required' });
+    if (!organization.country) {
+      stepErrors.push({ step: 1, field: 'organization.country', message: 'Country is required' });
     }
 
-    if (!personalDetails.lastName) {
-      stepErrors.push({ step: 1, field: 'lastName', message: 'Last name is required' });
-    }
-
-    if (!personalDetails.email?.endsWith('.gov.uk')) {
-      stepErrors.push({ step: 1, field: 'email', message: 'Must use a government email address' });
+    if (!organization.department) {
+      stepErrors.push({ step: 1, field: 'organization.department', message: 'Department is required' });
     }
 
     return stepErrors;
   };
 
+  // Validation for Step 2: Account
   const validateStep2 = (): ValidationError[] => {
     const stepErrors: ValidationError[] = [];
-    const { getValues } = formMethods;
-    const values = getValues();
-    const { clearance, biometrics } = values;
+    const values = formMethods.getValues();
+    const { account } = values;
 
-    if (!clearance.level) {
-      stepErrors.push({ step: 2, field: 'clearanceLevel', message: 'Clearance level is required' });
+    if (!account.firstName?.trim()) {
+      stepErrors.push({ step: 2, field: 'account.firstName', message: 'First name is required' });
     }
 
-    if (!clearance.number) {
-      stepErrors.push({ step: 2, field: 'clearanceNumber', message: 'Clearance number is required' });
+    if (!account.lastName?.trim()) {
+      stepErrors.push({ step: 2, field: 'account.lastName', message: 'Last name is required' });
     }
 
-    if (!biometrics.registered) {
-      stepErrors.push({ step: 2, field: 'biometrics', message: 'Biometric registration is required' });
+    if (!account.email?.trim()) {
+      stepErrors.push({ step: 2, field: 'account.email', message: 'Email is required' });
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(account.email)) {
+      stepErrors.push({ step: 2, field: 'account.email', message: 'Please enter a valid email address' });
+    }
+
+    if (!account.password) {
+      stepErrors.push({ step: 2, field: 'account.password', message: 'Password is required' });
+    } else {
+      const strength = validatePasswordStrength(account.password);
+      if (strength.score < 3) {
+        stepErrors.push({
+          step: 2,
+          field: 'account.password',
+          message: `Password is too weak: ${strength.feedback[0] || 'Please use a stronger password'}`,
+        });
+      }
+    }
+
+    if (!account.confirmPassword) {
+      stepErrors.push({ step: 2, field: 'account.confirmPassword', message: 'Please confirm your password' });
+    } else if (account.password !== account.confirmPassword) {
+      stepErrors.push({ step: 2, field: 'account.confirmPassword', message: 'Passwords do not match' });
     }
 
     return stepErrors;
   };
 
+  // Validation for Step 3: Security
   const validateStep3 = (): ValidationError[] => {
     const stepErrors: ValidationError[] = [];
-    const { getValues } = formMethods;
-    const values = getValues();
-    const { backup, emergency, access } = values;
+    const values = formMethods.getValues();
+    const { security } = values;
 
-    if (!backup.primaryAdmin) {
-      stepErrors.push({ step: 3, field: 'primaryAdmin', message: 'Primary backup admin is required' });
+    if (!security.sessionDurationHours) {
+      stepErrors.push({ step: 3, field: 'security.sessionDurationHours', message: 'Session duration is required' });
     }
 
-    if (!emergency.phone) {
-      stepErrors.push({ step: 3, field: 'emergencyPhone', message: 'Emergency contact phone is required' });
-    }
-
-    if (access.allowedIPs.length === 0) {
-      stepErrors.push({ step: 3, field: 'allowedIPs', message: 'At least one IP range is required' });
+    if (security.mfaRequired && !security.mfaMethod) {
+      stepErrors.push({ step: 3, field: 'security.mfaMethod', message: 'Please select an MFA method' });
     }
 
     return stepErrors;
   };
 
-  // Handler for step validation
+  // Validation for Step 4: Review
+  const validateStep4 = (): ValidationError[] => {
+    const stepErrors: ValidationError[] = [];
+    const values = formMethods.getValues();
+
+    if (!values.termsAccepted) {
+      stepErrors.push({ step: 4, field: 'termsAccepted', message: 'You must accept the terms and conditions' });
+    }
+
+    return stepErrors;
+  };
+
+  // Validate current step
   const validateCurrentStep = (): boolean => {
     let stepErrors: ValidationError[] = [];
-    
+
     switch (currentStep) {
       case 1:
         stepErrors = validateStep1();
@@ -159,6 +148,9 @@ export function useSuperAdminForm() {
       case 3:
         stepErrors = validateStep3();
         break;
+      case 4:
+        stepErrors = validateStep4();
+        break;
     }
 
     setErrors(stepErrors);
@@ -168,38 +160,77 @@ export function useSuperAdminForm() {
   // Navigation handlers
   const handleNext = () => {
     if (validateCurrentStep()) {
-      setCurrentStep(prev => Math.min(prev + 1, 3));
+      setCurrentStep((prev) => Math.min(prev + 1, 4));
+      setErrors([]);
     }
   };
 
   const handlePrevious = () => {
-    setCurrentStep(prev => Math.max(prev - 1, 1));
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+    setErrors([]);
   };
 
+  const goToStep = (step: number) => {
+    if (step < currentStep || validateCurrentStep()) {
+      setCurrentStep(step);
+      setErrors([]);
+    }
+  };
+
+  // Submit handler
   const handleSubmit = async () => {
-    if (validateCurrentStep()) {
-      try {
-        const formData = formMethods.getValues();
-        
-        // API call would go here
-        const response = await fetch('/api/super-admin', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
+    // Validate all steps
+    const allErrors = [
+      ...validateStep1(),
+      ...validateStep2(),
+      ...validateStep3(),
+      ...validateStep4(),
+    ];
+
+    if (allErrors.length > 0) {
+      setErrors(allErrors);
+      // Go to the first step with errors
+      const firstErrorStep = Math.min(...allErrors.map((e) => e.step));
+      setCurrentStep(firstErrorStep);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const formData = formMethods.getValues();
+
+      const response = await fetch('/api/super-admin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          organization: formData.organization,
+          account: {
+            firstName: formData.account.firstName,
+            lastName: formData.account.lastName,
+            email: formData.account.email,
+            password: formData.account.password,
           },
-          body: JSON.stringify(formData)
-        });
-        
-        if (!response.ok) {
-          throw new Error('Failed to submit form');
-        }
-        
-        // Handle success
-        console.log('Form submitted successfully');
-        
-      } catch (error) {
-        console.error('Error submitting form:', error);
+          security: formData.security,
+        }),
+      });
+
+      const result: CreateOrganizationResponse = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to create organization');
       }
+
+      // Success - redirect to login page
+      router.push('/?registered=true');
+    } catch (error) {
+      console.error('Error creating organization:', error);
+      setSubmitError(error instanceof Error ? error.message : 'An unexpected error occurred');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -207,9 +238,13 @@ export function useSuperAdminForm() {
     currentStep,
     errors,
     formMethods,
+    isSubmitting,
+    submitError,
     handleNext,
     handlePrevious,
     handleSubmit,
-    validateCurrentStep
+    goToStep,
+    validateCurrentStep,
+    totalSteps: 4,
   };
 }
