@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useOfficer, getOfficerFullName, getOfficerInitials, getRoleDisplayName } from '@/contexts/OfficerContext';
 
 interface NavSectionProps {
   title: string;
@@ -81,16 +82,23 @@ const NavLink: React.FC<NavLinkProps> = ({
 };
 
 export default function SidebarNavigation() {
+  const { currentOfficer, isLoading } = useOfficer();
+
+  // Get officer display info
+  const officerName = currentOfficer ? getOfficerFullName(currentOfficer) : 'Loading...';
+  const officerInitials = currentOfficer ? getOfficerInitials(currentOfficer) : '...';
+  const officerRole = currentOfficer ? getRoleDisplayName(currentOfficer.role) : '';
+
   return (
     <div className="w-64 bg-white border-r h-screen overflow-y-auto">
       <div className="p-4">
         <div className="flex items-center space-x-3 mb-6 p-2 bg-blue-50 rounded-lg">
-          <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-            RJ
+          <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center text-sm font-medium text-blue-700">
+            {officerInitials}
           </div>
           <div>
-            <h3 className="font-medium">Rachel Johnson</h3>
-            <p className="text-sm text-blue-600">Senior Visa Officer</p>
+            <h3 className="font-medium">{officerName}</h3>
+            <p className="text-sm text-blue-600">{officerRole}</p>
           </div>
         </div>
         

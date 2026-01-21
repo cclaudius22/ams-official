@@ -7,7 +7,9 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Bell, MessageSquare, ArrowLeft, CheckCircle2, XCircle, Settings } from 'lucide-react';
 import UserProfileDropdown from './UserProfileDropdown';
+import OfficerSwitcher from './OfficerSwitcher';
 import { usePathname } from 'next/navigation'; // To conditionally show back button
+import { useOfficer, getOfficerFullName, getOfficerInitials } from '@/contexts/OfficerContext';
 
 interface DashboardHeaderProps {
   // Props to customize header content if needed later
@@ -17,8 +19,14 @@ interface DashboardHeaderProps {
 
 export default function DashboardHeader({}: DashboardHeaderProps) {
   const pathname = usePathname();
+  const { currentOfficer, isLoading } = useOfficer();
   // Example state for availability - move to global state/context later if needed across app
   const [availableForTasks, setAvailableForTasks] = useState(true);
+
+  // Get officer display info
+  const officerName = currentOfficer ? getOfficerFullName(currentOfficer) : 'Loading...';
+  const officerEmail = currentOfficer?.email || '';
+  const officerInitials = currentOfficer ? getOfficerInitials(currentOfficer) : '...';
 
   // Determine if we are on a specific application review page to show back button
   // This logic might need adjustment based on your exact routes
@@ -67,10 +75,13 @@ export default function DashboardHeader({}: DashboardHeaderProps) {
             <span className="absolute -top-0.5 -right-0.5 h-4 w-4 text-[10px] bg-blue-500 rounded-full text-white flex items-center justify-center border border-white">5</span>
              <span className="sr-only">Messages</span>
           </button>
-          <UserProfileDropdown 
-            userName="Rachel Johnson"
-            userEmail="rachel.johnson@example.gov.uk"
-            userInitials="RJ"
+          {/* Officer Switcher (Demo Mode) */}
+          <OfficerSwitcher />
+
+          <UserProfileDropdown
+            userName={officerName}
+            userEmail={officerEmail}
+            userInitials={officerInitials}
           />
            {/* Availability Toggle - Example Implementation */}
            <Button

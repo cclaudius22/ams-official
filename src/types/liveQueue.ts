@@ -38,9 +38,13 @@ export interface ConsulateOfficial {
   
   export interface LiveQueueStats {
     total: number;
-    inProgress: number;
-    approved: number;
     pending: number;
-    rejected: number;
-    unassigned: number;
+    inProgress: number;
+    awaitingDecision: number;
+    escalated: number;
+    avgWaitTime: number;
+    oldestApplication: string | null;
+    approved?: number;
+    rejected?: number;
+    unassigned?: number;
   }
