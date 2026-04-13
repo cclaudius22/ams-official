@@ -28,3 +28,6 @@ export * from './users'
 
 // Teams API (collaboration, tasks, activity)
 export * from './teams'
+
+// DIS API (Deloitte-built Document Ingestion System — decision callback, rules, OPA, extractions)
+export * from './dis'
