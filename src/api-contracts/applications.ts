@@ -173,7 +173,7 @@ export interface AIScanResult {
   rootednessScore?: number
   intentScore?: number
   issues: ScanIssue[]
-  recommendations: ScanRecommendation[]
+  recommendations: OfficerScanRecommendation[]
 }
 
 export interface ScanIssue {
@@ -186,11 +186,21 @@ export interface ScanIssue {
   context?: Record<string, unknown>
 }
 
-export interface ScanRecommendation {
+/**
+ * Officer-facing action an officer should take in response to a scan finding.
+ * Distinct from the applicant-facing `ScanRecommendation` in `@/types/aiScan`,
+ * which describes what the applicant should do (upload, resubmit, etc.).
+ *
+ * Reconciled in V3 Phase 1 task 1.5 to eliminate the name collision between
+ * the two definitions.
+ */
+export type OfficerActionType = 'verify' | 'request_info' | 'escalate' | 'reject'
+
+export interface OfficerScanRecommendation {
   id: string
   relatedIssueIds: string[]
   message: string
-  actionType: 'verify' | 'request_info' | 'escalate' | 'reject'
+  actionType: OfficerActionType
 }
 
 export type GetScanResultResponse = ApiResponse<AIScanResult>

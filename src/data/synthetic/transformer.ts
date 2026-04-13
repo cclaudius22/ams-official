@@ -20,7 +20,7 @@ import type {
   ApplicationStatus,
   AIScanResult,
   ScanIssue,
-  ScanRecommendation,
+  OfficerScanRecommendation,
 } from '@/api-contracts/applications';
 
 import {
@@ -650,7 +650,7 @@ export function transformToApplicationDetail(synthetic: SyntheticApplication): A
  */
 export function generateScanResult(synthetic: SyntheticApplication): AIScanResult {
   const issues: ScanIssue[] = [];
-  const recommendations: ScanRecommendation[] = [];
+  const recommendations: OfficerScanRecommendation[] = [];
 
   // Generate issues based on scenario
   if (synthetic.scenario === 'fraudulent') {
