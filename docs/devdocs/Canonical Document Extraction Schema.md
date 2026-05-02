@@ -1,15 +1,16 @@
 # DIS — Canonical Document Extraction Schema
 
-**Version:** 1.0 | **Date:** 9 April 2026 | **Owner:** C Claudius (Open Visa) | **Status:** Reference — Pending Deloitte Validation
+**Version:** 1.2 | **Date:** 14 April 2026 | **Owner:** C Claudius (Open Visa) | **Status:** PUBLISHED — All teams build against this schema
 
 **Scope:** Skilled Worker visa — Phase 1 (12 document types + CoS structured input bypass)
 
 **Purpose:** This is the single source of truth for document extraction output structure. All teams build against this schema:
-- **Ranita** — Custom Extractor field labels must match `extracted_data` field names exactly
-- **Preety** — `document_extractions` PostgreSQL table and `normalised_fields` JSONB column must conform to this structure
-- **Drools/OPA** — downstream consumers read from `normalised_fields` only
 
-**Related pages:** Field Structure (14876676), Preety's Extraction Schema (15630341), Data Extraction Strategy (13402113), Application Data Taxonomy (15663108), CoS Pipeline README (16809998)
+* **Ranita** — Custom Extractor field labels must match `extracted_data` field names exactly
+* **Preety** — `document_extractions` PostgreSQL table and `normalised_fields` JSONB column must conform to this structure
+* **Drools/OPA** — downstream consumers read from `normalised_fields` only
+
+**Related pages:** [Field Structure](https://openvisa.atlassian.net/wiki/spaces/DD/pages/14876676) | [Preety's Extraction Schema](https://openvisa.atlassian.net/wiki/spaces/DD/pages/15630341) | [Data Extraction Strategy](https://openvisa.atlassian.net/wiki/spaces/DD/pages/13402113) | [Application Data Taxonomy](https://openvisa.atlassian.net/wiki/spaces/DD/pages/15663108) | [CoS Pipeline README](https://openvisa.atlassian.net/wiki/spaces/DD/pages/16809998)
 
 ---
 
@@ -46,7 +47,7 @@ Every document extraction produces one row in the `document_extractions` Postgre
 **Column notes:**
 
 | Column | Type | Purpose |
-|--------|------|---------|
+| --- | --- | --- |
 | `extraction_id` | UUID v4 PK | Unique per extraction attempt |
 | `dis_application_id` | UUID v4 FK | Links to `applications` table |
 | `document_id` | UUID v4 FK | Links to `documents` table |
@@ -72,26 +73,42 @@ Every document extraction produces one row in the `document_extractions` Postgre
 **Fraud status thresholds (from fraud_weights.json):**
 
 | Range | Status | Action |
-|-------|--------|--------|
+| --- | --- | --- |
 | 0.00–0.30 | CLEAR | PASS |
 | 0.31–0.60 | LOW_RISK | PASS (logged) |
 | 0.61–0.80 | MEDIUM_RISK | REVIEW_REQUIRED — OPA-H05 soft flag |
 | 0.81–0.89 | HIGH_RISK | REVIEW_REQUIRED (priority) — OPA-H05 soft flag (escalated) |
 | 0.90–1.00 | CRITICAL | BLOCK — OPA-H05 hard block |
 
+**Fraud score calculation:** `fraud_score` is a weighted sum of per-signal scores. Weights vary by document category:
+
+| Signal | Passport (MRZ) | Non-MRZ ID (National ID, BRP) | Bank Statement | Tier 2 Critical (Employment, Payslip, P60, IELTS, Degree) | Supporting (TB, Utility, Police) |
+| --- | --- | --- | --- | --- | --- |
+| `metadata_analysis` | 0.10 | 0.15 | 0.15 | 0.20 | 0.30 |
+| `font_consistency` | 0.10 | 0.15 | 0.20 | 0.25 | 0.20 |
+| `layout_anomaly` | 0.05 | 0.05 | 0.10 | 0.05 | 0.00 |
+| `document_quality` | 0.10 | 0.15 | 0.10 | 0.10 | 0.20 |
+| `cross_doc_consistency` | 0.15 | 0.20 | 0.25 | 0.30 | 0.30 |
+| `mrz_check` | 0.25 | N/A | N/A | N/A | N/A |
+| `content_plausibility` | 0.25 | 0.30 | 0.20 | 0.10 | 0.00 |
+
+Formula: `fraud_score = Σ(signal_score × signal_weight)` for all applicable signals. Weights must sum to 1.0 per category. **Non-MRZ ID** redistributes Passport's MRZ weight across content plausibility, cross-document consistency, and metadata/font/quality signals. **Bank Statement** weights font consistency and cross-document consistency high because fake bank statements are the most common fraud vector in UK immigration, and salary credits must reconcile with payslips and employment letters. The detailed Fraud Scoring Weight Model (with worked examples and configurability notes) is maintained separately as an OV-owned asset.
+
 **What is NOT in this table:**
-- Certificate of Sponsorship — structured input, bypasses extraction entirely. See CoS Pipeline README (16809998).
-- Driver's Licence — not Phase 1 scope (included in Ranita's field structure for forward planning only).
+
+* Certificate of Sponsorship — structured input, bypasses extraction entirely. See [CoS Pipeline README](https://openvisa.atlassian.net/wiki/spaces/DD/pages/16809998).
+* Driver's Licence — not Phase 1 scope (included in Ranita's field structure for forward planning only).
 
 ---
 
 ## 2. Per-Document Schemas
 
 For each document type below:
-- **`extracted_data`** = what Doc AI returns (structured, typed)
-- **`normalised_fields`** = what Drools/OPA reads (standardised formats, uppercase names, ISO dates)
-- **Protection** = ENCRYPT (at rest via CMEK), HASH (one-way, for lookups), MASK (display only), PLAIN
-- **Drools consumer** = which rules read this field
+
+* `extracted_data` = what Doc AI returns (structured, typed)
+* `normalised_fields` = what Drools/OPA reads (standardised formats, uppercase names, ISO dates)
+* **Protection** = ENCRYPT (at rest via CMEK), HASH (one-way, for lookups), MASK (display only), PLAIN
+* **Drools consumer** = which rules read this field
 
 ---
 
@@ -104,7 +121,7 @@ For each document type below:
 ```json
 {
   "extracted_data": {
-    "document_number": "XK9F4A7C2Q",
+    "document_number": "XK9F4A7C2",
     "surname": "KUMARI",
     "given_names": "RANI",
     "full_name": "RANI KUMARI",
@@ -124,7 +141,7 @@ For each document type below:
     "has_signature": true
   },
   "normalised_fields": {
-    "document_number": "XK9F4A7C2Q",
+    "document_number": "XK9F4A7C2",
     "surname": "KUMARI",
     "given_names": "RANI",
     "full_name": "KUMARI, RANI",
@@ -154,7 +171,7 @@ For each document type below:
 **Field protection:**
 
 | Field | Protection | Notes |
-|-------|-----------|-------|
+| --- | --- | --- |
 | document_number | HASH | Lookup key for duplicate checks |
 | surname, given_names, full_name | ENCRYPT | PII |
 | date_of_birth | ENCRYPT | PII |
@@ -170,7 +187,7 @@ For each document type below:
 
 **Tier:** 1 | **Criticality:** CRITICAL | **Method:** DOC_AI_FORM_PARSER
 
-**Drools consumers:** RULE-W09 (maintenance funds — £1,270 for 28 days), RULE-W13 (completeness), RULE-W14 (fraud)
+**Drools consumers:** RULE-W09 (maintenance funds), RULE-W13 (completeness), RULE-W14 (fraud)
 
 ```json
 {
@@ -179,7 +196,7 @@ For each document type below:
     "account_number": "45678912",
     "sort_code": "12-34-56",
     "bank_name": "Barclays Bank UK PLC",
-    "branch_name": "Sector 62, Noida",
+    "branch_name": "Canary Wharf, London",
     "account_currency": "GBP",
     "statement_period_start": "2026-01-01",
     "statement_period_end": "2026-01-31",
@@ -219,21 +236,13 @@ For each document type below:
 }
 ```
 
-**Field protection:**
-
-| Field | Protection | Notes |
-|-------|-----------|-------|
-| account_holder_name | ENCRYPT | PII |
-| account_number | MASK | Display last 4 only |
-| sort_code | PLAIN | Non-sensitive |
-| All balances/amounts | ENCRYPT | Financial PII |
-| salary_credits | ENCRYPT | Financial PII |
+**Field protection:** ENCRYPT account_holder_name and all balances/amounts. MASK account_number (last 4 only). PLAIN sort_code.
 
 ---
 
 ### 2.3 NATIONAL_ID
 
-**Tier:** 1 | **Criticality:** SUPPORTING | **Method:** DOC_AI_ID_PARSER (Custom Processor)
+**Tier:** 1 | **Criticality:** SUPPORTING | **Method:** DOC_AI_ID_PARSER (Custom)
 
 **Drools consumers:** RULE-U04 (duplicate — secondary ID), RULE-U05 (confidence), RULE-W14 (fraud)
 
@@ -246,7 +255,7 @@ For each document type below:
     "full_name": "RANI KUMARI",
     "date_of_birth": "1993-08-14",
     "nationality": "INDIAN",
-    "gender": "F",
+    "sex": "F",
     "issue_date": "2020-03-15",
     "expiry_date": "2030-03-14",
     "issuing_authority": "Government of India",
@@ -257,7 +266,7 @@ For each document type below:
     "full_name": "KUMARI, RANI",
     "date_of_birth": "1993-08-14",
     "nationality_code": "IND",
-    "gender": "F",
+    "sex": "F",
     "issue_date": "2020-03-15",
     "expiry_date": "2030-03-14",
     "is_expired": false
@@ -275,15 +284,15 @@ For each document type below:
 
 **Field protection:** Same pattern as Passport (HASH document_number, ENCRYPT names/DOB, PLAIN the rest).
 
-**Note:** National ID has the same fraud signals as Passport **minus MRZ**. No `mrz_check` signal.
+**Note:** National ID uses the **Non-MRZ ID** fraud weight profile. No `mrz_check` signal.
 
 ---
 
 ### 2.4 BRP (Biometric Residence Permit)
 
-**Tier:** 1 | **Criticality:** SUPPORTING | **Method:** DOC_AI_ID_PARSER (Custom Processor)
+**Tier:** 1 | **Criticality:** SUPPORTING | **Method:** DOC_AI_ID_PARSER (Custom)
 
-**Drools consumers:** RULE-U04 (duplicate — secondary ID), RULE-U05 (confidence), RULE-W12 (immigration compliance — BRP expiry cross-ref)
+**Drools consumers:** RULE-U04 (duplicate — secondary ID), RULE-U05 (confidence), RULE-W12 (immigration compliance — BRP expiry cross-ref), RULE-W14 (fraud)
 
 ```json
 {
@@ -294,7 +303,7 @@ For each document type below:
     "full_name": "RANI KUMARI",
     "date_of_birth": "1993-08-14",
     "nationality": "INDIAN",
-    "gender": "F",
+    "sex": "F",
     "issue_date": "2024-01-10",
     "expiry_date": "2026-12-31",
     "issuing_authority": "UK Home Office",
@@ -306,7 +315,7 @@ For each document type below:
     "full_name": "KUMARI, RANI",
     "date_of_birth": "1993-08-14",
     "nationality_code": "IND",
-    "gender": "F",
+    "sex": "F",
     "issue_date": "2024-01-10",
     "expiry_date": "2026-12-31",
     "is_expired": false,
@@ -325,6 +334,8 @@ For each document type below:
 
 **Field protection:** Same as National ID.
 
+**Note:** BRP uses the **Non-MRZ ID** fraud weight profile. No `mrz_check` signal.
+
 ---
 
 ### 2.5 EMPLOYMENT_LETTER
@@ -333,7 +344,7 @@ For each document type below:
 
 **Drools consumers:** RULE-W03/W04/W06 (salary thresholds — cross-ref with payslip and CoS), RULE-W05 (SOC code), RULE-W07 (job skill level), RULE-W15 (start date), RULE-W13 (completeness), RULE-W14 (fraud)
 
-```json
+```
 {
   "extracted_data": {
     "employer_name": "Orion Tech Solutions Ltd",
@@ -376,7 +387,7 @@ For each document type below:
 **Field protection:**
 
 | Field | Protection | Notes |
-|-------|-----------|-------|
+| --- | --- | --- |
 | employer_name, employer_address | PLAIN | Non-sensitive |
 | job_title, start_date | PLAIN | Non-sensitive |
 | salary_amount | ENCRYPT | Financial |
@@ -393,7 +404,7 @@ For each document type below:
 
 **Drools consumers:** RULE-W03/W04/W06 (salary — cross-ref with employment letter and CoS), RULE-W09 (maintenance evidence), RULE-W13 (completeness), RULE-W14 (fraud)
 
-```json
+```
 {
   "extracted_data": {
     "employer_name": "Orion Tech Solutions Ltd",
@@ -438,7 +449,7 @@ For each document type below:
 **Field protection:**
 
 | Field | Protection | Notes |
-|-------|-----------|-------|
+| --- | --- | --- |
 | employee_name | ENCRYPT | PII |
 | employee_number | HASH | Identifier |
 | ni_number | HASH | Sensitive — never store plain |
@@ -455,7 +466,7 @@ For each document type below:
 
 **Drools consumers:** RULE-W03/W04 (salary cross-reference — annual total vs employment letter), RULE-W13 (completeness), RULE-W14 (fraud)
 
-```json
+```
 {
   "extracted_data": {
     "tax_year": "2025-2026",
@@ -501,7 +512,7 @@ For each document type below:
 
 **Drools consumers:** RULE-W08 (English language — CEFR B2+ required, effective 8 Jan 2026), RULE-W13 (completeness), RULE-W14 (fraud)
 
-```json
+```
 {
   "extracted_data": {
     "test_type": "IELTS Academic",
@@ -546,7 +557,7 @@ For each document type below:
 **Field protection:**
 
 | Field | Protection | Notes |
-|-------|-----------|-------|
+| --- | --- | --- |
 | candidate_name | ENCRYPT | PII |
 | date_of_birth | ENCRYPT | PII |
 | test_report_form_number | HASH | Unique identifier — Phase 2 TRF verification |
@@ -562,30 +573,30 @@ For each document type below:
 
 **Drools consumers:** RULE-W07 (job skill level — RQF 6+ / graduate minimum), RULE-W08 (English exemption — UK degree), RULE-W13 (completeness), RULE-W14 (fraud)
 
-```json
+```
 {
   "extracted_data": {
-    "institution_name": "University of Lagos",
+    "institution_name": "University of Birmingham",
     "candidate_name": "RANI KUMARI",
     "qualification_title": "Bachelor of Science",
     "qualification_level": "Undergraduate",
     "subject": "Computer Science",
     "award_date": "2015-07-20",
     "classification": "First Class Honours",
-    "country_of_institution": "Nigeria",
-    "certificate_number": "UNILAG-BSC-2015-4821"
+    "country_of_institution": "United Kingdom",
+    "certificate_number": "UOB-BSC-2015-4821"
   },
   "normalised_fields": {
-    "institution_name": "UNIVERSITY OF LAGOS",
+    "institution_name": "UNIVERSITY OF BIRMINGHAM",
     "candidate_name": "KUMARI, RANI",
     "qualification_title": "BACHELOR OF SCIENCE",
     "subject": "COMPUTER SCIENCE",
     "award_date": "2015-07-20",
     "classification": "FIRST_CLASS_HONOURS",
-    "country_code": "NGA",
-    "is_uk_institution": false,
+    "country_code": "GBR",
+    "is_uk_institution": true,
     "naric_reference": null,
-    "rqf_level_equivalent": null
+    "rqf_level_equivalent": 6
   },
   "fraud_signals": {
     "metadata_analysis": { "score": 0.06, "flags": [] },
@@ -601,13 +612,13 @@ For each document type below:
 **Field protection:**
 
 | Field | Protection | Notes |
-|-------|-----------|-------|
+| --- | --- | --- |
 | candidate_name | ENCRYPT | PII |
 | certificate_number | HASH | Unique identifier |
 | naric_reference | HASH | Phase 2 ENIC verification |
 | All other fields | PLAIN | Non-sensitive |
 
-**Notes:** `rqf_level_equivalent` and `naric_reference` are populated in Phase 2 when ENIC degree verification API is integrated. Phase 1 = extracted fields only; officer makes RQF assessment.
+**Notes:** Since `is_uk_institution` is `true`, this degree automatically satisfies the English language requirement (RULE-W08 exemption) and the RQF level is known without ENIC lookup (`rqf_level_equivalent: 6` for a BSc). `naric_reference` is only needed for non-UK institutions in Phase 2 when the ENIC verification API is integrated.
 
 ---
 
@@ -615,27 +626,27 @@ For each document type below:
 
 **Tier:** 2 | **Criticality:** SUPPORTING | **Method:** DOC_AI_CUSTOM_EXTRACTOR
 
-**Drools consumers:** RULE-W10 (TB test — required if nationality in Appendix T country list), RULE-W13 (completeness)
+**Drools consumers:** RULE-W10 (TB test — required if nationality in Appendix T country list), RULE-W13 (completeness), RULE-W14 (fraud — supporting doc lighter weight)
 
-```json
+```
 {
   "extracted_data": {
     "patient_name": "RANI KUMARI",
     "date_of_birth": "1993-08-14",
-    "clinic_name": "LUTH TB Screening Centre",
-    "clinic_address": "Idi Araba, Surulere, Lagos, Nigeria",
-    "issuing_country": "Nigeria",
+    "clinic_name": "Apollo TB Screening Centre",
+    "clinic_address": "21 Greams Road, Thousand Lights, Chennai, India",
+    "issuing_country": "India",
     "test_date": "2026-02-15",
     "certificate_date": "2026-02-15",
     "expiry_date": "2026-08-15",
     "outcome": "CLEAR",
-    "certificate_number": "TB-NG-2026-004821",
-    "examining_doctor": "Dr. A. Okafor"
+    "certificate_number": "TB-IN-2026-004821",
+    "examining_doctor": "Dr. S. Venkatesh"
   },
   "normalised_fields": {
     "patient_name": "KUMARI, RANI",
-    "clinic_name": "LUTH TB SCREENING CENTRE",
-    "clinic_country_code": "NGA",
+    "clinic_name": "APOLLO TB SCREENING CENTRE",
+    "clinic_country_code": "IND",
     "test_date": "2026-02-15",
     "expiry_date": "2026-08-15",
     "outcome": "CLEAR",
@@ -664,9 +675,9 @@ For each document type below:
 
 **Tier:** 2 | **Criticality:** SUPPORTING | **Method:** DOC_AI_CUSTOM_EXTRACTOR
 
-**Drools consumers:** RULE-W13 (completeness), cross-document address consistency
+**Drools consumers:** RULE-W13 (completeness), RULE-W14 (fraud — supporting doc lighter weight), cross-document address consistency
 
-```json
+```
 {
   "extracted_data": {
     "account_holder_name": "RANI KUMARI",
@@ -709,17 +720,17 @@ For each document type below:
 
 **Tier:** 2 | **Criticality:** SUPPORTING | **Method:** DOC_AI_CUSTOM_EXTRACTOR
 
-**Drools consumers:** RULE-W11 (criminal record disclosure), RULE-W13 (completeness)
+**Drools consumers:** RULE-W11 (criminal record disclosure), RULE-W13 (completeness), RULE-W14 (fraud — supporting doc lighter weight)
 
-```json
+```
 {
   "extracted_data": {
     "subject_full_name": "RANI KUMARI",
     "date_of_birth": "1993-08-14",
     "nationality": "INDIAN",
-    "issuing_authority": "Nigeria Police Force",
-    "issuing_country": "Nigeria",
-    "certificate_number": "PC-NG-2026-12345",
+    "issuing_authority": "Delhi Police",
+    "issuing_country": "India",
+    "certificate_number": "PC-IN-2026-12345",
     "issue_date": "2026-01-20",
     "expiry_date": "2026-07-20",
     "criminal_record_disclosed": false,
@@ -728,7 +739,7 @@ For each document type below:
   "normalised_fields": {
     "subject_name": "KUMARI, RANI",
     "nationality_code": "IND",
-    "issuing_country_code": "NGA",
+    "issuing_country_code": "IND",
     "issue_date": "2026-01-20",
     "expiry_date": "2026-07-20",
     "is_expired": false,
@@ -755,8 +766,9 @@ For each document type below:
 CoS is a structured reference number, not a document. It does **not** go through Document AI extraction and does **not** appear in the `document_extractions` table.
 
 CoS data enters via `answers.employment.cosReferenceNumber` in the submission payload and is resolved via the CoS mock register lookup. See:
-- CoS Pipeline README (page 16809998)
-- Application Data Taxonomy (page 15663108)
+
+* [CoS Pipeline README](https://openvisa.atlassian.net/wiki/spaces/DD/pages/16809998)
+* [Application Data Taxonomy](https://openvisa.atlassian.net/wiki/spaces/DD/pages/15663108)
 
 **Do not add CoS to this schema. Do not create a Custom Extractor for CoS. Do not include CoS in fraud signal tables.**
 
@@ -767,7 +779,7 @@ CoS data enters via `answers.employment.cosReferenceNumber` in the submission pa
 Several `normalised_fields` contain `null` values that are populated **after** extraction by the pipeline's cross-document consistency checks:
 
 | Field | Populated By | Logic |
-|-------|-------------|-------|
+| --- | --- | --- |
 | `salary_matches_cos` | CoS lookup pipeline | Compare employment letter `annual_salary_gbp` with CoS `annualIncome` |
 | `employer_matches_cos` | CoS lookup pipeline | Compare employment letter `employer_name` with CoS sponsor name |
 | `employer_matches_employment_letter` | Cross-doc pipeline | Compare payslip `employer_name` with employment letter `employer_name` |
@@ -777,17 +789,18 @@ Several `normalised_fields` contain `null` values that are populated **after** e
 | `is_approved_clinic` | Reference data lookup | TB clinic name against `approved_tb_clinics.json` |
 | `address_matches_application` | Cross-doc pipeline | Utility bill address vs application declared address |
 
-These fields are **critical for `cross_doc_consistency` fraud signal scoring** (weight 0.30 for non-ID documents).
+These fields are **critical for** `cross_doc_consistency` fraud signal scoring (weight 0.30 for non-ID documents).
 
 ---
 
 ## 5. Extraction Method Reference
 
 | Method | Used For | Notes |
-|--------|----------|-------|
-| `DOC_AI_ID_PARSER` | Passport, National ID, BRP | Google pre-trained ID document parser |
+| --- | --- | --- |
+| `DOC_AI_ID_PARSER` | Passport | Google pre-trained ID document parser |
+| `DOC_AI_ID_PARSER` (Custom) | National ID, BRP | Custom-trained variant of ID Parser — required due to format variation across issuing countries. Needs labelled samples per nationality. |
 | `DOC_AI_FORM_PARSER` | Bank Statement | Google pre-trained form/table parser |
-| `DOC_AI_CUSTOM_EXTRACTOR` | Employment Letter, Payslip, P60, IELTS, Degree, TB Cert, Utility Bill, Police Cert | Custom-trained on SCRUM-21 corpus. Requires labelled samples per doc type. |
+| `DOC_AI_CUSTOM_EXTRACTOR` | Employment Letter, Payslip, P60, IELTS, Degree, TB Cert, Utility Bill, Police Cert | Custom-trained on SCRUM-21 corpus |
 | ~~GEMINI_VISION~~ | ~~RULED OUT~~ | Non-deterministic outputs, hallucination risk. Not used anywhere in DIS. |
 
 ---
@@ -795,11 +808,13 @@ These fields are **critical for `cross_doc_consistency` fraud signal scoring** (
 ## 6. Normalisation Rules (Applied to All Types)
 
 | Rule | Example |
-|------|---------|
+| --- | --- |
 | Names → UPPERCASE | "Rani Kumari" → "KUMARI, RANI" (surname-first) |
 | Dates → ISO 8601 | "14 Aug 1993" → "1993-08-14" |
 | Country → ISO 3166-1 alpha-3 | "India" → "IND", "Nigeria" → "NGA" |
 | Currency amounts → GBP with 2dp | 50253 → 50253.00 |
+| Rounding → half-up to 2dp | £50,253 ÷ 52 ÷ 38.5 = 25.0965… → 25.10 |
+| Sex field → ICAO standard | All identity documents use `sex` (not `gender`) per ICAO 9303 |
 | Boolean flags computed | `is_expired`, `meets_b2_minimum`, `test_within_2_years` |
 | Months-to-expiry computed | Relative to `NOW()` at extraction time |
 
@@ -808,9 +823,11 @@ These fields are **critical for `cross_doc_consistency` fraud signal scoring** (
 ## 7. Version History
 
 | Version | Date | Author | Changes |
-|---------|------|--------|---------|
+| --- | --- | --- | --- |
 | 1.0 | 9 April 2026 | C Claudius (OV) | Initial canonical schema — Skilled Worker Phase 1 |
+| 1.1 | 14 April 2026 | C Claudius (OV) | Published to Confluence. Fixed: sex field standardised to ICAO 9303 across all identity docs (was gender on National ID and BRP). Passport document_number corrected to match MRZ (9 chars). RULE-W14 added to TB Certificate, Utility Bill, Police Certificate consumers. Bank Statement branch_name corrected to UK. Fraud weight formula added. Rounding convention documented. |
+| 1.2 | 14 April 2026 | C Claudius (OV) | Fixed: Bank Statement added as separate fraud weight category (was missing from all three profiles). Fixed: National ID and BRP split into "Non-MRZ ID" weight profile (previous ID Documents weights summed to 0.75 without mrz_check). Fixed: BRP Drools consumers now includes RULE-W14 (fraud). Clarified: ID Parser (Custom) distinguished from pre-trained for National ID and BRP in extraction method reference. |
 
 ---
 
-*This schema supersedes individual extraction schema proposals on pages 15630341 and 14876676. Both Ranita and Preety should validate their implementations against this document and flag any discrepancies.*
+_This schema supersedes individual extraction schema proposals on pages_ [_15630341_](https://openvisa.atlassian.net/wiki/spaces/DD/pages/15630341) _and_ [_14876676_](https://openvisa.atlassian.net/wiki/spaces/DD/pages/14876676)_. Both Ranita and Preety should validate their implementations against this document and flag any discrepancies._

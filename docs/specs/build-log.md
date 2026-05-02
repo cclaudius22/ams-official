@@ -21,10 +21,22 @@
 
 ## Current position
 
-**Phase:** Phase 1 — Type Alignment — ✅ COMPLETE
-**Last completed:** Tasks 1.3, 1.4, 1.5, 1.6 (pending commit)
-**Next up:** Phase 2A Task 2.0 — Replace `AIScanResult` type with `DISApplicationView` in the reviewer page
-**Blocked on:** Nothing
+**Phase:** Phase 1 — Type Alignment — ✅ COMPLETE (+ V1.2 canonical revision applied 14 Apr)
+**Last completed:** V1.2 canonical alignment revision — `extraction.ts` rewritten, fraud signals typed, V3 spec Section 6.2 + 10.4 updated
+**Next up:** Phase 2A — schema-independent tasks only (Option B strategy)
+**Partially blocked on:** Deloitte sign-off (6 artifacts requested 2026-04-15, Monday EOD deadline) — see [`deloitte-signoff-request-2026-04-15.md`](./deloitte-signoff-request-2026-04-15.md)
+
+**What we can build without sign-off (28 of 31 Phase 2 tasks):**
+- 2A: 2.0, 2.1, 2.2, 2.3, 2.4, 2.6, 2.9, 2.10, 2.11, 2.12, 2.13, 2.14, 2.15
+- 2B: all 5 tasks (Rules Management UI Prototype)
+- 2C: all 5 tasks (Verification Hub enhancements)
+- 2D: all 5 tasks (API Gateway Admin Prototype)
+
+**Parked until sign-off lands (3 tasks):**
+- 2.5 — Document Extraction Viewer (reads per-doc fields)
+- 2.7 — Fraud Detail View (reads per-doc fraud signals)
+- 2.8 — Cross-Document Consistency View (reads normalised_fields)
+- 2.16 — Mock DIS data transformer (needs final fixture shapes)
 
 ---
 
@@ -51,24 +63,48 @@
 
 ---
 
-### Task 1.2 — Create `src/types/extraction.ts` — ✅ DONE
+### Task 1.2 — Create `src/types/extraction.ts` — ✅ DONE (revised 14 Apr for V1.2)
 
-**Commit:** `c0eebb0` (same checkpoint as 1.1)
+**Initial commit:** `c0eebb0` (14 Apr, AM — V1.0-aligned)
+**Revision commit:** pending (14 Apr, afternoon — V1.2-aligned)
 **Files:**
-- `src/types/extraction.ts` (new)
+- `src/types/extraction.ts` (rewritten in full — too many field changes for piecewise edits)
+- `src/api-contracts/dis.ts` (added `FraudSignal` + `FraudSignals` types, updated `DocumentExtraction.fraud_signals` shape)
 
-**What's in it:**
-- 10 typed extraction schemas: `PassportExtractedData`, `BankStatementExtractedData`, `NationalIdExtractedData`, `BrpExtractedData`, `EmploymentLetterExtractedData`, `PayslipExtractedData`, `P60TaxExtractedData`, `IeltsCertificateExtractedData`, `DegreeCertificateExtractedData`, `TbCertificateExtractedData`
-- `FlexibleExtractedData` for Utility Bill / Police Certificate (flexible JSONB)
-- `TypedDocumentExtraction` discriminated union — narrows extracted_data shape by `document_type`
+**Initial content (V1.0 aligned):**
+- 10 typed extraction schemas + `FlexibleExtractedData` for Utility Bill / Police Certificate
+- `TypedDocumentExtraction` discriminated union
 
-**Verification:** `npx tsc --noEmit` — zero errors
+**Revision — why:** On 14 April Chris pasted Canonical Schema V1.2 into `docs/devdocs/Canonical Document Extraction Schema.md`. Full cross-check found **25 anomalies** across 11 of 12 doc types. Only `P60TaxExtractedData` survived unchanged.
+
+**Revision content (V1.2 aligned):**
+- All 12 types rewritten with V1.2-exact fields
+- Phantom envelope-level fields removed from all `extracted_data` interfaces (`document_authenticity_score`, `fraud_flags`, `fraud_signals`, `confidence_score` — these belong on the envelope, not inside extracted_data)
+- Passport: `document_type` → `document_type_code` rename
+- National ID, BRP: `gender` → `sex` (ICAO 9303), BRP adds `visa_type_on_brp`
+- Bank Statement: full restructure — removed Indian-bank-specific fields (`micr_code`, `ifsc_code`), added `bank_name`, `lowest_balance`, `total_credits`, `total_debits`, `salary_credits[]`, split `statement_period` → start/end
+- Employment Letter: added `company_registration_number`, `on_company_letterhead`, widened `employment_type` enum to include `FULL_TIME`/`PART_TIME`
+- Payslip: added `ni_number`, `tax_code`
+- IELTS: added `centre_number`
+- Degree: added `certificate_number`, removed `naric_reference` from extracted_data (pipeline-populated into normalised_fields only)
+- TB Cert: major renames (`patient_full_name`→`patient_name`, `issuing_clinic_or_hospital`→`clinic_name`, `examining_doctor_name`→`examining_doctor`), added `clinic_address`, split `issue_date` into `test_date`+`certificate_date`
+- Utility Bill: converted from `FlexibleExtractedData` alias to proper structured `UtilityBillExtractedData` interface (9 fields)
+- Police Cert: converted from `FlexibleExtractedData` alias to proper structured `PoliceCertificateExtractedData` interface (10 fields)
+- Removed `FlexibleExtractedData` entirely — no longer needed since V1.2 specifies all doc types as structured
+
+**`dis.ts` fraud_signals typing:**
+- New `FraudSignal` interface: `{ score: number, flags: string[] }`
+- New `FraudSignals` type: `Record<string, FraudSignal>`
+- `DocumentExtraction.fraud_signals` changed from `Record<string, unknown>` to `FraudSignals | null`
+- Added comment on `ExtractionMethod` noting National ID / BRP use CUSTOM variant of ID Parser (distinguished via `processor_version` not the enum value)
+
+**Verification:** `npx tsc --noEmit` — zero errors on all 8 Phase 1 files
 
 ---
 
 ### Task 1.3 — Extend `ApplicationData` with DIS fields — ✅ DONE
 
-**Commit:** pending (bundled with 1.4, 1.5, 1.6)
+**Commit:** `f32fb5b` — "feat(dis): Phase 1 tasks 1.3-1.6 — ApplicationData + nationality + outcome normalisation + completeness config"
 **Files:**
 - `src/types/application.ts` (modified)
 
@@ -85,7 +121,7 @@
 
 ### Task 1.4 — Create `src/lib/nationality.ts` — ✅ DONE
 
-**Commit:** pending
+**Commit:** `f32fb5b` (same checkpoint as 1.3, 1.5, 1.6)
 **Files:**
 - `src/lib/nationality.ts` (new)
 
@@ -110,7 +146,7 @@
 
 ### Task 1.5 — Reconcile `ScanRecommendation.actionType` + decision enum — ✅ DONE
 
-**Commit:** pending
+**Commit:** `f32fb5b` (same checkpoint as 1.3, 1.4, 1.6)
 **Files:**
 - `src/api-contracts/applications.ts` (modified — renamed interface + type)
 - `src/data/synthetic/transformer.ts` (modified — updated import)
@@ -137,7 +173,7 @@
 
 ### Task 1.6 — Create `CompletenessConfig` + Skilled Worker config — ✅ DONE
 
-**Commit:** pending
+**Commit:** `f32fb5b` (same checkpoint as 1.3, 1.4, 1.5)
 **Files:**
 - `src/types/completeness.ts` (new)
 
@@ -201,6 +237,7 @@ If we crash and come back fresh:
 
 | Commit | Date | Tasks | Summary |
 |--------|------|-------|---------|
+| `f32fb5b` | 2026-04-13 | 1.3, 1.4, 1.5, 1.6 | ApplicationData extension + nationality lib + outcome normalisation + completeness config. **Phase 1 complete.** |
 | `c0eebb0` | 2026-04-13 | 1.1, 1.2 | DIS API contract + extraction types |
 
 _Add new commits to the top of this table as they land._

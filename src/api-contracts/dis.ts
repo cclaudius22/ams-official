@@ -223,9 +223,15 @@ export interface ExternalCheckResult {
  * Extraction methods. Gemini Vision was RULED OUT (hallucination risk,
  * non-deterministic). Doc AI is used across both tiers.
  *
- * DOC_AI_ID_PARSER        — Tier 1 specialised processor for Passport, National ID, BRP
- * DOC_AI_FORM_PARSER      — Tier 1 general processor for Bank Statement
- * DOC_AI_CUSTOM_EXTRACTOR — Tier 2 trained processor for all other docs (Employment Letter, Payslip, P60, IELTS, Degree, TB Cert, Utility Bill, Police Cert)
+ * DOC_AI_ID_PARSER        — Tier 1 ID document parser. Used as the Google pre-trained
+ *                           processor for Passport, and as a CUSTOM-trained variant for
+ *                           National ID and BRP (due to format variation across issuing
+ *                           countries). The pre-trained vs custom distinction is captured
+ *                           on the envelope's `processor_version` field, not here.
+ * DOC_AI_FORM_PARSER      — Tier 1 general form/table parser for Bank Statement.
+ * DOC_AI_CUSTOM_EXTRACTOR — Tier 2 trained processor for Employment Letter, Payslip,
+ *                           P60, IELTS, Degree, TB Cert, Utility Bill, Police Cert.
+ *                           Custom-trained on the SCRUM-21 synthetic corpus.
  */
 export type ExtractionMethod =
   | 'DOC_AI_ID_PARSER'
@@ -244,6 +250,32 @@ export type DocumentCriticality = 'CRITICAL' | 'SUPPORTING'
  * CRITICAL     0.90-1.00  — BLOCK (OPA-H05 hard block)
  */
 export type FraudStatus = 'CLEAR' | 'LOW_RISK' | 'MEDIUM_RISK' | 'HIGH_RISK' | 'CRITICAL'
+
+/**
+ * A single fraud signal result. Every document's `fraud_signals` object is a
+ * Record keyed by signal name (e.g., `metadata_analysis`, `font_consistency`,
+ * `layout_anomaly`, `document_quality`, `cross_doc_consistency`, `mrz_check`,
+ * `content_plausibility`) with a `FraudSignal` value.
+ *
+ * `score` is the per-signal score 0.0-1.0. The composite `fraud_score` on the
+ * envelope is computed as a weighted sum of signal scores — weights vary by
+ * document category (see Canonical Schema Section 1 fraud weight table).
+ *
+ * `flags` is a list of human-readable machine flag strings (e.g.,
+ * `FONT_INCONSISTENCY_DETECTED`, `EXIF_MISSING`) that explain why the score
+ * came out the way it did. AMS displays these in the Fraud Detail view.
+ */
+export interface FraudSignal {
+  score: number             // 0.0-1.0
+  flags: string[]
+}
+
+/**
+ * The applicable signal keys for a document. Not all documents have all
+ * signals — `mrz_check` is Passport-only, `layout_anomaly` is N/A for
+ * Supporting docs, etc. See Canonical Schema Section 1 weight table.
+ */
+export type FraudSignals = Record<string, FraudSignal>
 
 /**
  * The 12 document types in scope for Skilled Worker Phase 1.
@@ -281,7 +313,7 @@ export interface DocumentExtraction {
   normalised_fields: Record<string, unknown>   // schema-mapped, normalised (downstream consumers read this)
   fraud_score: number | null                   // null for GovDirect non-image docs
   fraud_status: FraudStatus | null
-  fraud_signals: Record<string, unknown> | null
+  fraud_signals: FraudSignals | null            // { signal_name: { score, flags[] } } — see Canonical Schema
   source_channel: SourceChannel
   gcs_raw_path: string           // gs://dis-raw-uploads/{app_id}/{doc_id}.{ext}
   gcs_processed_path: string     // gs://dis-processed-docs/{app_id}/{doc_id}.json

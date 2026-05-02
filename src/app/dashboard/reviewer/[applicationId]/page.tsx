@@ -18,7 +18,9 @@ import RejectDialog from '@/components/dialogs/RejectDialog';
 
 import { ApplicationData } from '@/types/application'
 import { AIScanResult } from '@/types/aiScan'
+import type { DISApplicationView } from '@/api-contracts/dis'
 import { triggerNewScan } from '@/lib/api/scans' // Assuming these work
+import { disViewToLegacyScan } from '@/lib/disViewAdapter'
 import { Accordion } from "@/components/ui/accordion";
 import {
   FileText, Fingerprint, User, MapPin, Globe, Briefcase, CreditCard, Plane, Shield,
@@ -32,6 +34,7 @@ import { Badge } from '@/components/ui/badge'
 // Mock data imports (fallback if API fails)
 import { mockApplicationData } from '@/lib/mockdata'
 import { mockScanResult } from '@/lib/mockdata'
+import { mockDISApplicationView } from '@/lib/mockDISData'
 
 // Default empty scan result - use mock as default to ensure page always renders
 const emptyScanResult: AIScanResult = mockScanResult;
@@ -53,6 +56,13 @@ export default function OfficialReviewPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // DIS integration state (Phase 2 — task 2.0)
+  // disView is the canonical DIS processing result. scanResult above is derived
+  // from it via disViewToLegacyScan() for backwards compat with existing components.
+  // Task 2.1 replaces AIScanResultsRedesigned with ComponentScoresDashboard, at
+  // which point scanResult state and the adapter are removed.
+  const [disView, setDisView] = useState<DISApplicationView>(mockDISApplicationView);
+
   // Mock application IDs used by Rachel Johnson (Demo)
   const demoApplicationIds = ['VK-2024-1835', 'VK-2024-1836', 'UK-2024-1837', 'UK-2024-1838'];
 
@@ -68,7 +78,8 @@ export default function OfficialReviewPage() {
       if (demoApplicationIds.includes(applicationId)) {
         console.log('Using mock data for demo application:', applicationId);
         setApplicationData(mockApplicationData);
-        setScanResult(mockScanResult);
+        setDisView(mockDISApplicationView);
+        setScanResult(disViewToLegacyScan(mockDISApplicationView));
         setIsLoading(false);
         return;
       }

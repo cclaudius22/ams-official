@@ -319,37 +319,49 @@ Every document produces one row. Envelope is identical for all types — only `e
 
 ### 6.2 Per-Document Extracted Fields
 
-For each document: `extracted_data` = what Doc AI returns. `normalised_fields` = what Drools/OPA reads (ISO dates, uppercase names).
+**Aligned to Canonical Document Extraction Schema V1.2 (14 April 2026).** Full details: `docs/devdocs/Canonical Document Extraction Schema.md`. TypeScript interfaces: `src/types/extraction.ts`.
 
-**PASSPORT (Tier 1, Critical, ID Parser):**
-`document_number`, `surname`, `given_names`, `full_name`, `date_of_birth`, `nationality`, `sex`, `issue_date`, `expiry_date`, `issuing_country`, `country_code`, `document_type`, `place_of_birth`, `place_of_issue`, `mrz_line_1`, `mrz_line_2`, `photo_hash`, `has_signature`, `document_authenticity_score`, `fraud_flags`, `fraud_signals { mrz_valid, photo_match, font_consistency }`, `confidence_score`
+`extracted_data` = what Doc AI returns. `normalised_fields` = pipeline-mapped values Drools/OPA consume (ISO dates, uppercase surname-first names, computed flags like `is_expired`, cross-doc consistency results).
 
-**BANK STATEMENT (Tier 1, Critical, Form Parser):**
-`account_holder_name`, `account_number`, `sort_code`, `micr_code`, `ifsc_code`, `customer_id`, `account_currency`, `product_name`, `branch_name`, `statement_period`, `opening_balance`, `closing_balance`, `confidence_score`
+Envelope fields like `extraction_confidence`, `fraud_score`, `fraud_status`, `fraud_signals` are NOT inside `extracted_data` — they're top-level fields on the `document_extractions` table row.
 
-**EMPLOYMENT LETTER (Tier 2, Critical, Custom Extractor):**
-`employer_name`, `job_title`, `start_date`, `salary_amount`, `salary_frequency`, `employment_type`, `hours_per_week`, `employer_address`, `signatory_name`, `signatory_position`, `letter_date`
+**PASSPORT (Tier 1, Critical, DOC_AI_ID_PARSER pre-trained):**
+`document_number` (9 chars, matches MRZ), `surname`, `given_names`, `full_name`, `date_of_birth`, `nationality`, `sex` (ICAO 9303), `issue_date`, `expiry_date`, `issuing_country`, `country_code` (ISO 3166-1 alpha-3), `document_type_code` (e.g., "P"), `place_of_birth`, `place_of_issue`, `mrz_line_1`, `mrz_line_2`, `photo_hash`, `has_signature`
 
-**PAYSLIP (Tier 2, Critical, Custom Extractor):**
-`employer_name`, `employee_name`, `pay_period_start`, `pay_period_end`, `gross_pay`, `net_pay`, `tax_deducted`, `ni_deducted`, `pay_frequency`, `payslip_date`, `employee_number`
+**BANK STATEMENT (Tier 1, Critical, DOC_AI_FORM_PARSER):**
+`account_holder_name`, `account_number`, `sort_code`, `bank_name`, `branch_name`, `account_currency`, `statement_period_start`, `statement_period_end`, `opening_balance`, `closing_balance`, `lowest_balance`, `total_credits`, `total_debits`, `salary_credits[]` (array of `{date, amount, description}`)
 
-**P60 / TAX (Tier 2, Critical, Custom Extractor):**
-`tax_year`, `employer_name`, `employee_name`, `ni_number`, `total_pay_in_year`, `total_tax_in_year`, `total_ni_in_year`, `employer_paye_reference`
+**NATIONAL_ID (Tier 1, Supporting, DOC_AI_ID_PARSER custom):**
+`document_number`, `given_names`, `surname`, `full_name`, `date_of_birth`, `nationality`, `sex` (ICAO 9303), `issue_date`, `expiry_date`, `issuing_authority`, `has_photo`
 
-**IELTS CERTIFICATE (Tier 2, Critical, Custom Extractor):**
-`test_type`, `candidate_name`, `date_of_birth`, `test_date`, `overall_score`, `listening_score`, `reading_score`, `writing_score`, `speaking_score`, `test_report_form_number`, `cefr_level`
+**BRP (Tier 1, Supporting, DOC_AI_ID_PARSER custom):**
+`document_number`, `given_names`, `surname`, `full_name`, `date_of_birth`, `nationality`, `sex`, `issue_date`, `expiry_date`, `issuing_authority`, `visa_type_on_brp`, `has_photo`
 
-**DEGREE CERTIFICATE (Tier 2, Critical, Custom Extractor):**
-`institution_name`, `candidate_name`, `qualification_title`, `qualification_level`, `subject`, `award_date`, `classification`, `country_of_institution`, `naric_reference`
+**EMPLOYMENT LETTER (Tier 2, Critical, DOC_AI_CUSTOM_EXTRACTOR):**
+`employer_name`, `employer_address`, `job_title`, `start_date`, `salary_amount`, `salary_frequency`, `hours_per_week`, `employment_type` (FULL_TIME / PART_TIME / PERMANENT / FIXED_TERM / CONTRACT), `signatory_name`, `signatory_position`, `letter_date`, `company_registration_number`, `on_company_letterhead`
 
-**TB CERTIFICATE (Tier 2, Supporting, Custom Extractor):**
-`patient_full_name`, `date_of_birth`, `certificate_type`, `issuing_clinic_or_hospital`, `issuing_country`, `examining_doctor_name`, `issue_date`, `expiry_date`, `certificate_number`, `outcome`
+**PAYSLIP (Tier 2, Critical, DOC_AI_CUSTOM_EXTRACTOR):**
+`employer_name`, `employee_name`, `employee_number`, `pay_period_start`, `pay_period_end`, `gross_pay`, `net_pay`, `tax_deducted`, `ni_deducted`, `pay_frequency`, `payslip_date`, `ni_number` (HASHED), `tax_code`
 
-**UTILITY BILL (Tier 2, Supporting, Custom Extractor — flexible JSONB):**
-`document_type`, `extraction_confidence`, `extracted_text_summary`, `key_value_pairs { account_holder, address, amount }`, `dates_found[]`, `names_found[]`, `amounts_found[]`
+**P60 / TAX (Tier 2, Critical, DOC_AI_CUSTOM_EXTRACTOR):**
+`tax_year`, `employer_name`, `employee_name`, `ni_number` (HASHED), `total_pay_in_year`, `total_tax_in_year`, `total_ni_in_year`, `employer_paye_reference`
 
-**POLICE CERTIFICATE (Tier 2, Supporting, Custom Extractor — flexible JSONB):**
-Same flexible JSONB structure as Utility Bill.
+**IELTS CERTIFICATE (Tier 2, Critical, DOC_AI_CUSTOM_EXTRACTOR):**
+`test_type`, `candidate_name`, `date_of_birth`, `test_date`, `overall_score`, `listening_score`, `reading_score`, `writing_score`, `speaking_score`, `test_report_form_number` (HASHED), `centre_number`, `cefr_level`
+
+**DEGREE CERTIFICATE (Tier 2, Critical, DOC_AI_CUSTOM_EXTRACTOR):**
+`institution_name`, `candidate_name`, `qualification_title`, `qualification_level`, `subject`, `award_date`, `classification`, `country_of_institution`, `certificate_number` (HASHED)
+*Note:* `naric_reference` and `rqf_level_equivalent` live in `normalised_fields` only — populated by Phase 2 ENIC API.
+
+**TB CERTIFICATE (Tier 2, Supporting, DOC_AI_CUSTOM_EXTRACTOR):**
+`patient_name`, `date_of_birth`, `clinic_name`, `clinic_address`, `issuing_country`, `test_date`, `certificate_date`, `expiry_date`, `outcome`, `certificate_number` (HASHED), `examining_doctor`
+*Note:* `is_approved_clinic` lives in `normalised_fields` — populated by `approved_tb_clinics.json` lookup.
+
+**UTILITY BILL (Tier 2, Supporting, DOC_AI_CUSTOM_EXTRACTOR — structured):**
+`account_holder_name`, `service_address`, `utility_type` (COUNCIL_TAX / ELECTRICITY / GAS / WATER / INTERNET / PHONE / TV_LICENCE), `supplier_name`, `bill_date`, `billing_period_start`, `billing_period_end`, `account_number` (HASHED), `amount_due`
+
+**POLICE CERTIFICATE (Tier 2, Supporting, DOC_AI_CUSTOM_EXTRACTOR — structured):**
+`subject_full_name`, `date_of_birth`, `nationality`, `issuing_authority`, `issuing_country`, `certificate_number` (HASHED), `issue_date`, `expiry_date`, `criminal_record_disclosed`, `certificate_type`
 
 ### 6.3 Cross-Document Consistency Fields
 
@@ -552,6 +564,33 @@ From Ranita's Data Extraction Strategy (updated 11 April 2026):
 | `line_gap_var` | NO | YES (vertical gap between PDF blocks) | Images use `row_gap_var` |
 
 **AMS impact:** The fraud detail view must show which signals were applicable (based on document format) and which were N/A. GovDirect channel: image-based signals are always N/A.
+
+### 10.4 Fraud Signal Weights by Document Category
+
+Per-signal weights used to compute the composite `fraud_score` on each `document_extractions` row. Weights sum to 1.0 per category.
+
+**Source:** Canonical Document Extraction Schema V1.2, Section 1. The detailed Fraud Scoring Weight Model (with worked examples) is maintained separately as an OV-owned asset.
+
+| Signal | Passport (MRZ) | Non-MRZ ID (National ID, BRP) | Bank Statement | Tier 2 Critical (Employment, Payslip, P60, IELTS, Degree) | Supporting (TB, Utility, Police) |
+|--------|:---:|:---:|:---:|:---:|:---:|
+| `metadata_analysis` | 0.10 | 0.15 | 0.15 | 0.20 | 0.30 |
+| `font_consistency` | 0.10 | 0.15 | 0.20 | 0.25 | 0.20 |
+| `layout_anomaly` | 0.05 | 0.05 | 0.10 | 0.05 | 0.00 |
+| `document_quality` | 0.10 | 0.15 | 0.10 | 0.10 | 0.20 |
+| `cross_doc_consistency` | 0.15 | 0.20 | 0.25 | 0.30 | 0.30 |
+| `mrz_check` | 0.25 | N/A | N/A | N/A | N/A |
+| `content_plausibility` | 0.25 | 0.30 | 0.20 | 0.10 | 0.00 |
+
+**Formula:** `fraud_score = Σ(signal_score × signal_weight)` for all applicable signals.
+
+**Category rationale:**
+- **Passport (MRZ):** Uses the full 7-signal profile including `mrz_check` (25% weight). Only document type with MRZ.
+- **Non-MRZ ID:** Passport's MRZ weight redistributed across content plausibility (+0.05), metadata (+0.05), cross-doc consistency (+0.05), font consistency (+0.05), quality (+0.05). Covers National ID and BRP.
+- **Bank Statement:** Heaviest weights on `font_consistency` (0.20), `cross_doc_consistency` (0.25), and `content_plausibility` (0.20) — fake bank statements are the most common UK immigration fraud vector and salary credits must reconcile with payslips + employment letters.
+- **Tier 2 Critical:** Dominant signal is `cross_doc_consistency` (0.30) because employment, payslips, P60, IELTS, and degree must all agree with each other and with CoS. Font consistency (0.25) catches template-copied documents.
+- **Supporting:** `cross_doc_consistency` (0.30) and `metadata_analysis` (0.30) dominate. `layout_anomaly` and `content_plausibility` drop to 0.00 — these documents have more natural format variation and lighter fraud impact.
+
+**AMS impact:** The Fraud Detail modal (V3 component 12.3) should display the per-signal score AND weight side by side so officers can see which signals drove the composite score. Without this context, a 0.25 signal score is meaningless — it might be negligible (weight 0.05 = 0.0125 contribution) or decisive (weight 0.30 = 0.075 contribution).
 
 ---
 
@@ -1122,17 +1161,17 @@ Separate from the Verification Hub. This is the **admin/ops** view of the 6 DIS 
 
 ### What's PENDING from Deloitte
 
-| Item | Owner | Waiting Since | Impact on AMS |
-|------|-------|---------------|---------------|
-| Exact threshold values (hard-fail, soft-flag, auto-approve) | Neeraj | **Mar 23 (20 days)** | Low — AMS reads what DIS sends, doesn't enforce thresholds |
-| Component score weighting for `overall_score` | Neeraj | **Mar 23 (20 days)** | Low — AMS displays the score, doesn't compute it |
-| Preety's extraction schema corrections (7 items) | Preety | **Apr 1 (11 days)** | Medium — using our Canonical Schema instead |
-| DecisionDraft V2 | Ranita/Preety | **Apr 6 punch list** | Low — V1 content already incorporated |
-| OpenAPI 3.0 spec for DIS API (SCRUM-17) | Deloitte | **Mar 26** | Medium — we're building mock-first, will align when spec arrives |
-| PostgreSQL + BigQuery schemas | Preety | **Requested Q32** | Medium — we know the JSON shapes, need DDL for integration |
-| Error/retry contract (DIS down, timeout handling) | Neeraj | **Not started** | Medium — affects AMS error states |
-| Satyarth fraud timeline | Satyarth | **Apr 6** | Low — corpus fraud variants already built |
-| RULE-W13 completeness weights | Neeraj | **Not specified** | Low — weights are configurable |
+| Item | Raised | Impact on AMS |
+|------|--------|---------------|
+| Exact threshold values (hard-fail, soft-flag, auto-approve) | 23 March | Low — AMS reads what DIS sends, doesn't enforce thresholds |
+| Component score weighting for `overall_score` | 23 March | Low — AMS displays the score, doesn't compute it |
+| 7 extraction schema corrections | 1 April | Medium — using our Canonical Schema instead |
+| DecisionDraft V2 | 6 April | Low — V1 content already incorporated |
+| OpenAPI 3.0 spec for DIS API (SCRUM-17) | 26 March | Medium — we're building mock-first, will align when spec arrives |
+| PostgreSQL + BigQuery schemas (Q32) | open | Medium — we know the JSON shapes, need DDL for integration |
+| Error/retry contract (DIS down, timeout handling) | open | Medium — affects AMS error states |
+| Fraud sample timeline | 6 April | Low — corpus fraud variants already built |
+| RULE-W13 completeness weights | open | Low — weights are configurable |
 
 ### Assessment
 
