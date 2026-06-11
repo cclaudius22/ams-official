@@ -4,7 +4,29 @@
 
 ---
 
-## Last session: 2 May 2026
+## Last session: 11 June 2026
+
+### What happened this session
+
+1. **Chris rejected the original thin DIS_Officer_UI_Data_Contract.md**; it was rewritten the same day as the "Full Frontend Data Contract" (V4-aligned, ownership-keyed) — useful companion, but superseded where V5 §9 corrects it
+2. **Scope-gap email sent to Deloitte (Siddharth)** demanding the 5 officer-dashboard read endpoints — confirmation/contracts/dates by **EOD 12 June**, deployed-code push to main by **9:00 12 June**
+3. **As-built route audit** (`docs/specs/dis-api-route-audit-2026-06-11.md`): zero read endpoints exist in spec, code, or the live env. dis-api `main`/`dev` are empty; code on `release/dev` (`945e9c9`) = intake service (1 endpoint) + doc-upload dispatcher. Live dev project `prj-dev-dis-9666` verified directly: ghost **Status API** (`cldrn-dev-dis-end-api`, deployed 10 June by Neeraj, in no repo) exposes only `GET /api/v1/applications/{id}/status`; its env is wired to ALL read tables — natural read-layer host. Live decisions table is named **`recommendations`**
+4. **V5 spec written** (`docs/specs/2026-06-11-dis-integration-spec-v5.md`) — supersedes V3 + V4 §2/§8/§9 on data contracts; V4 keeps UX authority. Headline: as-built `applications.status` is CREATED → completeness verdict and never updates again — **queue state must be derived** (V5 §4). REJECTED disabled in code. Callback payload (V5 §5) is the authoritative detail shape. Six read-endpoint contracts defined ownership-neutrally (V5 §6)
+
+### What's next
+
+1. **Morning 12 June, before standup:** verification protocol (V5 §11) — re-audit repos + Cloud Run + Status API openapi.json; check whether Deloitte pushed
+2. **Task 2.0b** — type alignment patch (V5 §8: rule/OPA renames, nullable component scores, BORDER_CONTROL, rebuild mocks + adapter)
+3. **Task 2.1** — `RecommendationSummaryPanel` (renamed from DecisionSummaryPanel per language rule)
+4. Deloitte response → V5 §10 contingency table
+
+### Uncommitted at session end
+
+V5 spec, route audit doc, rewritten contract doc, June 7 build brief (not plan-of-record), this log update. Chris commits himself — suggested message in the session transcript.
+
+---
+
+## Previous session: 2 May 2026
 
 ### What happened this session
 
