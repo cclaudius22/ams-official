@@ -1,38 +1,142 @@
 /**
- * DIS (Document Ingestion System) API Contract
+ * DIS (Decision Intelligence System) API Contract
  *
  * Defines the TypeScript interfaces for everything the AMS receives from the
- * Deloitte-built DIS pipeline. Covers:
+ * DIS pipeline. Covers:
  *
- * 1. The decision callback payload (aggregated decision + 9 component scores + audit log)
- * 2. The 4 detail layers read from DIS Postgres on demand:
- *    - document_extractions (per-document extraction results)
- *    - rule_results        (Drools rule outputs, 20 rules)
- *    - opa_results         (OPA policy outputs, 12 policies)
+ * 1. The recommendation payload (callback shape, stored verbatim in
+ *    recommendations.submission_payload — V5 spec Section 5)
+ * 2. The detail layers read from DIS Postgres on demand:
+ *    - documents + document_extractions (per-document records)
+ *    - rule_results        (Drools rule outputs)
+ *    - opa_results         (OPA policy outputs — incl. denial_reasons, which
+ *                           the callback omits; only the table carries them)
  *    - external_checks     (6 external API results)
- * 3. The unified DISApplicationView that the reviewer page consumes
+ * 3. The unified DISApplicationView that the reviewer page consumes — a
+ *    CLIENT-SIDE composite assembled by the data provider, not a wire shape.
  *
- * Source of truth: docs/specs/2026-04-12-dis-integration-spec-v3.md (Section 11)
+ * Source of truth: docs/specs/2026-06-11-dis-integration-spec-v5.md (as-built
+ * evidence tiers) + docs/specs/dis-api-route-audit-2026-06-11.md. V3 Section 11
+ * is superseded. NOTE: the live decisions table is named `recommendations`.
  *
- * Core principle: "AI Extracts, Rules Decide"
- * AI (Doc AI, Vision AI) extracts and analyses. Drools + OPA make the decision
- * deterministically. LLM summaries run AFTER the decision and have NO decision power.
+ * Core principle: "AI Extracts, Rules Decide" — and DIS only RECOMMENDS.
+ * Drools + OPA produce a deterministic recommendation; the caseworker makes
+ * the decision. "decision" in code refers only to the officer's own action.
  */
 
 // ============================================================================
-// DECISION
+// RECOMMENDATION (the pipeline's output — never a decision)
 // ============================================================================
 
-export type DecisionOutcome = 'APPROVED' | 'MANUAL_REVIEW' | 'REJECTED'
-export type ProcessingPath = 'AUTOMATED' | 'ESCALATED'
-export type RiskLevel = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+/**
+ * What DIS can emit in Phase 1. REJECTED is disabled in as-built code
+ * (recommendation.py — "Treating MANDATORY + NOT_SATISFIED as MANUAL_REVIEW")
+ * so live values are APPROVED | MANUAL_REVIEW only.
+ */
+export type RecommendationOutcome = 'APPROVED' | 'MANUAL_REVIEW'
 
-export interface DISDecision {
-  outcome: DecisionOutcome
-  confidence: number          // 0-100 — pipeline's confidence in this decision
-  processing_path: ProcessingPath
-  risk_level: RiskLevel
-  overall_score: number       // 0-100 — weighted composite (Deloitte-defined weights pending)
+/**
+ * Full 3-value union — used for OFFICER (human) decisions, which can reject,
+ * and by normalizeOutcome for cross-vocabulary mapping. DIS-sourced data
+ * should use RecommendationOutcome.
+ */
+export type DecisionOutcome = 'APPROVED' | 'MANUAL_REVIEW' | 'REJECTED'
+
+/** Completeness verdict — also what doc-processing writes into applications.status (V5 §4) */
+export type CompletenessStatus = 'COMPLETE' | 'INCOMPLETE_PENDING' | 'DOCUMENTS_REQUIRED'
+
+/**
+ * As-built applications.status values (V5 §4 — CODE evidence).
+ * NOT a pipeline state machine: intake writes CREATED, doc-processing
+ * overwrites with the completeness verdict, and no service updates it again.
+ * Never bind UI to this — bind to QueueState.
+ */
+export type DISApplicationStatus = 'CREATED' | CompletenessStatus
+
+/**
+ * Derived queue state (V5 §4) — computed by the read layer from
+ * applications.status + existence/outcome of the recommendations row +
+ * callback_status. This is what the queue view filters on.
+ */
+export type QueueState =
+  | 'FAILED_INTAKE'      // status CREATED, no progress past intake
+  | 'AWAITING_DOCS'      // status INCOMPLETE_PENDING | DOCUMENTS_REQUIRED
+  | 'IN_PIPELINE'        // status COMPLETE, no recommendations row yet
+  | 'READY_FOR_REVIEW'   // recommendation = MANUAL_REVIEW (the caseworker queue)
+  | 'AUTO_RECOMMENDED'   // recommendation = APPROVED
+  | 'CALLBACK_SENT'      // additionally: callback_status LIKE 'SUCCESS%'
+
+/** rules_summary block (V5 §5 — exact as-built keys from collate_application_data) */
+export interface RulesSummary {
+  rules: {
+    drools_rules_evaluated: number
+    drools_rules_passed: number
+    drools_rules_failed: number
+    drools_rules_not_applicable: number
+  }
+  opa_policies: {
+    opa_total_evaluated: number
+    opa_total_passed: number
+    opa_total_failed: number
+    opa_hard_evaluated: number
+    opa_hard_passed: number
+    opa_hard_failed: number
+    opa_soft_evaluated: number
+    opa_soft_passed: number
+    opa_soft_failed: number
+  }
+  external_checks: {
+    external_checks_evaluated: number
+    external_checks_passed: number
+    external_checks_failed: number
+    external_checks_error: number
+  }
+}
+
+/** Engine versions arrive as ARRAYS of active version records, not "1.2.0" strings */
+export interface DroolsVersionRecord {
+  rule_file: string
+  rule_version_id: string
+  created_at: string
+}
+
+export interface OPAVersionRecord {
+  policy_file: string
+  policy_version_id: string
+  created_at: string
+}
+
+/**
+ * The recommendation artifact (V5 §5). Top-level callback fields minus the
+ * detail arrays (which DISApplicationView carries separately).
+ *
+ * Quirks (as-built): recommendations.confidence is always NULL — there is no
+ * confidence on the recommendation itself, only per-component. There is no
+ * overall_score, processing_path, or risk_level; derive display scores from
+ * component_scores (null-safe).
+ */
+export interface DISRecommendation {
+  recommendation: RecommendationOutcome
+  recommendation_reason: string
+  /** Per-engine narrative, nullable per engine */
+  evaluation_breakdown?: {
+    drools_evaluation: string | null
+    external_checks_evaluation: string | null
+    opa_evaluation: string | null
+  }
+  /** Table columns (hard_fail_rules/soft_flag_rules), not in the callback.
+   *  Entries mix RULE-* ids, OPA-* ids, and EXT_<check_type> markers. */
+  hard_fail_rules?: string[]
+  soft_flag_rules?: string[]
+  rules_summary: RulesSummary
+  completeness_score: number
+  completeness_status: CompletenessStatus
+  generated_at: string           // ISO 8601
+  drools_version: DroolsVersionRecord[]
+  opa_version: OPAVersionRecord[]
+  /** "This is a system recommendation… Final determination rests with the
+   *  authorised decision-maker." — render verbatim near the badge */
+  note: string
 }
 
 // ============================================================================
@@ -40,18 +144,50 @@ export interface DISDecision {
 // ============================================================================
 
 /**
- * Each component score has 4 fields. Critical distinction:
- *   score       = does the applicant meet the requirement? (0-100)
- *   confidence  = how reliably was the underlying data extracted? (0-100)
+ * Critical distinction:
+ *   score       = does the applicant meet the requirement? (0-100, capped at
+ *                 30 when a component rule FAILs)
+ *   confidence  = extraction reliability, 0.0-1.0 (NOT 0-100)
  *
- * A score of 30 with confidence 98 means: "We read the documents correctly,
+ * A score of 30 with confidence 0.98 means: "We read the documents correctly,
  * and the applicant clearly does not qualify" — not "we're uncertain".
+ *
+ * null component (or null score) = NOT_APPLICABLE — render greyed "N/A",
+ * never 0/red, and exclude from any "component below threshold" flag logic.
  */
+
+/** Rule results as embedded per-component (scorer.py maps to PASS/FAIL here —
+ *  distinct from the rule_results table's RuleOutcome vocabulary) */
+export interface ComponentRuleResult {
+  rule_id: string
+  rule_name: string
+  result: 'PASS' | 'FAIL'
+  severity: RuleSeverity
+  details: string                // = rule_results.reasoning
+  remediation?: string           // omitted on the fraud_risk component
+}
+
+export interface ComponentOPAResult {
+  policy_id: string
+  policy_name: string
+  policy_type: OPATier
+  outcome: 'PASS' | 'FAIL'
+}
+
 export interface ComponentScore {
-  score: number              // 0-100 — does applicant meet the requirement?
-  status: string             // VERIFIED, CLEAR, LOW_RISK, ACCEPTABLE, etc.
-  confidence: number         // 0-100 — AI extraction confidence
-  details: string            // human-readable detail
+  component?: ComponentScoreKey
+  score: number | null           // null = NOT_APPLICABLE
+  status: string                 // config-driven labels + NOT_APPLICABLE / MISSING
+  status_description?: string
+  confidence: number             // 0.0-1.0, 2dp
+  /** Per-component evidence — supports Panel 2 grouping out of the box */
+  rule_results?: ComponentRuleResult[]
+  opa_results?: ComponentOPAResult[]
+  extraction_sources?: string[]      // document types consumed
+  external_check_types?: string[]    // check types consumed (always [] on fraud_risk)
+  /** fraud_risk only. 0=clean → 1=suspicious. The component `score` is already
+   *  flipped ((1−raw)×100, higher=better). RENDER score, NEVER this. */
+  raw_fraud_score?: number
 }
 
 export type ComponentScoreKey =
@@ -65,7 +201,9 @@ export type ComponentScoreKey =
   | 'document_quality'
   | 'fraud_risk'
 
-export type ComponentScores = Record<ComponentScoreKey, ComponentScore>
+/** Values nullable: a whole component can be NOT_APPLICABLE (e.g. health for
+ *  in-country applicants). All consumers must null-check. */
+export type ComponentScores = Record<ComponentScoreKey, ComponentScore | null>
 
 // ============================================================================
 // DROOLS RULES (20 total: 5 universal + 15 skilled worker)
@@ -83,35 +221,34 @@ export type VisaType =
   | 'youth_mobility'
 
 export type RuleSeverity = 'MANDATORY' | 'ADVISORY'
-export type RuleResult = 'PASS' | 'FAIL'
+
+/** as-built rule_results.outcome vocabulary (Drools AuditService — CODE).
+ *  NOT_APPLICABLE inferred from rules_summary.drools_rules_not_applicable;
+ *  full union pending confirmation (V5 OPEN-3). */
+export type RuleOutcome =
+  | 'SATISFIED'
+  | 'NOT_SATISFIED'
+  | 'BLOCKED'
+  | 'REVIEW_REQUIRED'
+  | 'NOT_APPLICABLE'
+
+export type RuleCategory = 'UNIVERSAL' | 'SKILLED_WORKER' | 'FRAUD'
 
 /**
  * Universal rule IDs (apply to all visa types)
- * U01 — Passport Validity            (universal/passport_rules.drl)
- * U02 — Biometric Verification       (universal/biometric_rules.drl)
- * U03 — Sanctions Screening          (universal/sanctions_rules.drl)
- * U04 — Duplicate Application Check  (universal/duplicate_rules.drl)
- * U05 — Document Extraction Confidence (universal/document_confidence_rules.drl)
+ * U01 — Passport Validity            U02 — Biometric Verification
+ * U03 — Sanctions Screening          U04 — Duplicate Application Check
+ * U05 — Document Extraction Confidence
  */
 export type UniversalRuleId = 'RULE-U01' | 'RULE-U02' | 'RULE-U03' | 'RULE-U04' | 'RULE-U05'
 
 /**
  * Skilled Worker rule IDs
- * W01 — CoS Validity                              (skilled_worker/sponsorship_rules.drl)
- * W02 — Sponsor Licence Status                    (skilled_worker/sponsorship_rules.drl)
- * W03 — Salary Threshold General (>= £41,700)     (skilled_worker/salary_rules.drl)
- * W04 — Salary Threshold New Entrant (>= £33,400) (skilled_worker/salary_rules.drl)
- * W05 — SOC Code Eligibility                      (skilled_worker/eligibility_rules.drl)
- * W06 — Immigration Salary List Check             (skilled_worker/salary_rules.drl)
- * W07 — Job Skill Level (RQF 6+)                  (skilled_worker/eligibility_rules.drl)
- * W08 — English Language (CEFR B2+)               (skilled_worker/eligibility_rules.drl)
- * W09 — Maintenance Funds (£1,270 / 28 days)      (skilled_worker/financial_rules.drl)
- * W10 — TB Test Certificate                       (skilled_worker/compliance_rules.drl)
- * W11 — Criminal Record Disclosure                (skilled_worker/compliance_rules.drl)
- * W12 — Previous Immigration Compliance           (skilled_worker/compliance_rules.drl)
- * W13 — Application Completeness                  (skilled_worker/completeness_rules.drl)
- * W14 — Document Fraud Detection                  (skilled_worker/compliance_rules.drl)
- * W15 — Start Date Validity                       (skilled_worker/sponsorship_rules.drl)
+ * W01 CoS Validity · W02 Sponsor Licence Status · W03 Salary General (≥£41,700)
+ * W04 Salary New Entrant (≥£33,400) · W05 SOC Eligibility · W06 Immigration Salary List
+ * W07 Job Skill Level (RQF 6+) · W08 English (CEFR B2+) · W09 Maintenance Funds
+ * W10 TB Certificate · W11 Criminal Disclosure · W12 Immigration Compliance
+ * W13 Completeness · W14 Document Fraud · W15 Start Date Validity
  */
 export type SkilledWorkerRuleId =
   | 'RULE-W01' | 'RULE-W02' | 'RULE-W03' | 'RULE-W04' | 'RULE-W05'
@@ -120,17 +257,21 @@ export type SkilledWorkerRuleId =
 
 export type DroolsRuleId = UniversalRuleId | SkilledWorkerRuleId
 
+/** Maps 1:1 to as-built rule_results columns (V5 §3) */
 export interface DroolsRuleResult {
+  rule_result_id?: string        // uuid
   rule_id: DroolsRuleId
-  rule_file: string          // e.g., "skilled_worker/salary_rules.drl"
-  result: RuleResult
-  detail: string             // human-readable PASS/FAIL explanation
-  source: string             // where input data came from (submission_payload, document_extractions, external_checks, ...)
-  reference_data?: string    // which ref data file was consulted (salary_thresholds.json, etc.)
-  reference_field?: string   // which field in the ref data
-  visa_type: VisaType
+  rule_name: string              // display label
+  rule_category: RuleCategory
+  outcome: RuleOutcome
   severity: RuleSeverity
-  evaluated_at: string       // ISO 8601 timestamp
+  /** The Glass Box explanation string — render this in Panel 2 */
+  reasoning: string
+  remediation?: string
+  /** Links into documents/extractions/checks — Panel 3 clickthrough */
+  evidence_refs: string[]
+  rule_version_id?: string
+  created_at?: string            // ISO 8601
 }
 
 // ============================================================================
@@ -138,42 +279,39 @@ export interface DroolsRuleResult {
 // ============================================================================
 
 export type OPATier = 'HARD' | 'SOFT'
-export type OPAResult = 'BLOCK' | 'REVIEW_REQUIRED' | 'PASS'
+
+/** Contract-doc vocabulary; code did not pin the union (V5 OPEN-4).
+ *  There is NO 'BLOCK' value as-built — DENY is the hard stop. */
+export type OPAOutcome = 'ALLOW' | 'DENY' | 'FLAG' | 'REVIEW_REQUIRED' | 'PASS'
 
 /**
- * Hard policy IDs — BLOCK means the application cannot proceed
- * OPA-H01 — Sanctions Hard Block       (hard/sanctions.rego)           [IMPLEMENTED 8-10 Apr]
- * OPA-H02 — Passport Verification      (hard/passport_stolen.rego)     [IMPLEMENTED 8-10 Apr]
- * OPA-H03 — Interpol SLTD              (hard/document_fraud.rego)      [IMPLEMENTED 8-10 Apr]
- * OPA-H04 — Auth & Session Validation  (hard/auth_session.rego)        [IMPLEMENTED 8-10 Apr]
- * OPA-H05 — Document Fraud Score       (hard/document_tampering.rego)  — fraud_score >= 0.90
- * OPA-H06 — Data Residency             (hard/data_residency.rego)      — europe-west2 only
+ * Hard policy IDs — DENY means the application cannot proceed
+ * OPA-H01 Sanctions Hard Block · OPA-H02 Passport Verification · OPA-H03 Interpol SLTD
+ * OPA-H04 Auth & Session · OPA-H05 Document Fraud Score (≥0.90) · OPA-H06 Data Residency
  */
 export type HardOPAPolicyId = 'OPA-H01' | 'OPA-H02' | 'OPA-H03' | 'OPA-H04' | 'OPA-H05' | 'OPA-H06'
 
 /**
- * Soft policy IDs — FLAG_FOR_REVIEW means officer must assess
- * OPA-S01 — Biometric Borderline           (soft/biometric_borderline.rego)  — face match 0.75-0.85
- * OPA-S02 — World-Check LOW/MEDIUM         (soft/worldcheck_low_medium.rego) — PEP, adverse media
- * OPA-S03 — Completeness Score Low         (soft/completeness_low.rego)      — score < 70
- * OPA-S04 — Rapid Submission / Bot         (soft/rapid_submission.rego)      — < 3 min submission, or > 3 in 30d
- * OPA-S05 — Enhanced Scrutiny Nationality  (soft/enhanced_scrutiny.rego)     — nationality on scrutiny list
- * OPA-S06 — Infrastructure Alerts          (soft/cmek_rotation.rego)         — CMEK rotation, TLS expiry
+ * Soft policy IDs — FLAG/REVIEW_REQUIRED means officer must assess
+ * OPA-S01 Biometric Borderline · OPA-S02 World-Check LOW/MEDIUM · OPA-S03 Completeness Low
+ * OPA-S04 Rapid Submission/Bot · OPA-S05 Enhanced Scrutiny Nationality · OPA-S06 Infra Alerts
  */
 export type SoftOPAPolicyId = 'OPA-S01' | 'OPA-S02' | 'OPA-S03' | 'OPA-S04' | 'OPA-S05' | 'OPA-S06'
 
 export type OPAPolicyId = HardOPAPolicyId | SoftOPAPolicyId
 
+/** Maps 1:1 to as-built opa_results columns (V5 §3).
+ *  ⚠️ denial_reasons exists only in the table — the callback omits it. The
+ *  trail read (endpoint 3) must come from the table for Panel 2 to render these. */
 export interface OPAPolicyResult {
   policy_id: OPAPolicyId
-  policy_name: string        // e.g., "Sanctions_WorldCheck_HardBlock"
-  tier: OPATier
-  result: OPAResult
-  reason: string             // human-readable explanation
-  data_source: string        // REUTERS_WORLDCHECK, INTERPOL_SLTD, document_extractions, etc.
-  rego_file: string          // e.g., "hard/sanctions.rego"
-  evaluated_at: string       // ISO 8601 timestamp
-  failed_documents?: string[] // for OPA-H05 — list of document IDs that failed fraud check
+  policy_name: string            // e.g., "Sanctions_WorldCheck_HardBlock"
+  policy_type: OPATier
+  outcome: OPAOutcome
+  denial_reasons: string[]       // render under a DENY/FLAG; [] when clean
+  input_context?: Record<string, unknown>
+  policy_version_id?: string
+  created_at?: string            // ISO 8601
 }
 
 // ============================================================================
@@ -181,57 +319,55 @@ export interface OPAPolicyResult {
 // ============================================================================
 
 /**
- * The 6 external API checks. Border Control was originally separate but has been
- * merged into Passport Verification as of Decision Map v1.1 (7 Apr 2026).
+ * The 6 external checks — LIVE-verified against the deployed dis-external-checks
+ * service routes (V5 §5 vocabulary corrections):
  *
- * 1. WORLDCHECK             — Reuters World-Check (LSEG) — live API, sandbox pending SCRUM-12
- * 2. INTERPOL_SLTD          — Stolen/Lost Travel Documents — mock API
- * 3. PASSPORT_VERIFY        — HMPO passport verification + border control history — mock API
- * 4. DEVICE_IP_RISK         — VPN/Tor/proxy/fraud IP detection (VisaKey only) — mock API
- * 5. EMAIL_PHONE_REPUTATION — Disposable email, VOIP, fraud signals — mock API
- * 6. SPONSOR_VERIFY         — Sponsor licence verification (uses sponsor_register.csv + cos_register_mock.json) — mock API
+ * 1. WORLDCHECK             — Reuters World-Check (LSEG) — live API
+ * 2. INTERPOL               — Stolen/Lost Travel Documents — mock
+ * 3. PASSPORT_VERIFY        — HMPO passport verification — mock
+ * 4. BORDER_CONTROL         — border crossing / immigration history — mock
+ *                             (separate as-built endpoint; NOT merged into
+ *                             PASSPORT_VERIFY — earlier note was wrong)
+ * 5. DEVICE_IP_RISK         — VPN/Tor/proxy/fraud IP (VisaKey only) — mock
+ * 6. EMAIL_PHONE_REPUTATION — disposable email, VOIP, fraud signals — mock
+ *
+ * There is no SPONSOR_VERIFY external check — sponsor/CoS validation is a
+ * rules-layer register lookup, not an external_checks row.
  */
 export type ExternalCheckType =
   | 'WORLDCHECK'
-  | 'INTERPOL_SLTD'
+  | 'INTERPOL'
   | 'PASSPORT_VERIFY'
+  | 'BORDER_CONTROL'
   | 'DEVICE_IP_RISK'
   | 'EMAIL_PHONE_REPUTATION'
-  | 'SPONSOR_VERIFY'
 
 export type CheckStatus = 'CLEAR' | 'BLOCKED' | 'FLAGGED' | 'ERROR' | 'TIMEOUT'
 
+/** Maps to as-built external_checks columns (V5 §3). Confirmed columns are
+ *  required; the rest are optional and may be absent from live rows. */
 export interface ExternalCheckResult {
-  request_id: string
-  dis_application_id: string
-  document_id: string | null
+  check_id?: string              // DB-generated
+  dis_application_id?: string
+  document_id?: string | null
   check_type: ExternalCheckType
   check_status: CheckStatus
   risk_level: 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH'
   confidence_score: number
   flags: Record<string, unknown>
-  responded_at: string       // ISO 8601 timestamp
+  /** Full raw response (as-built response_payload jsonb) — Panel 3 evidence cards */
+  response_payload?: Record<string, unknown>
   response_time_ms: number
-  details: Record<string, unknown>  // check-specific response fields (see V3 spec Section 9)
+  created_at?: string            // ISO 8601
 }
 
 // ============================================================================
-// DOCUMENT EXTRACTION
+// DOCUMENTS + EXTRACTION
 // ============================================================================
 
 /**
  * Extraction methods. Gemini Vision was RULED OUT (hallucination risk,
  * non-deterministic). Doc AI is used across both tiers.
- *
- * DOC_AI_ID_PARSER        — Tier 1 ID document parser. Used as the Google pre-trained
- *                           processor for Passport, and as a CUSTOM-trained variant for
- *                           National ID and BRP (due to format variation across issuing
- *                           countries). The pre-trained vs custom distinction is captured
- *                           on the envelope's `processor_version` field, not here.
- * DOC_AI_FORM_PARSER      — Tier 1 general form/table parser for Bank Statement.
- * DOC_AI_CUSTOM_EXTRACTOR — Tier 2 trained processor for Employment Letter, Payslip,
- *                           P60, IELTS, Degree, TB Cert, Utility Bill, Police Cert.
- *                           Custom-trained on the SCRUM-21 synthetic corpus.
  */
 export type ExtractionMethod =
   | 'DOC_AI_ID_PARSER'
@@ -242,44 +378,26 @@ export type ExtractionTier = 'TIER_1' | 'TIER_2'
 export type DocumentCriticality = 'CRITICAL' | 'SUPPORTING'
 
 /**
- * 5-level fraud status (from Extraction & Classification page, 10 Apr 2026)
- * CLEAR        0.00-0.30  — PASS
- * LOW_RISK     0.31-0.60  — PASS (logged)
- * MEDIUM_RISK  0.61-0.80  — REVIEW_REQUIRED (OPA-H05 soft flag)
- * HIGH_RISK    0.81-0.89  — REVIEW_REQUIRED priority (OPA-H05 escalated)
- * CRITICAL     0.90-1.00  — BLOCK (OPA-H05 hard block)
+ * 5-level fraud status
+ * CLEAR 0.00-0.30 · LOW_RISK 0.31-0.60 · MEDIUM_RISK 0.61-0.80 (review)
+ * HIGH_RISK 0.81-0.89 (priority review) · CRITICAL 0.90-1.00 (OPA-H05 hard block)
  */
 export type FraudStatus = 'CLEAR' | 'LOW_RISK' | 'MEDIUM_RISK' | 'HIGH_RISK' | 'CRITICAL'
 
-/**
- * A single fraud signal result. Every document's `fraud_signals` object is a
- * Record keyed by signal name (e.g., `metadata_analysis`, `font_consistency`,
- * `layout_anomaly`, `document_quality`, `cross_doc_consistency`, `mrz_check`,
- * `content_plausibility`) with a `FraudSignal` value.
- *
- * `score` is the per-signal score 0.0-1.0. The composite `fraud_score` on the
- * envelope is computed as a weighted sum of signal scores — weights vary by
- * document category (see Canonical Schema Section 1 fraud weight table).
- *
- * `flags` is a list of human-readable machine flag strings (e.g.,
- * `FONT_INCONSISTENCY_DETECTED`, `EXIF_MISSING`) that explain why the score
- * came out the way it did. AMS displays these in the Fraud Detail view.
- */
 export interface FraudSignal {
-  score: number             // 0.0-1.0
+  score: number                  // 0.0-1.0
   flags: string[]
 }
 
-/**
- * The applicable signal keys for a document. Not all documents have all
- * signals — `mrz_check` is Passport-only, `layout_anomaly` is N/A for
- * Supporting docs, etc. See Canonical Schema Section 1 weight table.
- */
+/** Keyed by signal name (metadata_analysis, font_consistency, layout_anomaly,
+ *  document_quality, cross_doc_consistency, mrz_check, content_plausibility).
+ *  Not all documents have all signals. */
 export type FraudSignals = Record<string, FraudSignal>
 
 /**
  * The 12 document types in scope for Skilled Worker Phase 1.
- * CoS is NOT a document — it's structured JSON from the submission payload, bypasses extraction entirely.
+ * CoS is NOT a document — it lives in application_payload JSONB, resolved via
+ * register lookup. Never render it in the document viewer.
  */
 export type DocumentType =
   | 'PASSPORT'
@@ -297,6 +415,35 @@ export type DocumentType =
 
 export type SourceChannel = 'visakey' | 'govdirect'
 
+/** as-built documents.processing_status values (V5 §4 — note 'NOT UPLOADED'
+ *  genuinely contains a space) */
+export type DocumentProcessingStatus =
+  | 'AWAITING_UPLOAD'
+  | 'UPLOADED'
+  | 'EXTRACTED'
+  | 'NOT_EXTRACTED'
+  | 'MANUAL_REVIEW'
+  | 'NOT UPLOADED'
+  | 'SCHEDULING_FAILED'
+  | 'PAYLOAD_MISSING_SIGNED_URL'
+
+/** documents-table record (V5 §6 endpoint 4) — Panel 3 document viewer.
+ *  gcs_path is exchanged for a signed URL by the read layer. */
+export interface DISDocument {
+  dis_document_id: string
+  document_type: DocumentType
+  requirement_tier?: string
+  processing_tier?: ExtractionTier
+  criticality: DocumentCriticality
+  gcs_path: string
+  /** Signed URL minted by the read layer — what the viewer actually loads */
+  image_url?: string
+  processing_status: DocumentProcessingStatus
+  quality_score?: number
+  mime_type?: string
+  file_size_bytes?: number
+}
+
 export interface DocumentExtraction {
   extraction_id: string
   dis_application_id: string
@@ -308,21 +455,23 @@ export interface DocumentExtraction {
   processor_id: string           // full GCP resource path
   processor_version: string
   extraction_confidence: number  // 0.0-1.0
-  raw_extraction: Record<string, unknown>      // complete Doc AI output, untouched
+  raw_extraction: Record<string, unknown>      // complete Doc AI output (KMS-protected at rest)
   extracted_data: Record<string, unknown>      // structured fields parsed from raw output
-  normalised_fields: Record<string, unknown>   // schema-mapped, normalised (downstream consumers read this)
+  normalised_fields: Record<string, unknown>   // schema-mapped (V5 OPEN-7: JSONB shape sign-off pending)
   fraud_score: number | null                   // null for GovDirect non-image docs
   fraud_status: FraudStatus | null
-  fraud_signals: FraudSignals | null            // { signal_name: { score, flags[] } } — see Canonical Schema
+  fraud_signals: FraudSignals | null
   source_channel: SourceChannel
-  gcs_raw_path: string           // gs://dis-raw-uploads/{app_id}/{doc_id}.{ext}
-  gcs_processed_path: string     // gs://dis-processed-docs/{app_id}/{doc_id}.json
+  gcs_raw_path: string
+  gcs_processed_path: string
   created_at: string             // ISO 8601
   updated_at: string             // ISO 8601
 }
 
 // ============================================================================
-// AUDIT LOG
+// AUDIT LOG (legacy V3 shape — no as-built source; rules_summary is the
+// evidenced equivalent. Kept optional for the audit-trail panel mock until
+// Stream 1 is re-pointed at rules_summary + version arrays.)
 // ============================================================================
 
 export interface ProcessingError {
@@ -330,8 +479,8 @@ export interface ProcessingError {
   check: string
   error_code: string
   error_message: string
-  timestamp: string              // ISO 8601
-  impact: string                 // e.g., "Check result unavailable — flagged for manual review"
+  timestamp: string
+  impact: string
 }
 
 export interface AuditLog {
@@ -342,59 +491,33 @@ export interface AuditLog {
     rules_engine: string
     llm_summary: string
   }
-  data_classification: string    // "OFFICIAL-SENSITIVE"
-  processing_location: string    // "europe-west2"
-  documents: {
-    total: number
-    successful: number
-    failed: number
-    errors: ProcessingError[]
-  }
-  rules: {
-    total_evaluated: number      // should be 20 for a fully-processed Skilled Worker app
-    passed: number
-    failed: number
-    skipped: number
-  }
-  external_checks: {
-    total: number                // up to 6
-    successful: number
-    failed: number
-    timed_out: number
-    errors: ProcessingError[]
-  }
-  opa_policies: {
-    total_evaluated: number      // should be 12 for a fully-processed app
-    passed: number
-    blocked: number
-    flagged: number
-  }
+  data_classification: string
+  processing_location: string
+  documents: { total: number; successful: number; failed: number; errors: ProcessingError[] }
+  rules: { total_evaluated: number; passed: number; failed: number; skipped: number }
+  external_checks: { total: number; successful: number; failed: number; timed_out: number; errors: ProcessingError[] }
+  opa_policies: { total_evaluated: number; passed: number; blocked: number; flagged: number }
   processing_errors: ProcessingError[]
   warnings: string[]
 }
 
 // ============================================================================
-// DECISION CALLBACK PAYLOAD
+// RECOMMENDATION CALLBACK PAYLOAD (V5 §5 — as-built, CODE-verified)
 // ============================================================================
 
 /**
- * The JSON payload DIS POSTs to the `callback_url` provided in the original submission.
- * Channel-independent — same shape for VisaKey and GovDirect.
+ * The JSON DIS POSTs to `callback_url` — also stored verbatim as
+ * recommendations.submission_payload. Channel-independent.
  *
- * This is the AGGREGATED decision. The individual rule results, OPA results, external
- * check details, and document extractions are stored in DIS Postgres and read on demand
- * via API when an officer opens an application.
+ * ⚠️ opa_results entries here OMIT denial_reasons (the engine doesn't SELECT
+ * them) — full OPA rows come from the trail read, not the callback.
  */
-export interface DISDecisionCallback {
-  decision: DISDecision
-  component_scores: ComponentScores
-  audit_log: AuditLog
-  source_channel: 'visakey' | 'home-office'
+export interface DISRecommendationCallback extends DISRecommendation {
   dis_application_id: string
-  source_application_id: string
-  source_reference: string
-  submitted_at: string           // ISO 8601
-  processed_at: string           // ISO 8601
+  component_scores: ComponentScores
+  rule_results: DroolsRuleResult[]
+  opa_results: Omit<OPAPolicyResult, 'denial_reasons'>[]
+  external_checks: ExternalCheckResult[]
 }
 
 // ============================================================================
@@ -402,24 +525,33 @@ export interface DISDecisionCallback {
 // ============================================================================
 
 /**
- * Combines the decision callback with the 4 detail layers read from DIS Postgres.
- * This is the unified type the reviewer page binds to — replaces the old AIScanResult.
+ * CLIENT-SIDE composite assembled by the data provider from the read
+ * endpoints (V5 §6) — not a wire contract. Replaces the old AIScanResult.
  */
 export interface DISApplicationView {
-  // From the decision callback
-  decision: DISDecision
+  // The recommendation artifact (V5 §5)
+  recommendation: DISRecommendation
   component_scores: ComponentScores
-  audit_log: AuditLog
-  source_channel: 'visakey' | 'home-office'
+  source_channel: SourceChannel
 
-  // From DIS Postgres (read via API on demand)
+  // Detail layers (endpoints 3-5; trail rows carry denial_reasons)
   rule_results: DroolsRuleResult[]
   opa_results: OPAPolicyResult[]
   external_checks: ExternalCheckResult[]
+  documents?: DISDocument[]
   document_extractions: DocumentExtraction[]
-  llm_summary: string            // Gemini-generated case briefing — NO decision power, AFTER the fact
 
-  // From the submission payload (passed through)
+  // Panel 1 — OV-IP narrative (Azure/Gemma 4 endpoint; mock until wired).
+  // NO decision power, generated AFTER the recommendation.
+  llm_summary: string
+
+  // Legacy audit block (optional — superseded by recommendation.rules_summary)
+  audit_log?: AuditLog
+
+  // Lifecycle (V5 §4 — derived, never raw applications.status)
+  queue_state?: QueueState
+
+  // Submission metadata
   source_application_id: string
   source_reference: string
   dis_application_id: string

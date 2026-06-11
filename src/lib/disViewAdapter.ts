@@ -6,77 +6,88 @@
  * AIScanResultsRedesigned component still expects AIScanResult.
  *
  * This adapter maps DIS data into the legacy shape so the page keeps
- * rendering during the transition. Task 2.1 (Component Scores Dashboard)
- * replaces the legacy component entirely — at that point this adapter
- * is deleted.
+ * rendering during the transition. The Phase 2A panels replace the legacy
+ * component — at that point this adapter is deleted.
  *
- * V3 spec: Phase 2A Task 2.0
+ * V5 spec §8: as-built vocabularies — rule outcomes SATISFIED/NOT_SATISFIED/
+ * BLOCKED/REVIEW_REQUIRED/NOT_APPLICABLE, OPA outcomes ALLOW/DENY/FLAG/
+ * REVIEW_REQUIRED/PASS with denial_reasons arrays, nullable component scores.
  */
 
-import type { DISApplicationView } from '@/api-contracts/dis'
+import type { DISApplicationView, ComponentScore } from '@/api-contracts/dis'
 import type { AIScanResult, ScanIssue } from '@/types/aiScan'
 
 /**
  * Convert a DISApplicationView into the legacy AIScanResult shape.
- * Maps DIS component scores, rule failures, and OPA flags into the
- * format the existing AIScanResultsRedesigned component expects.
  */
 export function disViewToLegacyScan(view: DISApplicationView): AIScanResult {
   const issues: ScanIssue[] = []
 
-  // Convert failed Drools rules to scan issues
+  // Failed/flagged Drools rules → scan issues.
+  // SATISFIED and NOT_APPLICABLE produce no issue.
   for (const rule of view.rule_results) {
-    if (rule.result === 'FAIL') {
+    if (rule.outcome === 'NOT_SATISFIED' || rule.outcome === 'BLOCKED') {
       issues.push({
         id: rule.rule_id,
         sectionId: mapRuleToSection(rule.rule_id),
         type: 'invalid',
-        severity: rule.severity === 'MANDATORY' ? 'high' : 'medium',
-        message: rule.detail,
+        severity: rule.outcome === 'BLOCKED' || rule.severity === 'MANDATORY' ? 'high' : 'medium',
+        message: rule.reasoning,
+      })
+    } else if (rule.outcome === 'REVIEW_REQUIRED') {
+      issues.push({
+        id: rule.rule_id,
+        sectionId: mapRuleToSection(rule.rule_id),
+        type: 'inconsistent',
+        severity: 'medium',
+        message: rule.reasoning,
       })
     }
   }
 
-  // Convert OPA flags to scan issues
+  // OPA outcomes → scan issues. DENY is the hard stop (there is no BLOCK
+  // value as-built); FLAG / REVIEW_REQUIRED are soft.
   for (const opa of view.opa_results) {
-    if (opa.result === 'BLOCK') {
+    if (opa.outcome === 'DENY') {
       issues.push({
         id: opa.policy_id,
         sectionId: 'security',
         type: 'suspicious',
         severity: 'critical',
-        message: `${opa.policy_name}: ${opa.reason}`,
+        message: `${opa.policy_name}: ${opa.denial_reasons.join('; ')}`,
       })
-    } else if (opa.result === 'REVIEW_REQUIRED') {
+    } else if (opa.outcome === 'FLAG' || opa.outcome === 'REVIEW_REQUIRED') {
       issues.push({
         id: opa.policy_id,
         sectionId: 'security',
         type: 'inconsistent',
         severity: 'medium',
-        message: `${opa.policy_name}: ${opa.reason}`,
+        message: `${opa.policy_name}: ${opa.denial_reasons.join('; ')}`,
       })
     }
   }
 
-  // Convert flagged external checks to scan issues
-  for (const check of view.external_checks) {
+  // Flagged external checks → scan issues
+  view.external_checks.forEach((check, i) => {
     if (check.check_status === 'FLAGGED' || check.check_status === 'BLOCKED') {
       issues.push({
-        id: check.request_id,
+        id: check.check_id ?? `${check.check_type}-${i}`,
         sectionId: 'security',
         type: check.check_status === 'BLOCKED' ? 'suspicious' : 'inconsistent',
         severity: check.check_status === 'BLOCKED' ? 'critical' : 'medium',
         message: `${check.check_type}: ${check.risk_level} risk — ${JSON.stringify(check.flags)}`,
       })
     }
-  }
+  })
 
   return {
     status: 'completed',
     scanStartedAt: new Date(view.submitted_at),
-    scanCompletedAt: view.audit_log ? new Date() : undefined,
-    isValid: view.decision.outcome !== 'REJECTED',
-    score: Math.round(view.decision.overall_score),
+    scanCompletedAt: new Date(view.recommendation.generated_at),
+    // RecommendationOutcome has no REJECTED value (disabled as-built — V5 §5
+    // quirk 2), so every Phase 1 recommendation is "valid" in the legacy sense.
+    isValid: true,
+    score: deriveOverallScore(view.component_scores),
     issues,
     recommendations: [],
     rootednessScore: undefined,
@@ -85,6 +96,19 @@ export function disViewToLegacyScan(view: DISApplicationView): AIScanResult {
     intentSummary: undefined,
     documentSummary: view.llm_summary || undefined,
   }
+}
+
+/**
+ * There is no overall_score as-built (V5 §8) — derive a display score as the
+ * null-safe mean of component scores. NOT_APPLICABLE components (null entry
+ * or null score) are excluded, never counted as 0.
+ */
+function deriveOverallScore(scores: DISApplicationView['component_scores']): number {
+  const values = Object.values(scores)
+    .filter((c): c is ComponentScore => c !== null && c.score !== null)
+    .map((c) => c.score as number)
+  if (values.length === 0) return 0
+  return Math.round(values.reduce((sum, s) => sum + s, 0) / values.length)
 }
 
 /**

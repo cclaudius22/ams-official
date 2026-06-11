@@ -1,5 +1,5 @@
 // src/types/application.ts
-import type { DISApplicationView } from '@/api-contracts/dis';
+import type { DISApplicationView, DISApplicationStatus, QueueState } from '@/api-contracts/dis';
 
 export interface ApplicationStage {
     stage: string;
@@ -65,9 +65,16 @@ export interface ApplicationStage {
     /** DIS's canonical UUID for this application (separate from AMS applicationId) */
     disApplicationId?: string;
 
-    /** Full DIS processing result — decision, component scores, rules, OPA, external checks, extractions.
+    /** Full DIS processing result — recommendation, component scores, rules, OPA, external checks, extractions.
      *  Populated lazily when officer opens the reviewer page; may be undefined while DIS is still processing. */
     disView?: DISApplicationView;
+
+    /** Raw as-built applications.status (V5 §4) — NOT a pipeline state machine.
+     *  Display only; never drive queue logic off this. */
+    disStatus?: DISApplicationStatus;
+
+    /** Derived queue state (V5 §4) — what the queue view filters and renders. */
+    disQueueState?: QueueState;
   }
   
   // Specific visa type interfaces for stronger typing
