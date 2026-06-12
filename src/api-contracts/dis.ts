@@ -289,9 +289,13 @@ export interface DroolsRuleResult {
 
 export type OPATier = 'HARD' | 'SOFT'
 
-/** Contract-doc vocabulary; code did not pin the union (V5 OPEN-4).
- *  There is NO 'BLOCK' value as-built — DENY is the hard stop. */
-export type OPAOutcome = 'ALLOW' | 'DENY' | 'FLAG' | 'REVIEW_REQUIRED' | 'PASS'
+/** Storable values per the as-built DDL: opa_evaluations.outcome is
+ *  VARCHAR(10), so 'REVIEW_REQUIRED' (15 chars) physically cannot exist in
+ *  the live table — the soft-flag value is 'FLAG' (V5 OPEN-4, resolved by
+ *  constraint 12 June). 'REVIEW_REQUIRED' is kept in the union defensively
+ *  for non-table sources only. There is NO 'BLOCK' value — DENY is the
+ *  hard stop. */
+export type OPAOutcome = 'ALLOW' | 'DENY' | 'FLAG' | 'PASS' | 'REVIEW_REQUIRED'
 
 /**
  * Hard policy IDs — DENY means the application cannot proceed

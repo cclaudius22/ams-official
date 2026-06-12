@@ -1,0 +1,22 @@
+# DIS schema replica — Phase 2F.1 (V5 §1b). See README.md.
+services:
+  dis-replica:
+    image: postgres:16-alpine
+    container_name: dis-replica
+    environment:
+      POSTGRES_USER: dis
+      POSTGRES_PASSWORD: dis # local dev only
+      POSTGRES_DB: openvisa_pg_db
+    ports:
+      - '5499:5432'
+    volumes:
+      - ./.initdb:/docker-entrypoint-initdb.d:ro
+      - dis-replica-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U dis -d openvisa_pg_db']
+      interval: 3s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  dis-replica-data:

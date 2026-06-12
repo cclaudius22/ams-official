@@ -161,7 +161,7 @@ export const mockDISApplicationView: DISApplicationView = {
     { policy_id: 'OPA-H06', policy_name: 'Data_Residency', policy_type: 'HARD', outcome: 'ALLOW', denial_reasons: [] },
     // Soft (6)
     { policy_id: 'OPA-S01', policy_name: 'Biometric_Borderline', policy_type: 'SOFT', outcome: 'PASS', denial_reasons: [] },
-    { policy_id: 'OPA-S02', policy_name: 'WorldCheck_Low_Medium', policy_type: 'SOFT', outcome: 'REVIEW_REQUIRED', denial_reasons: ['World-Check returned LOW risk with PEP relative match (category: POLITICALLY_EXPOSED_PERSON).', 'Officer must review the PEP connection and assess relevance to the application.'] },
+    { policy_id: 'OPA-S02', policy_name: 'WorldCheck_Low_Medium', policy_type: 'SOFT', outcome: 'FLAG', denial_reasons: ['World-Check returned LOW risk with PEP relative match (category: POLITICALLY_EXPOSED_PERSON).', 'Officer must review the PEP connection and assess relevance to the application.'] },
     { policy_id: 'OPA-S03', policy_name: 'Completeness_Low', policy_type: 'SOFT', outcome: 'PASS', denial_reasons: [] },
     { policy_id: 'OPA-S04', policy_name: 'Rapid_Submission_Bot', policy_type: 'SOFT', outcome: 'PASS', denial_reasons: [] },
     { policy_id: 'OPA-S05', policy_name: 'Enhanced_Scrutiny_Nationality', policy_type: 'SOFT', outcome: 'PASS', denial_reasons: [] },

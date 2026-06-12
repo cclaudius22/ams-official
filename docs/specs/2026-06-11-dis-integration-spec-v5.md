@@ -49,7 +49,16 @@ Enablers already in hand (no Deloitte dependency):
 | 2F.5 | Access asks to Deloitte NOW (not 17th): IAM DB user on Cloud SQL, KMS decrypt grant, GCS signed-URL read. Permissions, not deliverables |
 | 2F.6 | Phase 3 option: point 2F.3 handlers at their Cloud SQL (live), or swap to their endpoints if delivered — whichever is better by then |
 
-**Deployment target (12 June):** `prj-demo-dis-6549` is the DIS+AMS demo and dashboard-host environment — the dashboard and the 2F read layer deploy there. `prj-dev-dis-9666` remains Deloitte's dev pipeline project (verification sweeps, as-built evidence).
+**Deployment target (12 June):** `prj-demo-dis-6549` is the DIS+AMS demo and dashboard-host environment — the dashboard and the 2F read layer deploy there. `prj-dev-dis-9666` remains Deloitte's dev pipeline project (verification sweeps, as-built evidence). Read-layer identity: `sa-ov-dis-read@prj-demo-dis-6549.iam.gserviceaccount.com` (access asks sent to Deloitte 12 June).
+
+**2F.1 + 2F.2 delivered (12 June):** `db/` (vendored DDL @ `ecd23b9`, docker-compose on :5499, build-initdb.sh) + `scripts/seedReplica.ts` (deterministic, idempotent; 100 apps from the corpus — 42 APPROVE / 58 MANUAL_REVIEW, 2 000 rule rows, 1 200 OPA rows, 700 checks, corpus `rules_triggered.detail` strings as Glass Box reasoning). Standing the replica up surfaced four more schema facts:
+
+1. **Their DDL set is internally broken** — `03_applications.sql` FK references `application_payload`, but `02_` creates `submission_payload`. Fresh deploy fails. Patched locally in `db/build-initdb.sh`; **report to Deloitte (OPEN-11)**.
+2. **OPEN-4 resolved by constraint:** `opa_evaluations.outcome` is `VARCHAR(10)` — `REVIEW_REQUIRED` physically cannot be stored; the soft-flag value is `FLAG`.
+3. **OPEN-8 resolved by constraint:** `external_checks.check_type` CHECK lists **seven** values — `SPONSOR_VERIFICATION` is the 7th (a third spelling; sponsor checking is back as an external check).
+4. Minor drift: `risk_level` allows `CRITICAL`; `drools_consumed`/`opa_consumed` are now BOOLEAN; `applicants` has no `passport_number_raw` (hashed BYTEA only — but intake code still inserts it: **OPEN-12**, code/DDL inconsistency).
+
+**§4 refinement (from replica testing):** recommendation-derived states (`READY_FOR_REVIEW`/`AUTO_RECOMMENDED`) take precedence over `AWAITING_DOCS` — an application that produced a recommendation is reviewable regardless of its completeness verdict.
 
 Commercial track (Chris): delivery dates due 17 June measured against 30 June WBS end; lost time (~1 month QA/frontend) documented via route audit + this spec; if dates land ≥30 June → change-control / UAT-extension conversation, position decided before Monday's call.
 
@@ -257,13 +266,15 @@ Confirmed safe as-is: `ComponentScoreKey` (all 9), `FraudStatus`, `FraudSignals`
 1. `applications.status` completeness-overwrite: intended or defect? Will the canonical lifecycle ever be implemented? — Preety/Siddharth
 2. Deployed `component_scoring.json` (GCS) vs test fixture — Preety
 3. Full `rule_results.outcome` union — Preety
-4. Full `opa_results.outcome` union — Vidhyotha
+4. ~~Full `opa_results.outcome` union~~ **RESOLVED 12 June by DDL constraint (§1b): VARCHAR(10) — soft flag is `FLAG`; REVIEW_REQUIRED unstorable**
 5. Status API response contract + purpose of its all-tables env wiring — Neeraj
 6. If OV owns reads: IAM DB user, KMS decrypt grant, GCS signed-URL access — Siddharth
 7. `normalised_fields`/`fraud_signals` JSONB shapes (standing ask) — Ranita/Satyarth
-8. Status API expects 7 external checks (`ext_count == 7`) — which is the 7th? — Neeraj
+8. ~~Status API expects 7 external checks — which is the 7th?~~ **RESOLVED 12 June by DDL constraint (§1b): `SPONSOR_VERIFICATION`**
 9. Vocabulary mapping: classifier labels (BIOMETRIC-RESIDENCE-PERMIT, EDUCATION-CERTIFICATE, MEDICAL-CERTIFICATE, hyphenated; no PASSPORT class) vs `documents.document_type` values vs our DocumentType enum; and as-deployed extraction_method values (all 12 doc types use Custom Extractors per processor metrics page 113410081 — the ID-Parser/Form-Parser split is stale) — Satyarth
 10. Real extraction quality (page 113410081, 9 June): employment letter F1 0.785/recall 65.8%, several 0.000-F1 fields — Panel 3 must treat missing extracted fields as the normal case, not an edge case; v2 corpus to fix — Satyarth
+11. DDL create-set defect: `03_applications.sql` FK references `application_payload` but `02_` creates `submission_payload` — fresh deploy fails (we patch locally, `db/build-initdb.sh`) — Preety/DevOps
+12. `applicants` code/DDL drift: intake inserts `passport_number_raw` but the DDL has no such column (hashed BYTEA only) — which wins? — Preety
 
 ## 13. Source documents
 
