@@ -28,6 +28,29 @@ Deloitte pushed to main on the 9:00 deadline (dis-api main populated 14:01 IST; 
 
 `applications.status` DDL has **no CHECK constraint** — the §4 lifecycle finding stands; their own Status API works around it the same way QueueState does. Types updated in `src/api-contracts/dis.ts` (Task 2.0c).
 
+## 1b. Strategy pivot — 12 June (Deloitte response received)
+
+Deloitte's reply (Nishit): acknowledgement of the missed read-API surface; **17 June commitment is to publish timelines, not endpoints**; substantive answer Monday 15 June. With the WBS ending 30 June and OV's 3-week QA/UAT extension due to start after it on a completed system, endpoints cannot be assumed inside the engagement window. **§10 contingency row 3 is hereby triggered by default** — OV builds the read layer; Deloitte's endpoints, if/when delivered, become a swap option rather than a dependency.
+
+Enablers already in hand (no Deloitte dependency):
+- Complete DDL for all 12 tables (`dis-data-layer feature/psqltable`) → local Postgres replica of the real schema
+- Status API source (pushed 12 June) → their DB-access pattern as reference
+- 100 synthetic payloads + expected outcomes (`openvisa-synthetic-data`) → realistic seed data
+- V5 §6 endpoint contracts → the API surface, already specced
+
+**Phase 2F — OV Read Layer (new track, starts after Task 2.1):**
+
+| Task | Description |
+|------|-------------|
+| 2F.1 | Local Postgres replica: docker-compose + dis-data-layer DDL (12 tables, FK order preserved) |
+| 2F.2 | Seed script: synthetic payloads + expected outcomes → applications/applicants/documents/extractions/checks/evaluations/recommendations rows (deterministic, seeded) |
+| 2F.3 | Endpoints 1–5 (V5 §6) as Next.js route handlers over the replica, behind the existing data-provider seam |
+| 2F.4 | Provider flip: mock → local replica (config). Mock retained for unit tests |
+| 2F.5 | Access asks to Deloitte NOW (not 17th): IAM DB user on Cloud SQL, KMS decrypt grant, GCS signed-URL read. Permissions, not deliverables |
+| 2F.6 | Phase 3 option: point 2F.3 handlers at their Cloud SQL (live), or swap to their endpoints if delivered — whichever is better by then |
+
+Commercial track (Chris): delivery dates due 17 June measured against 30 June WBS end; lost time (~1 month QA/frontend) documented via route audit + this spec; if dates land ≥30 June → change-control / UAT-extension conversation, position decided before Monday's call.
+
 ## 2. Evidence tiers
 
 Every claim in this spec carries one of:

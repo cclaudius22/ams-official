@@ -12,11 +12,16 @@
 2. **Schema drift caught same morning** (V5 §1a delta): outcome wire vocab now `APPROVE`/`REJECT`/`MANUAL_REVIEW`; callback keys + tables renamed `drools_evaluations`/`opa_evaluations`; new `caseworker_summary` column (watch OV-IP Panel 1 boundary); new `callback_events` table; Status API contract extracted (OPEN-5 ✓); OPEN-8 new: 7 external checks expected, not 6.
 3. **Task 2.0c committed** — wire types updated (`RecommendationOutcome = 'APPROVE' | 'MANUAL_REVIEW'`, callback key renames, `CallbackEvent`, `DISStatusResponse`), normalizeOutcome already absorbed both vocab eras.
 
+### Deloitte response + strategy pivot (same day, V5 §1b)
+
+Nishit's reply: 17 June = timelines published, not endpoints; substantive answer Monday 15 June. With WBS ending 30 June, endpoints can't be assumed in-window. **Pivot: OV builds the read layer (new Phase 2F)** — local Postgres replica from their own DDL + synthetic seed data + V5 §6 endpoints as Next route handlers behind the provider seam. Deloitte endpoints become a swap option, not a dependency. Access asks (IAM DB user, KMS, GCS) to be sent now. Chris's counter-email sent pinning delivery dates vs the 30 June WBS end and the owed 3-week UAT window.
+
 ### What's next
 
-1. **Task 2.1 — RecommendationSummaryPanel** (mocks are current as of this morning)
-2. Deloitte EOD reply → V5 §10 contingency table
-3. Hermes-sibling repo-diff agent — priority rising (3 renames in a week)
+1. **Task 2.1 — RecommendationSummaryPanel** (mocks current as of this morning)
+2. **Phase 2F.1–2F.3 — OV read layer** over local schema replica (V5 §1b)
+3. Monday 15th: Nishit's substantive answer; 17th: their published timelines → V5 §10
+4. Hermes-sibling repo-diff agent — priority rising (3 renames in a week)
 
 ---
 
