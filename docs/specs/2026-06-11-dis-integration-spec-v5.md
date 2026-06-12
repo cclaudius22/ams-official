@@ -11,6 +11,23 @@
 
 The 11 June audit established: **zero officer-facing read endpoints exist** in spec, code, or deployment — the only live surfaces are intake (`POST /api/v1/applications`) and a Status API (`GET /api/v1/applications/{id}/status`, deployed 10 June, in no repo). The live decisions table is named **`recommendations`**. The `applications.status` lifecycle assumed by both V4 and the Officer UI contract doc **does not exist as-built** (Section 4). `REJECTED` is disabled in code. `/api/rules/reload` does not exist. The read layer's ownership is contested (email to Deloitte 11 June, deadline 12 June) — so V5 defines the read contracts **ownership-neutrally**: they are simultaneously our mock layer, Deloitte's build spec if they accept scope, and our own read-service spec if they don't. Phase 2A proceeds on mocks tonight either way.
 
+## 1a. Delta — 12 June morning verification
+
+Deloitte pushed to main on the 9:00 deadline (dis-api main populated 14:01 IST; rec-engine, rules-engine, data-pipeline mains merged same day). **Read endpoints: still zero** — dis-api main routes remain intake POST + status GET; deployed env unchanged. Schema/code changes that supersede the 11 June text below:
+
+| Change | Detail | Supersedes |
+|--------|--------|------------|
+| Outcome wire vocabulary | DDL CHECK + engine constants now `APPROVE`/`REJECT`/`MANUAL_REVIEW` (imperative). REJECT still disabled (same Phase-1 comments) | §5 recommendation values |
+| Callback payload keys | `rule_results`→`drools_evaluations`, `opa_results`→`opa_evaluations` | §5 payload sketch |
+| Table names | `rule_results`→`drools_evaluations`, `opa_results`→`opa_evaluations` — DDL in dis-data-layer `feature/psqltable` (old definitions left commented in-file); rec-engine main reads new names with compat aliases | §3 table list |
+| `recommendations` DDL confirmed in code | `recommendation_id` PK, `recommendation_at` (was decision_made_at), **new `caseworker_summary TEXT`** (currently echoes recommendation_reason — watch the OV-IP Panel 1 boundary) | §3, OPEN list |
+| New table `callback_events` | Per-attempt delivery tracking: PENDING/SENT/DELIVERED/FAILED/RETRYING, attempt_number, payload_hash | §4 queue derivation (CALLBACK_SENT should read this) |
+| dis-data-layer no longer empty | `feature/psqltable`: deployable DDL for all 12 tables + deploy scripts — natural read-layer home | §3 note |
+| **OPEN-5 answered** | Status API response = pipeline-stage map (9 stages, PENDING/IN_PROGRESS/COMPLETED) + status PROCESSING\|PROCESSED + doc counts + recommendations row; derived from **BigQuery audit events**, not applications.status | §6 endpoint 0 |
+| **OPEN-8 (new)** | Status API marks external checks complete at `ext_count == 7` — seven checks, not six. Which is the 7th? — Neeraj | OPEN list |
+
+`applications.status` DDL has **no CHECK constraint** — the §4 lifecycle finding stands; their own Status API works around it the same way QueueState does. Types updated in `src/api-contracts/dis.ts` (Task 2.0c).
+
 ## 2. Evidence tiers
 
 Every claim in this spec carries one of:

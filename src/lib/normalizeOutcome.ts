@@ -1,17 +1,19 @@
 /**
- * Decision outcome normalisation.
+ * Outcome normalisation.
  *
- * Three systems speak three different vocabularies for the same concept:
+ * Four systems speak four different vocabularies for the same concept:
  *
- *   VK Backend:    'approved'      'rejected'     'needs_review'
- *   DIS / Drools:  'APPROVED'      'REJECTED'     'MANUAL_REVIEW'
- *   AMS (legacy):  'approved'      'rejected'     'escalated'
+ *   VK Backend:      'approved'   'rejected'   'needs_review'
+ *   DIS wire (live): 'APPROVE'    'REJECT'     'MANUAL_REVIEW'   (12 Jun DDL CHECK)
+ *   AMS canonical:   'APPROVED'   'REJECTED'   'MANUAL_REVIEW'   (DecisionOutcome)
+ *   AMS (legacy):    'approved'   'rejected'   'escalated'
  *
  * This module is the single conversion boundary. Always normalise at the
  * edge (webhook receive, UI hydration, API response) and internally use the
- * DIS canonical `DecisionOutcome` everywhere.
+ * AMS canonical `DecisionOutcome` everywhere. The DIS wire vocabulary changed
+ * APPROVED→APPROVE / REJECTED→REJECT on 12 June — both eras normalise here.
  *
- * V3 spec: Phase 1 Task 1.5 + V2 Section 6.1 (Cross-System Gap Analysis)
+ * V3 spec: Phase 1 Task 1.5 · V5 spec: 12 June delta
  */
 
 import type { DecisionOutcome } from '@/api-contracts/dis'

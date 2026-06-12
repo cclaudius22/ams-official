@@ -29,16 +29,18 @@
 // ============================================================================
 
 /**
- * What DIS can emit in Phase 1. REJECTED is disabled in as-built code
- * (recommendation.py — "Treating MANDATORY + NOT_SATISFIED as MANUAL_REVIEW")
- * so live values are APPROVED | MANUAL_REVIEW only.
+ * WIRE values DIS emits (12 June DDL CHECK: APPROVE/REJECT/MANUAL_REVIEW —
+ * note imperative APPROVE/REJECT, not APPROVED/REJECTED). REJECT remains
+ * disabled in as-built code (recommendation.py — "Treating MANDATORY +
+ * NOT_SATISFIED as MANUAL_REVIEW"), so live values are APPROVE |
+ * MANUAL_REVIEW only. Normalize at the boundary via normalizeOutcome().
  */
-export type RecommendationOutcome = 'APPROVED' | 'MANUAL_REVIEW'
+export type RecommendationOutcome = 'APPROVE' | 'MANUAL_REVIEW'
 
 /**
- * Full 3-value union — used for OFFICER (human) decisions, which can reject,
- * and by normalizeOutcome for cross-vocabulary mapping. DIS-sourced data
- * should use RecommendationOutcome.
+ * AMS-canonical 3-value union — used for OFFICER (human) decisions, which can
+ * reject, and as normalizeOutcome's output. DIS wire data uses
+ * RecommendationOutcome; normalizeOutcome maps APPROVE→APPROVED etc.
  */
 export type DecisionOutcome = 'APPROVED' | 'MANUAL_REVIEW' | 'REJECTED'
 
@@ -63,8 +65,8 @@ export type QueueState =
   | 'AWAITING_DOCS'      // status INCOMPLETE_PENDING | DOCUMENTS_REQUIRED
   | 'IN_PIPELINE'        // status COMPLETE, no recommendations row yet
   | 'READY_FOR_REVIEW'   // recommendation = MANUAL_REVIEW (the caseworker queue)
-  | 'AUTO_RECOMMENDED'   // recommendation = APPROVED
-  | 'CALLBACK_SENT'      // additionally: callback_status LIKE 'SUCCESS%'
+  | 'AUTO_RECOMMENDED'   // recommendation = APPROVE
+  | 'CALLBACK_SENT'      // additionally: callback delivered (see CallbackEvent)
 
 /** rules_summary block (V5 §5 — exact as-built keys from collate_application_data) */
 export interface RulesSummary {
@@ -116,8 +118,13 @@ export interface OPAVersionRecord {
  * component_scores (null-safe).
  */
 export interface DISRecommendation {
+  recommendation_id?: string     // uuid PK (12 June DDL)
   recommendation: RecommendationOutcome
   recommendation_reason: string
+  /** NEW column (12 June) — currently just echoes recommendation_reason.
+   *  ⚠️ IP boundary: the Panel 1 narrative (Gemma 4/Praxia) is OV-IP and is
+   *  NOT this field. Do not let this column become the reasoning letter. */
+  caseworker_summary?: string | null
   /** Per-engine narrative, nullable per engine */
   evaluation_breakdown?: {
     drools_evaluation: string | null
@@ -132,6 +139,7 @@ export interface DISRecommendation {
   completeness_score: number
   completeness_status: CompletenessStatus
   generated_at: string           // ISO 8601
+  recommendation_at?: string     // table timestamp (12 June DDL, was decision_made_at)
   drools_version: DroolsVersionRecord[]
   opa_version: OPAVersionRecord[]
   /** "This is a system recommendation… Final determination rests with the
@@ -257,7 +265,8 @@ export type SkilledWorkerRuleId =
 
 export type DroolsRuleId = UniversalRuleId | SkilledWorkerRuleId
 
-/** Maps 1:1 to as-built rule_results columns (V5 §3) */
+/** Maps 1:1 to as-built table columns (V5 §3). Live table name:
+ *  `drools_evaluations` (renamed from rule_results, 12 June DDL — same columns). */
 export interface DroolsRuleResult {
   rule_result_id?: string        // uuid
   rule_id: DroolsRuleId
@@ -300,7 +309,8 @@ export type SoftOPAPolicyId = 'OPA-S01' | 'OPA-S02' | 'OPA-S03' | 'OPA-S04' | 'O
 
 export type OPAPolicyId = HardOPAPolicyId | SoftOPAPolicyId
 
-/** Maps 1:1 to as-built opa_results columns (V5 §3).
+/** Maps 1:1 to as-built table columns (V5 §3). Live table name:
+ *  `opa_evaluations` (renamed from opa_results, 12 June DDL — same columns).
  *  ⚠️ denial_reasons exists only in the table — the callback omits it. The
  *  trail read (endpoint 3) must come from the table for Panel 2 to render these. */
 export interface OPAPolicyResult {
@@ -509,15 +519,88 @@ export interface AuditLog {
  * The JSON DIS POSTs to `callback_url` — also stored verbatim as
  * recommendations.submission_payload. Channel-independent.
  *
- * ⚠️ opa_results entries here OMIT denial_reasons (the engine doesn't SELECT
- * them) — full OPA rows come from the trail read, not the callback.
+ * Wire keys renamed 12 June: `drools_evaluations` / `opa_evaluations`
+ * (were rule_results / opa_results). DISApplicationView keeps the
+ * rule_results/opa_results field names client-side — the data provider maps
+ * at the boundary.
+ *
+ * ⚠️ opa_evaluations entries here OMIT denial_reasons (the engine doesn't
+ * SELECT them) — full OPA rows come from the trail read, not the callback.
  */
 export interface DISRecommendationCallback extends DISRecommendation {
   dis_application_id: string
   component_scores: ComponentScores
-  rule_results: DroolsRuleResult[]
-  opa_results: Omit<OPAPolicyResult, 'denial_reasons'>[]
+  drools_evaluations: DroolsRuleResult[]
+  opa_evaluations: Omit<OPAPolicyResult, 'denial_reasons'>[]
   external_checks: ExternalCheckResult[]
+}
+
+// ============================================================================
+// CALLBACK EVENTS (12 June DDL — delivery tracking table)
+// ============================================================================
+
+export type CallbackEventStatus = 'PENDING' | 'SENT' | 'DELIVERED' | 'FAILED' | 'RETRYING'
+
+/** callback_events table — per-attempt delivery record. Better queue-state
+ *  signal than recommendations.callback_status. */
+export interface CallbackEvent {
+  callback_event_id: string
+  dis_application_id: string
+  recommendation_id: string
+  callback_url: string
+  attempt_number: number
+  status: CallbackEventStatus
+  http_status_code?: number | null
+  error_message?: string | null
+  payload_hash?: string | null
+  initiated_at: string
+  completed_at?: string | null
+  response_time_ms?: number | null
+  source_channel: SourceChannel
+}
+
+// ============================================================================
+// STATUS API (endpoint 0 — LIVE; contract CODE-verified 12 June, V5 OPEN-5 ✓)
+// ============================================================================
+
+export type DISPipelineStageStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED'
+
+/**
+ * GET /api/v1/applications/{id}/status response (dis-end-api).
+ * Headers: Authorization: Bearer {DIS_API_KEY}, X-Source-Channel: visakey.
+ * Pipeline state is derived from BigQuery audit events, NOT
+ * applications.status — DIS's own version of our QueueState derivation.
+ */
+export interface DISStatusResponse {
+  dis_application_id: string
+  source_application_id: string
+  source_channel: SourceChannel
+  status: 'PROCESSING' | 'PROCESSED'
+  created_at: string | null
+  updated_at: string | null
+  pipeline_progress: {
+    ingestion: DISPipelineStageStatus
+    document_classification: DISPipelineStageStatus
+    document_extraction: DISPipelineStageStatus
+    dlp_scan: DISPipelineStageStatus
+    fraud_detection: DISPipelineStageStatus
+    /** as-built expects SEVEN check rows, not six (V5 OPEN-8) */
+    external_api_checks: DISPipelineStageStatus
+    rules_evaluation: DISPipelineStageStatus
+    opa_compliance: DISPipelineStageStatus
+    decision: DISPipelineStageStatus
+  }
+  documents: {
+    expected_count: number | null
+    received_count: number | null
+    processed_count: number | null
+    failed_count: number | null
+  }
+  completeness_score: number | null
+  /** The recommendations row, shape not formally typed by the service */
+  decision: Record<string, unknown> | null
+  callback_url: string | null
+  estimated_completion: string
 }
 
 // ============================================================================

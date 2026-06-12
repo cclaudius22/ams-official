@@ -4,7 +4,23 @@
 
 ---
 
-## Last session: 11 June 2026
+## Last session: 12 June 2026 (morning)
+
+### What happened
+
+1. **Morning verification sweep (V5 §11): Deloitte PUSHED on deadline** — dis-api main populated (intake + dispatcher + dis-end-api Status API source), rec-engine/rules-engine/data-pipeline mains merged. Deployed env unchanged. **Read endpoints still zero** — EOD scope-confirmation deadline still open.
+2. **Schema drift caught same morning** (V5 §1a delta): outcome wire vocab now `APPROVE`/`REJECT`/`MANUAL_REVIEW`; callback keys + tables renamed `drools_evaluations`/`opa_evaluations`; new `caseworker_summary` column (watch OV-IP Panel 1 boundary); new `callback_events` table; Status API contract extracted (OPEN-5 ✓); OPEN-8 new: 7 external checks expected, not 6.
+3. **Task 2.0c committed** — wire types updated (`RecommendationOutcome = 'APPROVE' | 'MANUAL_REVIEW'`, callback key renames, `CallbackEvent`, `DISStatusResponse`), normalizeOutcome already absorbed both vocab eras.
+
+### What's next
+
+1. **Task 2.1 — RecommendationSummaryPanel** (mocks are current as of this morning)
+2. Deloitte EOD reply → V5 §10 contingency table
+3. Hermes-sibling repo-diff agent — priority rising (3 renames in a week)
+
+---
+
+## Previous session: 11 June 2026
 
 ### What happened this session
 
