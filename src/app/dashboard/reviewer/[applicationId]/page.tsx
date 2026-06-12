@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import ApplicationHeader from '@/components/application/ApplicationHeader'
+import RecommendationSummaryPanel from '@/components/application/RecommendationSummaryPanel'
 import AIScanResultsRedesigned from '@/components/application/AIScanResults'
 import SectionCard from '@/components/application/SectionCard'
 import DecisionFooter from '@/components/application/DecisionFooter'
@@ -313,6 +314,9 @@ export default function OfficialReviewPage() {
         <div className="p-4 md:p-6">
           {/* Application Header */}
           <ApplicationHeader application={applicationData} />
+
+          {/* Panel 1 — DIS Recommendation Summary (V4 §2 / Task 2.1, open by default) */}
+          <RecommendationSummaryPanel disView={disView} />
 
           {/* AI Scan Results */}
           <AIScanResultsRedesigned

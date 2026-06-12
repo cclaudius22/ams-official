@@ -102,8 +102,10 @@ export function disViewToLegacyScan(view: DISApplicationView): AIScanResult {
  * There is no overall_score as-built (V5 §8) — derive a display score as the
  * null-safe mean of component scores. NOT_APPLICABLE components (null entry
  * or null score) are excluded, never counted as 0.
+ *
+ * Shared by the legacy adapter and RecommendationSummaryPanel.
  */
-function deriveOverallScore(scores: DISApplicationView['component_scores']): number {
+export function deriveOverallScore(scores: DISApplicationView['component_scores']): number {
   const values = Object.values(scores)
     .filter((c): c is ComponentScore => c !== null && c.score !== null)
     .map((c) => c.score as number)
