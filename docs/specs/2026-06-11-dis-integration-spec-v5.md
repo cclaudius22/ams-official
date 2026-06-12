@@ -268,7 +268,7 @@ Confirmed safe as-is: `ComponentScoreKey` (all 9), `FraudStatus`, `FraudSignals`
 | V4 (`2026-05-02-dis-integration-spec-v4.md`) | Dashboard UX, admin modules, Hermes, observability |
 | Route audit (`dis-api-route-audit-2026-06-11.md`) | As-built endpoint evidence (repos + live env) |
 | Officer UI contract (`docs/devdocs/DIS-alignment-docs/DIS_Officer_UI_Data_Contract.md`) | Companion; superseded where §9 corrects it |
-| V3 spec | Historical; types superseded by §8 |
+| V3 spec (`historical/2026-04-12-dis-integration-spec-v3.md`) | Historical; types superseded by §8 |
 | Deloitte repos (`../dis-repos-deloitte`, 5 June; dis-api code on `release/dev` `945e9c9`) | CODE evidence. `../openvisa-dis-audit` copies are stale (24 Apr) — do not use |
 
 ---

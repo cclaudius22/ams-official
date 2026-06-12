@@ -1,5 +1,10 @@
 # Database Alignment Proposal: VisaKey → DIS Cloud SQL
 
+> **⚠️ SUPERSEDED — historical record only (archived 12 June 2026).** The
+> actual DIS schema is now published as DDL in Deloitte's `dis-data-layer`
+> repo (`feature/psqltable`, 12 tables) and documented in V5 §3 + §1a. Use
+> those, not this proposal.
+
 **Date:** 13 April 2026  
 **Author:** Chris Claudius, OpenVisa CTO  
 **For:** Deloitte India (Neeraj, Preety, Ranita, Satyarth)  

@@ -661,7 +661,7 @@ This is attached to: audit trail events, rule reload requests, reference data up
 | Document | Location | Relevance |
 |----------|----------|-----------|
 | V4 spec (this document) | `docs/specs/2026-05-02-dis-integration-spec-v4.md` | Single source of truth for dashboard architecture |
-| V3 spec (types, rules, OPA, extraction) | `docs/specs/2026-04-12-dis-integration-spec-v3.md` | Authoritative for TypeScript types and DIS contract shapes |
+| V3 spec (types, rules, OPA, extraction) | `docs/specs/historical/2026-04-12-dis-integration-spec-v3.md` | Archived 12 June — types/contracts superseded by V5 §8 |
 | Agent Handover | `docs/devdocs/DIS-alignment-docs/AMS_DASHBOARD_AGENT_HANDOVER.md` | Build priorities, admin modules, Datadog, QA hooks |
 | Canonical Extraction Schema V1.2 | `docs/devdocs/Canonical Document Extraction Schema.md` | Per-doc field schemas |
 | Build log | `docs/specs/build-log.md` | Task-by-task implementation state |

@@ -237,6 +237,14 @@ If we crash and come back fresh:
 
 | Commit | Date | Tasks | Summary |
 |--------|------|-------|---------|
+| `11d16a3` | 2026-06-12 | — | Archive June 7 build brief to historical/ (superseded by V5 §6) |
+| `e83ac38` | 2026-06-12 | 2.1 | **RecommendationSummaryPanel (Panel 1)** — verified in browser |
+| `11b969b` | 2026-06-12 | — | V5 §1b strategy pivot — OV builds the read layer (Phase 2F) |
+| `cb1c508` | 2026-06-12 | 2.0c | 12 June schema drift alignment (APPROVE vocab, drools/opa_evaluations keys, CallbackEvent, DISStatusResponse) |
+| `3e902d7` | 2026-06-11 | 2.0b | V5 type alignment to as-built shapes (dis.ts, mocks, adapter) |
+| `794fae7` | 2026-06-11 | — | V5 spec + as-built route audit + DIS-alignment docs |
+| `9c8d278` | 2026-05-02 | — | V4 spec (3-panel dashboard) + Hermes design + SESSION_LOG |
+| `613784d` | 2026-05-02 | 2.0 | Reviewer page type swap + V1.2 alignment + doc scrub |
 | `f32fb5b` | 2026-04-13 | 1.3, 1.4, 1.5, 1.6 | ApplicationData extension + nationality lib + outcome normalisation + completeness config. **Phase 1 complete.** |
 | `c0eebb0` | 2026-04-13 | 1.1, 1.2 | DIS API contract + extraction types |
 

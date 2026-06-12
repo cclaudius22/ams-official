@@ -1,5 +1,13 @@
 # AMS + DIS Integration Spec — V3
 
+> **⚠️ SUPERSEDED — historical record only (archived 12 June 2026).**
+> Dashboard UX: superseded by **V4** (`../2026-05-02-dis-integration-spec-v4.md`).
+> TypeScript types / data contracts: superseded by **V5 §8**
+> (`../2026-06-11-dis-integration-spec-v5.md`), grounded in as-built evidence
+> rather than Confluence intent. The rule/policy catalogues here remain useful
+> narrative reference, but field names and vocabularies in this document are
+> known-stale (see V5 §9 corrections register). Do not build against it.
+
 **Date:** 12 April 2026
 **Author:** Chris Claudius + Claude Code
 **Status:** Final shapes — threshold numbers pending Deloitte proposal

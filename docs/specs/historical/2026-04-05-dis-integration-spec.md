@@ -1,5 +1,9 @@
 # AMS + DIS Full Platform Integration Spec
 
+> **⚠️ SUPERSEDED — historical record only (archived 12 June 2026).** Fully
+> superseded by V2 → V3 → V4 (UX) and V5 (data contracts). Do not build
+> against this document.
+
 **Date:** 5 April 2026
 **Author:** Chris Claudius + Claude Code
 **Status:** Draft — awaiting review
