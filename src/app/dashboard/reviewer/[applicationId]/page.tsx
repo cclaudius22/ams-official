@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import ApplicationHeader from '@/components/application/ApplicationHeader'
 import RecommendationSummaryPanel from '@/components/application/RecommendationSummaryPanel'
+import GlassBoxTracePanel from '@/components/application/GlassBoxTracePanel'
 import AIScanResultsRedesigned from '@/components/application/AIScanResults'
 import SectionCard from '@/components/application/SectionCard'
 import DecisionFooter from '@/components/application/DecisionFooter'
@@ -317,6 +318,9 @@ export default function OfficialReviewPage() {
 
           {/* Panel 1 — DIS Recommendation Summary (V4 §2 / Task 2.1, open by default) */}
           <RecommendationSummaryPanel disView={disView} />
+
+          {/* Panel 2 — Glass Box Rule Trace (V4 §3 / Task 2.2, collapsed by default) */}
+          <GlassBoxTracePanel disView={disView} />
 
           {/* AI Scan Results */}
           <AIScanResultsRedesigned

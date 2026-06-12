@@ -259,6 +259,9 @@ Confirmed safe as-is: `ComponentScoreKey` (all 9), `FraudStatus`, `FraudSignals`
 5. Status API response contract + purpose of its all-tables env wiring — Neeraj
 6. If OV owns reads: IAM DB user, KMS decrypt grant, GCS signed-URL access — Siddharth
 7. `normalised_fields`/`fraud_signals` JSONB shapes (standing ask) — Ranita/Satyarth
+8. Status API expects 7 external checks (`ext_count == 7`) — which is the 7th? — Neeraj
+9. Vocabulary mapping: classifier labels (BIOMETRIC-RESIDENCE-PERMIT, EDUCATION-CERTIFICATE, MEDICAL-CERTIFICATE, hyphenated; no PASSPORT class) vs `documents.document_type` values vs our DocumentType enum; and as-deployed extraction_method values (all 12 doc types use Custom Extractors per processor metrics page 113410081 — the ID-Parser/Form-Parser split is stale) — Satyarth
+10. Real extraction quality (page 113410081, 9 June): employment letter F1 0.785/recall 65.8%, several 0.000-F1 fields — Panel 3 must treat missing extracted fields as the normal case, not an edge case; v2 corpus to fix — Satyarth
 
 ## 13. Source documents
 

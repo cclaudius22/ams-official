@@ -444,6 +444,7 @@ Named after the Greek messenger god — carries information between worlds (Conf
 | PostgreSQL Schema | 30048272 | DDL v13 (signed off 17 Apr) | All types |
 | Repository Structure | 3801090 | GitHub org, access plan | DevOps |
 | Technical Reference (hub) | 26640385 | Index of all tech docs | Navigation |
+| Document AI Processors Detailed Metrics | 113410081 | Per-processor F1/precision/recall, field-level scores, classifier labels | `extraction.ts`, Panel 3, QA expectations |
 
 ### Output format
 
