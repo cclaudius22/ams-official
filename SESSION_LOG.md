@@ -16,12 +16,23 @@
 
 Nishit's reply: 17 June = timelines published, not endpoints; substantive answer Monday 15 June. With WBS ending 30 June, endpoints can't be assumed in-window. **Pivot: OV builds the read layer (new Phase 2F)** — local Postgres replica from their own DDL + synthetic seed data + V5 §6 endpoints as Next route handlers behind the provider seam. Deloitte endpoints become a swap option, not a dependency. Access asks (IAM DB user, KMS, GCS) to be sent now. Chris's counter-email sent pinning delivery dates vs the 30 June WBS end and the owed 3-week UAT window.
 
+### Afternoon (same day)
+
+1. **Task 2.1 DONE** — `RecommendationSummaryPanel` (Panel 1): badge, derived score, statutory note, rules_summary tiles, flag chips, AI-generated case summary + disclaimer, evaluation breakdown. Browser-verified. (`e83ac38`)
+2. **Task 2.2 DONE** — `GlassBoxTracePanel` (Panel 2): 5-stage trace on as-built vocab, denial_reasons rendered, N/A greyed, "Other checks" bucket so the audit trail never drops a result. Browser-verified. (`68a1142`)
+3. **Housekeeping** — V1/V2/V3 specs + DB proposal + June 7 brief archived to `docs/specs/historical/` with superseded banners; build-log refreshed; `.playwright-mcp/` gitignored. (`11d16a3`, `f102e81`, `4cf8c3f`)
+4. **Demo env + identity** — `prj-demo-dis-6549` is the demo/dashboard host; `sa-ov-dis-read@prj-demo-dis-6549.iam.gserviceaccount.com` created (uniqueId 118218356534822839751); 5-item access ask sent to Deloitte DevOps (Cloud SQL IAM user + in-DB SELECT grants + KMS decrypt + GCS objectViewer + network path). (`586c1b1`)
+5. **Phase 2F.1+2F.2 DONE** — `db/` schema replica (Deloitte DDL @ ecd23b9, docker :5499) + `scripts/seedReplica.ts` (deterministic, 100 apps, 42 APPROVE / 58 MANUAL_REVIEW, corpus ground-truth reasoning). Findings: DDL create-set defect (OPEN-11), OPA outcome VARCHAR(10) → soft flag is `FLAG` (OPEN-4 resolved), 7th check = SPONSOR_VERIFICATION (OPEN-8 resolved), passport_number_raw code/DDL drift (OPEN-12). (`2f725b1`)
+6. Confluence page 113410081 (Doc AI processor metrics) reviewed → OPEN-9/10; added to Hermes watch list.
+
 ### What's next
 
-1. **Task 2.1 — RecommendationSummaryPanel** (mocks current as of this morning)
-2. **Phase 2F.1–2F.3 — OV read layer** over local schema replica (V5 §1b)
-3. Monday 15th: Nishit's substantive answer; 17th: their published timelines → V5 §10
-4. Hermes-sibling repo-diff agent — priority rising (3 renames in a week)
+1. **2F.3** — the five read endpoints (V5 §6) as Next route handlers over the replica, behind the provider seam; then **2F.4** provider flip
+2. **Tasks 2.3/2.4 — Panel 3 (Evidence)**: external check cards + document extraction cards (replica now provides the data)
+3. **Monday 15th:** Nishit's substantive answer (ask for endpoint *contracts* alongside dates); **17th:** published timelines → V5 §10 contingency
+4. **Report to Deloitte:** OPEN-11 (broken DDL create-set), OPEN-12 (passport_number_raw drift), OPEN-9 (classifier label vocab), plus chase the access asks
+5. Hermes-sibling repo-diff agent — priority rising (4 schema-affecting changes in 8 days)
+6. Replica note: `cd db && ./build-initdb.sh && docker compose up -d && npx tsx ../scripts/seedReplica.ts --reset`
 
 ---
 

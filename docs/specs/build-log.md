@@ -237,6 +237,11 @@ If we crash and come back fresh:
 
 | Commit | Date | Tasks | Summary |
 |--------|------|-------|---------|
+| `2f725b1` | 2026-06-12 | 2F.1, 2F.2 | **DIS schema replica + deterministic corpus seed** — OPEN-4/8 resolved by DDL constraints, OPEN-11/12 raised |
+| `586c1b1` | 2026-06-12 | — | prj-demo-dis-6549 = demo/dashboard host (2F deploy target) |
+| `68a1142` | 2026-06-12 | 2.2 | **GlassBoxTracePanel (Panel 2)** — 5-stage trace, denial_reasons, browser-verified |
+| `4cf8c3f` | 2026-06-12 | — | Fix .playwright-mcp gitignore location |
+| `f102e81` | 2026-06-12 | — | Housekeeping: V1/V2/V3 + DB proposal archived to historical/, build log refreshed |
 | `11d16a3` | 2026-06-12 | — | Archive June 7 build brief to historical/ (superseded by V5 §6) |
 | `e83ac38` | 2026-06-12 | 2.1 | **RecommendationSummaryPanel (Panel 1)** — verified in browser |
 | `11b969b` | 2026-06-12 | — | V5 §1b strategy pivot — OV builds the read layer (Phase 2F) |
