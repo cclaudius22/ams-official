@@ -49,6 +49,8 @@ Enablers already in hand (no Deloitte dependency):
 | 2F.5 | Access asks to Deloitte NOW (not 17th): IAM DB user on Cloud SQL, KMS decrypt grant, GCS signed-URL read. Permissions, not deliverables |
 | 2F.6 | Phase 3 option: point 2F.3 handlers at their Cloud SQL (live), or swap to their endpoints if delivered — whichever is better by then |
 
+**Deployment target (12 June):** `prj-demo-dis-6549` is the DIS+AMS demo and dashboard-host environment — the dashboard and the 2F read layer deploy there. `prj-dev-dis-9666` remains Deloitte's dev pipeline project (verification sweeps, as-built evidence).
+
 Commercial track (Chris): delivery dates due 17 June measured against 30 June WBS end; lost time (~1 month QA/frontend) documented via route audit + this spec; if dates land ≥30 June → change-control / UAT-extension conversation, position decided before Monday's call.
 
 ## 2. Evidence tiers
