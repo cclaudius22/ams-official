@@ -65,6 +65,34 @@ Cross-cutting: no response column at all; app id specified 3× (path `{id}` + `X
 
 **Note:** `docs/specs/build-log.md` "Current position" is stale (still says Phase 1 / Phase 2 not started) — refresh it when the 2F.3/2F.4 work commits.
 
+### 16 June (cont. 2) — 🚩 PIT STOP: 2F.3 read layer complete + verified
+
+**The five V5 §6 read endpoints are built over the replica behind the provider seam, and verified end-to-end.** Page wiring (2F.4) is the next step, deliberately held for a check-in — everything so far is additive/isolated and does NOT touch the demo path (reviewer page still renders mock).
+
+**Shipped (all new/additive):**
+- `src/lib/disDb.ts` — `pg.Pool` singleton over `DIS_REPLICA_URL` (default `:5499`).
+- `src/data/dis-providers/` — `DISDataProvider` interface + `getDISProvider()` (env `DIS_DATA_PROVIDER` = `mock` default | `replica` | later `deloitte`); `MockDISProvider`, `ReplicaDISProvider`, `queueState.ts` (`deriveQueueState`), `signUrl.ts` (GCS stub), and `queries/{queue,recommendation,trail,documents,externalChecks}.ts`.
+- `src/app/api/dis/applications/...` — E1 `/`, E2 `/{id}`, E3 `/{id}/trail`, E4 `/{id}/documents`, E5 `/{id}/external-checks`, + composite `/{id}/view` (what the page will fetch).
+- `dis.ts` drift fix (SPONSOR_VERIFICATION + CRITICAL) + `DISQueueRow`.
+- 7 test files under `src/__tests__/dis-*` (replica integration tests self-skip when `DIS_REPLICA_URL` unset).
+
+**Verification (pre-pit-stop):** `39/39` tests pass (16 foundation + 23 replica integration, live against `:5499`); `tsc` 76 errors total = the pre-existing onboarding debt, **0 in our files**; all 6 endpoints curl'd 200 over HTTP with `DIS_DATA_PROVIDER=replica`: list total 100 / READY_FOR_REVIEW 58, detail MANUAL_REVIEW + 9 component keys, trail 20 rules/12 opa + denial_reasons, docs 11/10 + image_url, checks 7 incl SPONSOR_VERIFICATION, composite view full, unknown id → 404.
+
+**Run the replica-backed app:** `DIS_DATA_PROVIDER=replica DIS_REPLICA_URL=postgres://dis:dis@localhost:5499/openvisa_pg_db npm run dev` (replica must be up + seeded first).
+
+**Key real-data facts (from the live build):** no `VK-...` ids exist — visakey = UUID-shaped, govdirect = `HO-SW-2026-...`; `visa_type` stored hyphenated (`skilled-worker`) → normalized to underscore; rich `component_scores`/version arrays live in `recommendations.submission_payload` JSONB (columns are score-only / `{version:[]}`-wrapped); all 100 apps have DELIVERED callbacks → APPROVE → CALLBACK_SENT, MANUAL_REVIEW → READY_FOR_REVIEW.
+
+**Open items for the adversarial review (next phase, not blocking the pit stop):**
+1. `documents` returns a `PHOTO` doc whose `document_type` is NOT in the `DocumentType` union (12 types) — Panel 3 must handle/exclude it (like CoS).
+2. `documents` query stamps extraction timestamps via SQL `::text` (non-ISO `' +00'`) while the others use `toISOString()` — normalize for consistency.
+3. `llm_summary` is an honest placeholder (OV-IP Azure endpoint not wired).
+4. `denial_reasons` only populated on ~4/58 MANUAL_REVIEW apps; mock fixture has 6 external checks vs replica's 7.
+
+**RESUME HERE (after Chris's check-in):**
+1. Wire `src/app/dashboard/reviewer/[applicationId]/page.tsx` → fetch `/api/dis/applications/{id}/view`, `setDisView`, keep `mockDISApplicationView` as initial-state fallback. Browser-verify Panels 1 & 2 render from replica (denial_reasons visible) for a real seeded id.
+2. Run the adversarial review workflow over the read layer + apply fixes.
+3. Final verification + commit.
+
 ---
 
 ## Session: 12 June 2026 (morning)

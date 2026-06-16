@@ -329,24 +329,29 @@ export interface OPAPolicyResult {
 }
 
 // ============================================================================
-// EXTERNAL API CHECKS (6)
+// EXTERNAL API CHECKS (7)
 // ============================================================================
 
 /**
- * The 6 external checks — LIVE-verified against the deployed dis-external-checks
- * service routes (V5 §5 vocabulary corrections):
+ * The 7 external checks — reconciled 16 June against the as-built DDL
+ * (db/ddl/06_external_checks.sql CHECK constraint) and the seeded replica
+ * (700 rows / 100 apps = 7 per application):
  *
  * 1. WORLDCHECK             — Reuters World-Check (LSEG) — live API
  * 2. INTERPOL               — Stolen/Lost Travel Documents — mock
  * 3. PASSPORT_VERIFY        — HMPO passport verification — mock
  * 4. BORDER_CONTROL         — border crossing / immigration history — mock
  *                             (separate as-built endpoint; NOT merged into
- *                             PASSPORT_VERIFY — earlier note was wrong)
+ *                             PASSPORT_VERIFY)
  * 5. DEVICE_IP_RISK         — VPN/Tor/proxy/fraud IP (VisaKey only) — mock
  * 6. EMAIL_PHONE_REPUTATION — disposable email, VOIP, fraud signals — mock
+ * 7. SPONSOR_VERIFICATION   — sponsor / CoS register check — mock
  *
- * There is no SPONSOR_VERIFY external check — sponsor/CoS validation is a
- * rules-layer register lookup, not an external_checks row.
+ * ⚠️ OPEN-8 (resolved 12 June): the as-built pipeline DOES emit a 7th
+ * external_checks row, SPONSOR_VERIFICATION. An earlier note here claimed
+ * sponsor validation was rules-layer only — that was superseded by the DDL.
+ * RULE-W02 (Sponsor Licence Status) still exists in the Drools layer; the
+ * external check is the API-evidence counterpart, not a replacement.
  */
 export type ExternalCheckType =
   | 'WORLDCHECK'
@@ -355,6 +360,7 @@ export type ExternalCheckType =
   | 'BORDER_CONTROL'
   | 'DEVICE_IP_RISK'
   | 'EMAIL_PHONE_REPUTATION'
+  | 'SPONSOR_VERIFICATION'
 
 export type CheckStatus = 'CLEAR' | 'BLOCKED' | 'FLAGGED' | 'ERROR' | 'TIMEOUT'
 
@@ -366,7 +372,10 @@ export interface ExternalCheckResult {
   document_id?: string | null
   check_type: ExternalCheckType
   check_status: CheckStatus
-  risk_level: 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH'
+  /** CRITICAL added 16 June — the as-built DDL CHECK allows it
+   *  (db/ddl/06_external_checks.sql); the narrower union would reject a
+   *  legal CRITICAL row. */
+  risk_level: 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
   confidence_score: number
   flags: Record<string, unknown>
   /** Full raw response (as-built response_payload jsonb) — Panel 3 evidence cards */
@@ -642,5 +651,29 @@ export interface DISApplicationView {
   source_application_id: string
   source_reference: string
   dis_application_id: string
+  submitted_at: string           // ISO 8601
+}
+
+// ============================================================================
+// QUEUE LIST ROW (V5 §6 endpoint 1 — the officer queue / list screen)
+// ============================================================================
+
+/**
+ * One row of the queue list (E1: GET /api/dis/applications). Deliberately a
+ * DIS-native shape, NOT the legacy LiveApplication (which binds to a raw
+ * ApplicationStatus display union). The UI binds to the DERIVED queue_state
+ * (V5 §4), never applications.status. recommendation is null until the
+ * pipeline writes a recommendations row.
+ */
+export interface DISQueueRow {
+  dis_application_id: string
+  source_application_id: string
+  source_channel: SourceChannel
+  visa_type: VisaType
+  applicant_name: string
+  /** Derived (deriveQueueState) — what the queue filters on. */
+  queue_state: QueueState
+  recommendation: RecommendationOutcome | null
+  completeness_score: number | null
   submitted_at: string           // ISO 8601
 }

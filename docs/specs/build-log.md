@@ -21,10 +21,11 @@
 
 ## Current position
 
-**Phase:** Phase 1 — Type Alignment — ✅ COMPLETE (+ V1.2 canonical revision applied 14 Apr)
-**Last completed:** V1.2 canonical alignment revision — `extraction.ts` rewritten, fraud signals typed, V3 spec Section 6.2 + 10.4 updated
-**Next up:** Phase 2A — schema-independent tasks only (Option B strategy)
-**Partially blocked on:** Deloitte sign-off (6 artifacts requested 2026-04-15, Monday EOD deadline) — see [`deloitte-signoff-request-2026-04-15.md`](./deloitte-signoff-request-2026-04-15.md)
+**Phase:** Phase 2F — OV-built read layer (strategy pivot, V5 §1b) — IN PROGRESS
+**Last completed (16 Jun):** 2F.3 read layer — 5 V5 §6 read endpoints (`/api/dis/*`) over the replica behind a `DISDataProvider` seam (`mock`|`replica`), `disDb` pool, `deriveQueueState`, GCS-stub `signUrl`. 39/39 tests, tsc 0 new errors, 6 endpoints curl-verified live. See SESSION_LOG "16 June (cont. 2)".
+**Next up:** 2F.4 — wire the reviewer page to the composite `/view` route (mock fallback) → adversarial review → final verify.
+**Earlier:** Panels 1 & 2 (2.1/2.2) done; replica + seed (2F.1/2F.2) done. Phase 1 type alignment ✅ COMPLETE.
+**Note:** the per-task entries below predate the V5 pivot — SESSION_LOG.md is the authoritative current-state record; the commit-history table at the bottom is kept current.
 
 **What we can build without sign-off (28 of 31 Phase 2 tasks):**
 - 2A: 2.0, 2.1, 2.2, 2.3, 2.4, 2.6, 2.9, 2.10, 2.11, 2.12, 2.13, 2.14, 2.15
