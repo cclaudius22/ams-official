@@ -4,7 +4,70 @@
 
 ---
 
-## Last session: 12 June 2026 (morning)
+## Last session: 16 June 2026
+
+**Model note:** Fable 5 (the 12th's model) is unavailable; now on Opus 4.8. Session began strategy/comms only, then resumed the 2F.3 build under ultracode — see "16 June (cont.)" below.
+
+### Nishit's read-API spec received
+
+PDF: `docs/cc-notes/Open Visa Mail - RE_ Subject_ Read API Endpoints — Two Asks for the 17th.pdf`. Deloitte **accepted the 5-endpoint granular shape** (a real shift — not just the monolith), but gave **no response schemas**, the **queue endpoint is functionally wrong**, and the "Suggested Approach" still lobbies for the consolidated `/applications/{id}/status` (Neeraj's existing Status API).
+
+Diff vs V5 §6:
+
+| Their endpoint | §6 | Gap |
+|---|---|---|
+| `GET /applications/status?startDateTime=&endDateTime=` | #1 queue | **Won't drive the queue** — date filter only, no pagination/visa_type; and `applications.status` is the completeness verdict, NOT the decision (V5 §4), so the queue must join `recommendations` and filter `outcome='MANUAL_REVIEW'` |
+| `GET /app_decision/{id}/details` | #2 detail | response shape unknown; "decision" vs recommendation naming (minor) |
+| `GET /rules_evaluations/{id}/details` | #3 trail | must include `opa_evaluations.denial_reasons` (callback omits it) |
+| `GET /doc_processing/{id}/details` | #4 documents | must mint GCS signed URLs, not just `gcs_path` |
+| `GET /external_checks/{id}/details` | #5 ext checks | shape unknown; expect 7 types incl. SPONSOR_VERIFICATION |
+
+Cross-cutting: no response column at all; app id specified 3× (path `{id}` + `X-RequestID` header + GET body — GET-with-body anti-pattern); date format `DD-MM-YYYY` contradicts their own `TIMESTAMPTZ`/ISO-8601 storage.
+
+### Done
+
+- Vetted Chris's reply draft. Corrected the posture (not "blocked/guessing" → building against the schema in parallel); added the queue-endpoint defect as its own point. Reply redraft saved at `docs/cc-notes/2026-06-16-read-api-reply-draft.md`.
+- X-RequestID: confirmed Chris's "duplication" read was correct once the spec showed `X-RequestID: <application_id>` (CC had earlier mis-advised it was standard tracing).
+
+### What's next
+
+1. Send the reply (response schemas = gating ask).
+2. Tuesday 17th: WBS review (Isabela) + Deloitte's delivery dates.
+3. Resume build: **2F.3** (5 read endpoints over the replica) → **2F.4** provider flip → **Panel 3** (2.3/2.4).
+4. Still open: access asks to DevOps (sent 12th); engineering defects OPEN-9/11/12 to Preety/Satyarth.
+5. **Date check:** PDF says WBS covers work "through 26 June"; pivot notes say engagement end 30 June — confirm which is which before quoting either externally.
+
+### 16 June (cont.) — Build resumed under ultracode: 2F.3 + 2F.4 plan
+
+**Effort:** ultracode (Opus 4.8, xhigh + workflow orchestration). Code work now starting.
+
+**Understand sweep** (workflow `understand-2f3-read-layer`, 5 parallel readers + synthesis). Raw output at `<session transcript>/tasks/w194fne7i.output`. Headline: the build-log oversells what exists — **no DIS provider, no DIS route, no replica-read code exist anywhere.** The only producer of `DISApplicationView` is the static fixture `src/lib/mockDISData.ts`, imported directly by the reviewer page. But the consumer seam is uniform: both panels + the legacy adapter depend only on the `DISApplicationView` type (`src/api-contracts/dis.ts:618`) — hit that type and everything downstream works.
+
+**Scope decision (Chris):** full pass = **2F.3 read layer + 2F.4 page wiring in one go.** Mock stays the provider default + page fallback so the demo never goes blank; flipping to replica data is a one-env-var change.
+
+**Build plan (infra → provider → 5 endpoints → wire page → tests):**
+1. `src/lib/disDb.ts` — singleton `pg.Pool` + new `DIS_REPLICA_URL` env (default `postgres://dis:dis@localhost:5499/openvisa_pg_db`); mirror the `globalForPrisma` hot-reload guard in `src/lib/db.ts`.
+2. `src/data/dis-providers/` — fresh `DISDataProvider` interface + `getDISProvider()` switching on `DIS_DATA_PROVIDER` (`mock`|`replica`|later `deloitte`); `MockDISProvider` first, then `ReplicaDISProvider` (SQL + wire→view assembly + `deriveQueueState()`). Mirrors `src/data/providers/index.ts:102`.
+3. Five V5 §6 endpoints under `/api/dis/*`, keyed on **`source_application_id`** (e.g. `VK-2024-1835` — the id the page holds, NOT the DIS UUID): E1 `/applications` (queue list, derived `queue_state`, paginated), E2 `/{id}`, E3 `/{id}/trail` (reads the `opa_evaluations`/`drools_evaluations` TABLES so `denial_reasons` reach Panel 2), E4 `/{id}/documents`, E5 `/{id}/external-checks`.
+4. Wire `src/app/dashboard/reviewer/[applicationId]/page.tsx` to fetch the assembled view; mock = initial-state fallback.
+5. Tests — mock-provider unit + route-envelope; replica integration self-skips when `:5499` unreachable (CI green without docker).
+
+**Decisions taken:** raw `pg.Pool` (not Prisma/ORM — Deloitte owns the schema, throwaway replica); fresh DIS provider (do NOT touch the queue/officer `ApplicationDataProvider` or `disViewAdapter`); new `/api/dis/*` namespace; new `DISQueueRow` type for E1 (both existing `LiveApplication` defs bind raw `ApplicationStatus`, violating the V5 §4 derived-`queue_state` rule); **GCS signed URLs stubbed, deferred to 2F.5** (no `@google-cloud/storage` dep, no real objects behind seeded paths, KMS/GCS access ask still outstanding — isolate behind one `signUrl()`); `normalizeOutcome` to tolerate both `APPROVE` (table) and `APPROVED` (spec sample — spec is internally inconsistent).
+
+**Data caveats (empty ≠ bug):** `denial_reasons` only on 2 flagged OPA policies; `confidence` always NULL; no FAILED/RETRYING callbacks; `REJECT` never seeded (folded into MANUAL_REVIEW); nationality padded `GBX`-style; rich `component_scores`/`evaluation_breakdown` live in `recommendations.submission_payload` JSONB, not the flat column.
+
+**Grounding state at this checkpoint:** docker replica **DOWN** (port 5499 closed); corpus present at `../openvisa-synthetic-data/output/json_payloads`; `pg`+`tsx` available; no `DIS_*` env vars yet.
+
+**RESUME HERE:**
+1. Bring up + seed replica: `cd db && ./build-initdb.sh && docker compose up -d && npx tsx ../scripts/seedReplica.ts --reset`
+2. Inspect real row + JSONB shapes, then implement foundation (`dis.ts` types, `disDb.ts`, provider+mock, `queueState`) → 5 endpoints → wire page → tests.
+3. Then run the adversarial review workflow.
+
+**Note:** `docs/specs/build-log.md` "Current position" is stale (still says Phase 1 / Phase 2 not started) — refresh it when the 2F.3/2F.4 work commits.
+
+---
+
+## Session: 12 June 2026 (morning)
 
 ### What happened
 
