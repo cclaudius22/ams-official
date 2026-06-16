@@ -93,6 +93,10 @@ Cross-cutting: no response column at all; app id specified 3× (path `{id}` + `X
 2. Run the adversarial review workflow over the read layer + apply fixes.
 3. Final verification + commit.
 
+### Parked backlog (cross-cutting — NOT part of 2F)
+
+- **AMS dashboard auth — do AFTER task 2.15 (end of the current Phase 2 plan), before Cloud Run.** The dashboard is currently OPEN (no gate). Before it's exposed on Cloud Run (demo host prj-demo-dis-6549) it needs at least an admin login. Auth primitives already exist (`src/app/api/auth/{login,logout,me}`, `JWT_SECRET`) but don't gate the dashboard routes. Full RBAC is explicitly deferred to a later phase. Keep it a discrete task — don't entangle with the 2F read-layer work. (Chris, 16 Jun; timing updated same day from "next session" → "after 2.15".)
+
 ---
 
 ## Session: 12 June 2026 (morning)
