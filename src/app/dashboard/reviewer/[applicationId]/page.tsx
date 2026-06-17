@@ -86,6 +86,23 @@ export default function OfficialReviewPage() {
         return;
       }
 
+      // Phase 2F.4 — wire Panels 1 & 2 to the DIS read layer. Fetch the
+      // assembled DISApplicationView from the replica-backed composite route
+      // (DIS_DATA_PROVIDER selects mock | replica). On any failure we keep the
+      // mock fixture set as initial state, so the panels never blank.
+      // Independent of the legacy ApplicationData fetch below.
+      try {
+        const disResponse = await fetch(`/api/dis/applications/${applicationId}/view`);
+        if (disResponse.ok) {
+          const disResult = await disResponse.json();
+          if (disResult.success && disResult.data) {
+            setDisView(disResult.data);
+          }
+        }
+      } catch (disErr) {
+        console.error('Error fetching DIS view (keeping mock fallback):', disErr);
+      }
+
       try {
         console.log('Fetching application:', applicationId);
         const response = await fetch(`/api/applications/${applicationId}`);

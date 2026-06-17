@@ -23,7 +23,8 @@
 
 **Phase:** Phase 2F — OV-built read layer (strategy pivot, V5 §1b) — IN PROGRESS
 **Last completed (16 Jun):** 2F.3 read layer — 5 V5 §6 read endpoints (`/api/dis/*`) over the replica behind a `DISDataProvider` seam (`mock`|`replica`), `disDb` pool, `deriveQueueState`, GCS-stub `signUrl`. 39/39 tests, tsc 0 new errors, 6 endpoints curl-verified live. See SESSION_LOG "16 June (cont. 2)".
-**Next up:** 2F.4 — wire the reviewer page to the composite `/view` route (mock fallback) → adversarial review → final verify.
+**2F.4 (17 Jun):** reviewer page wired to the composite `/view` route (mock fallback); Panels 1 & 2 browser-verified rendering replica data. tsc 0 new.
+**Next up:** Phase 5 — adversarial review of the read layer + wiring → apply fixes → final verify.
 **Earlier:** Panels 1 & 2 (2.1/2.2) done; replica + seed (2F.1/2F.2) done. Phase 1 type alignment ✅ COMPLETE.
 **Note:** the per-task entries below predate the V5 pivot — SESSION_LOG.md is the authoritative current-state record; the commit-history table at the bottom is kept current.
 

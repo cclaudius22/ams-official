@@ -4,7 +4,7 @@
 
 ---
 
-## Last session: 16 June 2026
+## Last session: 16–17 June 2026
 
 **Model note:** Fable 5 (the 12th's model) is unavailable; now on Opus 4.8. Session began strategy/comms only, then resumed the 2F.3 build under ultracode — see "16 June (cont.)" below.
 
@@ -96,6 +96,15 @@ Cross-cutting: no response column at all; app id specified 3× (path `{id}` + `X
 ### Parked backlog (cross-cutting — NOT part of 2F)
 
 - **AMS dashboard auth — do AFTER task 2.15 (end of the current Phase 2 plan), before Cloud Run.** The dashboard is currently OPEN (no gate). Before it's exposed on Cloud Run (demo host prj-demo-dis-6549) it needs at least an admin login. Auth primitives already exist (`src/app/api/auth/{login,logout,me}`, `JWT_SECRET`) but don't gate the dashboard routes. Full RBAC is explicitly deferred to a later phase. Keep it a discrete task — don't entangle with the 2F read-layer work. (Chris, 16 Jun; timing updated same day from "next session" → "after 2.15".)
+
+### 17 June — 🚩 PIT STOP 2: reviewer page wired to the replica (2F.4)
+
+- **Wired** `src/app/dashboard/reviewer/[applicationId]/page.tsx`: the non-demo branch now fetches the composite `GET /api/dis/applications/{id}/view` and `setDisView(replica data)`; the mock fixture stays as initial-state fallback (demo ids `VK-2024-1835…` unchanged). Panels 1 & 2 render from the replica when `DIS_DATA_PROVIDER=replica`.
+- **Browser-verified live** (Playwright) against seeded MANUAL_REVIEW id `7450bc56-6fc6-4ccb-95b5-582a736a9625`: Panel 1 shows replica recommendation — Manual Review, score 92, replica recommendation_reason (doc misclassification), flagged RULE-U05, tiles 18/20 Drools · 11/12 OPA · 7/7 checks · 78 completeness, and the "AI narrative pending" llm_summary placeholder (mock-impossible). Panel 2 present. tsc 76 (0 new).
+- **Nishit TL;DR** delivered in chat (what AMS dashboard is + maps to his read endpoints); offered to save to `docs/cc-notes/` — pending Chris's word.
+- **Known demo-coherence gap (NOT a read-layer defect):** for replica ids the legacy `/api/applications/{id}` 404s, so the page header + section accordion + legacy "AI Assessment Results" fall back to mock (shows "John James Doe" etc.). Only the DIS panels (1 & 2) are replica-backed. To make the whole page coherent for a replica id, later map `applications`/`applicants` → `ApplicationData` (or seed the json provider). Out of 2F scope.
+
+**RESUME HERE:** Phase 5 — adversarial review workflow over the read layer + wiring; apply fixes (incl. flagged items: `PHOTO` doc-type not in `DocumentType` union, `documents` `::text` non-ISO timestamps, demo-coherence). Then final verify + commit. (Auth still deferred to after task 2.15 — see Parked backlog.)
 
 ---
 
