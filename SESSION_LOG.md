@@ -106,6 +106,24 @@ Cross-cutting: no response column at all; app id specified 3× (path `{id}` + `X
 
 **RESUME HERE:** Phase 5 — adversarial review workflow over the read layer + wiring; apply fixes (incl. flagged items: `PHOTO` doc-type not in `DocumentType` union, `documents` `::text` non-ISO timestamps, demo-coherence). Then final verify + commit. (Auth still deferred to after task 2.15 — see Parked backlog.)
 
+### 17 June (cont. 2) — read-layer correction: RECOMMEND_* vocab + human-in-the-loop + status-led
+
+Triggered by the v3.0 *Component Scoring & Recommendation* spec (Confluence DD/63799317) + Chris's clarifications. We had the outcome model wrong (built on a stale DDL). Three linked corrections, applied + verified:
+
+1. **Outcome vocab** → `RECOMMEND_APPROVE` / `RECOMMEND_REJECT` / `MANUAL_REVIEW` (all live; REJECT was NOT disabled — was wrongly `APPROVE`/`MANUAL_REVIEW`). Updated `dis.ts` (RecommendationOutcome), `normalizeOutcome` (RECOMMEND_* cases; legacy retained), `DISQueueRow`, replica DDL CHECK + seed (`REJECTED → RECOMMEND_REJECT`), tests.
+2. **Phase-1 human-in-the-loop** → `deriveQueueState`: ALL processed apps → `READY_FOR_REVIEW` (recommendation is advisory, never bypasses the officer). `AUTO_RECOMMENDED`/`CALLBACK_SENT` are Phase-2-only (not produced).
+3. **Status-led officer view** → Panel 1: removed the aggregate `Score: N/100` badge; recommendation reads as advisory ("DIS recommends approval/refusal", "DIS flags for attention"). Scores are background-only (routing/audit/BigQuery), never shown to the officer.
+
+**Re-seeded** replica → 42 RECOMMEND_APPROVE / 38 RECOMMEND_REJECT / 20 MANUAL_REVIEW. **Verified:** 45/45 DIS tests green (live replica), tsc 76 (0 new), no stray APPROVE/REJECT literals.
+
+**Captured:** memory `dis-phase1-human-in-loop` + `dis-multi-source-moat`; design records `docs/cc-notes/2026-06-17-read-layer-vocab-correction.md` + `…-multi-source-dis-moat-brainstorm.md`.
+
+**Channel model:** DIS deploys **per single-channel environment** (VisaKey DIS, GovDirect DIS); AMS stays deployment-agnostic; cross-source merge is an OV/AMS capability (a moat), deferred — never asked of Deloitte.
+
+**Neeraj — Review Queue API (E1):** send-ready reply at `docs/cc-notes/2026-06-17-review-queue-api-reply-draft.md` (pending Chris's send) — reuse the Status shape trimmed to a list row + `applicant_name`/`visa_type`; pagination + list envelope; vocab pinned to RECOMMEND_*; channel confirmed single-per-deployment.
+
+**Pending (quick):** browser spot-check of the new Panel 1 phrasing (cosmetic; logic verified by tests). **RESUME:** Phase 5 adversarial review — now over corrected code.
+
 ---
 
 ## Session: 12 June 2026 (morning)

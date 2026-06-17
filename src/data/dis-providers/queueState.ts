@@ -1,25 +1,20 @@
 /**
- * Derived queue state (V5 §4).
+ * Derived queue state (V5 §4) — corrected 17 June 2026 to the Phase-1
+ * human-in-the-loop model.
  *
- * `applications.status` is only a document-completeness verdict — intake writes
- * CREATED, document-processing overwrites it with the completeness verdict, and
- * no service ever updates it to reflect the decision. So the queue state the UI
- * binds to must be DERIVED from: status + the recommendations row outcome +
- * whether the callback was delivered. This module is the single source of that
- * derivation, used by both the queue list (E1) and the detail view (E2).
+ * applications.status is only a document-completeness verdict (it never becomes
+ * the decision), so the queue state the UI binds to is DERIVED from status +
+ * whether a recommendation has been produced. This is the single source of that
+ * derivation, used by both the queue list (E1) and the detail view.
  *
- * Precedence:
- *   1. A present recommendation outcome wins over status-based states (a real
- *      recommendation row means the pipeline ran).
- *      - MANUAL_REVIEW → READY_FOR_REVIEW (the caseworker queue) ALWAYS, even
- *        once the informational callback is delivered. Otherwise every
- *        delivered app would fall out of the queue and the primary screen would
- *        be empty.
- *      - APPROVE → CALLBACK_SENT once delivered (auto-approved + notified, done),
- *        else AUTO_RECOMMENDED.
- *   2. No recommendation yet → fall back to the completeness status:
- *      COMPLETE → IN_PIPELINE, INCOMPLETE_PENDING|DOCUMENTS_REQUIRED →
- *      AWAITING_DOCS, CREATED → FAILED_INTAKE.
+ * Phase 1: EVERY processed application goes to a caseworker. A present
+ * recommendation — RECOMMEND_APPROVE, RECOMMEND_REJECT, or MANUAL_REVIEW — maps
+ * to READY_FOR_REVIEW regardless of which outcome it is; the recommendation is
+ * advisory (shown alongside), never a gate that bypasses the officer. With no
+ * recommendation yet, fall back to the completeness verdict.
+ *
+ * AUTO_RECOMMENDED / CALLBACK_SENT (programmatic fast-track) are Phase-2 only
+ * and are intentionally NOT produced here.
  */
 
 import type { QueueState, RecommendationOutcome, DISApplicationStatus } from '@/api-contracts/dis'
@@ -29,22 +24,23 @@ export interface QueueStateInput {
   status: DISApplicationStatus
   /** recommendations.outcome, or null when no recommendations row exists yet. */
   recommendationOutcome: RecommendationOutcome | null
-  /** True when a callback_events row reached DELIVERED for this application. */
-  callbackDelivered: boolean
+  /**
+   * Whether a callback_events row reached DELIVERED. Unused in Phase 1 (kept
+   * optional); reserved for the Phase-2 CALLBACK_SENT state.
+   */
+  callbackDelivered?: boolean
 }
 
 export function deriveQueueState(input: QueueStateInput): QueueState {
-  const { status, recommendationOutcome, callbackDelivered } = input
+  const { status, recommendationOutcome } = input
 
-  if (recommendationOutcome === 'MANUAL_REVIEW') {
+  // Phase 1 — any recommendation outcome means the pipeline produced a result,
+  // and every result is reviewed by a caseworker.
+  if (recommendationOutcome) {
     return 'READY_FOR_REVIEW'
   }
 
-  if (recommendationOutcome === 'APPROVE') {
-    return callbackDelivered ? 'CALLBACK_SENT' : 'AUTO_RECOMMENDED'
-  }
-
-  // No recommendation row yet — fall back to the completeness verdict.
+  // No recommendation yet — fall back to the completeness verdict.
   switch (status) {
     case 'COMPLETE':
       return 'IN_PIPELINE'

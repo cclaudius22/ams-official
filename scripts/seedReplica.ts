@@ -13,10 +13,10 @@
  * DETERMINISTIC: every id, score, and timestamp derives from sha256 of the
  * application's source id — reruns produce identical rows. No Date.now().
  *
- * Phase 1 outcome mapping (V5 §5 quirk 2 — REJECT disabled as-built):
- *   expected APPROVED      → recommendations.outcome 'APPROVE'
- *   expected REJECTED      → 'MANUAL_REVIEW' + hard_fail_rules populated
- *   expected MANUAL_REVIEW → 'MANUAL_REVIEW' + soft_flag_rules populated
+ * Outcome mapping (17 Jun — pipeline vocab RECOMMEND_*; all three are live):
+ *   expected APPROVED      → recommendations.outcome 'RECOMMEND_APPROVE'
+ *   expected REJECTED      → 'RECOMMEND_REJECT' + hard_fail_rules populated
+ *   expected MANUAL_REVIEW → 'MANUAL_REVIEW'    + soft_flag_rules populated
  *
  * Usage:
  *   npx tsx scripts/seedReplica.ts [--limit N] [--reset]
@@ -459,7 +459,10 @@ async function main() {
     }
 
     // --- recommendation + callback ---
-    const recOutcome = outcome.expected_decision === 'APPROVED' ? 'APPROVE' : 'MANUAL_REVIEW'
+    const recOutcome =
+      outcome.expected_decision === 'APPROVED' ? 'RECOMMEND_APPROVE'
+        : outcome.expected_decision === 'REJECTED' ? 'RECOMMEND_REJECT'
+          : 'MANUAL_REVIEW'
     const failedIds = [...failedByRule.keys()]
     const hardFails = isRejected ? failedIds : []
     const softFlags = isManual ? [...failedIds, ...(worldcheckFlag ? ['OPA-S02', 'EXT_WORLDCHECK'] : [])] : []

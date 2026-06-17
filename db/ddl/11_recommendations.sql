@@ -22,7 +22,9 @@
 CREATE TABLE IF NOT EXISTS recommendations (
     recommendation_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     dis_application_id UUID NOT NULL UNIQUE,
-    outcome VARCHAR(20) NOT NULL CHECK (outcome IN ('APPROVE','REJECT','MANUAL_REVIEW')),
+    -- 17 Jun: aligned to the pipeline vocab (was 'APPROVE'/'REJECT' — stale
+    -- snapshot). Confirm against Deloitte's current DDL.
+    outcome VARCHAR(20) NOT NULL CHECK (outcome IN ('RECOMMEND_APPROVE','RECOMMEND_REJECT','MANUAL_REVIEW')),
     caseworker_summary TEXT NULL,
     confidence NUMERIC(5,2) NULL,
     component_scores JSONB NULL,

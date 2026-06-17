@@ -45,7 +45,7 @@ describe.skipIf(!process.env.DIS_REPLICA_URL)('queryRecommendationCore (replica)
       `SELECT a.source_application_id
          FROM applications a
          JOIN recommendations r USING (dis_application_id)
-        WHERE r.outcome = 'APPROVE'
+        WHERE r.outcome = 'RECOMMEND_APPROVE'
         ORDER BY a.source_application_id
         LIMIT 1`,
     )
@@ -117,11 +117,11 @@ describe.skipIf(!process.env.DIS_REPLICA_URL)('queryRecommendationCore (replica)
     expect(Array.isArray(passport!.rule_results)).toBe(true)
   })
 
-  it('returns AUTO_RECOMMENDED or CALLBACK_SENT for an APPROVE application', async () => {
+  it('Phase 1: a RECOMMEND_APPROVE application still goes to the caseworker (READY_FOR_REVIEW)', async () => {
     const view = await queryRecommendationCore(approveId)
     expect(view).not.toBeNull()
-    expect(view!.recommendation.recommendation).toBe('APPROVE')
-    // callbacks are seeded DELIVERED, so an APPROVE lands in CALLBACK_SENT
-    expect(['AUTO_RECOMMENDED', 'CALLBACK_SENT']).toContain(view!.queue_state)
+    expect(view!.recommendation.recommendation).toBe('RECOMMEND_APPROVE')
+    // Everything is human-in-the-loop in Phase 1 — no auto-bypass.
+    expect(view!.queue_state).toBe('READY_FOR_REVIEW')
   })
 })

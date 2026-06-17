@@ -4,7 +4,7 @@
  * Four systems speak four different vocabularies for the same concept:
  *
  *   VK Backend:      'approved'   'rejected'   'needs_review'
- *   DIS wire (live): 'APPROVE'    'REJECT'     'MANUAL_REVIEW'   (12 Jun DDL CHECK)
+ *   DIS pipeline:    'RECOMMEND_APPROVE' 'RECOMMEND_REJECT' 'MANUAL_REVIEW'  (17 Jun — supersedes the earlier APPROVE/REJECT reading)
  *   AMS canonical:   'APPROVED'   'REJECTED'   'MANUAL_REVIEW'   (DecisionOutcome)
  *   AMS (legacy):    'approved'   'rejected'   'escalated'
  *
@@ -59,12 +59,14 @@ export function normalizeOutcome(input: string | null | undefined): DecisionOutc
     // APPROVED family
     case 'approved':
     case 'approve':
+    case 'recommend_approve':
       return 'APPROVED'
 
     // REJECTED family
     case 'rejected':
     case 'reject':
     case 'refused':
+    case 'recommend_reject':
       return 'REJECTED'
 
     // MANUAL_REVIEW family (the gnarly one — 5+ variants in the wild)

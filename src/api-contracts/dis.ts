@@ -29,13 +29,15 @@
 // ============================================================================
 
 /**
- * WIRE values DIS emits (12 June DDL CHECK: APPROVE/REJECT/MANUAL_REVIEW —
- * note imperative APPROVE/REJECT, not APPROVED/REJECTED). REJECT remains
- * disabled in as-built code (recommendation.py — "Treating MANDATORY +
- * NOT_SATISFIED as MANUAL_REVIEW"), so live values are APPROVE |
- * MANUAL_REVIEW only. Normalize at the boundary via normalizeOutcome().
+ * The values the DIS recommendation pipeline emits (confirmed 17 June 2026 —
+ * supersedes the earlier APPROVE/MANUAL_REVIEW reading, which came from a stale
+ * DDL snapshot). All three are LIVE — RECOMMEND_REJECT is NOT disabled. These
+ * are a recommendation, never a decision: in Phase 1 every outcome goes to a
+ * caseworker (human-in-the-loop). Normalize at the boundary via
+ * normalizeOutcome(); the queue binds via deriveQueueState() (all three →
+ * READY_FOR_REVIEW in Phase 1).
  */
-export type RecommendationOutcome = 'APPROVE' | 'MANUAL_REVIEW'
+export type RecommendationOutcome = 'RECOMMEND_APPROVE' | 'RECOMMEND_REJECT' | 'MANUAL_REVIEW'
 
 /**
  * AMS-canonical 3-value union — used for OFFICER (human) decisions, which can
@@ -64,9 +66,11 @@ export type QueueState =
   | 'FAILED_INTAKE'      // status CREATED, no progress past intake
   | 'AWAITING_DOCS'      // status INCOMPLETE_PENDING | DOCUMENTS_REQUIRED
   | 'IN_PIPELINE'        // status COMPLETE, no recommendations row yet
-  | 'READY_FOR_REVIEW'   // recommendation = MANUAL_REVIEW (the caseworker queue)
-  | 'AUTO_RECOMMENDED'   // recommendation = APPROVE
-  | 'CALLBACK_SENT'      // additionally: callback delivered (see CallbackEvent)
+  | 'READY_FOR_REVIEW'   // recommendation present — goes to a caseworker. Phase 1:
+                         // ALL outcomes (RECOMMEND_APPROVE / RECOMMEND_REJECT /
+                         // MANUAL_REVIEW) land here — everything is human-in-the-loop.
+  | 'AUTO_RECOMMENDED'   // PHASE 2 ONLY — programmatic fast-track (not produced in Phase 1)
+  | 'CALLBACK_SENT'      // PHASE 2 ONLY — auto-decision callback delivered (not produced in Phase 1)
 
 /** rules_summary block (V5 §5 — exact as-built keys from collate_application_data) */
 export interface RulesSummary {

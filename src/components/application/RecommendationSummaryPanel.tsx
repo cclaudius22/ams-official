@@ -4,18 +4,19 @@
 /**
  * Panel 1 — Recommendation Summary (V4 §2 UX · V5 data · Task 2.1, SCRUM-63)
  *
- * The officer reads this first: DIS recommendation badge, derived score,
- * the AI-generated narrative summary, per-engine evaluation breakdown, and
- * the statutory note. Open by default.
+ * The officer reads this first: the DIS recommendation (advisory), the
+ * AI-generated narrative summary, the per-engine evaluation breakdown, and the
+ * statutory note. Open by default.
  *
- * Language rule: DIS RECOMMENDS — the officer decides. "Decision" never
- * appears for DIS output.
+ * Language rule: DIS RECOMMENDS — the officer decides. "Decision" never appears
+ * for DIS output; the recommendation is framed as a recommendation ("DIS
+ * recommends approval/refusal", "DIS flags for attention").
  *
+ * Status-led, no numbers (17 Jun): the recommendation is rule-driven, not
+ * score-driven (Component Scoring spec v3.0). Scores are background-only and are
+ * NOT shown to the officer — there is no aggregate/overall score in this panel.
  * Data sources (V5 §7): recommendation artifact from DISApplicationView;
- * narrative from llm_summary (OV-IP Gemma/Praxia — mock until the Azure
- * endpoint is wired). recommendations.confidence is always NULL as-built and
- * overall_score does not exist — the score shown is derived (null-safe mean
- * of component scores).
+ * narrative from llm_summary (OV-IP — mock until the Azure endpoint is wired).
  */
 
 import React from 'react'
@@ -28,9 +29,8 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Scale, Sparkles, Info, ShieldCheck, Globe, Gavel } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import type { DISApplicationView } from '@/api-contracts/dis'
-import { normalizeOutcome, outcomeLabel, outcomeColor } from '@/lib/normalizeOutcome'
-import { deriveOverallScore } from '@/lib/disViewAdapter'
+import type { DISApplicationView, DecisionOutcome } from '@/api-contracts/dis'
+import { normalizeOutcome, outcomeColor } from '@/lib/normalizeOutcome'
 
 interface RecommendationSummaryPanelProps {
   disView: DISApplicationView
@@ -40,6 +40,16 @@ const OUTCOME_BADGE_CLASSES: Record<ReturnType<typeof outcomeColor>, string> = {
   green: 'bg-green-100 text-green-800 border-green-200',
   amber: 'bg-amber-100 text-amber-800 border-amber-200',
   red: 'bg-red-100 text-red-800 border-red-200',
+}
+
+/**
+ * Caseworker-facing recommendation phrasing (Phase 1, human-in-the-loop): DIS
+ * RECOMMENDS, the officer decides. Maps the canonical outcome to advisory text.
+ */
+const RECOMMENDATION_PHRASING: Record<DecisionOutcome, string> = {
+  APPROVED: 'DIS recommends approval',
+  REJECTED: 'DIS recommends refusal',
+  MANUAL_REVIEW: 'DIS flags for attention',
 }
 
 // Same bands the component scores use (V5 §5: ≥85 good, 60–84 review, <60 fail)
@@ -77,7 +87,6 @@ export default function RecommendationSummaryPanel({ disView }: RecommendationSu
   const canonicalOutcome = normalizeOutcome(rec.recommendation) ?? 'MANUAL_REVIEW'
   const badgeClasses = OUTCOME_BADGE_CLASSES[outcomeColor(canonicalOutcome)]
 
-  const derivedScore = deriveOverallScore(disView.component_scores)
   const flaggedRules = [...(rec.hard_fail_rules ?? []), ...(rec.soft_flag_rules ?? [])]
 
   const breakdown = [
@@ -109,14 +118,7 @@ export default function RecommendationSummaryPanel({ disView }: RecommendationSu
                 variant="outline"
                 className={cn('px-2 py-0.5 text-xs font-semibold border', badgeClasses)}
               >
-                {outcomeLabel(canonicalOutcome)}
-              </Badge>
-              <Badge
-                data-testid="recommendation-summary-score-badge"
-                variant="secondary"
-                className="px-2 py-0.5 text-xs font-medium"
-              >
-                Score: {derivedScore}/100
+                {RECOMMENDATION_PHRASING[canonicalOutcome]}
               </Badge>
             </div>
           </div>

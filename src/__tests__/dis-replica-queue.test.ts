@@ -7,11 +7,12 @@
  * from callback_events, derives queue_state via deriveQueueState (the single
  * source of that derivation), then filters/paginates in JS.
  *
- * Live ground truth (seeded, deterministic):
- *   - 100 applications total (42 APPROVE / 58 MANUAL_REVIEW recommendations)
- *   - all 100 callbacks DELIVERED, so every APPROVE app derives CALLBACK_SENT
- *     and every MANUAL_REVIEW app derives READY_FOR_REVIEW (the caseworker
- *     queue) -> 58 READY_FOR_REVIEW, 42 CALLBACK_SENT, 0 AUTO_RECOMMENDED.
+ * Live ground truth (seeded, deterministic — Phase 1 human-in-the-loop):
+ *   - 100 applications total: 42 RECOMMEND_APPROVE / 38 RECOMMEND_REJECT /
+ *     20 MANUAL_REVIEW recommendations.
+ *   - every processed application goes to a caseworker, so ALL 100 derive
+ *     queue_state READY_FOR_REVIEW regardless of outcome. AUTO_RECOMMENDED /
+ *     CALLBACK_SENT are Phase-2 only and are not produced here (both 0).
  *   - visa_type stored as 'skilled-worker' (hyphen); the DISQueueRow contract
  *     uses the VisaType union 'skilled_worker' (underscore) — normalized at the
  *     boundary, asserted below.
@@ -62,7 +63,7 @@ describe.skipIf(!process.env.DIS_REPLICA_URL)('queryQueue (replica)', () => {
       expect(row.applicant_name.length).toBeGreaterThan(0)
       expect(validStates.has(row.queue_state)).toBe(true)
       // recommendation is the wire value or null.
-      expect([null, 'APPROVE', 'MANUAL_REVIEW']).toContain(row.recommendation)
+      expect([null, 'RECOMMEND_APPROVE', 'RECOMMEND_REJECT', 'MANUAL_REVIEW']).toContain(row.recommendation)
       expect(typeof row.completeness_score === 'number' || row.completeness_score === null).toBe(true)
       // submitted_at is a real ISO-8601 string.
       expect(row.submitted_at).toMatch(/^\d{4}-\d{2}-\d{2}T/)
@@ -70,23 +71,28 @@ describe.skipIf(!process.env.DIS_REPLICA_URL)('queryQueue (replica)', () => {
     }
   })
 
-  it('filters to the caseworker queue: READY_FOR_REVIEW === 58 (the MANUAL_REVIEW apps)', async () => {
+  it('Phase 1: every processed application is in the caseworker queue (READY_FOR_REVIEW === 100)', async () => {
     const result = await queryQueue({ queue_state: 'READY_FOR_REVIEW' }, ALL_PAGE)
-    expect(result.total).toBe(58)
-    expect(result.data).toHaveLength(58)
+    expect(result.total).toBe(100)
+    expect(result.data).toHaveLength(100)
     expect(result.data.every((r: DISQueueRow) => r.queue_state === 'READY_FOR_REVIEW')).toBe(true)
-    expect(result.data.every((r: DISQueueRow) => r.recommendation === 'MANUAL_REVIEW')).toBe(true)
+
+    // All three recommendation outcomes are present, and all go to the officer.
+    const counts = result.data.reduce<Record<string, number>>((acc, r) => {
+      const k = r.recommendation ?? 'null'
+      acc[k] = (acc[k] ?? 0) + 1
+      return acc
+    }, {})
+    expect(counts.RECOMMEND_APPROVE).toBe(42)
+    expect(counts.RECOMMEND_REJECT).toBe(38)
+    expect(counts.MANUAL_REVIEW).toBe(20)
   })
 
-  it('the APPROVE apps derive CALLBACK_SENT === 42 (all callbacks DELIVERED)', async () => {
+  it('does not produce the Phase-2 states (CALLBACK_SENT / AUTO_RECOMMENDED both 0)', async () => {
     const callbackSent = await queryQueue({ queue_state: 'CALLBACK_SENT' }, ALL_PAGE)
-    expect(callbackSent.total).toBe(42)
-    expect(callbackSent.data.every((r: DISQueueRow) => r.recommendation === 'APPROVE')).toBe(true)
-
-    // none remain AUTO_RECOMMENDED because every callback was delivered.
+    expect(callbackSent.total).toBe(0)
     const autoRecommended = await queryQueue({ queue_state: 'AUTO_RECOMMENDED' }, ALL_PAGE)
     expect(autoRecommended.total).toBe(0)
-    expect(autoRecommended.data).toHaveLength(0)
   })
 
   it('paginates: page 1, pageSize 10 returns 10 rows but total stays 100', async () => {
