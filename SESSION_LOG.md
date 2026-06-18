@@ -124,6 +124,16 @@ Triggered by the v3.0 *Component Scoring & Recommendation* spec (Confluence DD/6
 
 **Pending (quick):** browser spot-check of the new Panel 1 phrasing (cosmetic; logic verified by tests). **RESUME:** Phase 5 adversarial review — now over corrected code.
 
+### 18 June — Phase 5 adversarial review DONE; fix-plan parked (pit stop before applying)
+
+Ran the review workflow (`review-2f3-read-layer`, run `wf_bf84374b-7ff`) — 4 dimensions (correctness, type-fidelity, robustness/safety, consistency+spec), each finding adversarially refuted-or-confirmed. **29 confirmed / 1 refuted** (the `disPool.end()` one — correctly refuted: per-file vitest isolation neutralizes it). Heavily de-duplicated → ~15 distinct issues; **no high-severity** after adversarial downgrade — latent bugs masked by the seed + cleanups.
+
+**No code changed** (review was read-only) — tree clean at `5fb36f4`. The full triaged **fix-vs-defer plan** (deduped, with file:line + the fix for each) is at **`docs/cc-notes/2026-06-18-phase5-review-fix-plan.md`** — the durable resume artifact (the workflow output is in the ephemeral transcript).
+
+Headline fix-now items: rules_summary→Panel 2 crash guard; reviewer-page fetch cancellation + no silent stale view; pagination clamp (negative-slice); `PHOTO`→DocumentType; `extraction_method` boundary-map; `documents` `::text`→ISO; remove dead `callback_events` plumbing; E1 envelope→`{success,data}`; criticality ORDER BY rank; `disQuery` creds redaction; Panel 1 completeness tile neutral (status-led). Deferred: broad union-validation, demo-coherence banner (known d), E2 JOIN restructure (404-on-no-rec is defensible).
+
+**RESUME HERE:** open the fix-plan note → apply the FIX-NOW set (TDD where logic changes; e.g. the rules_summary default + queue/envelope test updates) → re-verify (full DIS suite + tsc + Panel-1 browser spot-check) → commit. That commit = the Phase-5 pit stop. (Auth still deferred to after task 2.15.)
+
 ---
 
 ## Session: 12 June 2026 (morning)
