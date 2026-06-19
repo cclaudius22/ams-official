@@ -52,10 +52,6 @@ const RECOMMENDATION_PHRASING: Record<DecisionOutcome, string> = {
   MANUAL_REVIEW: 'DIS flags for attention',
 }
 
-// Same bands the component scores use (V5 §5: ≥85 good, 60–84 review, <60 fail)
-const scoreColorClass = (score: number) =>
-  score >= 85 ? 'text-green-600' : score >= 60 ? 'text-amber-600' : 'text-red-600'
-
 const SummaryStat: React.FC<{
   label: string
   value: string
@@ -159,11 +155,12 @@ export default function RecommendationSummaryPanel({ disView }: RecommendationSu
               value={`${external_checks.external_checks_passed}/${external_checks.external_checks_evaluated}`}
               colorClass={external_checks.external_checks_failed > 0 ? 'text-amber-600' : 'text-green-600'}
             />
+            {/* Neutral — completeness is a document-presence figure, not a
+                quality verdict; no red/amber/green band (status-led, 18 Jun). */}
             <SummaryStat
               testId="recommendation-summary-stat-completeness"
               label="Completeness"
               value={`${rec.completeness_score}/100`}
-              colorClass={scoreColorClass(rec.completeness_score)}
             />
           </div>
 

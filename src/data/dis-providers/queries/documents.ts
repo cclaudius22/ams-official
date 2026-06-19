@@ -65,9 +65,9 @@ interface ExtractionRow {
   source_channel: SourceChannel
   // Only storage location DIS records for the document (extractions table has none):
   doc_gcs_path: string | null
-  // ISO strings (cast in SQL so pg returns text, not a JS Date):
-  created_at: string
-  updated_at: string
+  // pg returns timestamptz as a JS Date; normalised to ISO 8601 in the mapper.
+  created_at: Date | string
+  updated_at: Date | string
 }
 
 interface AppRow {
@@ -77,6 +77,24 @@ interface AppRow {
 
 const toNum = (v: string | null): number | undefined =>
   v === null || v === undefined ? undefined : Number(v)
+
+/** Normalise a pg timestamptz (Date or string) to an ISO 8601 string. */
+const toIso = (v: Date | string): string =>
+  v instanceof Date ? v.toISOString() : new Date(v).toISOString()
+
+/** Map the as-built persisted extraction_method spellings onto the canonical
+ *  ExtractionMethod union (the column is a free VARCHAR; the replica stores the
+ *  bare 'CUSTOM_EXTRACTOR' etc.). Unknown values fall back to the custom extractor. */
+const EXTRACTION_METHOD_MAP: Record<string, ExtractionMethod> = {
+  ID_PARSER: 'DOC_AI_ID_PARSER',
+  FORM_PARSER: 'DOC_AI_FORM_PARSER',
+  CUSTOM_EXTRACTOR: 'DOC_AI_CUSTOM_EXTRACTOR',
+  DOC_AI_ID_PARSER: 'DOC_AI_ID_PARSER',
+  DOC_AI_FORM_PARSER: 'DOC_AI_FORM_PARSER',
+  DOC_AI_CUSTOM_EXTRACTOR: 'DOC_AI_CUSTOM_EXTRACTOR',
+}
+const normalizeExtractionMethod = (raw: string): ExtractionMethod =>
+  EXTRACTION_METHOD_MAP[raw] ?? 'DOC_AI_CUSTOM_EXTRACTOR'
 
 export async function queryDocuments(
   sourceApplicationId: string,
@@ -100,7 +118,7 @@ export async function queryDocuments(
             file_size_bytes
        FROM documents
       WHERE dis_application_id = $1
-      ORDER BY criticality DESC, document_type`,
+      ORDER BY CASE criticality WHEN 'CRITICAL' THEN 0 WHEN 'SUPPORTING' THEN 1 ELSE 2 END, document_type`,
     [disApplicationId],
   )
 
@@ -129,12 +147,12 @@ export async function queryDocuments(
             d.document_type, d.processing_tier AS tier, d.criticality,
             d.gcs_path AS doc_gcs_path,
             a.source_channel,
-            e.created_at::text AS created_at, e.updated_at::text AS updated_at
+            e.created_at, e.updated_at
        FROM document_extractions e
        JOIN documents d ON d.dis_document_id = e.dis_document_id
        JOIN applications a ON a.dis_application_id = e.dis_application_id
       WHERE e.dis_application_id = $1
-      ORDER BY d.criticality DESC, d.document_type`,
+      ORDER BY CASE d.criticality WHEN 'CRITICAL' THEN 0 WHEN 'SUPPORTING' THEN 1 ELSE 2 END, d.document_type`,
     [disApplicationId],
   )
 
@@ -145,10 +163,10 @@ export async function queryDocuments(
     document_type: r.document_type,
     tier: r.tier,
     criticality: r.criticality,
-    // Table stores 'CUSTOM_EXTRACTOR'; the TS enum spells it 'DOC_AI_CUSTOM_EXTRACTOR'.
-    // We pass the persisted value through unchanged (cast) — the read layer must
-    // not invent a value the source did not write. See realDataGotchas.
-    extraction_method: r.extraction_method as ExtractionMethod,
+    // Normalise the persisted spelling (e.g. 'CUSTOM_EXTRACTOR') onto the
+    // canonical ExtractionMethod union; unknown values fall back to the custom
+    // extractor rather than laundering an off-union value via a bare cast.
+    extraction_method: normalizeExtractionMethod(r.extraction_method),
     processor_id: r.processor_id,
     processor_version: r.extraction_model_version, // processor_version <- extraction_model_version
     extraction_confidence: toNum(r.confidence_score) ?? 0, // extraction_confidence <- confidence_score
@@ -163,8 +181,8 @@ export async function queryDocuments(
     // location DIS records for a document is documents.gcs_path. Use it for both.
     gcs_raw_path: r.doc_gcs_path ?? '',
     gcs_processed_path: r.doc_gcs_path ?? '',
-    created_at: r.created_at,
-    updated_at: r.updated_at,
+    created_at: toIso(r.created_at),
+    updated_at: toIso(r.updated_at),
   }))
 
   return {

@@ -439,6 +439,7 @@ export type DocumentType =
   | 'TB_CERTIFICATE'
   | 'UTILITY_BILL'
   | 'POLICE_CERTIFICATE'
+  | 'PHOTO'                  // applicant photo — persisted by the pipeline (added 18 Jun); not a scored doc / not in the viewer
 
 export type SourceChannel = 'visakey' | 'govdirect'
 

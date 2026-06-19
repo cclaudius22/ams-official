@@ -75,6 +75,6 @@ export async function queryExternalChecks(
     flags: r.flags ?? {},
     response_payload: r.response_payload ?? {},
     response_time_ms: r.response_time_ms ?? 0,
-    created_at: r.created_at instanceof Date ? r.created_at.toISOString() : String(r.created_at),
+    created_at: r.created_at instanceof Date ? r.created_at.toISOString() : new Date(r.created_at).toISOString(),
   }))
 }

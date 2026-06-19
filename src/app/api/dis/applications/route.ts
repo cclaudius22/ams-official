@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
 
     const result = await provider.getApplications(filters, pagination);
 
-    return NextResponse.json({ success: true, ...result });
+    return NextResponse.json({ success: true, data: result });
   } catch (error) {
     console.error('[API] GET /dis/applications error:', error);
     return NextResponse.json(

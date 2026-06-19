@@ -27,7 +27,7 @@ import { queryQueue } from '@/data/dis-providers/queries/queue'
 import type { DISQueueRow } from '@/api-contracts/dis'
 import { disPool } from '@/lib/disDb'
 
-const ALL_PAGE = { page: 1, pageSize: 1000 }
+const ALL_PAGE = { page: 1, pageSize: 200 } // MAX_PAGE_SIZE; fetches all 100 seeded rows in one page
 
 describe.skipIf(!process.env.DIS_REPLICA_URL)('queryQueue (replica)', () => {
   afterAll(async () => {
@@ -39,7 +39,7 @@ describe.skipIf(!process.env.DIS_REPLICA_URL)('queryQueue (replica)', () => {
     expect(result.total).toBe(100)
     expect(result.data).toHaveLength(100)
     expect(result.page).toBe(1)
-    expect(result.pageSize).toBe(1000)
+    expect(result.pageSize).toBe(200)
     expect(result.totalPages).toBe(1)
   })
 
@@ -118,6 +118,19 @@ describe.skipIf(!process.env.DIS_REPLICA_URL)('queryQueue (replica)', () => {
     expect(result.total).toBe(100)
     expect(result.data).toHaveLength(0)
     expect(result.totalPages).toBe(10)
+  })
+
+  it('clamps invalid page/page_size instead of returning a negative-slice tail', async () => {
+    const valid = await queryQueue({}, { page: 1, pageSize: 10 })
+    const negPage = await queryQueue({}, { page: -1, pageSize: 10 })
+    const zeroPage = await queryQueue({}, { page: 0, pageSize: 10 })
+    // page=-1 / page=0 must clamp to page 1 — NOT return a tail window of real rows.
+    expect(negPage.data.map((r: DISQueueRow) => r.dis_application_id))
+      .toEqual(valid.data.map((r: DISQueueRow) => r.dis_application_id))
+    expect(zeroPage.data.map((r: DISQueueRow) => r.dis_application_id))
+      .toEqual(valid.data.map((r: DISQueueRow) => r.dis_application_id))
+    expect(negPage.page).toBe(1)
+    expect(negPage.total).toBe(100)
   })
 
   it('visa_type filter matches the normalized union value', async () => {

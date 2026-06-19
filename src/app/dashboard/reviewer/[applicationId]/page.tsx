@@ -70,6 +70,8 @@ export default function OfficialReviewPage() {
 
   // Fetch application data from API
   useEffect(() => {
+    let active = true; // guards against a stale/out-of-order response landing after the id changed
+
     async function fetchApplicationData() {
       if (!applicationId) return;
 
@@ -86,21 +88,26 @@ export default function OfficialReviewPage() {
         return;
       }
 
-      // Phase 2F.4 — wire Panels 1 & 2 to the DIS read layer. Fetch the
-      // assembled DISApplicationView from the replica-backed composite route
-      // (DIS_DATA_PROVIDER selects mock | replica). On any failure we keep the
-      // mock fixture set as initial state, so the panels never blank.
-      // Independent of the legacy ApplicationData fetch below.
+      // Phase 2F.4 — wire Panels 1 & 2 to the DIS read layer. Reset to the mock
+      // fixture FIRST so a failed/slow fetch for THIS id can never leave the
+      // previous applicant's DIS view on screen, then fetch the assembled
+      // DISApplicationView from the replica-backed composite route
+      // (DIS_DATA_PROVIDER selects mock | replica). `active` guards against a
+      // stale response landing after the id changed. Independent of the legacy
+      // ApplicationData fetch below.
+      setDisView(mockDISApplicationView);
       try {
         const disResponse = await fetch(`/api/dis/applications/${applicationId}/view`);
+        if (!active) return;
         if (disResponse.ok) {
           const disResult = await disResponse.json();
+          if (!active) return;
           if (disResult.success && disResult.data) {
             setDisView(disResult.data);
           }
         }
       } catch (disErr) {
-        console.error('Error fetching DIS view (keeping mock fallback):', disErr);
+        if (active) console.error('Error fetching DIS view (keeping mock fallback):', disErr);
       }
 
       try {
@@ -167,11 +174,14 @@ export default function OfficialReviewPage() {
         setApplicationData(mockApplicationData);
         setScanResult(mockScanResult);
       } finally {
-        setIsLoading(false);
+        if (active) setIsLoading(false);
       }
     }
 
     fetchApplicationData();
+    return () => {
+      active = false;
+    };
   }, [applicationId]);
 
   // --- State for NEW Dialogs ---

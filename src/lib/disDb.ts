@@ -34,6 +34,16 @@ if (process.env.NODE_ENV !== 'production') {
   globalForDisPool.disPool = disPool
 }
 
+/** Strip credentials from a connection string for safe logging (host:port/db only). */
+function redactDbUrl(url: string): string {
+  try {
+    const u = new URL(url)
+    return `${u.protocol}//${u.host}${u.pathname}`
+  } catch {
+    return '(unparseable DIS_REPLICA_URL)'
+  }
+}
+
 /**
  * Parameterised query against the DIS replica. Returns typed rows.
  * Re-throws with a clear, actionable message when the replica is unreachable so
@@ -51,7 +61,7 @@ export async function disQuery<T extends QueryResultRow = QueryResultRow>(
     const msg = err instanceof Error ? err.message : String(err)
     throw new Error(
       `[disDb] query failed — is the replica up on DIS_REPLICA_URL ` +
-        `(${process.env.DIS_REPLICA_URL ?? DEFAULT_DIS_REPLICA_URL})? Underlying: ${msg}`,
+        `(${redactDbUrl(process.env.DIS_REPLICA_URL ?? DEFAULT_DIS_REPLICA_URL)})? Underlying: ${msg}`,
     )
   }
 }

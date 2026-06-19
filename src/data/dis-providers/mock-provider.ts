@@ -48,15 +48,19 @@ export class MockDISProvider implements DISDataProvider {
     if (filters.queue_state) rows = rows.filter((r) => r.queue_state === filters.queue_state)
     if (filters.visa_type) rows = rows.filter((r) => r.visa_type === filters.visa_type)
 
+    // Clamp page/page_size to safe bounds (mirror the replica provider) so a
+    // negative/NaN page can't slice a tail window of real rows.
     const total = rows.length
-    const start = (pagination.page - 1) * pagination.pageSize
-    const data = rows.slice(start, start + pagination.pageSize)
+    const pageSize = Math.min(200, Math.max(1, Math.floor(pagination.pageSize) || 20))
+    const page = Math.max(1, Math.floor(pagination.page) || 1)
+    const start = (page - 1) * pageSize
+    const data = rows.slice(start, start + pageSize)
     return {
       data,
       total,
-      page: pagination.page,
-      pageSize: pagination.pageSize,
-      totalPages: Math.ceil(total / pagination.pageSize),
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
     }
   }
 

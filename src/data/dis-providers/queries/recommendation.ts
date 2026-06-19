@@ -25,8 +25,8 @@
  *   - completeness_score from applications.completeness_score; completeness_status
  *     from applications.status (a CompletenessStatus once doc-processing has run).
  *   - source_channel from applications.source_channel.
- *   - queue_state via deriveQueueState(status, outcome, callbackDelivered) where
- *     callbackDelivered = EXISTS a DELIVERED callback_events row.
+ *   - queue_state via deriveQueueState(status, outcome) — Phase 1 maps every
+ *     processed app to READY_FOR_REVIEW; callback delivery is not consulted.
  *   - source_reference reuses source_application_id (no separate column).
  *   - submitted_at = applications.submitted_at, normalised to ISO 8601.
  */
@@ -73,8 +73,28 @@ interface RecommendationCoreRow {
   recommendation_at: Date | string
   recommendation_id: string
   submission_payload: SubmissionPayload | null
-  callback_delivered: boolean
 }
+
+/** Zeroed fallbacks for submission_payload fields that are non-optional on the
+ *  view but optional in the blob — keeps an undefined from slipping past an
+ *  `as` cast and crashing a consumer (e.g. Panel 2 destructuring rules_summary). */
+const EMPTY_RULES_SUMMARY: RulesSummary = {
+  rules: { drools_rules_evaluated: 0, drools_rules_passed: 0, drools_rules_failed: 0, drools_rules_not_applicable: 0 },
+  opa_policies: {
+    opa_total_evaluated: 0, opa_total_passed: 0, opa_total_failed: 0,
+    opa_hard_evaluated: 0, opa_hard_passed: 0, opa_hard_failed: 0,
+    opa_soft_evaluated: 0, opa_soft_passed: 0, opa_soft_failed: 0,
+  },
+  external_checks: { external_checks_evaluated: 0, external_checks_passed: 0, external_checks_failed: 0, external_checks_error: 0 },
+}
+
+const EMPTY_COMPONENT_SCORES: ComponentScores = {
+  passport: null, financial: null, employment: null, english_language: null,
+  immigration_compliance: null, criminal_record: null, health: null,
+  document_quality: null, fraud_risk: null,
+}
+
+const COMPLETENESS_STATUSES: CompletenessStatus[] = ['COMPLETE', 'INCOMPLETE_PENDING', 'DOCUMENTS_REQUIRED']
 
 /** Normalise a pg timestamptz (Date or string) to an ISO 8601 string. */
 function toIso(value: Date | string): string {
@@ -98,14 +118,8 @@ export async function queryRecommendationCore(
         r.soft_flag_rules,
         r.recommendation_at,
         r.recommendation_id,
-        r.submission_payload,
-        EXISTS (
-          SELECT 1 FROM callback_events c
-           WHERE c.dis_application_id = a.dis_application_id
-             AND c.status = 'DELIVERED'
-        ) AS callback_delivered
+        r.submission_payload
        FROM applications a
-       JOIN applicants ap ON ap.applicant_id = a.applicant_id
        JOIN recommendations r ON r.dis_application_id = a.dis_application_id
       WHERE a.source_application_id = $1
       LIMIT 1`,
@@ -113,15 +127,22 @@ export async function queryRecommendationCore(
   )
 
   const row = rows[0]
+  // Rec-gated by design: a no-recommendation app (still mid-pipeline) has no
+  // recommendation detail to show, so E2/view return 404. The queue + reviewer
+  // page handle that (reset-to-mock + cancellation), not a silent stale view.
   if (!row) return null
 
   const payload = row.submission_payload ?? {}
 
-  // completeness_status: prefer the application's status verdict (a
-  // CompletenessStatus once doc-processing has run); fall back to the payload.
-  const completenessStatus: CompletenessStatus =
-    (payload.completeness_status as CompletenessStatus | undefined) ??
-    (row.status as CompletenessStatus)
+  // completeness_status: prefer the payload's verdict, else applications.status
+  // (a CompletenessStatus once doc-processing has run). status can still be
+  // 'CREATED' (not a CompletenessStatus) on a not-yet-processed app, so guard.
+  const rawCompleteness = payload.completeness_status ?? row.status
+  const completenessStatus: CompletenessStatus = COMPLETENESS_STATUSES.includes(
+    rawCompleteness as CompletenessStatus,
+  )
+    ? (rawCompleteness as CompletenessStatus)
+    : 'INCOMPLETE_PENDING'
 
   const recommendation: DISRecommendation = {
     recommendation_id: row.recommendation_id,
@@ -131,7 +152,7 @@ export async function queryRecommendationCore(
     evaluation_breakdown: payload.evaluation_breakdown,
     hard_fail_rules: row.hard_fail_rules ?? [],
     soft_flag_rules: row.soft_flag_rules ?? [],
-    rules_summary: payload.rules_summary as RulesSummary,
+    rules_summary: payload.rules_summary ?? EMPTY_RULES_SUMMARY,
     completeness_score: row.completeness_score ?? 0,
     completeness_status: completenessStatus,
     generated_at: payload.generated_at ?? toIso(row.recommendation_at),
@@ -144,12 +165,11 @@ export async function queryRecommendationCore(
   const queueState = deriveQueueState({
     status: row.status,
     recommendationOutcome: row.outcome,
-    callbackDelivered: row.callback_delivered,
   })
 
   return {
     recommendation,
-    component_scores: (payload.component_scores ?? {}) as ComponentScores,
+    component_scores: payload.component_scores ?? EMPTY_COMPONENT_SCORES,
     source_channel: row.source_channel,
     queue_state: queueState,
     source_application_id: row.source_application_id,

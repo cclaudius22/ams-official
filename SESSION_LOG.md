@@ -134,6 +134,21 @@ Headline fix-now items: rules_summary→Panel 2 crash guard; reviewer-page fetch
 
 **RESUME HERE:** open the fix-plan note → apply the FIX-NOW set (TDD where logic changes; e.g. the rules_summary default + queue/envelope test updates) → re-verify (full DIS suite + tsc + Panel-1 browser spot-check) → commit. That commit = the Phase-5 pit stop. (Auth still deferred to after task 2.15.)
 
+### 19 June — 🚩 PIT STOP: Phase 5 fixes applied + verified
+
+Applied the FIX-NOW set from `docs/cc-notes/2026-06-18-phase5-review-fix-plan.md` (~13 fixes across ~10 files):
+- **Crash/correctness:** `rules_summary`/`component_scores`/`completeness_status` defaults in `recommendation.ts` (Panel 2 crash guard + type-lies); reviewer-page **fetch cancellation + reset-to-mock** (no stale/wrong-applicant DIS view); **pagination clamp** in `queue.ts` + `route.ts` + `mock-provider.ts` (kills the negative-slice tail leak) + a clamp test.
+- **Type fidelity:** `PHOTO` → `DocumentType`; `extraction_method` boundary-normalize → canonical `DOC_AI_*`; `documents` `::text` → `toIso()` (ISO timestamps).
+- **Cleanup/consistency:** removed the dead `callback_events` subquery + `callbackDelivered` plumbing (queue + recommendation) + stale comments; removed the dead `applicants` JOIN; E1 envelope → `{success, data}`; `externalChecks` ISO string-branch; `documents` `ORDER BY` criticality CASE rank; `disDb` credential redaction in error logs; Panel 1 **Completeness tile neutral** (status-led, no score band).
+
+**Verified:** 46/46 DIS tests (live replica) incl. the new clamp test; tsc 76 (0 new). Endpoints curl'd: new envelope, `page=-1` clamps to page 1 (no tail), `RECOMMEND_REJECT` view 20/12 + `rules_summary`, documents → `DOC_AI_CUSTOM_EXTRACTOR` + ISO. Browser: Panel 1 = "DIS recommends refusal", **no DIS Score badge**, tiles intact.
+
+**Deferred (per plan):** broad runtime union-validation (free-VARCHAR columns); demo-coherence error banner (known d); E2 rec-gated (now documented in-code).
+
+**NEW follow-up:** the LEGACY "AI Assessment Results" panel (`AIScanResultsRedesigned`) still shows `Score: 78/100` to the officer — it's the old mock-scan component, separate from the DIS Panel 1, slated for replacement by ComponentScoresDashboard. Neutralize/remove it when that lands (not the DIS read layer).
+
+**RESUME:** read layer (2F.3) + page wiring (2F.4) are built, reviewed, and hardened. Next: Panel 3 (Evidence — external-check + document-extraction cards) / ComponentScoresDashboard, per Chris. (Auth still after task 2.15.)
+
 ---
 
 ## Session: 12 June 2026 (morning)

@@ -1,11 +1,10 @@
 /**
  * E1 — officer queue list for the DIS replica (task 2F.3, V5 §6 endpoint 1).
  *
- * JOINs applications + applicants + (LEFT) recommendations, determines per-app
- * callback delivery from callback_events, then derives queue_state in JS via
- * deriveQueueState — keeping that derivation in ONE place (shared with the E2
- * detail view). Filtering on queue_state / visa_type and pagination also happen
- * in JS.
+ * JOINs applications + applicants + (LEFT) recommendations, then derives
+ * queue_state in JS via deriveQueueState — keeping that derivation in ONE place
+ * (shared with the E2 detail view). Filtering on queue_state / visa_type and
+ * pagination also happen in JS, with page/page_size clamped to safe bounds.
  *
  * KEYING: rows are keyed by the DIS UUID internally, but the queue is exposed
  * by the AMS-facing source_application_id (applications.source_application_id);
@@ -30,6 +29,9 @@ import type { RecommendationOutcome, SourceChannel, VisaType, DISApplicationStat
 import { deriveQueueState } from '../queueState'
 import { disQuery } from '@/lib/disDb'
 
+const DEFAULT_PAGE_SIZE = 20
+const MAX_PAGE_SIZE = 200
+
 /** Raw joined row as it comes back from pg (one per application). */
 interface QueueQueryRow {
   dis_application_id: string
@@ -39,7 +41,6 @@ interface QueueQueryRow {
   applicant_name: string
   status: DISApplicationStatus
   recommendation_outcome: RecommendationOutcome | null
-  callback_delivered: boolean
   completeness_score: number | null
   submitted_at: Date | string
 }
@@ -57,9 +58,7 @@ export async function queryQueue(
   filters: DISQueueFilters,
   pagination: DISPagination,
 ): Promise<DISPaginated<DISQueueRow>> {
-  // One row per application. callback_delivered is computed in SQL via EXISTS
-  // (a DELIVERED callback_events row) — the better queue-state signal than
-  // recommendations.callback_status (CallbackEvent doc note).
+  // One row per application.
   const rows = await disQuery<QueueQueryRow>(
     `SELECT
         a.dis_application_id,
@@ -69,11 +68,6 @@ export async function queryQueue(
         ap.full_name              AS applicant_name,
         a.status,
         r.outcome                 AS recommendation_outcome,
-        EXISTS (
-          SELECT 1 FROM callback_events ce
-           WHERE ce.dis_application_id = a.dis_application_id
-             AND ce.status = 'DELIVERED'
-        )                         AS callback_delivered,
         a.completeness_score,
         a.submitted_at
       FROM applications a
@@ -92,7 +86,6 @@ export async function queryQueue(
     queue_state: deriveQueueState({
       status: r.status,
       recommendationOutcome: r.recommendation_outcome ?? null,
-      callbackDelivered: r.callback_delivered,
     }),
     recommendation: r.recommendation_outcome ?? null,
     completeness_score: r.completeness_score ?? null,
@@ -107,10 +100,13 @@ export async function queryQueue(
     return true
   })
 
+  // Clamp to safe bounds so malformed input (NaN / 0 / negative / huge) can
+  // never reach Array.slice with a negative index — which would return a tail
+  // window of real rows instead of an empty/clamped page.
   const total = filtered.length
-  const pageSize = pagination.pageSize
-  const page = pagination.page
-  const totalPages = pageSize > 0 ? Math.ceil(total / pageSize) : 0
+  const pageSize = Math.min(MAX_PAGE_SIZE, Math.max(1, Math.floor(pagination.pageSize) || DEFAULT_PAGE_SIZE))
+  const page = Math.max(1, Math.floor(pagination.page) || 1)
+  const totalPages = Math.ceil(total / pageSize)
   const start = (page - 1) * pageSize
   const data = filtered.slice(start, start + pageSize)
 
