@@ -164,6 +164,8 @@ Built `EvidencePanel` (SCRUM-64 2.3 + 2.4) — `src/components/application/Evide
 
 **Also:** Deloitte 2-Cloud-Run split reply drafted → `docs/cc-notes/2026-06-19-cloud-run-split-reply-draft.md` (pending Chris's send).
 
+**dis-data-layer audit (Deloitte repo, 19 Jun):** repo-review email drafted → `docs/cc-notes/2026-06-19-dis-data-layer-audit-email.md` (pending Chris's send). 4 issues + 1 confirm: (1) SCRUM-265 broken FK in 03_applications.sql = our OPEN-11 (already sed-patched in `db/build-initdb.sh`, independently confirmed); (2) cloudbuild-schema.yml hardcoded to dev → parameterise for `prj-val-dis` (SCRUM-263); (3) not migration-safe (CREATE-IF-NOT-EXISTS, no versioning/pre-merge validation); (4) stale commented old-name blocks; (5) confirm `recommendations.outcome` CHECK accepts the pipeline's `RECOMMEND_*` (our snapshot had imperative APPROVE/REJECT → would fail inserts if live is stale).
+
 **RESUME / NEXT:** **Panel 2 polish** (Glass Box = the impressive demo centrepiece) is the priority next item; then retire the legacy "AI Assessment Results" score panel (replace with ComponentScoresDashboard). (Auth still after task 2.15.)
 
 ---
