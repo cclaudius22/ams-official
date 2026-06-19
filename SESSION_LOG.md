@@ -149,6 +149,23 @@ Applied the FIX-NOW set from `docs/cc-notes/2026-06-18-phase5-review-fix-plan.md
 
 **RESUME:** read layer (2F.3) + page wiring (2F.4) are built, reviewed, and hardened. Next: Panel 3 (Evidence — external-check + document-extraction cards) / ComponentScoresDashboard, per Chris. (Auth still after task 2.15.)
 
+### 19 June (cont.) — Panel 3 (Evidence) built + verified
+
+Built `EvidencePanel` (SCRUM-64 2.3 + 2.4) — `src/components/application/EvidencePanel.tsx`, matching the Panel 1/2 pattern (one `disView` prop, Accordion, collapsed by default); wired into the reviewer page after the Glass Box panel.
+- **External-check cards:** `check_status` chip + `risk_level` label + `response_payload` evidence. No `confidence_score`.
+- **Document cards:** `fraud_status` chip + **fired** `fraud_signals` (evidence) + extracted `normalised_fields` + a **subtle "verify if low" extraction-confidence nudge** + a "View original" stub (signed URLs → 2F.5). No `fraud_score` / confidence numbers.
+- **Status-led / qualitative-signals-only** per the **scoring-display policy** (memory `dis-scoring-display-policy`; design note `docs/cc-notes/2026-06-19-panel3-evidence-design.md`). Confidence = per-field extraction/OCR reliability, NOT the reserved decision column.
+
+**Verified:** 4/4 Panel-3 tests (cards render statuses/signals/evidence + **governance assert: no raw fraud_score/confidence leaks**); tsc 76 (0 new); browser — Evidence panel expands on a replica id, 7 external-check cards (CLEAR / Risk: NONE) + document cards, and a DOM-wide grep for `confidence`/`fraud_score` finds nothing.
+
+**Deferred:** app-level `cross_doc_fraud` (not on the composite view — per-doc `cross_doc_consistency` signal covers it); real signed-URL image viewer (2F.5).
+
+**Cross-surface scoring policy (Chris, 19 Jun):** per-case officer view = no numeric grades; Glass Box (Panel 2) = the demo centrepiece to **polish hard**; analytics/ops = aggregate scores; advisory per-case scores = deferred/opt-in. Captured in memory + cc-notes.
+
+**Also:** Deloitte 2-Cloud-Run split reply drafted → `docs/cc-notes/2026-06-19-cloud-run-split-reply-draft.md` (pending Chris's send).
+
+**RESUME / NEXT:** **Panel 2 polish** (Glass Box = the impressive demo centrepiece) is the priority next item; then retire the legacy "AI Assessment Results" score panel (replace with ComponentScoresDashboard). (Auth still after task 2.15.)
+
 ---
 
 ## Session: 12 June 2026 (morning)

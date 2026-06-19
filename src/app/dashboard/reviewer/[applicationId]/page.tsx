@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import ApplicationHeader from '@/components/application/ApplicationHeader'
 import RecommendationSummaryPanel from '@/components/application/RecommendationSummaryPanel'
 import GlassBoxTracePanel from '@/components/application/GlassBoxTracePanel'
+import EvidencePanel from '@/components/application/EvidencePanel'
 import AIScanResultsRedesigned from '@/components/application/AIScanResults'
 import SectionCard from '@/components/application/SectionCard'
 import DecisionFooter from '@/components/application/DecisionFooter'
@@ -348,6 +349,9 @@ export default function OfficialReviewPage() {
 
           {/* Panel 2 — Glass Box Rule Trace (V4 §3 / Task 2.2, collapsed by default) */}
           <GlassBoxTracePanel disView={disView} />
+
+          {/* Panel 3 — Evidence (V4 §4 / SCRUM-64 2.3+2.4, collapsed by default) */}
+          <EvidencePanel disView={disView} />
 
           {/* AI Scan Results */}
           <AIScanResultsRedesigned
