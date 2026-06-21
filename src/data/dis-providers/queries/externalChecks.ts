@@ -7,8 +7,8 @@
  * source_application_id.
  *
  * As-built pipeline emits 7 external_checks rows per application
- * (db/ddl/06_external_checks.sql CHECK; OPEN-8 — SPONSOR_VERIFICATION is the
- * 7th). Returns null when no application matches the given source id (distinct
+ * (db/ddl/06_external_checks.sql CHECK; COS_CHECK is the 7th — Certificate of
+ * Sponsorship). Returns null when no application matches the given source id (distinct
  * from an application that exists but happens to have no rows, which returns
  * []).
  */

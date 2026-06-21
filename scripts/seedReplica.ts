@@ -162,10 +162,10 @@ const COMPONENT_STATUS: Record<string, [string, string, string]> = {
   fraud_risk: ['LOW_RISK', 'MEDIUM_RISK', 'HIGH_RISK'],
 }
 
-// Per V5 §3 DDL: 7 check types (SPONSOR_VERIFICATION is the 7th — OPEN-8 resolved)
+// Per V5 §3 DDL: 7 check types (COS_CHECK is the 7th — Certificate of Sponsorship)
 const CHECK_TYPES = [
   'WORLDCHECK', 'INTERPOL', 'PASSPORT_VERIFY', 'BORDER_CONTROL',
-  'DEVICE_IP_RISK', 'EMAIL_PHONE_REPUTATION', 'SPONSOR_VERIFICATION',
+  'DEVICE_IP_RISK', 'EMAIL_PHONE_REPUTATION', 'COS_CHECK',
 ]
 
 // Doc-type mapping: corpus payload `type` → DIS document_type + handling

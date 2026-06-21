@@ -86,7 +86,7 @@ export interface DISDataProvider {
   getTrail(sourceApplicationId: string): Promise<DISTrail | null>
   /** E4 — documents + extractions + cross_doc_fraud. */
   getDocuments(sourceApplicationId: string): Promise<DISDocumentsResult | null>
-  /** E5 — external_checks (7 types incl. SPONSOR_VERIFICATION). */
+  /** E5 — external_checks (7 types incl. COS_CHECK). */
   getExternalChecks(sourceApplicationId: string): Promise<ExternalCheckResult[] | null>
 }
 

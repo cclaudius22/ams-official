@@ -1,7 +1,7 @@
 /**
  * GET /api/dis/applications/:id/external-checks
  * V5 §6 endpoint 5 — the external API check rows (7 types incl.
- * SPONSOR_VERIFICATION), with response_payload for Panel 3 evidence cards.
+ * COS_CHECK), with response_payload for Panel 3 evidence cards.
  */
 
 import { NextRequest, NextResponse } from 'next/server';

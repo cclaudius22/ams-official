@@ -4,6 +4,35 @@
 
 ---
 
+## ⏸ PIT STOP — 21 June 2026 (Panel 2 Glass Box polish)
+
+**RESUME HERE.** Long Deloitte-repo-audit detour is done (see `../dis-repos-deloitte/DIS_REPO_AUDIT_REPORT.md` + that repo's `DIS_AUDIT_SESSION_LOG.md`); back on the AMS build.
+
+**Done this session:**
+- **Canonical doc written:** `docs/specs/dis-frontend-api-dependencies.md` — the 5 DIS read APIs the frontend depends on (Deloitte `/api/v1/…` ↔ our `/api/dis/…` ↔ panels), auth headers, + the 6 caveats (multi-source, consume-don't-display scores, RECOMMEND_* vocab contract risk, Phase-1 HITL, path mapping, denial_reasons table-only).
+- **Panel 2 (Glass Box) polish — DONE, TDD:** `src/components/application/GlassBoxTracePanel.tsx`. Added (all scoring-policy-safe, counts/signals only): (1) **stage progress strip** (`StageStrip`, 5 verdict pills = at-a-glance reasoning map); (2) **auto-open attention stages** (`defaultOpenStageKeys` → fail/review open by default, clean collapsed); (3) **visual stat chips** (replaced the plain text summary bar); (4) **provenance line** (`formatProvenance` → Drools/OPA versions + evaluated date); (5) **header subtitle** (centrepiece identity). Extracted pure helpers `buildStages` / `defaultOpenStageKeys` / `formatProvenance` + `StageStrip` (exported for tests). All existing `data-testid`s preserved.
+
+**Verify status:** new test `src/__tests__/dis-glass-box-panel.test.tsx` (8/8 pass, incl. governance: no numeric grade/confidence leak via `renderToStaticMarkup`). Full DIS suite **100 pass / 24 skip** (skips = replica tests needing the DB). `tsc --noEmit` = **76 errors = pre-existing baseline, 0 new, 0 in touched files**. NOT browser-verified — reviewer route (`/dashboard/reviewer/VK-2024-1835` on dev :3003) redirects to `/signin` (the parked auth item); eyeball once signed in.
+
+**What's next (AMS, in order):**
+1. (optional) Surface a mini stage-strip in the collapsed Panel 2 header, or default-open the panel — if we want the reasoning map visible without a click.
+2. **Retire legacy `AIScanResults.tsx`** ("AI Assessment Results" numeric panel) → replace with status-led model.
+3. **Dashboard auth** (after task 2.15, before Cloud Run) — also unblocks browser-verifying panels.
+4. Emails ready to send: `docs/cc-notes/` — leadership escalation (2026-06-20), Cloud Run split, data-layer.
+
+**Terminology-audit review (21 Jun)** — reviewed `../dis-repos-deloitte/DIS_TERMINOLOGY_MISMATCH_AUDIT.md` (8 evidence-cited naming mismatches; strong, endorsed). It forced a correction + surfaced contract reconciliations for OUR frontend:
+- **Report corrected:** `DIS_REPO_AUDIT_REPORT.md` §3.6 — my earlier "rec-engine emits RECOMMEND_* → data-layer CHECK rejects → crash" was WRONG. Verified: rec-engine WRITES `APPROVE/REJECT/MANUAL_REVIEW` (recommendation.py, both branches; `RECOMMEND_*` never stored), data-layer CHECK accepts those on main → **match, no crash**. `RECOMMEND_*` is the **OPA policy layer** (`opa_evaluations.outcome`, release/dev), NOT `recommendations.outcome`.
+- **Sent email needs a correction:** the data-layer email point 5 told Deloitte the pipeline emits `RECOMMEND_*` and an `APPROVE` CHECK would fail — **backwards**. Risk: Deloitte "fixes" the correct `APPROVE` CHECK into a break. Chris to send a 1-line correction.
+- **CANON LOCKED (Chris, 21 Jun — FINAL): outcome `RECOMMEND_APPROVE`/`RECOMMEND_REJECT`/`MANUAL_REVIEW`, field `recommendation`, table `recommendations`, check type `COS_CHECK`. We hold Deloitte to these — we do NOT bend our contract to their drift.**
+  1. `COS_CHECK` rename — **DONE in AMS:** `dis.ts` ExternalCheckType, `EvidencePanel` label ("Certificate of Sponsorship"), replica DDL (`db/ddl/` + `db/.initdb/06_external_checks.sql`), `seedReplica.ts`, E5 query/route comments, tests. 101 DIS tests pass, tsc 76 baseline. **Replica RESEEDED (21 Jun):** recreated `dis-replica` (docker down -v + up + seed) → 7 check types incl. COS_CHECK (no SPONSOR_VERIFICATION); outcomes RECOMMEND_APPROVE 42 / RECOMMEND_REJECT 38 / MANUAL_REVIEW 20; 8 replica-backed tests pass.
+  2. Outcome/field/table — our contract **already conforms** (`RecommendationOutcome` = `RECOMMEND_*`, field `recommendation`, table `recommendations`). `normalizeOutcome()` keeps tolerantly accepting APPROVE/APPROVED as a wire safety-net. Deloitte conforms to us.
+  3. `OPAOutcome` (`ALLOW/DENY/FLAG`) matches main; release/dev OPA emits `RECOMMEND_*` → add if/when it ships.
+  4. Doc types `DEGREE_CERTIFICATE`/`TB_CERTIFICATE` — already canonical on our side; Deloitte conforms their DLP/completeness.
+- **(A) Conform-to-spec doc DONE (21 Jun):** `../dis-repos-deloitte/DIS_CONFORM_TO_SPEC.md` — 30 read-only-verified items across 8 repos (`main`), each OV canonical target → current file:line → acceptance test, P0–P3, + "already conforms" credits + enforcement + supersedes the backwards data-layer point-5. Built from workflow wf_8445ce64-1b3.
+- **(B) Panel 2 prefix-match + RULE-W16 DONE (21 Jun):** `GlassBoxTracePanel` now `baseRuleId()`-normalises sub-rule IDs (`RULE-W14-A`→`RULE-W14`) so Deloitte's sub-rules/W16 route to their stage instead of "Other"; `RULE-W16` added to the Compliance stage; contract widened (`DroolsRuleId = BaseDroolsRuleId | \`${BaseDroolsRuleId}-${string}\``, +`RULE-W16`). 104 DIS tests pass, tsc 76. Remaining OV follow-ups (DIS_CONFORM_TO_SPEC §5): reconcile OPA policy-IDs vs Confluence DD/90570756; decide PNC_CHECK (8th check type) add-or-drop.
+
+---
+
 ## Last session: 16–17 June 2026
 
 **Model note:** Fable 5 (the 12th's model) is unavailable; now on Opus 4.8. Session began strategy/comms only, then resumed the 2F.3 build under ultracode — see "16 June (cont.)" below.

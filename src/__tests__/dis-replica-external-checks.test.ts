@@ -18,7 +18,7 @@ const CHECK_TYPES: ReadonlyArray<ExternalCheckType> = [
   'BORDER_CONTROL',
   'DEVICE_IP_RISK',
   'EMAIL_PHONE_REPUTATION',
-  'SPONSOR_VERIFICATION',
+  'COS_CHECK',
 ]
 
 const VALID_STATUS: ReadonlyArray<CheckStatus> = ['CLEAR', 'FLAGGED', 'BLOCKED', 'ERROR', 'TIMEOUT']
@@ -34,13 +34,13 @@ describe.skipIf(!process.env.DIS_REPLICA_URL)('queryExternalChecks (E5, replica)
     expect(rows).toHaveLength(7)
   })
 
-  it('covers all 7 check types including SPONSOR_VERIFICATION (OPEN-8)', async () => {
+  it('covers all 7 check types including COS_CHECK (OPEN-8)', async () => {
     const rows = await queryExternalChecks(KNOWN_SOURCE_ID)
     const types = new Set((rows ?? []).map((r) => r.check_type))
     for (const t of CHECK_TYPES) {
       expect(types.has(t)).toBe(true)
     }
-    expect(types.has('SPONSOR_VERIFICATION')).toBe(true)
+    expect(types.has('COS_CHECK')).toBe(true)
     expect(types.size).toBe(7)
   })
 
@@ -77,7 +77,7 @@ describe.skipIf(!process.env.DIS_REPLICA_URL)('queryExternalChecks (E5, replica)
       expect(typeof byType.get(t)?.document_id).toBe('string')
     }
     // channel/identity checks are not bound to a document
-    for (const t of ['WORLDCHECK', 'DEVICE_IP_RISK', 'EMAIL_PHONE_REPUTATION', 'SPONSOR_VERIFICATION'] as const) {
+    for (const t of ['WORLDCHECK', 'DEVICE_IP_RISK', 'EMAIL_PHONE_REPUTATION', 'COS_CHECK'] as const) {
       expect(byType.get(t)?.document_id).toBeNull()
     }
   })

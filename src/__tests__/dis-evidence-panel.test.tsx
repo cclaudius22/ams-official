@@ -49,4 +49,11 @@ describe('EvidencePanel — status-led, no DIS grades', () => {
     expect(html).toContain('PEP_RELATIVE')                    // response_payload match evidence
     expect(html).not.toContain(String(wc.confidence_score))   // 0.72 — DIS confidence must NOT render
   })
+
+  it('labels a COS_CHECK as "Certificate of Sponsorship" (final canon, 21 Jun)', () => {
+    const cos = { ...checks[0], check_type: 'COS_CHECK' as const, check_id: 'chk-cos' }
+    const html = renderToStaticMarkup(<ExternalCheckCard check={cos} />)
+    expect(html).toContain('Certificate of Sponsorship')      // the new canonical label
+    expect(html).not.toContain('SPONSOR_VERIFICATION')        // old token retired
+  })
 })

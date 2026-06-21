@@ -59,6 +59,7 @@ interface GlassBoxTracePanelProps {
 interface StageDef {
   key: string
   name: string
+  short: string
   description: string
   ruleIds: string[]
   policyIds: string[]
@@ -68,6 +69,7 @@ const STAGES: StageDef[] = [
   {
     key: 'validity',
     name: 'Stage 1 — Validity',
+    short: 'Validity',
     description: 'Application form, CoS, sponsor licence, start date',
     ruleIds: ['RULE-W01', 'RULE-W02', 'RULE-W15'],
     policyIds: [],
@@ -75,6 +77,7 @@ const STAGES: StageDef[] = [
   {
     key: 'suitability',
     name: 'Stage 2 — Suitability',
+    short: 'Suitability',
     description: 'Criminality, immigration history, sanctions',
     ruleIds: ['RULE-U03', 'RULE-W11', 'RULE-W12'],
     policyIds: ['OPA-H01', 'OPA-H03'],
@@ -82,6 +85,7 @@ const STAGES: StageDef[] = [
   {
     key: 'eligibility',
     name: 'Stage 3 — Eligibility (Points)',
+    short: 'Eligibility',
     description: 'Sponsorship, skill level, English, salary',
     ruleIds: ['RULE-W03', 'RULE-W04', 'RULE-W05', 'RULE-W06', 'RULE-W07', 'RULE-W08'],
     policyIds: [],
@@ -89,18 +93,27 @@ const STAGES: StageDef[] = [
   {
     key: 'compliance',
     name: 'Stage 4 — Compliance',
+    short: 'Compliance',
     description: 'Document quality, fraud, TB, completeness, funds',
-    ruleIds: ['RULE-U01', 'RULE-U02', 'RULE-U04', 'RULE-U05', 'RULE-W09', 'RULE-W10', 'RULE-W13', 'RULE-W14'],
+    ruleIds: ['RULE-U01', 'RULE-U02', 'RULE-U04', 'RULE-U05', 'RULE-W09', 'RULE-W10', 'RULE-W13', 'RULE-W14', 'RULE-W16'],
     policyIds: ['OPA-H02', 'OPA-H04', 'OPA-H05', 'OPA-H06'],
   },
   {
     key: 'soft-flags',
     name: 'Stage 5 — Soft Flags',
+    short: 'Soft Flags',
     description: 'Policies that flag for officer review',
     ruleIds: [],
     policyIds: ['OPA-S01', 'OPA-S02', 'OPA-S03', 'OPA-S04', 'OPA-S05', 'OPA-S06'],
   },
 ]
+
+/** A stage with its resolved rule/policy results and a rolled-up verdict. */
+export interface StageWithResults extends StageDef {
+  stageRules: DroolsRuleResult[]
+  stagePolicies: OPAPolicyResult[]
+  verdict: Verdict
+}
 
 // ---------------------------------------------------------------------------
 // Verdict mapping (as-built vocabularies → display)
@@ -148,6 +161,83 @@ const STAGE_BADGE: Record<Verdict, { label: string; classes: string }> = {
   review: { label: 'REVIEW', classes: 'bg-amber-100 text-amber-800 border-amber-200' },
   na: { label: 'N/A', classes: 'bg-gray-100 text-gray-600 border-gray-200' },
 }
+
+// ---------------------------------------------------------------------------
+// Stage assembly + provenance (pure — exported for tests)
+// ---------------------------------------------------------------------------
+
+/** Strip a lettered sub-rule suffix to its base family: RULE-W14-A → RULE-W14.
+ *  Leaves bases (RULE-W14) and OPA ids (OPA-H05 — trailing digits) untouched.
+ *  Deloitte/the spec emit sub-rule IDs; the stage map keys on base families. */
+export const baseRuleId = (id: string): string => id.replace(/-[A-Z]+$/, '')
+
+/** Resolve each stage's rule/policy results — matching sub-rule IDs (RULE-W14-A)
+ *  to their base family (RULE-W14) — and roll them up to one verdict. */
+export function buildStages(disView: DISApplicationView): StageWithResults[] {
+  return STAGES.map((stage) => {
+    const stageRules = disView.rule_results.filter((r) => stage.ruleIds.includes(baseRuleId(r.rule_id)))
+    const stagePolicies = disView.opa_results.filter((p) => stage.policyIds.includes(baseRuleId(p.policy_id)))
+    const verdict = stageVerdict([
+      ...stageRules.map((r) => ruleVerdict(r.outcome)),
+      ...stagePolicies.map((p) => opaVerdict(p.outcome)),
+    ])
+    return { ...stage, stageRules, stagePolicies, verdict }
+  })
+}
+
+/** Stages that warrant attention (fail/review) open by default; clean ones stay collapsed. */
+export function defaultOpenStageKeys(stages: StageWithResults[]): string[] {
+  return stages.filter((s) => s.verdict === 'fail' || s.verdict === 'review').map((s) => s.key)
+}
+
+/** "Drools <ver> (+N) · OPA <ver> (+N) · evaluated <date>" — reinforces the
+ *  deterministic + auditable story. Null-safe; omits any empty segment. */
+export function formatProvenance(disView: DISApplicationView): string {
+  const r = disView.recommendation
+  const fmtEngine = (label: string, ids: string[]): string | null => {
+    if (ids.length === 0) return null
+    const extra = ids.length - 1
+    return `${label} ${ids[0]}${extra > 0 ? ` (+${extra})` : ''}`
+  }
+  const drools = fmtEngine('Drools', (r.drools_version ?? []).map((v) => v.rule_version_id))
+  const opa = fmtEngine('OPA', (r.opa_version ?? []).map((v) => v.policy_version_id))
+  const ts = r.recommendation_at ?? r.generated_at
+  const date = ts
+    ? `evaluated ${new Date(ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`
+    : null
+  return [drools, opa, date].filter(Boolean).join(' · ')
+}
+
+// ---------------------------------------------------------------------------
+// Stage progress strip — the at-a-glance reasoning map
+// ---------------------------------------------------------------------------
+
+export const StageStrip: React.FC<{ stages: StageWithResults[] }> = ({ stages }) => (
+  <div data-testid="glass-box-stage-strip" className="flex flex-wrap items-stretch gap-1.5 mb-4">
+    {stages.map((stage, i) => {
+      const style = VERDICT_STYLES[stage.verdict]
+      const Icon = style.icon
+      const checkCount = stage.stageRules.length + stage.stagePolicies.length
+      return (
+        <React.Fragment key={stage.key}>
+          <div
+            data-testid={`glass-box-strip-${stage.key}`}
+            className={cn('flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border text-xs font-medium', style.chip)}
+            title={`${stage.name} — ${checkCount} checks`}
+          >
+            <Icon className={cn('h-3.5 w-3.5', style.text)} />
+            <span>{stage.short}</span>
+          </div>
+          {i < stages.length - 1 && (
+            <span className="self-center text-gray-300 select-none" aria-hidden>
+              →
+            </span>
+          )}
+        </React.Fragment>
+      )
+    })}
+  </div>
+)
 
 // ---------------------------------------------------------------------------
 // Check row (one rule or policy)
@@ -229,37 +319,30 @@ const CheckRow: React.FC<{
 export default function GlassBoxTracePanel({ disView }: GlassBoxTracePanelProps) {
   const { rules, opa_policies } = disView.recommendation.rules_summary
 
-  const rulesById = new Map(disView.rule_results.map((r) => [r.rule_id as string, r]))
-  const policiesById = new Map(disView.opa_results.map((p) => [p.policy_id as string, p]))
-
   // Anything not covered by the V4 stage mapping still gets rendered —
   // no silent omissions in an audit trail.
   const mappedIds = new Set(STAGES.flatMap((s) => [...s.ruleIds, ...s.policyIds]))
-  const unmappedRules = disView.rule_results.filter((r) => !mappedIds.has(r.rule_id))
-  const unmappedPolicies = disView.opa_results.filter((p) => !mappedIds.has(p.policy_id))
+  const unmappedRules = disView.rule_results.filter((r) => !mappedIds.has(baseRuleId(r.rule_id)))
+  const unmappedPolicies = disView.opa_results.filter((p) => !mappedIds.has(baseRuleId(p.policy_id)))
 
-  const stages = STAGES.map((stage) => {
-    const stageRules = stage.ruleIds
-      .map((id) => rulesById.get(id))
-      .filter((r): r is DroolsRuleResult => !!r)
-    const stagePolicies = stage.policyIds
-      .map((id) => policiesById.get(id))
-      .filter((p): p is OPAPolicyResult => !!p)
-    const verdict = stageVerdict([
-      ...stageRules.map((r) => ruleVerdict(r.outcome)),
-      ...stagePolicies.map((p) => opaVerdict(p.outcome)),
-    ])
-    return { ...stage, stageRules, stagePolicies, verdict }
-  })
+  const stages = buildStages(disView)
+  const defaultOpen = defaultOpenStageKeys(stages)
+  const provenance = formatProvenance(disView)
 
-  const summaryBar = [
-    `${rules.drools_rules_passed}/${rules.drools_rules_evaluated} rules satisfied`,
-    rules.drools_rules_failed > 0 ? `${rules.drools_rules_failed} failed` : null,
-    rules.drools_rules_not_applicable > 0 ? `${rules.drools_rules_not_applicable} N/A` : null,
-    `${opa_policies.opa_hard_passed}/${opa_policies.opa_hard_evaluated} hard policies`,
-    `${opa_policies.opa_soft_passed}/${opa_policies.opa_soft_evaluated} soft policies`,
-    opa_policies.opa_soft_failed > 0 ? `${opa_policies.opa_soft_failed} flagged` : null,
-  ].filter(Boolean).join(' · ')
+  // Summary stat chips — COUNTS only, never a score (scoring-display policy).
+  const stats: { label: string; value: string; icon: React.ElementType; tone: string }[] = [
+    { label: 'rules satisfied', value: `${rules.drools_rules_passed}/${rules.drools_rules_evaluated}`, icon: CheckCircle2, tone: 'text-green-600' },
+    { label: 'hard policies', value: `${opa_policies.opa_hard_passed}/${opa_policies.opa_hard_evaluated}`, icon: ShieldCheck, tone: 'text-blue-600' },
+    {
+      label: opa_policies.opa_soft_failed > 0 ? 'soft flags' : 'soft policies',
+      value: opa_policies.opa_soft_failed > 0 ? `${opa_policies.opa_soft_failed}` : `${opa_policies.opa_soft_passed}/${opa_policies.opa_soft_evaluated}`,
+      icon: opa_policies.opa_soft_failed > 0 ? AlertCircle : ShieldCheck,
+      tone: opa_policies.opa_soft_failed > 0 ? 'text-amber-600' : 'text-gray-500',
+    },
+  ]
+  if (rules.drools_rules_not_applicable > 0) {
+    stats.push({ label: 'not applicable', value: `${rules.drools_rules_not_applicable}`, icon: MinusCircle, tone: 'text-gray-400' })
+  }
 
   const anyFail = stages.some((s) => s.verdict === 'fail')
   const anyReview = stages.some((s) => s.verdict === 'review')
@@ -278,8 +361,13 @@ export default function GlassBoxTracePanel({ disView }: GlassBoxTracePanelProps)
         >
           <div className="flex justify-between items-center w-full">
             <div className="flex items-center">
-              <Box className="h-5 w-5 text-blue-600 mr-3" />
-              <span className="font-semibold text-gray-800 text-left">Glass Box Rule Trace</span>
+              <Box className="h-5 w-5 text-blue-600 mr-3 flex-shrink-0" />
+              <div className="text-left">
+                <span className="font-semibold text-gray-800 block leading-tight">Glass Box Rule Trace</span>
+                <span className="hidden sm:block text-xs font-normal text-gray-500 leading-tight">
+                  Every deterministic check, in the order an officer reasons — AI extracts, rules decide
+                </span>
+              </div>
             </div>
             <div className="flex items-center space-x-2">
               <Badge
@@ -294,16 +382,28 @@ export default function GlassBoxTracePanel({ disView }: GlassBoxTracePanelProps)
         </AccordionTrigger>
 
         <AccordionContent className="p-4 md:p-6 bg-white">
-          {/* Summary bar */}
-          <div
-            data-testid="glass-box-summary-bar"
-            className="p-3 mb-4 border rounded-md bg-gray-50 text-xs font-medium text-gray-700"
-          >
-            {summaryBar}
+          {/* Stage progress strip — the at-a-glance reasoning map */}
+          <StageStrip stages={stages} />
+
+          {/* Summary stat chips (counts only) */}
+          <div data-testid="glass-box-summary-bar" className="flex flex-wrap gap-2 mb-4">
+            {stats.map((s) => {
+              const Icon = s.icon
+              return (
+                <div
+                  key={s.label}
+                  className="flex items-center gap-1.5 px-2.5 py-1 border rounded-md bg-gray-50 text-xs"
+                >
+                  <Icon className={cn('h-3.5 w-3.5', s.tone)} />
+                  <span className="font-semibold text-gray-800">{s.value}</span>
+                  <span className="text-gray-500">{s.label}</span>
+                </div>
+              )
+            })}
           </div>
 
-          {/* 5 assessment stages */}
-          <Accordion type="multiple" className="w-full space-y-2">
+          {/* 5 assessment stages — attention stages (fail/review) open by default */}
+          <Accordion type="multiple" defaultValue={defaultOpen} className="w-full space-y-2">
             {stages.map((stage) => {
               const badge = STAGE_BADGE[stage.verdict]
               const checkCount = stage.stageRules.length + stage.stagePolicies.length
@@ -444,11 +544,19 @@ export default function GlassBoxTracePanel({ disView }: GlassBoxTracePanelProps)
             )}
           </Accordion>
 
-          {/* Footer */}
-          <p className="text-[11px] text-gray-500 mt-4 pt-3 border-t">
-            Every evaluated rule and policy is shown — including those not applicable to this
-            application. Deterministic rules decide; AI only extracts and summarises.
-          </p>
+          {/* Footer — provenance + principle */}
+          <div className="mt-4 pt-3 border-t space-y-1">
+            {provenance && (
+              <p data-testid="glass-box-provenance" className="text-[11px] text-gray-600 font-mono flex items-center gap-1.5">
+                <ShieldCheck className="h-3 w-3 text-gray-400 flex-shrink-0" />
+                {provenance}
+              </p>
+            )}
+            <p className="text-[11px] text-gray-500">
+              Every evaluated rule and policy is shown — including those not applicable to this
+              application. Deterministic rules decide; AI only extracts and summarises.
+            </p>
+          </div>
         </AccordionContent>
       </AccordionItem>
     </Accordion>

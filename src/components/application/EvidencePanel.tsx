@@ -78,7 +78,7 @@ const CHECK_LABEL: Record<string, string> = {
   BORDER_CONTROL: 'Border Control',
   DEVICE_IP_RISK: 'Device / IP Risk',
   EMAIL_PHONE_REPUTATION: 'Email / Phone Reputation',
-  SPONSOR_VERIFICATION: 'Sponsor Verification',
+  COS_CHECK: 'Certificate of Sponsorship',
 }
 
 const humanizeKey = (k: string): string => k.replace(/_/g, ' ').replace(/^\w/, (c) => c.toUpperCase())

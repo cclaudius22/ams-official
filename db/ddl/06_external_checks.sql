@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS external_checks (
         CHECK (check_type IN (
             'WORLDCHECK','INTERPOL','PASSPORT_VERIFY',
             'BORDER_CONTROL','DEVICE_IP_RISK',
-            'EMAIL_PHONE_REPUTATION','SPONSOR_VERIFICATION'
+            'EMAIL_PHONE_REPUTATION','COS_CHECK'
         )),
 
     CONSTRAINT external_checks_status_chk

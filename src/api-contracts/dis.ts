@@ -261,13 +261,21 @@ export type UniversalRuleId = 'RULE-U01' | 'RULE-U02' | 'RULE-U03' | 'RULE-U04' 
  * W07 Job Skill Level (RQF 6+) · W08 English (CEFR B2+) · W09 Maintenance Funds
  * W10 TB Certificate · W11 Criminal Disclosure · W12 Immigration Compliance
  * W13 Completeness · W14 Document Fraud · W15 Start Date Validity
+ * W16 Digital & Behavioral Fraud (VisaKey channel — spec v3.2 §3.9)
  */
 export type SkilledWorkerRuleId =
   | 'RULE-W01' | 'RULE-W02' | 'RULE-W03' | 'RULE-W04' | 'RULE-W05'
   | 'RULE-W06' | 'RULE-W07' | 'RULE-W08' | 'RULE-W09' | 'RULE-W10'
   | 'RULE-W11' | 'RULE-W12' | 'RULE-W13' | 'RULE-W14' | 'RULE-W15'
+  | 'RULE-W16'
 
-export type DroolsRuleId = UniversalRuleId | SkilledWorkerRuleId
+/** Base rule families (U01–U05, W01–W16). */
+export type BaseDroolsRuleId = UniversalRuleId | SkilledWorkerRuleId
+
+/** As-built rule IDs also carry lettered sub-rule suffixes — Deloitte/the spec
+ *  decompose families into sub-rules (e.g. RULE-W14-A, RULE-W12-Z, RULE-W16-C).
+ *  Panel 2 normalises these to the base family via baseRuleId(). */
+export type DroolsRuleId = BaseDroolsRuleId | `${BaseDroolsRuleId}-${string}`
 
 /** Maps 1:1 to as-built table columns (V5 §3). Live table name:
  *  `drools_evaluations` (renamed from rule_results, 12 June DDL — same columns). */
@@ -349,13 +357,16 @@ export interface OPAPolicyResult {
  *                             PASSPORT_VERIFY)
  * 5. DEVICE_IP_RISK         — VPN/Tor/proxy/fraud IP (VisaKey only) — mock
  * 6. EMAIL_PHONE_REPUTATION — disposable email, VOIP, fraud signals — mock
- * 7. SPONSOR_VERIFICATION   — sponsor / CoS register check — mock
+ * 7. COS_CHECK              — Certificate of Sponsorship register check — mock
  *
- * ⚠️ OPEN-8 (resolved 12 June): the as-built pipeline DOES emit a 7th
- * external_checks row, SPONSOR_VERIFICATION. An earlier note here claimed
- * sponsor validation was rules-layer only — that was superseded by the DDL.
- * RULE-W02 (Sponsor Licence Status) still exists in the Drools layer; the
- * external check is the API-evidence counterpart, not a replacement.
+ * ⚠️ Canonical token COS_CHECK (FINAL, 21 June — OV contract decision). The
+ * as-built pipeline emits a 7th external_checks row for the sponsor / CoS
+ * register check; Deloitte's data-layer + external-checks already use
+ * COS_CHECK, so OV adopts it as canonical. It SUPERSEDES the earlier
+ * SPONSOR_VERIFICATION token (Deloitte to conform any remaining
+ * SPONSOR_VERIFICATION references — e.g. the Drools rule artifacts that still
+ * bind it). RULE-W02 (Sponsor Licence Status) still exists in the Drools
+ * layer; this external check is the API-evidence counterpart, not a replacement.
  */
 export type ExternalCheckType =
   | 'WORLDCHECK'
@@ -364,7 +375,7 @@ export type ExternalCheckType =
   | 'BORDER_CONTROL'
   | 'DEVICE_IP_RISK'
   | 'EMAIL_PHONE_REPUTATION'
-  | 'SPONSOR_VERIFICATION'
+  | 'COS_CHECK'
 
 export type CheckStatus = 'CLEAR' | 'BLOCKED' | 'FLAGGED' | 'ERROR' | 'TIMEOUT'
 
