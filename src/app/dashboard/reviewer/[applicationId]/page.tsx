@@ -6,7 +6,7 @@ import ApplicationHeader from '@/components/application/ApplicationHeader'
 import RecommendationSummaryPanel from '@/components/application/RecommendationSummaryPanel'
 import GlassBoxTracePanel from '@/components/application/GlassBoxTracePanel'
 import EvidencePanel from '@/components/application/EvidencePanel'
-import AIScanResultsRedesigned from '@/components/application/AIScanResults'
+import OVIntelligencePanel from '@/components/application/OVIntelligencePanel'
 import SectionCard from '@/components/application/SectionCard'
 import DecisionFooter from '@/components/application/DecisionFooter'
 import NoteDialog from '@/components/dialogs/NoteDialog'
@@ -22,7 +22,7 @@ import RejectDialog from '@/components/dialogs/RejectDialog';
 import { ApplicationData } from '@/types/application'
 import { AIScanResult } from '@/types/aiScan'
 import type { DISApplicationView } from '@/api-contracts/dis'
-import { triggerNewScan } from '@/lib/api/scans' // Assuming these work
+import { syntheticOvAssessment } from '@/lib/syntheticOvAssessment'
 import { disViewToLegacyScan } from '@/lib/disViewAdapter'
 import { Accordion } from "@/components/ui/accordion";
 import {
@@ -353,11 +353,9 @@ export default function OfficialReviewPage() {
           {/* Panel 3 — Evidence (V4 §4 / SCRUM-64 2.3+2.4, collapsed by default) */}
           <EvidencePanel disView={disView} />
 
-          {/* AI Scan Results */}
-          <AIScanResultsRedesigned
-            scanResult={scanResult}
-            onRefreshScan={() => triggerNewScan(applicationData.applicationId)} // Ensure this function exists and works
-          />
+          {/* Open Visa Intelligence — OV-IP risk model, the deliberate scores-shown panel
+              (replaces the legacy AI Assessment Results). Mocked until Azure inference — LAUNCH_BLOCKERS LB-6 / V5 §7a. */}
+          <OVIntelligencePanel assessment={syntheticOvAssessment()} />
 
           {/* Main Application Sections Accordion */}
           <Accordion type="multiple" className="w-full space-y-3 mt-6">
