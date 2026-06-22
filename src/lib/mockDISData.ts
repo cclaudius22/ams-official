@@ -17,6 +17,7 @@
  */
 
 import type { DISApplicationView } from '@/api-contracts/dis'
+import { syntheticPncCheck } from '@/data/dis-providers/syntheticPnc'
 
 export const mockDISApplicationView: DISApplicationView = {
   // === Recommendation artifact (V5 §5) ===
@@ -26,7 +27,7 @@ export const mockDISApplicationView: DISApplicationView = {
       'All eligibility and compliance criteria met. Manual review required: World-Check returned a LOW-risk PEP relative match (OPA-S02).',
     evaluation_breakdown: {
       drools_evaluation: '18 of 20 rules satisfied; 2 not applicable (new entrant salary, TB certificate). No mandatory failures.',
-      external_checks_evaluation: '5 of 6 checks clear. WORLDCHECK flagged: LOW-risk PEP relative match — officer assessment required.',
+      external_checks_evaluation: '6 of 7 checks clear. WORLDCHECK flagged: LOW-risk PEP relative match — officer assessment required.',
       opa_evaluation: 'All 6 hard policies allow. 5 of 6 soft policies pass; OPA-S02 requires review.',
     },
     hard_fail_rules: [],
@@ -38,7 +39,7 @@ export const mockDISApplicationView: DISApplicationView = {
         opa_hard_evaluated: 6, opa_hard_passed: 6, opa_hard_failed: 0,
         opa_soft_evaluated: 6, opa_soft_passed: 5, opa_soft_failed: 1,
       },
-      external_checks: { external_checks_evaluated: 6, external_checks_passed: 5, external_checks_failed: 1, external_checks_error: 0 },
+      external_checks: { external_checks_evaluated: 7, external_checks_passed: 6, external_checks_failed: 1, external_checks_error: 0 },
     },
     completeness_score: 93,
     completeness_status: 'COMPLETE',
@@ -168,7 +169,7 @@ export const mockDISApplicationView: DISApplicationView = {
     { policy_id: 'OPA-S06', policy_name: 'Infrastructure_Alerts', policy_type: 'SOFT', outcome: 'PASS', denial_reasons: [] },
   ],
 
-  // === External check results (6 — INTERPOL + BORDER_CONTROL per as-built; V5 §5) ===
+  // === External check results (7 from DIS + 1 OV PNC mock = 8; V5 §5; PNC per LAUNCH_BLOCKERS LB-1) ===
   external_checks: [
     { check_id: 'chk-001', dis_application_id: 'dis-app-001', document_id: null, check_type: 'WORLDCHECK', check_status: 'FLAGGED', risk_level: 'LOW', confidence_score: 0.72, flags: { pep_relative_match: true, categories: ['POLITICALLY_EXPOSED_PERSON'] }, response_payload: { risk_level: 'LOW', categories_checked: ['SANCTIONS', 'PEP', 'ADVERSE_MEDIA', 'LAW_ENFORCEMENT'], lists_checked: ['OFSI', 'UN_SC', 'EU_SANCTIONS', 'US_OFAC', 'INTERPOL_RED_NOTICE'], matches_found: [{ type: 'PEP_RELATIVE', name: 'Kumar, Rajesh', relationship: 'Father-in-law', list: 'PEP_INDIA_STATE_LEVEL' }] }, response_time_ms: 1240, created_at: '2026-04-10T10:00:02Z' },
     { check_id: 'chk-002', dis_application_id: 'dis-app-001', document_id: 'doc-passport-001', check_type: 'INTERPOL', check_status: 'CLEAR', risk_level: 'NONE', confidence_score: 0.99, flags: {}, response_payload: { is_stolen: false, is_lost: false, is_revoked: false, is_invalid: false, database_version: '2026-04-10' }, response_time_ms: 890, created_at: '2026-04-10T10:00:02Z' },
@@ -176,6 +177,8 @@ export const mockDISApplicationView: DISApplicationView = {
     { check_id: 'chk-004', dis_application_id: 'dis-app-001', document_id: null, check_type: 'DEVICE_IP_RISK', check_status: 'CLEAR', risk_level: 'NONE', confidence_score: 0.95, flags: {}, response_payload: { ip_analysis: { is_vpn: false, is_tor: false, is_proxy: false, is_datacenter: false, is_known_fraud_ip: false }, device_analysis: { device_fingerprint_known: true, device_trust_score: 0.92 }, submission_velocity: 'NORMAL', impossible_travel: false }, response_time_ms: 340, created_at: '2026-04-10T10:00:01Z' },
     { check_id: 'chk-005', dis_application_id: 'dis-app-001', document_id: null, check_type: 'EMAIL_PHONE_REPUTATION', check_status: 'CLEAR', risk_level: 'NONE', confidence_score: 0.93, flags: {}, response_payload: { email_analysis: { is_disposable: false, is_deliverable: true, domain_age_days: 4380, breach_count: 0, is_known_fraud_email: false }, phone_analysis: { is_valid: true, line_type: 'MOBILE', carrier: 'Vodafone UK', is_voip: false, is_virtual: false, phone_country: 'GBR', is_known_fraud_phone: false } }, response_time_ms: 520, created_at: '2026-04-10T10:00:01Z' },
     { check_id: 'chk-006', dis_application_id: 'dis-app-001', document_id: 'doc-passport-001', check_type: 'BORDER_CONTROL', check_status: 'CLEAR', risk_level: 'NONE', confidence_score: 0.97, flags: {}, response_payload: { has_overstay: false, has_deportation: false, has_refusal_at_border: false, current_immigration_status: 'LEAVE_TO_REMAIN', last_entry_date: '2024-09-12', entries_last_5_years: 3 }, response_time_ms: 410, created_at: '2026-04-10T10:00:03Z' },
+    { check_id: 'chk-007', dis_application_id: 'dis-app-001', document_id: null, check_type: 'COS_CHECK', check_status: 'CLEAR', risk_level: 'NONE', confidence_score: 1.0, flags: {}, response_payload: { cos_reference_number: 'COS-2026-7247410', sponsor_name: 'ORION TECH SOLUTIONS LTD', sponsor_licence_number: 'MER-2024-7891', sponsor_licence_status: 'A_RATED', cos_status: 'ASSIGNED', is_used: false, assigned_date: '2026-03-15', soc_code: '2135', job_title: 'IT BUSINESS ANALYST', salary_on_cos_gbp: 50253, salary_matches_threshold: true }, response_time_ms: 980, created_at: '2026-04-10T10:00:02Z' },
+    syntheticPncCheck('dis-app-001'),  // OV Phase-1 PNC mock — DIS emits the 7 above; PNC is OV-synthesised (LAUNCH_BLOCKERS LB-1)
   ],
 
   // === Document extractions (5 documents — shapes unchanged, V1.2 aligned) ===

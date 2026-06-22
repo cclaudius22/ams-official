@@ -79,6 +79,7 @@ const CHECK_LABEL: Record<string, string> = {
   DEVICE_IP_RISK: 'Device / IP Risk',
   EMAIL_PHONE_REPUTATION: 'Email / Phone Reputation',
   COS_CHECK: 'Certificate of Sponsorship',
+  PNC_CHECK: 'Police National Computer (PNC)',
 }
 
 const humanizeKey = (k: string): string => k.replace(/_/g, ' ').replace(/^\w/, (c) => c.toUpperCase())

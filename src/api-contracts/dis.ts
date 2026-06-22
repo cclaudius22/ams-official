@@ -376,6 +376,7 @@ export type ExternalCheckType =
   | 'DEVICE_IP_RISK'
   | 'EMAIL_PHONE_REPUTATION'
   | 'COS_CHECK'
+  | 'PNC_CHECK'             // OV Phase-1 MOCK — NOT emitted by DIS; synthesised by the read layer (syntheticPncCheck) for criminal-record evidence completeness. Production blocker: docs/LAUNCH_BLOCKERS.md LB-1.
 
 export type CheckStatus = 'CLEAR' | 'BLOCKED' | 'FLAGGED' | 'ERROR' | 'TIMEOUT'
 

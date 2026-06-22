@@ -56,4 +56,11 @@ describe('EvidencePanel — status-led, no DIS grades', () => {
     expect(html).toContain('Certificate of Sponsorship')      // the new canonical label
     expect(html).not.toContain('SPONSOR_VERIFICATION')        // old token retired
   })
+
+  it('labels the OV PNC mock "Police National Computer (PNC)" and shows it CLEAR', () => {
+    const pnc = checks.find((c) => c.check_type === 'PNC_CHECK')!  // synthesised into the fixture (LB-1)
+    const html = renderToStaticMarkup(<ExternalCheckCard check={pnc} />)
+    expect(html).toContain('Police National Computer')
+    expect(html).toContain('CLEAR')
+  })
 })
