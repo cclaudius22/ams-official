@@ -11,6 +11,26 @@
 
 ---
 
+## Source-of-truth map — who produces what, and when it goes real
+
+The dashboard shows two layers: **Deloitte's DIS gives us the *facts*; OV's models produce the *assessment* from those facts.** Everything is mocked today — this maps where each piece *will* come from and which switch makes it real.
+
+| What the panel shows | Produced by | Real source | Goes real when… |
+|---|---|---|---|
+| Queue, extracted fields, documents, **Glass Box** trail, DIS recommendation (`RECOMMEND_*`), DIS component scores + completeness + fraud | **Deloitte DIS** | read APIs E1–E5 | **Deloitte's read APIs go live** |
+| External checks (Interpol, passport, border, device/IP, email/phone, CoS) | **Deloitte DIS** (themselves mocks in Phase 1) | E5 | Deloitte APIs live *(+ real provider integrations in Phase 2)* |
+| **PNC** check (Police National Computer) | **OV** (mock) | none today — DIS does not emit it | OV builds/integrates it, or it is dropped (**LB-1**) |
+| **Rootedness / Intent / Overall risk + OV recommendation** | **OV models** (Azure) | OV model inference | **OV models deploy on Azure** (**LB-6**) |
+| LLM case-summary narrative | **OV models** (Azure) | OV model inference | OV models deploy on Azure |
+
+**Two independent "go-real" switches** — different owners, landing at different times:
+1. **Deloitte's read APIs go live** → real DIS facts (replaces the mock/replica DIS data). The DIS panels — Glass Box, Evidence, recommendation — need only this.
+2. **OV models deploy on Azure** → real OV assessment (replaces the mock scores + narrative).
+
+The **OV Assessment panel needs BOTH** — it cannot show a real score until there are real features *from Deloitte* **and** a deployed model *from us*. It is therefore the last thing to become real, gated on two dependencies, not one. (Our model consumes Deloitte's data as input, so **Deloitte data correctness is upstream of our model's quality** — see `dis-repos-deloitte/DIS_CONFORM_TO_SPEC.md`.)
+
+---
+
 ## OV-owned (our side)
 
 | # | Blocker | Demo state | Required for production |
@@ -20,6 +40,7 @@
 | **LB-3** | **GCS signed URLs** | `signUrl.ts` is a stub — document links are placeholders. | Real GCS signed-URL minting so document evidence opens securely. |
 | **LB-4** | **`deloitte` provider not wired** | Running on `mock` / `replica` providers (local Postgres replica of Deloitte's DDL). | The live `deloitte` provider must be built and pointed at the real DIS read API in the production environment. |
 | **LB-5** | **Advisory per-case scores** | Deferred / opt-in; officer view is status-led (no numeric DIS grades). | Confirm the final per-case scoring-display policy before production. |
+| **LB-6** | **OV Assessment panel (Rootedness/Intent model)** | **Mocked** — the OV trained risk models are not yet deployed; the panel shows synthetic scores. This is the deliberate scores-shown exception (V5 §7a). | Deploy the OV models for inference on **Azure** (compute-once → store → read); point the OV read path at real stored assessments. **A synthesised risk score must never be shown on a live applicant.** |
 
 ---
 

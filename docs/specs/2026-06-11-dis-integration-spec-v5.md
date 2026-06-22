@@ -209,8 +209,38 @@ Whoever builds these (Deloitte per our 11 June ask, or OV per the contract doc's
 | 3 — Evidence | `external_checks[]/document_extractions[]` | Endpoints 4 + 5; image viewer via signed gcs_path; CoS excluded (lives in application_payload) |
 | Accordion | unchanged | unchanged (V4 authority) |
 | Audit Trail | Stream 1 from DIS | Stream 1 from endpoint 2's rules_summary + versions arrays; Stream 2 OV-owned, unchanged |
+| OV Assessment (replaces legacy "AI Assessment Results") | — (not in V4) | §7a — OV Assessment store (Azure model output). **Deliberate scores-shown exception** (Rootedness/Intent/Overall). Mocked in Phase 1 (LAUNCH_BLOCKERS LB-6). |
 
 `DISApplicationView` survives **only as a client-side composite** assembled by our data provider from endpoints 1–5 — it is not a wire contract.
+
+## 7a. OV Assessment Layer (OV-IP — Azure inference) — added 22 June
+
+The legacy "AI Assessment Results" panel (numeric Rootedness / Intent / Overall risk; "Visa Assessment v2.1") is **retired**. Its security-check content is now covered by Panels 2–3 (status-led). The genuinely OV-proprietary part — the trained risk-model output — moves to a dedicated **OV Assessment panel**.
+
+This layer is **OV IP and entirely separate from DIS.** DIS (Deloitte) produces a *deterministic rule* recommendation (`RECOMMEND_*`); the OV models produce a *probabilistic* risk assessment. The dashboard shows both — they are different things and must not be conflated.
+
+**Models (OV, deployed on Azure for inference):**
+- **Risk-assessment model** → Rootedness / Intent / Overall-risk scores + an OV recommendation → the **OV Assessment panel** (this section).
+- **LLM narrative model** (Gemma/Praxia, briefing-svc) → the caseworker case-summary → Panel 1 (already noted in §7 as the "OV-IP Azure endpoint").
+
+**Architecture — compute-once → store → read (NOT live inference at page-load):**
+1. Application completes DIS processing (GCP) → extracted fields + external checks + rule recommendation in DIS Postgres.
+2. An **OV orchestrator** (triggered on DIS completion) assembles a **feature payload** and calls the **Azure inference endpoint**.
+3. Azure returns the OV assessment (scores + recommendation + reasoning).
+4. The assessment is **stored in an OV datastore**, keyed by application id, with **model version + feature-schema version + timestamp** (audit / reproducibility).
+5. The AMS dashboard **reads** the stored assessment via an OV read path (same provider-seam pattern as the DIS read layer) — it **never calls Azure directly**.
+
+**Why store-then-read:** *audit* (a visa decision must be reproducible — exactly what the model said at decision time, not a later re-run), *latency* (no inference wait when an officer opens a case), *cost* (inference runs once per application), *resilience* (an Azure outage does not break the officer's screen).
+
+**Feature payload (best practice):** structured features only — assembled from the canonical DIS read outputs (§6) + the submission payload — **NOT** raw documents (DIS already extracted; do not re-extract or couple the model to document formats). Use a **versioned feature contract**; send only the features the model needs (PII / UK data-residency minimisation). The DIS-output → model-feature mapping is an OV concern and must match the model's **training** schema exactly.
+
+**Multi-cloud:** DIS on GCP, OV models on Azure, dashboard on OV infra. The OV orchestrator bridges GCP ↔ Azure ↔ OV store. Hard constraints: **UK data residency** (Azure UK region — visa PII), and **server-side auth/keys** (never exposed to the browser).
+
+**Display policy — deliberate exception:** the per-case officer view is otherwise **status-led** (no numeric DIS grades — fraud/confidence/completeness stay qualitative). The **OV Assessment panel is the one deliberate exception**: it shows the actual model **scores** (Rootedness, Intent, Overall risk), because the OV assessment *is* the product differentiator. DIS-derived scores remain hidden; only the OV model's own scores surface, and only here.
+
+**Phase / status:** the OV models are **not yet deployed**. The OV Assessment panel is **mocked** in Phase 1 (the same discipline as the PNC mock, LB-1) — tracked at `docs/LAUNCH_BLOCKERS.md` **LB-6**. The panel reads an `OVAssessment` shape from the view; when the Azure endpoint is live, the OV read path is pointed at the real stored assessments with **zero UI change** (identical to the `mock → replica → deloitte` provider swap).
+
+> This section may graduate to its own OV design doc (Azure topology, feature contract, model versioning) once the models are ready to deploy; documented here for now as the OV-side counterpart to the DIS integration.
 
 ## 8. Type alignment patch — Phase 2A Task 2.0b (do before Task 2.1)
 
