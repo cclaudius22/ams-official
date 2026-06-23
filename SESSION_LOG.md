@@ -4,6 +4,29 @@
 
 ---
 
+## ⏸ RESUME HERE — 23 June 2026 (latest)
+
+**State:** branch `feat/dis-integration-v3`, HEAD `2539a8c`, **all committed + pushed, tree clean.** 108 DIS tests pass, `tsc --noEmit` = 76 (pre-existing onboarding-debt baseline, 0 new). Dev server runs on **:3000** (`PORT=3000 npm run dev`); Postgres replica `dis-replica` on **:5499** (reseeded to canon: COS_CHECK + RECOMMEND_*).
+
+**Canon (locked 21 Jun, FINAL):** outcome `RECOMMEND_APPROVE`/`RECOMMEND_REJECT`/`MANUAL_REVIEW`; field `recommendation`; table `recommendations`; external check type `COS_CHECK`. We hold Deloitte to these — we do NOT bend our contract to their drift.
+
+**Built (officer dashboard, reviewer page `/dashboard/reviewer/VK-2024-1835`):**
+- Read layer (6 endpoints) behind `mock | replica | deloitte` provider seam.
+- **Panel 1** Recommendation Summary · **Panel 2** Glass Box trace (polished: stage strip, auto-open, stat chips, provenance; `baseRuleId()` sub-rule routing + RULE-W16) · **Panel 3** Evidence (status-led; 8 cards = 7 DIS checks incl. CoS + the OV PNC mock).
+- **Open Visa Intelligence panel** (NEW, 22–23 Jun) — `OVIntelligencePanel.tsx`, the OV-IP risk-model showcase; replaces the retired `AIScanResults.tsx`. Explainable: overall risk ring + band + OV recommendation + narrative, and 3 dimensions (Rootedness/Intent/Credibility) each with score + "Why" reasoning + factor chips. **Deliberate scores-shown exception** (V5 §7a). Mocked via `src/lib/syntheticOvAssessment.ts` (contract `src/api-contracts/ov.ts`) — LB-6. The Case Summary narrative was relocated here out of Panel 1.
+
+**Two mock layers, both flagged as production blockers:** `syntheticPncCheck` (PNC, LB-1) and `syntheticOvAssessment` (OV models, LB-6). Both clearly excluded from real-data paths; replica stays a faithful DIS mirror.
+
+**Key docs (the orientation set):**
+- `docs/LAUNCH_BLOCKERS.md` — **source-of-truth map** (who produces what / real source / goes-real-when) + LB-1..LB-6. Read this first for the big picture.
+- `docs/specs/2026-06-11-dis-integration-spec-v5.md` — latest integration spec; **§7a = OV Assessment Layer** (Azure inference architecture, store-then-read, scores-shown exception).
+- `docs/specs/dis-frontend-api-dependencies.md` — the 5 DIS read APIs we consume.
+- `../dis-repos-deloitte/DIS_CONFORM_TO_SPEC.md` — the 30-item Deloitte conformance contract (also in Confluence **DD/128155661** v2). Scoring spec = Confluence **DD/63799317** v3.2.
+
+**Open threads (pick any):** OV panel visual polish (Chris to eyeball); dashboard auth (next real build item); OV-side follow-ups — reconcile OPA policy-IDs vs Confluence **DD/90570756**; draft the outstanding Deloitte per-repo emails (data-layer one already drafted in `docs/cc-notes/`).
+
+---
+
 ## ⏸ PIT STOP — 21 June 2026 (Panel 2 Glass Box polish)
 
 **RESUME HERE.** Long Deloitte-repo-audit detour is done (see `../dis-repos-deloitte/DIS_REPO_AUDIT_REPORT.md` + that repo's `DIS_AUDIT_SESSION_LOG.md`); back on the AMS build.
