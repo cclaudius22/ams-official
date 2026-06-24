@@ -1,0 +1,22 @@
+{
+  "document_type": "EMPLOYMENT_LETTER",
+  "application_id": "HO-SW-2026-00000064",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "letter_date": "2026-05-20",
+    "employer_name": "Hoama (Staplehurst) Ltd",
+    "employee_name": "Amina Danladi",
+    "job_title": "Management consultants and business analysts",
+    "soc_code": "2431",
+    "cos_reference": "COS-2026-4685079",
+    "start_date": "2026-07-01",
+    "annual_salary": 50451.0,
+    "monthly_gross_pay": 4204.25,
+    "hours_per_week": 37.5,
+    "signatory_name": "Helen Morris",
+    "signatory_title": "HR Manager"
+  }
+}

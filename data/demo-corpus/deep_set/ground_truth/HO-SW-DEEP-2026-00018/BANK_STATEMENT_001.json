@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000093",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "ICICI",
+    "account_holder": "Isabella Mendoza",
+    "statement_month": "2026-01",
+    "account_number": "37452386",
+    "sort_code": "18-31-67",
+    "branch_name": "ICICI Bank UK Wembley Branch",
+    "branch_address": "21 Ealing Road, Wembley HA0 4AA",
+    "opening_balance": 3220,
+    "closing_balance": 4139.11,
+    "salary_credit": 2621.59,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1316.74,
+        "credit": 0.0,
+        "balance": 1903.26
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 127.56,
+        "credit": 0.0,
+        "balance": 1775.7
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 52.54,
+        "credit": 0.0,
+        "balance": 1723.16
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 123.0,
+        "credit": 0.0,
+        "balance": 1600.16
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 64.21,
+        "credit": 0.0,
+        "balance": 1535.95
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 18.43,
+        "credit": 0.0,
+        "balance": 1517.52
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS GOODHEART PLUS LTD",
+        "debit": 0.0,
+        "credit": 2621.59,
+        "balance": 4139.11
+      }
+    ]
+  }
+}

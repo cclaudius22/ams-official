@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000004",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "HDFC",
+    "account_holder": "Dev Karan Sharma",
+    "statement_month": "2026-03",
+    "account_number": "91848625",
+    "sort_code": "84-88-70",
+    "branch_name": "HDFC Bank UK Leicester Branch",
+    "branch_address": "96 Belgrave Road, Leicester LE4 5AT",
+    "opening_balance": 2485,
+    "closing_balance": 4953.11,
+    "salary_credit": 4164.46,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-03-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1386.48,
+        "credit": 0.0,
+        "balance": 1098.52
+      },
+      {
+        "date": "2026-03-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 133.11,
+        "credit": 0.0,
+        "balance": 965.41
+      },
+      {
+        "date": "2026-03-10",
+        "description": "CARD TESCO STORES",
+        "debit": 54.27,
+        "credit": 0.0,
+        "balance": 911.14
+      },
+      {
+        "date": "2026-03-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 73.71,
+        "credit": 0.0,
+        "balance": 837.43
+      },
+      {
+        "date": "2026-03-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 23.01,
+        "credit": 0.0,
+        "balance": 814.42
+      },
+      {
+        "date": "2026-03-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 25.77,
+        "credit": 0.0,
+        "balance": 788.65
+      },
+      {
+        "date": "2026-03-31",
+        "description": "BACS NOKIA UK LIMITED",
+        "debit": 0.0,
+        "credit": 4164.46,
+        "balance": 4953.11
+      }
+    ]
+  }
+}

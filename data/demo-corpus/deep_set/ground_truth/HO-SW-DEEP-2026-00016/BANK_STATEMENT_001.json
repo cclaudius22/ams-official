@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000091",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "RBC",
+    "account_holder": "Karan Singh",
+    "statement_month": "2026-01",
+    "account_number": "67990261",
+    "sort_code": "83-99-15",
+    "branch_name": "RBC London City Branch",
+    "branch_address": "100 Bishopsgate, London EC2N 4AA",
+    "opening_balance": 3194,
+    "closing_balance": 4584.85,
+    "salary_credit": 2621.59,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 881.44,
+        "credit": 0.0,
+        "balance": 2312.56
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 119.89,
+        "credit": 0.0,
+        "balance": 2192.67
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 87.88,
+        "credit": 0.0,
+        "balance": 2104.79
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 97.76,
+        "credit": 0.0,
+        "balance": 2007.03
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 34.31,
+        "credit": 0.0,
+        "balance": 1972.72
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 9.46,
+        "credit": 0.0,
+        "balance": 1963.26
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS MY INDIA LTD TA MOTHER INDIA",
+        "debit": 0.0,
+        "credit": 2621.59,
+        "balance": 4584.85
+      }
+    ]
+  }
+}

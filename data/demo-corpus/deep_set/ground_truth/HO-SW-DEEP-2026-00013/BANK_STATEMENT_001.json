@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000062",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "NatWest",
+    "account_holder": "Lucas Marcos Santos",
+    "statement_month": "2026-01",
+    "account_number": "68634108",
+    "sort_code": "37-35-95",
+    "branch_name": "NatWest Glasgow City Branch",
+    "branch_address": "14 Blythswood Square, Glasgow G2 4AU",
+    "opening_balance": 2817,
+    "closing_balance": 3932.33,
+    "salary_credit": 2633.23,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1150.87,
+        "credit": 0.0,
+        "balance": 1666.13
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 180.54,
+        "credit": 0.0,
+        "balance": 1485.59
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 87.51,
+        "credit": 0.0,
+        "balance": 1398.08
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 71.22,
+        "credit": 0.0,
+        "balance": 1326.86
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 18.56,
+        "credit": 0.0,
+        "balance": 1308.3
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 9.2,
+        "credit": 0.0,
+        "balance": 1299.1
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS SANSONS CHARTERED ACCOUNTANT",
+        "debit": 0.0,
+        "credit": 2633.23,
+        "balance": 3932.33
+      }
+    ]
+  }
+}

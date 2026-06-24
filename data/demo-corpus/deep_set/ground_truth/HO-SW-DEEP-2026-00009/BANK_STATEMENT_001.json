@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000078",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "HSBC",
+    "account_holder": "Adewale Emeka Adebayo",
+    "statement_month": "2026-01",
+    "account_number": "66145642",
+    "sort_code": "73-66-78",
+    "branch_name": "HSBC Birmingham New Street Branch",
+    "branch_address": "130 New Street, Birmingham B2 4JU",
+    "opening_balance": 3025,
+    "closing_balance": 4408.3,
+    "salary_credit": 2621.54,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 886.09,
+        "credit": 0.0,
+        "balance": 2138.91
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 129.99,
+        "credit": 0.0,
+        "balance": 2008.92
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 52.31,
+        "credit": 0.0,
+        "balance": 1956.61
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 76.57,
+        "credit": 0.0,
+        "balance": 1880.04
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 64.42,
+        "credit": 0.0,
+        "balance": 1815.62
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 28.86,
+        "credit": 0.0,
+        "balance": 1786.76
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS LOTUS THAI MASSAGE & SPA CHA",
+        "debit": 0.0,
+        "credit": 2621.54,
+        "balance": 4408.3
+      }
+    ]
+  }
+}

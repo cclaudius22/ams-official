@@ -1,0 +1,24 @@
+{
+  "document_type": "PAYSLIPS",
+  "application_id": "HO-SW-2026-00000092",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "employer_name": "The Laurels Care Home",
+    "employee_name": "Jing Li",
+    "pay_period_start": "2026-03-01",
+    "pay_period_end": "2026-03-31",
+    "gross_pay": 4558.33,
+    "annualized_gross_pay": 54699.96,
+    "tax_deducted": 702.17,
+    "ni_deducted": 251.28,
+    "pension_deducted": 227.92,
+    "net_pay": 3376.96,
+    "pay_frequency": "MONTHLY",
+    "employee_number": "EMP-000092",
+    "tax_code": "1257L",
+    "ni_number": "EF116697C"
+  }
+}

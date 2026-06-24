@@ -1,0 +1,24 @@
+{
+  "document_type": "PAYSLIPS",
+  "application_id": "HO-SW-2026-00000001",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "employer_name": "MIRAK GLOBAL SERVICES (UK) LTD",
+    "employee_name": "Karan Nair",
+    "pay_period_start": "2026-01-01",
+    "pay_period_end": "2026-01-31",
+    "gross_pay": 4325.0,
+    "annualized_gross_pay": 51900.0,
+    "tax_deducted": 655.5,
+    "ni_deducted": 251.28,
+    "pension_deducted": 216.25,
+    "net_pay": 3201.97,
+    "pay_frequency": "MONTHLY",
+    "employee_number": "EMP-000001",
+    "tax_code": "1257L",
+    "ni_number": "CD404765A"
+  }
+}

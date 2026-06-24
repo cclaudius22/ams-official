@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000092",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "NatWest",
+    "account_holder": "Jing Li",
+    "statement_month": "2026-03",
+    "account_number": "86466735",
+    "sort_code": "16-64-92",
+    "branch_name": "NatWest Glasgow City Branch",
+    "branch_address": "14 Blythswood Square, Glasgow G2 4AU",
+    "opening_balance": 3629,
+    "closing_balance": 5794.91,
+    "salary_credit": 3376.96,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-03-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 877.54,
+        "credit": 0.0,
+        "balance": 2751.46
+      },
+      {
+        "date": "2026-03-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 153.5,
+        "credit": 0.0,
+        "balance": 2597.96
+      },
+      {
+        "date": "2026-03-10",
+        "description": "CARD TESCO STORES",
+        "debit": 49.89,
+        "credit": 0.0,
+        "balance": 2548.07
+      },
+      {
+        "date": "2026-03-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 88.0,
+        "credit": 0.0,
+        "balance": 2460.07
+      },
+      {
+        "date": "2026-03-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 32.2,
+        "credit": 0.0,
+        "balance": 2427.87
+      },
+      {
+        "date": "2026-03-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 9.92,
+        "credit": 0.0,
+        "balance": 2417.95
+      },
+      {
+        "date": "2026-03-31",
+        "description": "BACS THE LAURELS CARE HOME",
+        "debit": 0.0,
+        "credit": 3376.96,
+        "balance": 5794.91
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "document_type": "TB_CERTIFICATE",
+  "application_id": "HO-SW-2026-00000001",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "clinic_name": "IOM Migration Health Assessment Centre, India",
+    "doctor_name": "Dr Sarah Ahmed",
+    "applicant_name": "Karan Nair",
+    "date_of_birth": "1974-11-17",
+    "test_date": "2026-03-10",
+    "result": "clear",
+    "valid_until": "2026-09-10"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000063",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "WANG JUN MING",
+    "surname": "WANG",
+    "given_names": "JUN MING",
+    "date_of_birth": "1992-12-25",
+    "gender": "M",
+    "nationality": "CHN",
+    "passport_number": "E8539758",
+    "date_of_issue": "2022-05-07",
+    "date_of_expiry": "2032-05-07",
+    "issuing_country": "CHN",
+    "mrz_line1": "P<CHNWANG<<JUN<MING<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "E8539758<1CHN9212255M3205079<<<<<<<<<<<<<<04"
+  }
+}

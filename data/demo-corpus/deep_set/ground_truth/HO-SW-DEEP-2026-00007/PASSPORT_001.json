@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000076",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "DELA CRUZ ANGELICA",
+    "surname": "DELA CRUZ",
+    "given_names": "ANGELICA",
+    "date_of_birth": "1992-07-06",
+    "gender": "F",
+    "nationality": "PHL",
+    "passport_number": "P3598924",
+    "date_of_issue": "2022-05-24",
+    "date_of_expiry": "2032-05-24",
+    "issuing_country": "PHL",
+    "mrz_line1": "P<PHLDELA<CRUZ<<ANGELICA<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "P3598924<1PHL9207064F3205242<<<<<<<<<<<<<<02"
+  }
+}

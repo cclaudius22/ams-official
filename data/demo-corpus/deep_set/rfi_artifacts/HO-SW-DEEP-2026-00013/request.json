@@ -1,0 +1,10 @@
+{
+  "rfi_id": "RFI-HO-SW-DEEP-2026-00013",
+  "application_id": "HO-SW-DEEP-2026-00013",
+  "status": "ISSUED",
+  "issued_at": "2026-06-24T11:15:00Z",
+  "due_at": "2026-07-08T11:15:00Z",
+  "requested_item": "insufficient bank statement month 2",
+  "requested_document_type": "BANK_STATEMENT",
+  "caseworker_message": "Please provide a complete February 2026 bank statement showing salary credits and closing balance."
+}

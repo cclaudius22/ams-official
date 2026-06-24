@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000063",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "Barclays",
+    "account_holder": "Jun Ming Wang",
+    "statement_month": "2026-02",
+    "account_number": "43209360",
+    "sort_code": "30-80-27",
+    "branch_name": "Barclays Leeds City Branch",
+    "branch_address": "1 Park Row, Leeds LS1 5WU",
+    "opening_balance": 3041,
+    "closing_balance": 4686.99,
+    "salary_credit": 2919.4,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 890.09,
+        "credit": 0.0,
+        "balance": 2150.91
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 139.16,
+        "credit": 0.0,
+        "balance": 2011.75
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 84.49,
+        "credit": 0.0,
+        "balance": 1927.26
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 75.28,
+        "credit": 0.0,
+        "balance": 1851.98
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 52.86,
+        "credit": 0.0,
+        "balance": 1799.12
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 31.53,
+        "credit": 0.0,
+        "balance": 1767.59
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS VERACITY GROUP LIMITED",
+        "debit": 0.0,
+        "credit": 2919.4,
+        "balance": 4686.99
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000006",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "MOKOENA LERATO",
+    "surname": "MOKOENA",
+    "given_names": "LERATO",
+    "date_of_birth": "1974-01-05",
+    "gender": "F",
+    "nationality": "ZAF",
+    "passport_number": "M1766487",
+    "date_of_issue": "2018-11-08",
+    "date_of_expiry": "2028-11-08",
+    "issuing_country": "ZAF",
+    "mrz_line1": "P<ZAFMOKOENA<<LERATO<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "M1766487<5ZAF7401053F2811084<<<<<<<<<<<<<<02"
+  }
+}

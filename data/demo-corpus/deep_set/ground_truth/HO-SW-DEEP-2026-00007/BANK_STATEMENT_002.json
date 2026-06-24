@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000076",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "Santander",
+    "account_holder": "Angelica Dela Cruz",
+    "statement_month": "2026-02",
+    "account_number": "34990840",
+    "sort_code": "77-49-34",
+    "branch_name": "Santander Liverpool Lord Street Branch",
+    "branch_address": "45 Lord Street, Liverpool L2 6PB",
+    "opening_balance": 3210,
+    "closing_balance": 4496.82,
+    "salary_credit": 2621.54,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 950.21,
+        "credit": 0.0,
+        "balance": 2259.79
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 162.69,
+        "credit": 0.0,
+        "balance": 2097.1
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 68.55,
+        "credit": 0.0,
+        "balance": 2028.55
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 92.59,
+        "credit": 0.0,
+        "balance": 1935.96
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 33.54,
+        "credit": 0.0,
+        "balance": 1902.42
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 27.14,
+        "credit": 0.0,
+        "balance": 1875.28
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS POOJA SWEETS & SAVOURIES LTD",
+        "debit": 0.0,
+        "credit": 2621.54,
+        "balance": 4496.82
+      }
+    ]
+  }
+}

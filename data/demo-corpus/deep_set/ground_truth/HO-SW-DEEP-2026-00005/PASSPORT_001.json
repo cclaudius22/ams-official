@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000005",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "OKAFOR AMINA NGOZI",
+    "surname": "OKAFOR",
+    "given_names": "AMINA NGOZI",
+    "date_of_birth": "1990-01-01",
+    "gender": "F",
+    "nationality": "NGA",
+    "passport_number": "A1525007",
+    "date_of_issue": "2024-08-18",
+    "date_of_expiry": "2034-08-18",
+    "issuing_country": "NGA",
+    "mrz_line1": "P<NGAOKAFOR<<AMINA<NGOZI<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "A1525007<8NGA9001011F3408180<<<<<<<<<<<<<<04"
+  }
+}

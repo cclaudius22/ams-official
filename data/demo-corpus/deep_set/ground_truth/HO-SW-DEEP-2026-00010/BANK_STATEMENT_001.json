@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000079",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "HDFC",
+    "account_holder": "Yaw Mensah Asante",
+    "statement_month": "2026-01",
+    "account_number": "77653146",
+    "sort_code": "24-87-95",
+    "branch_name": "HDFC Bank UK Harrow Branch",
+    "branch_address": "284 Station Road, Harrow HA1 2EA",
+    "opening_balance": 3038,
+    "closing_balance": 5172.28,
+    "salary_credit": 3376.91,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 945.87,
+        "credit": 0.0,
+        "balance": 2092.13
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 117.15,
+        "credit": 0.0,
+        "balance": 1974.98
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 45.01,
+        "credit": 0.0,
+        "balance": 1929.97
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 80.9,
+        "credit": 0.0,
+        "balance": 1849.07
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 33.59,
+        "credit": 0.0,
+        "balance": 1815.48
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 20.11,
+        "credit": 0.0,
+        "balance": 1795.37
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS CHAIIBOX BIRMINGHAM LTD",
+        "debit": 0.0,
+        "credit": 3376.91,
+        "balance": 5172.28
+      }
+    ]
+  }
+}

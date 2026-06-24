@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "validated_at": "2026-06-24T21:23:21.990752Z",
+  "total_applications": 18,
+  "visa_type_distribution": {
+    "skilled-worker": 18
+  },
+  "anomaly_distribution": {
+    "clean": 6,
+    "fail_rules": 5,
+    "suspicious": 4,
+    "edge_case": 3
+  },
+  "recommendation_distribution": {
+    "RECOMMEND_APPROVE": 6,
+    "RECOMMEND_REJECT": 5,
+    "MANUAL_REVIEW": 7
+  },
+  "errors": []
+}

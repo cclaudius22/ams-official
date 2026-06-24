@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000061",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "ICICI",
+    "account_holder": "Tunde Bello",
+    "statement_month": "2026-01",
+    "account_number": "26281809",
+    "sort_code": "86-99-52",
+    "branch_name": "ICICI Bank UK Wembley Branch",
+    "branch_address": "21 Ealing Road, Wembley HA0 4AA",
+    "opening_balance": 2804,
+    "closing_balance": 4047.59,
+    "salary_credit": 2633.23,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 980.79,
+        "credit": 0.0,
+        "balance": 1823.21
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 184.68,
+        "credit": 0.0,
+        "balance": 1638.53
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 71.77,
+        "credit": 0.0,
+        "balance": 1566.76
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 110.44,
+        "credit": 0.0,
+        "balance": 1456.32
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 23.36,
+        "credit": 0.0,
+        "balance": 1432.96
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 18.6,
+        "credit": 0.0,
+        "balance": 1414.36
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS RIPLEY DETAILING LTD",
+        "debit": 0.0,
+        "credit": 2633.23,
+        "balance": 4047.59
+      }
+    ]
+  }
+}

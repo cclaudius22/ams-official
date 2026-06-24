@@ -1,0 +1,17 @@
+{
+  "document_type": "TB_CERTIFICATE",
+  "application_id": "HO-SW-2026-00000080",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "clinic_name": "IOM Migration Health Assessment Centre, Philippines",
+    "doctor_name": "Dr Michael Reyes",
+    "applicant_name": "Rafael Santos",
+    "date_of_birth": "1987-10-29",
+    "test_date": "2026-03-10",
+    "result": "clear",
+    "valid_until": "2026-09-10"
+  }
+}

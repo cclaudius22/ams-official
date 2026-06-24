@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000005",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "RBC",
+    "account_holder": "Amina Ngozi Okafor",
+    "statement_month": "2026-02",
+    "account_number": "45749876",
+    "sort_code": "73-52-20",
+    "branch_name": "RBC Manchester Corporate Branch",
+    "branch_address": "1 Spinningfields Square, Manchester M3 3AP",
+    "opening_balance": 2287,
+    "closing_balance": 4267.02,
+    "salary_credit": 3539.47,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1200.81,
+        "credit": 0.0,
+        "balance": 1086.19
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 134.18,
+        "credit": 0.0,
+        "balance": 952.01
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 87.29,
+        "credit": 0.0,
+        "balance": 864.72
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 70.25,
+        "credit": 0.0,
+        "balance": 794.47
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 48.06,
+        "credit": 0.0,
+        "balance": 746.41
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 18.86,
+        "credit": 0.0,
+        "balance": 727.55
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS UNION FAST FOODS LIMITED",
+        "debit": 0.0,
+        "credit": 3539.47,
+        "balance": 4267.02
+      }
+    ]
+  }
+}

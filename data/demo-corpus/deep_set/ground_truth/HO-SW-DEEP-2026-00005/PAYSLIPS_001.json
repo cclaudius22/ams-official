@@ -1,0 +1,24 @@
+{
+  "document_type": "PAYSLIPS",
+  "application_id": "HO-SW-2026-00000005",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "employer_name": "UNION FAST FOODS LIMITED",
+    "employee_name": "Amina Ngozi Okafor",
+    "pay_period_start": "2026-01-01",
+    "pay_period_end": "2026-01-31",
+    "gross_pay": 4775.0,
+    "annualized_gross_pay": 57300.0,
+    "tax_deducted": 745.5,
+    "ni_deducted": 251.28,
+    "pension_deducted": 238.75,
+    "net_pay": 3539.47,
+    "pay_frequency": "MONTHLY",
+    "employee_number": "EMP-000005",
+    "tax_code": "1257L",
+    "ni_number": "JK738702B"
+  }
+}

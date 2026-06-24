@@ -1,0 +1,418 @@
+{
+  "source_application_id": "HO-SW-DEEP-2026-00011",
+  "source_reference": "GV-DEEP-00011",
+  "source_channel": "govdirect",
+  "visa_type": "skilled-worker",
+  "country_code": "GB",
+  "submitted_at": "2026-06-04T10:57:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "rafael.santos.0080@gmail.com",
+    "first_name": "Rafael",
+    "middle_name": null,
+    "last_name": "Santos",
+    "date_of_birth": "1987-10-29",
+    "nationality_code": "PH",
+    "gender": "M"
+  },
+  "passport_data": {
+    "number": "P2735686",
+    "issuing_country": "PH",
+    "nationality": "PH",
+    "full_name": "SANTOS RAFAEL",
+    "date_of_birth": "1987-10-29",
+    "gender": "M",
+    "issue_date": "2021-01-04",
+    "expiry_date": "2031-01-04",
+    "mrz_line1": "P<PHLSANTOS<<RAFAEL<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "P2735686<4PHL8710293M3101045<<<<<<<<<<<<<<02"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC London - 66 Wilson Street, EC2A 2BT",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-1080",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Rafael",
+      "middleName": null,
+      "lastName": "Santos",
+      "dateOfBirth": "1987-10-29",
+      "nationality": "PH",
+      "maritalStatus": "single"
+    },
+    "employment": {
+      "status": "employed",
+      "employerName": "DM ALL MOBILE ACCESSORIES LIMITED T/A Phone Kit",
+      "sponsorLicenceNumber": "DMX-2024-7022",
+      "sponsorStatus": "ACTIVE",
+      "sponsorRating": "A",
+      "jobTitle": "IT quality and testing professionals",
+      "annualIncome": 41699.0,
+      "monthlyGrossPay": 3474.92,
+      "cosReferenceNumber": "COS-2026-8045849",
+      "cosIssueDate": "2026-04-15",
+      "cosExpiryDate": "2026-09-15",
+      "socCode": "2136",
+      "socTitle": "IT quality and testing professionals",
+      "socGoingRateAnnual": 41200,
+      "startDate": "2026-07-01",
+      "salaryFrequency": "ANNUAL",
+      "hoursPerWeek": 48.0,
+      "isNewEntrant": false,
+      "newEntrantReason": null,
+      "previousUkEmployment": false
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-0080-1360",
+      "visaFeeReference": "VF-2026-SW-000080",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26PH613764SAN",
+      "overallScore": 9.0,
+      "speakingScore": 9.0,
+      "listeningScore": 8.5,
+      "readingScore": 9.0,
+      "writingScore": 9.0,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "PH",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": true,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": "IOM Migration Health Assessment Centre, Philippines",
+      "tbCertificateClinicCountry": "PH"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-00011",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2450,
+      "uploaded_at": "2026-06-04T10:15:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-002-00011",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2470,
+      "uploaded_at": "2026-06-04T10:18:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-003-00011",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2785,
+      "uploaded_at": "2026-06-04T10:21:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-004-00011",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2779,
+      "uploaded_at": "2026-06-04T10:24:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-005-00011",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2795,
+      "uploaded_at": "2026-06-04T10:27:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-006-00011",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1972,
+      "uploaded_at": "2026-06-04T10:30:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-007-00011",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/PAYSLIPS/PAYSLIPS_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2283,
+      "uploaded_at": "2026-06-04T10:33:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-008-00011",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/PAYSLIPS/PAYSLIPS_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2282,
+      "uploaded_at": "2026-06-04T10:36:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-009-00011",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/PAYSLIPS/PAYSLIPS_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2281,
+      "uploaded_at": "2026-06-04T10:39:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-010-00011",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2046,
+      "uploaded_at": "2026-06-04T10:42:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-011-00011",
+      "type": "TB_CERTIFICATE",
+      "filename": "TB_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2072,
+      "uploaded_at": "2026-06-04T10:45:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-012-00011",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00011/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-04T10:48:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-SW-DEEP-2026-00011",
+  "anomaly_type": "fail_rules",
+  "anomaly_details": [
+    "salary_1_below_general_floor",
+    "old_threshold_trap",
+    "hourly_minimum_fail"
+  ],
+  "recommendation": "RECOMMEND_REJECT",
+  "rfi_lifecycle": {
+    "enabled": false
+  },
+  "rules_summary": {
+    "drools": {
+      "rules_evaluated": 20,
+      "passed": 17,
+      "failed": 3,
+      "review_required": 0,
+      "not_applicable": 0
+    },
+    "opa": {
+      "policies_evaluated": 12,
+      "allow": 10,
+      "deny": 2,
+      "flag": 0
+    },
+    "external_checks": {
+      "checks_evaluated": 7,
+      "clear": 6,
+      "flagged": 1
+    },
+    "source_details": [
+      "salary_1_below_general_floor",
+      "old_threshold_trap",
+      "hourly_minimum_fail"
+    ]
+  },
+  "flagged_rule_ids": [
+    "RULE-W03"
+  ],
+  "opa_policy_results": [
+    {
+      "policy_id": "OPA-H01",
+      "policy_name": "Sanctions_WorldCheck_HardBlock",
+      "outcome": "ALLOW"
+    },
+    {
+      "policy_id": "OPA-H05",
+      "policy_name": "Document_Fraud_Score",
+      "outcome": "DENY"
+    },
+    {
+      "policy_id": "OPA-S03",
+      "policy_name": "Completeness_Low",
+      "outcome": "PASS"
+    }
+  ],
+  "external_check_results": [
+    {
+      "check_type": "WORLDCHECK",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "INTERPOL",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "PASSPORT_VERIFY",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "COS_CHECK",
+      "status": "FLAGGED"
+    }
+  ],
+  "completeness": {
+    "status": "COMPLETE",
+    "score": 69,
+    "missing_or_insufficient": []
+  },
+  "document_assessments": [
+    {
+      "document_id": "ho-doc-001-00011",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-002-00011",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-003-00011",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-004-00011",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-005-00011",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-006-00011",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-007-00011",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-008-00011",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-009-00011",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-010-00011",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-011-00011",
+      "type": "TB_CERTIFICATE",
+      "filename": "TB_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-012-00011",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "extraction_status": "UPLOADED",
+      "fraud_signal": "CLEAR"
+    }
+  ],
+  "ov_assessment": {
+    "overall_risk": "HIGH",
+    "intent_risk": "HIGH",
+    "rootedness_risk": "MEDIUM",
+    "recommendation_alignment": "aligned",
+    "summary": "Scenario-consistent OV assessment derived from corpus ground truth for demo review."
+  }
+}

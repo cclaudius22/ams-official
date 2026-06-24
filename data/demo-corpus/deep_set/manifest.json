@@ -1,0 +1,204 @@
+{
+  "corpus_version": "ams_demo_multi_visa_v1",
+  "generated_at": "2026-06-24T12:00:00Z",
+  "tier": "deep_set",
+  "total_applications": 18,
+  "source_batch": "output/govdirect_v4_batch100",
+  "visa_type_distribution": {
+    "skilled-worker": 18
+  },
+  "anomaly_distribution": {
+    "clean": 6,
+    "fail_rules": 5,
+    "suspicious": 4,
+    "edge_case": 3
+  },
+  "recommendation_distribution": {
+    "RECOMMEND_APPROVE": 6,
+    "RECOMMEND_REJECT": 5,
+    "MANUAL_REVIEW": 7
+  },
+  "rfi_hero_count": 3,
+  "applications": [
+    {
+      "application_id": "HO-SW-DEEP-2026-00001",
+      "source_application_id": "HO-SW-2026-00000001",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "clean",
+      "recommendation": "RECOMMEND_APPROVE",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T04:47:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00002",
+      "source_application_id": "HO-SW-2026-00000002",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "clean",
+      "recommendation": "RECOMMEND_APPROVE",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T05:24:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00003",
+      "source_application_id": "HO-SW-2026-00000003",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "clean",
+      "recommendation": "RECOMMEND_APPROVE",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T06:01:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00004",
+      "source_application_id": "HO-SW-2026-00000004",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "clean",
+      "recommendation": "RECOMMEND_APPROVE",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T06:38:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00005",
+      "source_application_id": "HO-SW-2026-00000005",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "clean",
+      "recommendation": "RECOMMEND_APPROVE",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T07:15:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00006",
+      "source_application_id": "HO-SW-2026-00000006",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "clean",
+      "recommendation": "RECOMMEND_APPROVE",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T07:52:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00007",
+      "source_application_id": "HO-SW-2026-00000076",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "fail_rules",
+      "recommendation": "RECOMMEND_REJECT",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T08:29:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00008",
+      "source_application_id": "HO-SW-2026-00000077",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "fail_rules",
+      "recommendation": "RECOMMEND_REJECT",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T09:06:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00009",
+      "source_application_id": "HO-SW-2026-00000078",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "fail_rules",
+      "recommendation": "RECOMMEND_REJECT",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T09:43:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00010",
+      "source_application_id": "HO-SW-2026-00000079",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "fail_rules",
+      "recommendation": "RECOMMEND_REJECT",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T10:20:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00011",
+      "source_application_id": "HO-SW-2026-00000080",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "fail_rules",
+      "recommendation": "RECOMMEND_REJECT",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T10:57:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00012",
+      "source_application_id": "HO-SW-2026-00000061",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "suspicious",
+      "recommendation": "MANUAL_REVIEW",
+      "rfi_enabled": true,
+      "submitted_at": "2026-06-04T11:34:00Z",
+      "document_count": 11
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00013",
+      "source_application_id": "HO-SW-2026-00000062",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "suspicious",
+      "recommendation": "MANUAL_REVIEW",
+      "rfi_enabled": true,
+      "submitted_at": "2026-06-04T12:11:00Z",
+      "document_count": 10
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00014",
+      "source_application_id": "HO-SW-2026-00000063",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "suspicious",
+      "recommendation": "MANUAL_REVIEW",
+      "rfi_enabled": true,
+      "submitted_at": "2026-06-04T12:48:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00015",
+      "source_application_id": "HO-SW-2026-00000064",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "suspicious",
+      "recommendation": "MANUAL_REVIEW",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T13:25:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00016",
+      "source_application_id": "HO-SW-2026-00000091",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "edge_case",
+      "recommendation": "MANUAL_REVIEW",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T14:02:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00017",
+      "source_application_id": "HO-SW-2026-00000092",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "edge_case",
+      "recommendation": "MANUAL_REVIEW",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T14:39:00Z",
+      "document_count": 12
+    },
+    {
+      "application_id": "HO-SW-DEEP-2026-00018",
+      "source_application_id": "HO-SW-2026-00000093",
+      "visa_type": "skilled-worker",
+      "anomaly_type": "edge_case",
+      "recommendation": "MANUAL_REVIEW",
+      "rfi_enabled": false,
+      "submitted_at": "2026-06-04T15:16:00Z",
+      "document_count": 12
+    }
+  ]
+}

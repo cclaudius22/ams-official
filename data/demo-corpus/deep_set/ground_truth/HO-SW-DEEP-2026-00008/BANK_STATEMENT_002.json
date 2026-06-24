@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000077",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "TD Bank",
+    "account_holder": "Mensah Asante",
+    "statement_month": "2026-02",
+    "account_number": "56453841",
+    "sort_code": "90-27-48",
+    "branch_name": "TD Bank Birmingham Service Branch",
+    "branch_address": "55 Colmore Row, Birmingham B3 2AA",
+    "opening_balance": 3223,
+    "closing_balance": 5238.95,
+    "salary_credit": 3376.91,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 982.0,
+        "credit": 0.0,
+        "balance": 2241.0
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 126.46,
+        "credit": 0.0,
+        "balance": 2114.54
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 66.83,
+        "credit": 0.0,
+        "balance": 2047.71
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 103.6,
+        "credit": 0.0,
+        "balance": 1944.11
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 54.31,
+        "credit": 0.0,
+        "balance": 1889.8
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 27.76,
+        "credit": 0.0,
+        "balance": 1862.04
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS NYA INTERNATIONAL (UK) LIMIT",
+        "debit": 0.0,
+        "credit": 3376.91,
+        "balance": 5238.95
+      }
+    ]
+  }
+}

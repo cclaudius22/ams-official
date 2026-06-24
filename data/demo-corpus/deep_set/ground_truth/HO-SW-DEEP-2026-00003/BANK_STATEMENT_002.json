@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000003",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "RBC",
+    "account_holder": "Adaeze Zainab Danladi",
+    "statement_month": "2026-02",
+    "account_number": "51908132",
+    "sort_code": "36-75-46",
+    "branch_name": "RBC Manchester Corporate Branch",
+    "branch_address": "1 Spinningfields Square, Manchester M3 3AP",
+    "opening_balance": 2261,
+    "closing_balance": 4775.43,
+    "salary_credit": 3833.23,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 958.04,
+        "credit": 0.0,
+        "balance": 1302.96
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 162.51,
+        "credit": 0.0,
+        "balance": 1140.45
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 63.12,
+        "credit": 0.0,
+        "balance": 1077.33
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 73.74,
+        "credit": 0.0,
+        "balance": 1003.59
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 37.3,
+        "credit": 0.0,
+        "balance": 966.29
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 24.09,
+        "credit": 0.0,
+        "balance": 942.2
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS WALTON CARE LIMITED",
+        "debit": 0.0,
+        "credit": 3833.23,
+        "balance": 4775.43
+      }
+    ]
+  }
+}

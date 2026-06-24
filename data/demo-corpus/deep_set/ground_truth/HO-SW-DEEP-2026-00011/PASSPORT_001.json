@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000080",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "SANTOS RAFAEL",
+    "surname": "SANTOS",
+    "given_names": "RAFAEL",
+    "date_of_birth": "1987-10-29",
+    "gender": "M",
+    "nationality": "PHL",
+    "passport_number": "P2735686",
+    "date_of_issue": "2021-01-04",
+    "date_of_expiry": "2031-01-04",
+    "issuing_country": "PHL",
+    "mrz_line1": "P<PHLSANTOS<<RAFAEL<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "P2735686<4PHL8710293M3101045<<<<<<<<<<<<<<02"
+  }
+}

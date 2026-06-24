@@ -1,0 +1,22 @@
+{
+  "document_type": "EMPLOYMENT_LETTER",
+  "application_id": "HO-SW-2026-00000080",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "letter_date": "2026-05-20",
+    "employer_name": "DM ALL MOBILE ACCESSORIES LIMITED T/A Phone Kit",
+    "employee_name": "Rafael Santos",
+    "job_title": "IT quality and testing professionals",
+    "soc_code": "2136",
+    "cos_reference": "COS-2026-8045849",
+    "start_date": "2026-07-01",
+    "annual_salary": 41699.0,
+    "monthly_gross_pay": 3474.92,
+    "hours_per_week": 48.0,
+    "signatory_name": "Helen Morris",
+    "signatory_title": "HR Manager"
+  }
+}

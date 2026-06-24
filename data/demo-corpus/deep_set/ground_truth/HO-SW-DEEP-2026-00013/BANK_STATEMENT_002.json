@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000062",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "NatWest",
+    "account_holder": "Lucas Marcos Santos",
+    "statement_month": "2026-02",
+    "account_number": "68634108",
+    "sort_code": "37-35-95",
+    "branch_name": "NatWest Croydon High Street Branch",
+    "branch_address": "40 High Street, Croydon CR9 1XP",
+    "opening_balance": 3028,
+    "closing_balance": 3934.4,
+    "salary_credit": 2633.23,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1346.09,
+        "credit": 0.0,
+        "balance": 1681.91
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 177.53,
+        "credit": 0.0,
+        "balance": 1504.38
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 53.4,
+        "credit": 0.0,
+        "balance": 1450.98
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 78.64,
+        "credit": 0.0,
+        "balance": 1372.34
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 58.56,
+        "credit": 0.0,
+        "balance": 1313.78
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 12.61,
+        "credit": 0.0,
+        "balance": 1301.17
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS SANSONS CHARTERED ACCOUNTANT",
+        "debit": 0.0,
+        "credit": 2633.23,
+        "balance": 3934.4
+      }
+    ]
+  }
+}

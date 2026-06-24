@@ -1,0 +1,24 @@
+{
+  "document_type": "PAYSLIPS",
+  "application_id": "HO-SW-2026-00000006",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "employer_name": "EOS Bakehouse Ltd",
+    "employee_name": "Lerato Mokoena",
+    "pay_period_start": "2026-01-01",
+    "pay_period_end": "2026-01-31",
+    "gross_pay": 5483.33,
+    "annualized_gross_pay": 65799.96,
+    "tax_deducted": 887.17,
+    "ni_deducted": 251.28,
+    "pension_deducted": 274.17,
+    "net_pay": 4070.71,
+    "pay_frequency": "MONTHLY",
+    "employee_number": "EMP-000006",
+    "tax_code": "1257L",
+    "ni_number": "EF305465B"
+  }
+}

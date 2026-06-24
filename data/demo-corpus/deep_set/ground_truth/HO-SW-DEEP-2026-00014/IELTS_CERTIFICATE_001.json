@@ -1,0 +1,19 @@
+{
+  "document_type": "IELTS_CERTIFICATE",
+  "application_id": "HO-SW-2026-00000063",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "candidate_name": "Jun Ming Wang",
+    "candidate_number": "477193",
+    "test_date": "2026-02-18",
+    "overall_band_score": 6.0,
+    "listening_score": 6.0,
+    "reading_score": 5.5,
+    "writing_score": 6.0,
+    "speaking_score": 6.0,
+    "test_reference_number": "26CN638834WAN"
+  }
+}
