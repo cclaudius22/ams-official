@@ -4,7 +4,31 @@
 
 ---
 
-## ⏸ RESUME HERE — 23 June 2026 (latest)
+## ⏸ RESUME HERE — 24–25 June 2026 (latest): Multi-visa queue + capacity-aware allocation — Slice 0 DONE, Slice 1 next
+
+**State:** branch `feat/dis-integration-v3`, **Slice 0 committed** (HEAD `8c30e04`), tree clean. Full suite **117 pass / 24 skip**, `tsc` 76 (baseline, 0 new). Smoke-tested ✅.
+
+**What this work is:** make the Live Queue **multi-visa** and **auto-allocate applications to officers within realistic capacity** — the demo Chris wants ("a government receives many visa types; AMS routes each to the right officer; the officer decides"). **SOURCE OF TRUTH = `docs/specs/2026-06-24-multi-visa-queue-allocation-design.md`.** The plan `docs/plans/2026-06-24-…-plan.md` is **SUPERSEDED** — execute from the spec. Support: `docs/cc-notes/2026-06-24-uk-caseworker-workload-research.md` (verified UK workload model, cited), `…-demo-corpus-spec.md`, `…-ams-deployment-plan.md`.
+
+**Operating model (locked w/ Chris):** End-to-end = **Processing** (machine, scales infinitely, 2 wks→<1 min) + **Decisioning** (human, the only bottleneck). DIS recommends, officer decides. Decision effort is a **distribution** (clear-approve ~10m / clear-reject ~20m / manual-RFI ~45m → ~20 decisions/officer/day blended). **Two clocks:** active touch-time (capacity) vs elapsed (SLA = 15 working days). **Three claims** (NOT one blended %): processing latency >99% eliminated · ~85/15 triage · ~2× routine. National scale = a **slider** (1M/yr ÷ 250 ÷ ~20/day ≈ ~200 officers); 8-officer demo = one region.
+
+**Corpus (in-repo, self-contained):** `data/demo-corpus/` (Lenny's `ams_demo_corpus_2026_06_24`, verified). `bulk/applications/` = 1,000 multi-visa (each has `recommendation`; 600 APPROVE / 250 REJECT / 150 MANUAL; mix: SW 300, student 300, senior-spec 120, spouse 120, global-talent 100, innovator 60; dates Jun 2026). `deep_set/` = 18 skilled-worker w/ full DIS+OV scaffolding + 3 RFI heroes (Slice 3). **`bulk/documents/` NOT in-repo** (65M, GCS-bound, LB-3) — queue must not depend on it. **Docs → GCS** at deploy (LB-3); deploy = Cloud Run on `prj-demo-dis-6549`.
+
+**Slice 0 DONE (committed, TDD):** `src/config/visaTypes.ts` (registry + `normalizeVisaType`; `skilled-worker`→`skilled_worker_visa`; `phase` flag) · `src/data/providers/disAlignedAdapter.ts` (corpus→`LiveApplication`; recommendation from `anomaly_type`) · contract extensions `src/api-contracts/applications.ts` (`ApplicationStatus` +Received/Processed/Awaiting Allocation/Decided; `LiveApplication` +visaTypeId/recommendation/anomalyType/sourceReference) + `src/types/liveQueue.ts` · `src/data/providers/ams-demo-provider.ts` + `ams-demo` branch in `index.ts`. **Run it:** `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 npm run dev` (path is `data/demo-corpus`, NOT `…/bulk` — provider appends `/bulk/applications`).
+
+**Smoke test PASSED:** API → 1,000; 6 visa types; all `Received`; recommendations 600/250/150; Live Queue renders (1 benign pre-existing Radix hydration-id console warning, not a crash). Expected gaps (Slice 1 not built): Pending Review = 0, no Auto-Assign button, no Process/distribution/capacity UI.
+
+**RESUME HERE → Slice 1 (TDD, from the spec):**
+1. `src/services/assignment/allocate-batch.ts` — capacity-aware `allocateBatch`. **Cap counts CURRENT load:** `officer.activeApplications + new ≤ cap` (default 30); least-loaded-eligible; specialization respected; overflow → queued.
+2. `src/app/api/assignments/auto-assign-all/route.ts` → use `allocateBatch` over **Processed + unassigned** apps; return `assigned / unallocated / capPerOfficer / byOfficer (+reason,load)`.
+3. Live Queue (`src/app/dashboard/livequeue/page.tsx`): `Received` → **"Process intake"** reveals recommendations + **distribution tiles (600/250/150)** → Auto-Allocate leaves **visible backlog** when capacity full → officer **load vs cap** + SLA. Map new statuses in `calculateQueueStats`; drop the blended-% tile.
+4. Browser-verify end-to-end on the real corpus → then the **robustness gate** (adversarial multi-agent review + security pass).
+
+**Don't touch:** `json-provider.ts`, `output_demo`, the reviewer page, `OVIntelligencePanel.tsx`. **Deferred:** Slice 2 (officer worklist via `OfficerSwitcher`, no auth); Slice 3 (skilled-worker **deep review** + scenario-consistent OV + **RFI lifecycle** `Awaiting Info` + **OV-panel polish** — 4 notes: score↔risk polarity, hero is a generic donut, attention not routed supporting-vs-tempering chips, sticky action bar overlaps the panel footer). Multi-visa is **NOW**, not deferred.
+
+---
+
+## ⏸ RESUME HERE — 23 June 2026
 
 **State:** branch `feat/dis-integration-v3`, HEAD `2539a8c`, **all committed + pushed, tree clean.** 108 DIS tests pass, `tsc --noEmit` = 76 (pre-existing onboarding-debt baseline, 0 new). Dev server runs on **:3000** (`PORT=3000 npm run dev`); Postgres replica `dis-replica` on **:5499** (reseeded to canon: COS_CHECK + RECOMMEND_*).
 

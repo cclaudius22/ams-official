@@ -20,7 +20,7 @@
 2. **cloudbuild / deploy config** (or `gcloud run deploy`) targeting `prj-demo-dis-6549`.
 3. **Auth gate (LB-2)** — wire `/api/auth/{login,logout,me}` + `JWT_SECRET` to gate `/dashboard/*` before exposure.
 4. **GCS bucket + real `signUrl()` (LB-3)** — upload synthetic docs; `@google-cloud/storage`; KMS/GCS grants.
-5. **Env wiring** — corpus path (`data/demo-corpus/bulk`), `JWT_SECRET`, GCS bucket name, provider flags.
+5. **Env wiring** — `DATA_PROVIDER=ams-demo`, `AMS_DEMO_CORPUS_PATH=data/demo-corpus` (the provider appends `/bulk/applications` internally — do NOT include `/bulk`), `JWT_SECRET`, GCS bucket name.
 
 ## Open / to check
 - Existing AMS deployment IaC in `dis-ov-iac` / `core-dis-gcp` (avoid duplicating) — not yet checked.
