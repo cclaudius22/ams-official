@@ -1,0 +1,9 @@
+{
+  "source_application_id": "HO-ST-2026-F0002",
+  "source_reference": "REF-2",
+  "visa_type": "student",
+  "country_code": "NG",
+  "submitted_at": "2026-06-19T10:00:00Z",
+  "anomaly_type": "fail_rules",
+  "applicant": { "first_name": "Bola", "last_name": "Ade" }
+}

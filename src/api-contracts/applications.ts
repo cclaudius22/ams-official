@@ -17,6 +17,11 @@ export type ApplicationStatus =
   | 'Escalated'
   | 'Pending Assignment'
   | 'Awaiting Info'
+  // AMS demo lifecycle (AmsDemoProvider): Received → Processed → Awaiting Allocation → Decided
+  | 'Received'
+  | 'Processed'
+  | 'Awaiting Allocation'
+  | 'Decided'
 
 // ============================================================================
 // REQUEST TYPES
@@ -60,6 +65,11 @@ export interface LiveApplication {
   status: ApplicationStatus
   assignedTo?: AssignedOfficer
   flags?: string[]
+  // --- DIS-aligned demo fields (optional; populated by AmsDemoProvider) ---
+  visaTypeId?: string
+  recommendation?: 'RECOMMEND_APPROVE' | 'RECOMMEND_REJECT' | 'MANUAL_REVIEW'
+  anomalyType?: string
+  sourceReference?: string
 }
 
 export interface ApplicationSection {
