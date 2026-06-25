@@ -4,6 +4,7 @@
  */
 
 import type { ApiResponse, PaginatedResponse, PaginationParams, DateRange } from './common'
+import type { RecommendationOutcome } from './dis'
 
 // ============================================================================
 // ENUMS & CONSTANTS
@@ -67,7 +68,7 @@ export interface LiveApplication {
   flags?: string[]
   // --- DIS-aligned demo fields (optional; populated by AmsDemoProvider) ---
   visaTypeId?: string
-  recommendation?: 'RECOMMEND_APPROVE' | 'RECOMMEND_REJECT' | 'MANUAL_REVIEW'
+  recommendation?: RecommendationOutcome
   anomalyType?: string
   sourceReference?: string
 }

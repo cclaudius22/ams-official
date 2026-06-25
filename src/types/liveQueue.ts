@@ -1,4 +1,5 @@
 // Types for the Live Queue functionality
+import type { RecommendationOutcome } from '@/api-contracts/dis'
 
 export interface ConsulateOfficial {
     id: string;
@@ -25,7 +26,7 @@ export interface ConsulateOfficial {
     flags?: string[];      // Any special flags or notes
     // --- DIS-aligned demo fields (optional; populated by AmsDemoProvider) ---
     visaTypeId?: string;   // canonical visa key (registry)
-    recommendation?: 'RECOMMEND_APPROVE' | 'RECOMMEND_REJECT' | 'MANUAL_REVIEW';
+    recommendation?: RecommendationOutcome;
     anomalyType?: string;
     sourceReference?: string;
   }

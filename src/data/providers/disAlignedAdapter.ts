@@ -5,9 +5,10 @@
  * rename). See docs/specs/2026-06-24-multi-visa-queue-allocation-design.md §5.2.
  */
 import type { LiveApplication } from '@/api-contracts/applications'
+import type { RecommendationOutcome } from '@/api-contracts/dis'
 import { normalizeVisaType, visaTypeLabel } from '@/config/visaTypes'
 
-type Recommendation = 'RECOMMEND_APPROVE' | 'RECOMMEND_REJECT' | 'MANUAL_REVIEW'
+type Recommendation = RecommendationOutcome
 
 const ANOMALY_TO_REC: Record<string, Recommendation> = {
   clean: 'RECOMMEND_APPROVE',
