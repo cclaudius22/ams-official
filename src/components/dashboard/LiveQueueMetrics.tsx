@@ -116,7 +116,7 @@ const LiveQueueMetrics: React.FC<LiveQueueMetricsProps> = ({ applications, offic
             'Rejected': 0,
         };
         applications.forEach(app => {
-            if (app.status === 'Pending' || app.status === 'Pending Assignment' || app.status === 'Awaiting Info') {
+            if (app.status === 'Pending' || app.status === 'Pending Assignment' || app.status === 'Awaiting Info' || app.status === 'Received' || app.status === 'Processed' || app.status === 'Awaiting Allocation') {
                 counts['Pending']++;
             } else if (app.status === 'In Progress' || app.status === 'Escalated') {
                 counts['In Progress']++;
@@ -146,7 +146,7 @@ const LiveQueueMetrics: React.FC<LiveQueueMetricsProps> = ({ applications, offic
     // Calculate summary metrics
     const metrics = useMemo(() => {
         const pending = applications.filter(app =>
-            app.status === 'Pending' || app.status === 'Pending Assignment' || app.status === 'Awaiting Info'
+            app.status === 'Pending' || app.status === 'Pending Assignment' || app.status === 'Awaiting Info' || app.status === 'Received' || app.status === 'Processed' || app.status === 'Awaiting Allocation'
         ).length;
         const inProgress = applications.filter(app =>
             app.status === 'In Progress' || app.status === 'Escalated'
