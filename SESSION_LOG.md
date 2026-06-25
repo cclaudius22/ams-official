@@ -6,7 +6,7 @@
 
 ## ⏸ RESUME HERE — 24–25 June 2026 (latest): Multi-visa queue + capacity-aware allocation — Slice 0 DONE, Slice 1 next
 
-**State:** branch `feat/dis-integration-v3`, **Slice 0 committed** (HEAD `8c30e04`), tree clean. Full suite **117 pass / 24 skip**, `tsc` 76 (baseline, 0 new). Smoke-tested ✅.
+**State:** branch `feat/dis-integration-v3` — **Slice 0 code commit `8c30e04`; latest docs checkpoint `eb38f52`** (current HEAD), tree clean. Full suite **117 pass / 24 skip**, `tsc` 76 (baseline, 0 new). Smoke-tested ✅.
 
 **What this work is:** make the Live Queue **multi-visa** and **auto-allocate applications to officers within realistic capacity** — the demo Chris wants ("a government receives many visa types; AMS routes each to the right officer; the officer decides"). **SOURCE OF TRUTH = `docs/specs/2026-06-24-multi-visa-queue-allocation-design.md`.** The plan `docs/plans/2026-06-24-…-plan.md` is **SUPERSEDED** — execute from the spec. Support: `docs/cc-notes/2026-06-24-uk-caseworker-workload-research.md` (verified UK workload model, cited), `…-demo-corpus-spec.md`, `…-ams-deployment-plan.md`.
 
