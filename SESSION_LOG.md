@@ -4,9 +4,9 @@
 
 ---
 
-## ⏸ RESUME HERE — 24–25 June 2026 (latest): Multi-visa queue + capacity-aware allocation — Slice 0 DONE, Slice 1 next
+## ⏸ RESUME HERE — 24–25 June 2026 (latest): Multi-visa queue + capacity-aware allocation — Slice 0 + Slice 1 DONE (verified), adversarial gate next
 
-**State:** branch `feat/dis-integration-v3` — **Slice 0 code commit `8c30e04`; latest docs checkpoint `eb38f52`** (current HEAD), tree clean. Full suite **117 pass / 24 skip**, `tsc` 76 (baseline, 0 new). Smoke-tested ✅.
+**State:** branch `feat/dis-integration-v3`, **all committed + pushed, tree clean** (current HEAD `cd09b8e`). Slice 0 code `8c30e04`; Slice 1 `6d93838` (allocateBatch, Lenny-audited) + `cd09b8e` (process-intake + auto-allocate + UI). Full suite **121 pass / 24 skip**, `tsc` 76 (0 new). Slice 1 browser-verified ✅.
 
 **What this work is:** make the Live Queue **multi-visa** and **auto-allocate applications to officers within realistic capacity** — the demo Chris wants ("a government receives many visa types; AMS routes each to the right officer; the officer decides"). **SOURCE OF TRUTH = `docs/specs/2026-06-24-multi-visa-queue-allocation-design.md`.** The plan `docs/plans/2026-06-24-…-plan.md` is **SUPERSEDED** — execute from the spec. Support: `docs/cc-notes/2026-06-24-uk-caseworker-workload-research.md` (verified UK workload model, cited), `…-demo-corpus-spec.md`, `…-ams-deployment-plan.md`.
 
@@ -16,13 +16,15 @@
 
 **Slice 0 DONE (committed, TDD):** `src/config/visaTypes.ts` (registry + `normalizeVisaType`; `skilled-worker`→`skilled_worker_visa`; `phase` flag) · `src/data/providers/disAlignedAdapter.ts` (corpus→`LiveApplication`; recommendation from `anomaly_type`) · contract extensions `src/api-contracts/applications.ts` (`ApplicationStatus` +Received/Processed/Awaiting Allocation/Decided; `LiveApplication` +visaTypeId/recommendation/anomalyType/sourceReference) + `src/types/liveQueue.ts` · `src/data/providers/ams-demo-provider.ts` + `ams-demo` branch in `index.ts`. **Run it:** `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 npm run dev` (path is `data/demo-corpus`, NOT `…/bulk` — provider appends `/bulk/applications`).
 
-**Smoke test PASSED:** API → 1,000; 6 visa types; all `Received`; recommendations 600/250/150; Live Queue renders (1 benign pre-existing Radix hydration-id console warning, not a crash). Expected gaps (Slice 1 not built): Pending Review = 0, no Auto-Assign button, no Process/distribution/capacity UI.
+**Slice 0 smoke test PASSED** (24–25 Jun): API → 1,000; 6 visa types; all `Received`; recommendations 600/250/150; Live Queue renders.
 
-**RESUME HERE → Slice 1 (TDD, from the spec):**
-1. `src/services/assignment/allocate-batch.ts` — capacity-aware `allocateBatch`. **Cap counts CURRENT load:** `officer.activeApplications + new ≤ cap` (default 30); least-loaded-eligible; specialization respected; overflow → queued.
-2. `src/app/api/assignments/auto-assign-all/route.ts` → use `allocateBatch` over **Processed + unassigned** apps; return `assigned / unallocated / capPerOfficer / byOfficer (+reason,load)`.
-3. Live Queue (`src/app/dashboard/livequeue/page.tsx`): `Received` → **"Process intake"** reveals recommendations + **distribution tiles (600/250/150)** → Auto-Allocate leaves **visible backlog** when capacity full → officer **load vs cap** + SLA. Map new statuses in `calculateQueueStats`; drop the blended-% tile.
-4. Browser-verify end-to-end on the real corpus → then the **robustness gate** (adversarial multi-agent review + security pass).
+**Slice 1 DONE (committed + pushed, browser-verified):** `src/services/assignment/allocate-batch.ts` (capacity-aware `allocateBatch`; cap counts current load `activeApplications + new ≤ cap`, default 30; **Lenny-audited**) · `src/app/api/assignments/process-intake/route.ts` (Received→Processed, returns distribution) · `auto-assign-all/route.ts` rewrite (allocateBatch over **Processed+unassigned**; returns assigned/unallocated/capPerOfficer/byOfficer{count,load,capacity}) · `livequeue/page.tsx` ("Process intake" → distribution tiles 600/250/150 → "Auto-Allocate" → backlog + per-officer load/cap; Reset → Received) · `LiveQueueMetrics.tsx` (new statuses count as pending). **Browser flow verified:** Process → 600/250/150 → Allocate → **96 allocated / 904 queued, max load 30/30** (cap holds), 0 console errors.
+
+**⚠️ OPEN TUNING DECISION (Chris):** only 96 allocated / 904 queued because seed officers already carry ~16 each (cap 30 → little headroom). Realistic (904 clears over the 15-day SLA) but low demo punch — options: start officers fresh (~240/760), raise the cap, or a "today's intake" framing. Decide before/with Slice 2.
+
+**Known Slice-3 gap (not a bug):** opening an ams-demo case errors — `AmsDemoProvider.getApplicationById` returns null (deep review = Slice 3); the queue demo doesn't open cases.
+
+**RESUME HERE → adversarial robustness gate** (Chris green-lit; deferred to after a break). Run the adversarial multi-agent review (correctness · type-fidelity · robustness · **security** · spec-conformance, refute-or-confirm) + a security pass over the Slice-1 code (`allocate-batch.ts`, both new/rewritten routes, `livequeue/page.tsx`, `ams-demo-provider.ts`). Apply confirmed findings. THEN: the tuning decision above → Slice 2 (officer worklist via `OfficerSwitcher`) → Slice 3 (deep review + RFI + OV polish).
 
 **Don't touch:** `json-provider.ts`, `output_demo`, the reviewer page, `OVIntelligencePanel.tsx`. **Deferred:** Slice 2 (officer worklist via `OfficerSwitcher`, no auth); Slice 3 (skilled-worker **deep review** + scenario-consistent OV + **RFI lifecycle** `Awaiting Info` + **OV-panel polish** — 4 notes: score↔risk polarity, hero is a generic donut, attention not routed supporting-vs-tempering chips, sticky action bar overlaps the panel footer). Multi-visa is **NOW**, not deferred.
 
