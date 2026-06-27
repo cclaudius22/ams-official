@@ -108,6 +108,12 @@ describe('chart wrappers', () => {
     expect(container.querySelector('svg')).not.toBeNull()
   })
 
+  it('StackedBar shows the empty state when there are no series (not a bare axis frame)', () => {
+    const data = [{ name: 'Intake', queueTime: 2 }]
+    render(<StackedBar title="Queue vs Active" data={data} series={[]} emptyMessage="No series configured" />)
+    expect(screen.getByText('No series configured')).toBeInTheDocument()
+  })
+
   it('AreaTrend renders stacked series with gradients', () => {
     const series = [
       { key: 'received', label: 'Received' },

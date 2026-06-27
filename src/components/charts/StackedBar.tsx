@@ -30,7 +30,7 @@ export function StackedBar({
   height,
   emptyMessage,
 }: StackedBarProps) {
-  const isEmpty = !data || data.length === 0
+  const isEmpty = !data || data.length === 0 || series.length === 0
   const last = series.length - 1
   return (
     <ChartCard title={title}>

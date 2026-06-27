@@ -20,6 +20,13 @@ describe('heatmapColor — the sequential scale', () => {
     expect(mid.toLowerCase()).not.toBe('#6366f1')
     expect(heatmapColor(5, 5, 5)).toMatch(HEX) // min === max is safe
   })
+
+  it('always returns a valid hex — never #NaNNaNNaN — for non-finite values or short-hex bases', () => {
+    expect(heatmapColor(NaN, 0, 100)).toMatch(HEX) // NaN value
+    expect(heatmapColor(Infinity, 0, 100)).toMatch(HEX) // ±Infinity value
+    expect(heatmapColor(50, 0, 100, '#fff')).toMatch(HEX) // 3-digit shorthand base
+    expect(heatmapColor(50, 0, 100, '#fff').toLowerCase()).not.toContain('nan')
+  })
 })
 
 describe('Heatmap', () => {

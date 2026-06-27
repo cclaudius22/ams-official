@@ -15,10 +15,12 @@ import { formatCount } from './format'
 
 const SCALE_START = { r: 241, g: 245, b: 249 } // slate-100 — the low end of the ramp
 
-const clamp01 = (n: number): number => (n < 0 ? 0 : n > 1 ? 1 : n)
+// Non-finite inputs (NaN/±Infinity) clamp to 0 — never leak through to produce an invalid colour.
+const clamp01 = (n: number): number => (!Number.isFinite(n) ? 0 : n < 0 ? 0 : n > 1 ? 1 : n)
 
 function hexToRgb(hex: string): { r: number; g: number; b: number } {
-  const h = hex.replace('#', '')
+  let h = hex.replace('#', '')
+  if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2] // expand #abc → #aabbcc
   return {
     r: parseInt(h.slice(0, 2), 16),
     g: parseInt(h.slice(2, 4), 16),

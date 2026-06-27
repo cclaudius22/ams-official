@@ -88,4 +88,28 @@ Premium-from-birth, Linear/Stripe register, fit for a high-stakes decisioning to
   - Full suite **147 passed / 24 skipped** · tsc **76** · zero existing files touched.
 - 2026-06-27 — **T4 done** (TDD) → **Phase 1 COMPLETE.** Custom `<Heatmap>` (CSS grid, pure `heatmapColor` sequential scale; no Recharts/Nivo — lighter + faster, per Chris's perf priority). Added to preview (backlog by day×stage) + barrel; screenshotted. Animation confirmed off (perf > motion, per Chris). Full suite **152 passed / 24 skipped** · tsc **76** · zero existing files touched.
   - **Shared layer built (all `src/components/charts/`):** `theme` · `tokens` · `format` · `ChartTooltip` · `ChartStates` · `KpiCard` · `MetricCard` · `ChartCard` · `ChartCanvas` · `HBar` · `Donut` · `StackedBar` · `AreaTrend` · `LineWithTarget` · `Heatmap` · `index` barrel (+ `__preview__` dev aid).
-  - **Next: Phase 2** (migrate onto the layer + remove Nivo): T6 `LiveMetricsSection`, T7 `ProcessingMetricsTab` (drops all `@nivo/*` incl. heatmap), T8 remove `@nivo/*` from package.json (`rg @nivo src` → 0). Then **T9 `LiveQueueMetrics` LAST**, gated on Agent 1's hands-off. Remove temp route `src/app/charts-preview/` before merge.
+- 2026-06-27 — **Phase 2 migration COMPLETE (T6–T8).**
+  - **T6** `LiveMetricsSection` (Overview tab) → shared wrappers; before/after screenshots; data hook preserved.
+  - **T7** `ProcessingMetricsTab` (Processing tab) → wrappers + `<Heatmap>`; **all `@nivo` imports removed from source** (`rg @nivo src` = 0). Screenshotted.
+  - **Safety commit** `2560ae7` (shared layer + T6/T7) before touching deps.
+  - **T8** removed `@nivo/*` (6 pkgs) via `npm uninstall --legacy-peer-deps` (pre-existing eslint peer conflict — unrelated); regenerated `bun.lock` via `bun install --lockfile-only`; removed stale `node_modules/@nivo`. **Nivo gone from source + package.json + package-lock.json + bun.lock + node_modules.** Page that was all-Nivo (Processing tab) recompiles + renders 200 post-removal.
+  - Gate health: tsc **76** · vitest **152 passed / 24 skipped** · zero touched files outside my lane (only `LiveMetricsSection`/`ProcessingMetricsTab` + `_internal` broadening).
+  - **Next:** robustness gate (adversarial review over changed files) → clean up temp `/charts-preview` route → handover notes. **T9 `LiveQueueMetrics` LAST**, gated on Agent 1.
+- 2026-06-27 — **Robustness gate passed.** 3 parallel adversarial reviewers (correctness · robustness/types · security/spec).
+  - **Correctness:** no issues — all field mappings exact, exports preserved, `invertTrend` correct.
+  - **Security/spec:** clean — no XSS/injection/PII/secret, recommendation enum imported-not-redeclared, canon intact (no per-case numeric scores), don't-touch list confirmed untouched.
+  - **Fixed (my code, TDD):** `heatmapColor`/`clamp01` non-finite guard + `hexToRgb` 3-digit-hex support (no more `#NaNNaNNaN`); `StackedBar` empty-`series` now shows the designed empty state. +2 tests.
+  - **Cleanup:** deleted temp route `src/app/charts-preview/` + `__preview__/ChartsPreview.tsx` (resolves the unauth-route finding; recoverable from commit 2560ae7).
+  - Final health: tsc **76** · vitest **154 passed / 24 skipped** · `rg @nivo` (excl. node_modules + docs) = 0.
+
+## Handover — state & remaining work
+**Done & verified (this branch, uncommitted after 2560ae7 until a final commit):** shared chart layer (`src/components/charts/`, 17 files), `LiveMetricsSection` + `ProcessingMetricsTab` migrated, Nivo fully removed (source + package.json + both lockfiles + node_modules), robustness gate passed. Recharts is the single charting lib.
+
+**Recommended follow-ups (out of THIS scope — flagged by review, deliberately not auto-applied):**
+1. **`useProcessingMetrics.tsx` still scatters palettes** (`SUBTLE_COLORS`/`STATUS_COLORS`/`MANUAL_AUTO_COLORS`) and injects a `fill` side-channel into data. Harmless today — the migrated `Donut`s colour via `seriesColor` and ignore `fill` — but cleaning the hook (return plain data, drop the palettes) would complete the consolidation. Pre-existing file, outside the 2-component migration scope.
+2. **`LiveMetricsSection` mock visa list is non-canonical** (`Business/Tourist/Diplomatic/…`, not the 6 registry types). It's demo data coloured by `seriesColor` (index), so no bug — but for demo coherence, regenerate it from `VISA_TYPES` and colour by `visaTypeColor(key)`. A data-shape change (beyond "presentation only"), so left for the data-wiring track.
+
+**Deferred (planned):**
+- **T9 — `LiveQueueMetrics.tsx`** migration: LAST, **gated on Agent 1's hands-off** (his pending-count logic + 96/904 tuning + adversarial gate). Ping him before touching.
+- **Data-wiring track:** replace the `Math.random()` hooks with a `@/api-contracts/queue-contract` adapter (`LiveApplication[]` → series via `visaTypeId`/`visaTypeLabel`/`RecommendationOutcome`). Both follow-ups above naturally fold into this.
+- **Artifacts:** before/after PNGs (`li-*.png`, `charts-preview-*.png`) sit untracked in repo root — delete or ignore; not committed.
