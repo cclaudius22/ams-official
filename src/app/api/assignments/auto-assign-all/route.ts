@@ -12,7 +12,6 @@
 import { NextResponse } from 'next/server'
 import { getDataProvider } from '@/data/providers'
 import { allocateBatch, type AllocatableApp } from '@/services/assignment/allocate-batch'
-import { normalizeVisaType } from '@/config/visaTypes'
 
 const CAP_PER_OFFICER = 30
 
@@ -33,15 +32,21 @@ export async function POST() {
     const pending = apps.filter((a) => a.status === 'Processed' && !a.assignedTo)
     const allocatable: AllocatableApp[] = pending.map((a) => ({
       id: a.id,
-      visaTypeKey: a.visaTypeId ?? normalizeVisaType(a.visaType) ?? 'unknown',
+      // visaTypeId is the canonical key the adapter always sets for allocatable apps;
+      // 'unknown' (→ no specialist → queued) is the safe fallback if it's ever missing.
+      visaTypeKey: a.visaTypeId ?? 'unknown',
     }))
 
     const result = allocateBatch(allocatable, officers, { capPerOfficer: CAP_PER_OFFICER })
 
-    // Persist the assignments.
+    // Persist the assignments + the overflow backlog.
+    // Spec §6.2/§6.4: overflow (no specialist under cap) → status 'Awaiting Allocation'
+    // so the backlog is distinguishable from un-processed and the Auto-Allocate button settles.
     for (const assignment of result.assignments) {
       if (assignment.officerId) {
         await provider.assignApplication(assignment.appId, assignment.officerId, 'auto')
+      } else {
+        await provider.updateApplicationStatus(assignment.appId, 'Awaiting Allocation')
       }
     }
 

@@ -8,13 +8,20 @@
  */
 import { NextResponse } from 'next/server'
 import { getDataProvider } from '@/data/providers'
+import type { RecommendationOutcome } from '@/api-contracts/dis'
+
+export interface ProcessIntakeResult {
+  processed: number
+  total: number
+  distribution: Record<RecommendationOutcome, number>
+}
 
 export async function POST() {
   try {
     const provider = await getDataProvider()
     const { data: apps } = await provider.getApplications({}, { page: 1, pageSize: 100000 })
 
-    const distribution: Record<string, number> = {
+    const distribution: Record<RecommendationOutcome, number> = {
       RECOMMEND_APPROVE: 0,
       RECOMMEND_REJECT: 0,
       MANUAL_REVIEW: 0,

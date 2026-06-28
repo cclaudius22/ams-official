@@ -20,6 +20,8 @@ import AssignmentModal from '@/components/dashboard/AssignmentModal'
 // --- Type Imports ---
 import { LiveApplication, LiveQueueFilters, LiveQueueStats } from '@/types/liveQueue'
 import { ConsulateOfficial } from '@/api-contracts/users'
+import type { AutoAssignResult } from '@/app/api/assignments/auto-assign-all/route'
+import type { ProcessIntakeResult } from '@/app/api/assignments/process-intake/route'
 
 // Calculate queue stats from applications
 function calculateQueueStats(applications: LiveApplication[] | undefined): LiveQueueStats {
@@ -82,17 +84,8 @@ export default function LiveQueuePage() {
   const [isAutoAssigning, setIsAutoAssigning] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processed, setProcessed] = useState(false);
-  const [distribution, setDistribution] = useState<{
-    RECOMMEND_APPROVE: number;
-    RECOMMEND_REJECT: number;
-    MANUAL_REVIEW: number;
-  } | null>(null);
-  const [autoAssignResult, setAutoAssignResult] = useState<{
-    assigned: number;
-    unallocated: number;
-    capPerOfficer: number;
-    byOfficer: Record<string, { name: string; count: number; load: number; capacity: number }>;
-  } | null>(null);
+  const [distribution, setDistribution] = useState<ProcessIntakeResult['distribution'] | null>(null);
+  const [autoAssignResult, setAutoAssignResult] = useState<AutoAssignResult | null>(null);
   const [filters, setFilters] = useState<LiveQueueFilters>({
     search: '',
     status: [],
@@ -364,6 +357,13 @@ export default function LiveQueuePage() {
     [applications]
   );
 
+  // Reset visibility derives from the actual queue state so it survives a reload
+  // (the client-only `processed`/`autoAssignResult` flags reset on remount).
+  const isDirty = useMemo(
+    () => applications.some(app => app.status !== 'Received' || !!app.assignedTo),
+    [applications]
+  );
+
   // Reset all assignments (for demo)
   const handleResetAssignments = async () => {
     if (!confirm('Reset the demo? This clears processing + assignments (all applications back to "Received").')) {
@@ -435,7 +435,7 @@ export default function LiveQueuePage() {
           <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={refreshData} disabled={isRefreshing} title="Refresh Queue" >
             <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
           </Button>
-          {(processed || autoAssignResult) && (
+          {(isDirty || processed || autoAssignResult) && (
             <Button variant="ghost" size="sm" className="h-8 px-2 text-orange-600 hover:text-orange-700 hover:bg-orange-50" onClick={handleResetAssignments} title="Reset the demo (back to Received)">
               <RotateCcw className="h-4 w-4 mr-1" />
               Reset
