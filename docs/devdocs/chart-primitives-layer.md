@@ -5,9 +5,9 @@
 > **Why it exists:** the dashboard previously mixed **Recharts + Nivo** with per-page palettes,
 > three different tooltips, and no empty/loading states. This layer consolidates on **Recharts**,
 > retires Nivo, and centralises colour/chrome/motion/states so polish is set once.
-> **Status (2026-06-27):** built + live on `/dashboard/live-intelligence`. Recharts is the single
-> charting lib; Nivo fully removed. `LiveQueueMetrics` (`/dashboard/livequeue`) is the one chart
-> surface NOT yet migrated — see [Remaining work](#remaining-work).
+> **Status (2026-06-28):** built + live on `/dashboard/live-intelligence` **and** `/dashboard/livequeue`.
+> Recharts is the single charting lib; Nivo fully removed. **All three chart surfaces migrated.**
+> Remaining is the deferred data-wiring track — see [Remaining work](#remaining-work).
 
 ---
 
@@ -137,6 +137,12 @@ All wrappers accept `title?`, `loading?`, `height?` (default `CHART_HEIGHT` = 28
 - **Consume the contract.** Data shapes come from `@/api-contracts/queue-contract`
   (`LiveApplication`, `RecommendationOutcome`, the `VISA_TYPES` registry). **Never** invent a
   parallel data shape, hardcode the visa-type list, or re-declare the recommendation enum.
+- **The contract barrel is NOT fully client-safe for *value* imports.** `@/api-contracts/queue-contract`
+  re-exports `getDataProvider`, which pulls the server-only `ams-demo-provider` (`fs/promises`). In a
+  **client** component, `import type { … }` from the barrel is fine (erased at build), but importing
+  **runtime values** (e.g. `normalizeVisaType`, `visaTypeLabel`) drags `fs/promises` into the browser
+  bundle → "Module not found". Import those registry **values** from `@/config/visaTypes` instead
+  (the barrel just re-exports them). tsc won't catch this — only the bundler/dev render does.
 - **Group/filter on `visaTypeId`** (canonical key), render labels via `visaTypeLabel(visaTypeId)`.
   Don't split on the free-text `visaType` display string.
 - **Recharts per-series animation is OFF by design.** Recharts' `isAnimationActive` interacts badly
@@ -221,15 +227,13 @@ Migrated: `src/components/dashboard/LiveMetricsSection.tsx`, `ProcessingMetricsT
 
 ## 9. Remaining work
 
-- **T9 — `LiveQueueMetrics.tsx`** (`/dashboard/livequeue`): the last unmigrated chart surface.
-  **Gated** on the data-layer owner's sign-off — his adversarial gate has this file in scope and may
-  apply a fix, so let it land first (don't both touch it in the same window). Migrate **presentation
-  only**, and **preserve the pending-count filter**: both the status-donut "Pending" bucket and
-  `metrics.pending` must keep counting the new lifecycle statuses —
-  `'Received' || 'Processed' || 'Awaiting Allocation'` alongside the legacy
-  `'Pending' || 'Pending Assignment' || 'Awaiting Info'` — or the queue backlog reads as **0**.
-  **Re-read the file at migration time** (the gate may have adjusted it). Coordinate before editing
-  it or `livequeue/page.tsx`.
+- **T9 — `LiveQueueMetrics.tsx` — ✅ DONE** (migrated onto the shared layer, `/dashboard/livequeue`).
+  Preserves the data lane's pending-count filter (the `Received`/`Processed`/`Awaiting Allocation` +
+  legacy statuses, factored into one `PENDING_STATUSES` constant shared by `statusData` and
+  `metrics.pending` so they can't drift). Fixed gate finding #7 via `toVisaKey()` — resolves each app
+  to a canonical registry key (prefers `visaTypeId`, else normalises wire/display vocab through the
+  registry), so colour/label come from `VISA_TYPES` and never go gray. Regression-tested in
+  `src/__tests__/live-queue-visa-key.test.ts`.
 - **Data-wiring track (deferred):** the migrated charts still read `Math.random()` mock hooks. Real
   data = a `@/api-contracts/queue-contract` adapter mapping `LiveApplication[]` → chart series via
   `visaTypeId` / `visaTypeLabel` / `RecommendationOutcome`. The wrappers are data-shape-agnostic, so
