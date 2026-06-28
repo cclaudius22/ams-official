@@ -544,6 +544,10 @@ export default function LiveQueuePage() {
                   <span className="mx-1.5 text-gray-400">|</span>
                   cap {autoAssignResult.capPerOfficer}/officer
                 </p>
+                <p className="text-xs text-gray-500 mb-3 flex items-center gap-1.5">
+                  <Clock className="h-3.5 w-3.5 text-gray-400 flex-shrink-0" />
+                  Today&apos;s intake — officers at their daily decision capacity. Backlog clears in ~{autoAssignResult.assigned > 0 ? Math.ceil((autoAssignResult.assigned + autoAssignResult.unallocated) / autoAssignResult.assigned) : 0} working days, within the 15-working-day SLA.
+                </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {Object.entries(autoAssignResult.byOfficer).map(([id, data]) => (
                     <div key={id} className="bg-white rounded-md p-2 border border-gray-200">

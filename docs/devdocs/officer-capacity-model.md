@@ -21,10 +21,10 @@ The demo's auto-allocation needs realistic per-officer numbers, or the board rea
 
 > No published per-caseworker throughput exists for Skilled Worker / Student routes — these are **estimates**, bounded below by asylum's ~1/week (complex) and justified by PBS being document-led + pre-assembled. Validate with UKVI before quoting externally.
 
-## Demo tuning decisions (DECIDED 28 Jun — implement in the fresh session)
-1. **`cap` = a day's DECISION capacity, ~25/officer** — NOT a lifetime WIP ceiling. (Currently `CAP_PER_OFFICER = 30` in `auto-assign-all/route.ts`.)
-2. **Officers start fresh-ish** (0–5 carryover) — currently seeded ~16 each in `src/data/seed/officers.ts`, which is what produced the implausible 96/904.
-3. **Target outcome: ~240 allocated / ~760 queued** — the team clears 1,000 in **~4–5 working days, comfortably inside the 15-day SLA**.
+## Demo tuning decisions (DECIDED + IMPLEMENTED 28 Jun)
+1. **`cap` = a day's DECISION capacity, 25/officer** — NOT a lifetime WIP ceiling. ✅ `CAP_PER_OFFICER = 25` in `auto-assign-all/route.ts`.
+2. **Officers start fresh-ish** — ✅ seeded 1–5 carryover each in `src/data/seed/officers.ts` (was ~16, which produced the implausible 96/904).
+3. **Outcome (measured 28 Jun): 152 allocated / 848 queued** — 7 specialists × cap 25, each at **25/25** (Evica the trainee → backlog by design, per the gate's accepted "visible backlog" intent); team clears 1,000 in **~7 working days, inside the 15-day SLA**. *(Not ~240 — that loose estimate assumed 8 officers × 30; real math is 7 active specialists × 25.)*
 4. **Framing = "today's intake"** (a daily cycle): the backlog is the coming days' work inside SLA, with an explicit "clears in ~5 days · SLA 15 days" line — not a scary "904 drowning" dump.
 5. **Officer pressure = stretched but SLA-green:** show high daily utilisation (busy, credible pressure) while staying inside SLA (managed). Honest, not alarmist.
 6. **⚠️ Chart-scale alignment (coordinate with Agent 2):** the Officer-Workload chart (`LiveQueueMetrics.tsx`) currently colours by `>100 warning / >200 negative` thresholds — a "total caseload" scale that doesn't match the ~25–30 daily-capacity scale. **Pick one scale and make the allocator cap + the chart thresholds consistent.**

@@ -13,7 +13,7 @@ import { NextResponse } from 'next/server'
 import { getDataProvider } from '@/data/providers'
 import { allocateBatch, type AllocatableApp } from '@/services/assignment/allocate-batch'
 
-const CAP_PER_OFFICER = 30
+const CAP_PER_OFFICER = 25
 
 export interface AutoAssignResult {
   assigned: number
