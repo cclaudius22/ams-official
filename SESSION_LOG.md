@@ -4,7 +4,7 @@
 
 ---
 
-## ⏸ RESUME HERE — 24–25 June 2026 (latest): Multi-visa queue + capacity-aware allocation — Slice 0 + Slice 1 DONE (verified), adversarial gate next
+## ⏸ RESUME HERE — 24–27 June 2026 (latest): Multi-visa queue — Slice 0 + Slice 1 DONE + adversarial gate PASSED, tuning next
 
 **State:** branch `feat/dis-integration-v3`, **all committed + pushed, tree clean** (current HEAD `cd09b8e`). Slice 0 code `8c30e04`; Slice 1 `6d93838` (allocateBatch, Lenny-audited) + `cd09b8e` (process-intake + auto-allocate + UI). Full suite **121 pass / 24 skip**, `tsc` 76 (0 new). Slice 1 browser-verified ✅.
 
@@ -24,7 +24,9 @@
 
 **Known Slice-3 gap (not a bug):** opening an ams-demo case errors — `AmsDemoProvider.getApplicationById` returns null (deep review = Slice 3); the queue demo doesn't open cases.
 
-**RESUME HERE → adversarial robustness gate** (Chris green-lit; deferred to after a break). Run the adversarial multi-agent review (correctness · type-fidelity · robustness · **security** · spec-conformance, refute-or-confirm) + a security pass over the Slice-1 code (`allocate-batch.ts`, both new/rewritten routes, `livequeue/page.tsx`, `ams-demo-provider.ts`). Apply confirmed findings. THEN: the tuning decision above → Slice 2 (officer worklist via `OfficerSwitcher`) → Slice 3 (deep review + RFI + OV polish).
+**Adversarial robustness gate DONE (27 Jun, workflow wgzim1lax — 20 agents, refute-or-confirm):** 0 critical / 0 high; 15 raw → **7 confirmed (1 med, 6 low)**, 8 refuted (incl. auth = parked LB-2; path-traversal / proto-pollution = not exploitable). **Fixed + committed/pushed (`7171b14`), verified (tsc 76, suite 154, API-verified):** (1) overflow apps → `Awaiting Allocation` (spec §6.2/§6.4 — backlog distinguishable, Auto-Allocate button settles, 2nd allocate = 0/0); (2) typed `process-intake`/`auto-assign-all` envelopes (`ProcessIntakeResult`/`AutoAssignResult` imported, not re-declared); (3) Reset survives reload (`isDirty` derived from queue state); (4) dropped dead `normalizeVisaType(label)` fallback. **Deferred #5:** collapse duplicate `LiveApplication`/`ApplicationStatus` in `types/liveQueue.ts` (latent, in sync now → do with Slice-3 RFI). **→ Agent 2 #7:** visa-type chart bars render gray (registry labels ≠ `shortenVisaType`/`VISA_COLORS` keys in `LiveQueueMetrics.tsx`) — his charting fix (key colours off the registry). **`LiveQueueMetrics` now CLEARED for Agent 2's migration** (my pending-count logic passed the gate; preserve it).
+
+**RESUME HERE → the 96/904 tuning decision** (⚠️ above) → then Slice 2 (officer worklist via `OfficerSwitcher`) → Slice 3 (deep review + RFI + OV polish + the 4 OV-panel notes).
 
 **Don't touch:** `json-provider.ts`, `output_demo`, the reviewer page, `OVIntelligencePanel.tsx`. **Deferred:** Slice 2 (officer worklist via `OfficerSwitcher`, no auth); Slice 3 (skilled-worker **deep review** + scenario-consistent OV + **RFI lifecycle** `Awaiting Info` + **OV-panel polish** — 4 notes: score↔risk polarity, hero is a generic donut, attention not routed supporting-vs-tempering chips, sticky action bar overlaps the panel footer). Multi-visa is **NOW**, not deferred.
 
