@@ -4,7 +4,21 @@
 
 ---
 
-## ⏸ RESUME HERE — 24–27 June 2026 (latest): Multi-visa queue — Slice 0 + Slice 1 DONE + adversarial gate PASSED, tuning next
+## ⏸ RESUME HERE — 30 June 2026 (fresh chat): Slice 3 / 3a — wire the reviewer page against the contract while Lenny enriches the corpus (3.0)
+
+**State:** branch `feat/dis-integration-v3`, HEAD `dc628b7`, **all committed + pushed, tree clean.** Last measured: suite 157 pass, `tsc --noEmit` 76 (0 new baseline; per 28 Jun tuning) — not re-run yet this session. I am **Sam** (data/queue/app lane). Handoff brief: `docs/cc-notes/2026-06-30-FRESH-CHAT-START-HERE.md`; Slice-3 plan + Lenny's AUTHORITATIVE 3.0 brief: `docs/specs/2026-06-29-slice3-deep-review-plan.md`.
+
+**3.0 status — CHECKED 30 Jun: Lenny's enrichment has NOT landed yet.** The 18 `data/demo-corpus/deep_set/applications/*.json` still carry the OLD shape — **no top-level `dis_application_view`**, and `ov_assessment` is the bands-only `{overall_risk, intent_risk, rootedness_risk, recommendation_alignment, summary}`, not the rich 3-dimension `OVAssessment`. **Chris confirmed Lenny is actively working the brief RIGHT NOW.** → **Do NOT touch the corpus — it is Lenny's lane and in flight.**
+
+**What the existing deep_set already carries** (useful for the temporary A-fallback adapter): `recommendation`, `rfi_lifecycle`, `rules_summary`, `flagged_rule_ids`, `opa_policy_results`, `external_check_results`, `completeness`, `document_assessments`, plus applicant/passport/biometric/answers/documents. **Missing for a full `DISApplicationView`:** the per-rule `rule_results` Glass-Box trace, the 9 `component_scores`, and the rich 3-dim `ov_assessment` — exactly what Lenny is adding in 3.0.
+
+**Plan (agreed w/ Chris, 30 Jun): build the 3a wiring in PARALLEL while Lenny enriches.** The wiring is the part that's mine regardless of data source: `AmsDemoProvider.getApplicationById(<deep_set_id>)` → `DISApplicationView`, and the reviewer page loads provider data for ams-demo deep_set ids instead of `mockDISApplicationView` + `syntheticOvAssessment()`. Adapter is **forward-compatible**: if a case has a top-level `dis_application_view` (post-Lenny) → use it directly; else → A-fallback (map the existing corpus fields + synthesize the gaps, clearly labelled temporary). When Lenny lands, the `else` branch goes dead and the acceptance bar (NO fallback to mock/synthetic) is met with a near-trivial adapter. **3a blocker to clear:** `src/app/dashboard/reviewer/[applicationId]/page.tsx:358` passes `syntheticOvAssessment()` + uses `mockDISApplicationView` — swap BOTH for the per-case provider data.
+
+**Next actions (this session):** (1) ✅ session log updated + pushed [this commit]. (2) TDD `getApplicationById` corpus→`DISApplicationView` mapping (red→green). (3) Wire the reviewer page for ams-demo deep_set ids. (4) Verify: vitest green + `tsc` 76 + Playwright open `/dashboard/reviewer/HO-SW-DEEP-2026-00001`. Then 3b (RFI lifecycle) + 3c (OV-panel polish). ⚠️ Cross-agent open: Agent 2 to align the Officer-Workload chart scale to ~25/day.
+
+---
+
+## ⏸ 24–27 June 2026 (prior context): Multi-visa queue — Slice 0 + Slice 1 DONE + adversarial gate PASSED, tuning next
 
 **State:** branch `feat/dis-integration-v3`, **all committed + pushed, tree clean** (current HEAD `cd09b8e`). Slice 0 code `8c30e04`; Slice 1 `6d93838` (allocateBatch, Lenny-audited) + `cd09b8e` (process-intake + auto-allocate + UI). Full suite **121 pass / 24 skip**, `tsc` 76 (0 new). Slice 1 browser-verified ✅.
 
