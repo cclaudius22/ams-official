@@ -32,13 +32,23 @@ import type { ConsulateOfficial } from '@/api-contracts/users'
 
 import { defaultOfficers, getOfficersByVisaType } from '../seed/officers'
 import { mapDisAlignedApp } from './disAlignedAdapter'
+import { mapDeepSetReview } from './deepSetReviewAdapter'
+import type { DeepSetReview, DeepSetReviewCapable } from './deepSetReviewAdapter'
+import { mapDeepSetApplicationDetail } from './deepSetApplicationDetailAdapter'
 
-export class AmsDemoProvider implements ApplicationDataProvider {
+export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCapable {
   private corpusPath: string
   private cache: Map<string, LiveApplication> = new Map()
   private assignments: Map<string, string> = new Map() // appId -> officerId
   private statusOverrides: Map<string, ApplicationStatus> = new Map()
   private initialized = false
+
+  // Slice 3a — the deep_set (18 skilled-worker cases enriched to full
+  // DISApplicationView + OVAssessment). Loaded lazily and separately from the
+  // 1,000-app bulk set: the queue/allocation layer reads bulk only; the reviewer
+  // page reads a deep_set case on demand. Keyed by source_application_id.
+  private deepSetRaw: Map<string, unknown> = new Map()
+  private deepSetLoaded = false
 
   constructor(corpusPath: string) {
     this.corpusPath = corpusPath
@@ -110,12 +120,57 @@ export class AmsDemoProvider implements ApplicationDataProvider {
     }
   }
 
-  // Bulk corpus has no detail/scan — deep review (deep_set) is Slice 3.
-  async getApplicationById(): Promise<ApplicationDetail | null> {
-    return null
+  // Bulk corpus has no legacy ApplicationDetail. Deep_set ids return a real
+  // per-applicant ApplicationDetail built from the corpus record (Slice 3a) so
+  // the reviewer page header + section accordion show the actual applicant — not
+  // the hardcoded John-Doe mock. The DIS/OV panels are served separately by
+  // getDeepSetReview() via /api/ams-demo/applications/:id/review.
+  async getApplicationById(id: string): Promise<ApplicationDetail | null> {
+    await this.ensureDeepSetLoaded()
+    const raw = this.deepSetRaw.get(id)
+    if (raw === undefined) return null
+    return mapDeepSetApplicationDetail(raw)
   }
   async getScanResult(): Promise<AIScanResult | null> {
     return null
+  }
+
+  /**
+   * Lazily load the 18 enriched deep_set cases from
+   * `{corpusPath}/deep_set/applications/*.json` (Slice 3a). Independent of the
+   * bulk `initialize()`. Missing dir → no-op (deep review simply unavailable).
+   */
+  private async ensureDeepSetLoaded(): Promise<void> {
+    if (this.deepSetLoaded) return
+    const dir = path.join(process.cwd(), this.corpusPath, 'deep_set', 'applications')
+    try {
+      const files = (await fs.readdir(dir)).filter((f) => f.endsWith('.json'))
+      for (const file of files) {
+        try {
+          const raw = JSON.parse(await fs.readFile(path.join(dir, file), 'utf-8'))
+          const id = raw?.source_application_id
+          if (typeof id === 'string') this.deepSetRaw.set(id, raw)
+        } catch (err) {
+          console.error(`[AmsDemoProvider] Failed to load deep_set ${file}:`, err)
+        }
+      }
+    } catch {
+      // deep_set dir absent — deep review unavailable, queue/allocation unaffected
+    }
+    this.deepSetLoaded = true
+    console.log(`[AmsDemoProvider] Loaded ${this.deepSetRaw.size} deep_set cases`)
+  }
+
+  /**
+   * The per-case reviewer payload (full DISApplicationView + OVAssessment) for a
+   * deep_set application id. Returns null for unknown/bulk/unenriched ids so the
+   * reviewer page degrades to its existing path rather than crashing a panel.
+   */
+  async getDeepSetReview(id: string): Promise<DeepSetReview | null> {
+    await this.ensureDeepSetLoaded()
+    const raw = this.deepSetRaw.get(id)
+    if (raw === undefined) return null
+    return mapDeepSetReview(raw)
   }
 
   async updateApplicationStatus(id: string, status: ApplicationStatus): Promise<boolean> {

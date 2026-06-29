@@ -22,6 +22,7 @@ import RejectDialog from '@/components/dialogs/RejectDialog';
 import { ApplicationData } from '@/types/application'
 import { AIScanResult } from '@/types/aiScan'
 import type { DISApplicationView } from '@/api-contracts/dis'
+import type { OVAssessment } from '@/api-contracts/ov'
 import { syntheticOvAssessment } from '@/lib/syntheticOvAssessment'
 import { disViewToLegacyScan } from '@/lib/disViewAdapter'
 import { Accordion } from "@/components/ui/accordion";
@@ -66,6 +67,10 @@ export default function OfficialReviewPage() {
   // which point scanResult state and the adapter are removed.
   const [disView, setDisView] = useState<DISApplicationView>(mockDISApplicationView);
 
+  // OV-IP assessment (Panel 4). Per-case from the enriched deep_set when present
+  // (Slice 3a); null → the page uses syntheticOvAssessment() (legacy/demo ids).
+  const [ovAssessment, setOvAssessment] = useState<OVAssessment | null>(null);
+
   // Mock application IDs used by Rachel Johnson (Demo)
   const demoApplicationIds = ['VK-2024-1835', 'VK-2024-1836', 'UK-2024-1837', 'UK-2024-1838'];
 
@@ -89,26 +94,51 @@ export default function OfficialReviewPage() {
         return;
       }
 
-      // Phase 2F.4 — wire Panels 1 & 2 to the DIS read layer. Reset to the mock
-      // fixture FIRST so a failed/slow fetch for THIS id can never leave the
-      // previous applicant's DIS view on screen, then fetch the assembled
-      // DISApplicationView from the replica-backed composite route
-      // (DIS_DATA_PROVIDER selects mock | replica). `active` guards against a
-      // stale response landing after the id changed. Independent of the legacy
-      // ApplicationData fetch below.
-      setDisView(mockDISApplicationView);
+      // Slice 3a — ams-demo deep_set per-case review. Try the enriched corpus
+      // FIRST: a real DISApplicationView (Panels 1–3) + a real OVAssessment
+      // (Panel 4), applicant-specific, with NO mock/synthetic fallback. The
+      // route 404s for non-deep_set ids → we fall through to the DIS read layer.
+      setOvAssessment(null);
+      let deepLoaded = false;
       try {
-        const disResponse = await fetch(`/api/dis/applications/${applicationId}/view`);
+        const reviewRes = await fetch(`/api/ams-demo/applications/${applicationId}/review`);
         if (!active) return;
-        if (disResponse.ok) {
-          const disResult = await disResponse.json();
+        if (reviewRes.ok) {
+          const reviewJson = await reviewRes.json();
           if (!active) return;
-          if (disResult.success && disResult.data) {
-            setDisView(disResult.data);
+          if (reviewJson.success && reviewJson.data?.disView) {
+            setDisView(reviewJson.data.disView);
+            setScanResult(disViewToLegacyScan(reviewJson.data.disView));
+            setOvAssessment(reviewJson.data.ovAssessment ?? null);
+            deepLoaded = true;
           }
         }
-      } catch (disErr) {
-        if (active) console.error('Error fetching DIS view (keeping mock fallback):', disErr);
+      } catch (reviewErr) {
+        if (active) console.error('Error fetching deep review (falling through):', reviewErr);
+      }
+
+      // Phase 2F.4 — wire Panels 1 & 2 to the DIS read layer (replica/mock).
+      // Skipped when the deep_set review already populated the panels. Reset to
+      // the mock fixture FIRST so a failed/slow fetch for THIS id can never leave
+      // the previous applicant's DIS view on screen, then fetch the assembled
+      // DISApplicationView from the replica-backed composite route
+      // (DIS_DATA_PROVIDER selects mock | replica). `active` guards against a
+      // stale response landing after the id changed.
+      if (!deepLoaded) {
+        setDisView(mockDISApplicationView);
+        try {
+          const disResponse = await fetch(`/api/dis/applications/${applicationId}/view`);
+          if (!active) return;
+          if (disResponse.ok) {
+            const disResult = await disResponse.json();
+            if (!active) return;
+            if (disResult.success && disResult.data) {
+              setDisView(disResult.data);
+            }
+          }
+        } catch (disErr) {
+          if (active) console.error('Error fetching DIS view (keeping mock fallback):', disErr);
+        }
       }
 
       try {
@@ -354,8 +384,10 @@ export default function OfficialReviewPage() {
           <EvidencePanel disView={disView} />
 
           {/* Open Visa Intelligence — OV-IP risk model, the deliberate scores-shown panel
-              (replaces the legacy AI Assessment Results). Mocked until Azure inference — LAUNCH_BLOCKERS LB-6 / V5 §7a. */}
-          <OVIntelligencePanel assessment={syntheticOvAssessment()} />
+              (replaces the legacy AI Assessment Results). Per-case from the enriched
+              deep_set when present (Slice 3a); otherwise the synthetic mock for
+              legacy/demo ids until Azure inference — LAUNCH_BLOCKERS LB-6 / V5 §7a. */}
+          <OVIntelligencePanel assessment={ovAssessment ?? syntheticOvAssessment()} />
 
           {/* Main Application Sections Accordion */}
           <Accordion type="multiple" className="w-full space-y-3 mt-6">
