@@ -38,3 +38,31 @@ For **each of the 18** `data/demo-corpus/deep_set/applications/*.json`, add two 
 **Output:** keep the existing keys; add `dis_view` + the upgraded `ov_assessment`. Validate every `dis_view` against the `DISApplicationView` type (it should drop into the reviewer panels with no shape errors) and emit an updated `integrity_report.json`.
 
 **Scope guard:** only the 18 `deep_set/` cases. The 1,000 `bulk/` set stays as-is (queue/allocation only).
+
+---
+
+## 3.0 — AUTHORITATIVE (Lenny's refined brief, 29 Jun — supersedes the draft above)
+
+**Source of truth:** `src/api-contracts/dis.ts:637` (`DISApplicationView`) · `src/api-contracts/ov.ts:27` (`OVAssessment`) · `src/lib/mockDISData.ts:22` (complete worked example).
+**Blocker this unblocks (for 3a):** the reviewer page passes `syntheticOvAssessment()` directly at `src/app/dashboard/reviewer/[applicationId]/page.tsx:358` (and uses `mockDISApplicationView`) — **3a swaps both for the per-case enriched data.**
+
+Enrich **each of the 18** `data/demo-corpus/deep_set/applications/*.json` with a top-level **`dis_application_view`** object + an `ov_assessment` object — **applicant-specific** (do NOT clone the mock's Rani Kumari detail).
+
+**`dis_application_view`** (match `DISApplicationView`):
+- **`recommendation`** (full `DISRecommendation`): canonical `RECOMMEND_APPROVE` / `RECOMMEND_REJECT` / `MANUAL_REVIEW` + `recommendation_reason`, `evaluation_breakdown`, `hard_fail_rules`, `soft_flag_rules`, `rules_summary`, `completeness_score`, `completeness_status`, `generated_at`, `drools_version`, `opa_version`, `note`.
+- **`component_scores`** — all **9** keys: `passport`, `financial`, `employment`, `english_language`, `immigration_compliance`, `criminal_record`, `health`, `document_quality`, `fraud_risk` (null only when genuinely N/A).
+- **`rule_results`** — full per-rule Drools trace (not counts): `rule_id`, `rule_name`, `rule_category`, `outcome`, `severity`, `reasoning`, `evidence_refs`, optional `remediation`.
+- **`opa_results`** — full 12-policy trace where possible: `policy_id`, `policy_name`, `policy_type`, `outcome`, `denial_reasons`.
+- **`external_checks`** — canonical **7**: `WORLDCHECK`, `INTERPOL`, `PASSPORT_VERIFY`, `BORDER_CONTROL`, `DEVICE_IP_RISK`, `EMAIL_PHONE_REPUTATION`, `COS_CHECK`.
+- **`documents`** + **`document_extractions`** (linked by `document_id`).
+- **metadata:** `queue_state`, `source_application_id`, `source_reference`, `source_channel`, `dis_application_id`, `submitted_at`.
+
+**`ov_assessment`** (match `OVAssessment` exactly): `overall.risk_band` (LOW|MEDIUM|HIGH), `overall.score` (0–100, **higher = stronger / lower-risk**), `overall.summary`, `recommendation`, and **exactly 3 dimensions** — `rootedness`, `intent`, `credibility` — each with `label`, `score`, `status`, `reasoning`, `factors[]`.
+
+**Gotchas:**
+- Source corpus uses `visa_type: "skilled-worker"`; AMS normalises it — **do NOT rename the source corpus globally.**
+- Corpus docs use `PAYSLIPS`; the DIS contract expects **`PAYSLIP`** — use `PAYSLIP` in `dis_application_view`.
+- **Counts must reconcile:** `rules_summary` must match the actual `rule_results` / `opa_results` / `external_checks`; flag arrays (`hard_fail_rules` / `soft_flag_rules`) must correspond to the actual failed/review/flag rows.
+- **Applicant-specific per case** (scenario-consistent with `anomaly_type` / `recommendation` / `ground_truth`).
+
+**ACCEPTANCE BAR:** Sam can map one deep-set ID → `DISApplicationView` + `OVAssessment`, open `/dashboard/reviewer/<id>`, and render **all four panels without falling back to `mockDISApplicationView` or `syntheticOvAssessment()`.**
