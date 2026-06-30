@@ -4,7 +4,49 @@
 
 ---
 
-## ⏸ RESUME HERE — 30 June 2026: Slice 3 / 3a DONE (per-case deep review live + dynamic header) — next is 3b (RFI) / 3c (OV polish)
+## ⏸ RESUME HERE — 30 June 2026 (late): Slice 3b RFI SCAFFOLD done; design locked for officer gateway + RFI lane + two-login (JWT). Marshall organising commit/push.
+
+**State:** branch `feat/dis-integration-v3`, HEAD `94c8630` (= Slice 3a). **3b scaffold + dup-key fix are UNCOMMITTED** — Marshall (release controller, `docs/agent-charters/marshall.md`) is lining up the commit/push. Last measured (Sam-reported): `tsc --noEmit` **76** (0 new), full vitest **184 pass / 24 skip**. Run: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev`.
+
+### ✅ Slice 3b — RFI lifecycle SCAFFOLD done (Phase-2 deferred; built to *demo the flow*, not to wire it)
+Chris's call: **RFI is Phase 2 — scaffold now, deep plumbing later with HO consultation.** Built a robust, data-driven 3-state walkthrough on the **reviewer page** (per-case), driven by the corpus (the 3 heroes 00012/13/14 carry `rfi_lifecycle` + `request.json` + `response.json`). My files (uncommitted):
+- `src/data/providers/deepSetRfiAdapter.ts` — `mapRfi(raw, request?, response?)` → `RfiSummary` (issue, missingItems, request{message,dueAt}, response{suppliedDocuments,decisionOptions} | null). `RfiPhase = GAP_FLAGGED|AWAITING_INFO|RESPONDED`.
+- `src/components/application/RFIPanel.tsx` — status-led card, 3-step stepper, demo controls ([Request Information] → [Simulate applicant response] → [Reset]); honestly labelled **"Scaffold · Phase 2"**; renders only when `rfi.enabled`. No numeric grades.
+- `src/data/providers/deepSetReviewAdapter.ts` — `DeepSetReview` gained `rfi?: RfiSummary | null`.
+- `src/data/providers/ams-demo-provider.ts` — `getDeepSetReview` now reads request/response artifacts via `loadRfi()` + attaches `rfi`. (Also Chris's edits: `rawBulk` map + `getApplicationById` now serves **bulk** ids too → real header for queue cases, not just deep_set.)
+- `src/app/dashboard/reviewer/[applicationId]/page.tsx` — `rfi` state from the review payload; renders `<RFIPanel>` under the header. (Also Chris's `disViewToApplicationData` helper.)
+- Tests: `deep-set-rfi.test.ts` (5) + `rfi-panel.test.tsx` (4).
+- **Bug fix (pre-existing, 3a):** `DocumentsSectionDetails.tsx` keyed list rows by `docType` → duplicate-key React warnings when a bundle has 3 bank statements / 3 payslips. Now keyed by `uploadedDocument.fileName ?? docType-index`. **0 console errors** on 00012.
+- **Browser-verified (Playwright, 00012):** all 3 states drive correctly — GAP (DIS gap + prepared request) → AWAITING ("case parked", due 8 Jul) → RESPONDED (supplied `PAYSLIPS_002.pdf`, "gap resolved · ready for review", decision options). No mock/synthetic leak.
+
+### 🧠 DESIGN LOCKED this session (the valuable stuff — don't lose) — to formalise in a design note before building
+**RFI process model (Chris):**
+- **NO re-ingestion.** When the applicant supplies the missing doc, it's attached and the **officer manually assesses** it against DIS's existing (pre-RFI) assessment. DIS does **not** re-run/re-score. Label new evidence as "officer-reviewed; DIS re-scoring = Phase 2." (On-message: machine doesn't silently re-decide; human assesses.)
+- **Clock-stop principle.** While `AWAITING_INFO`, the elapsed SLA clock **pauses** (don't penalise the dept for applicant delay) — maps onto our two-clocks model (active touch-time vs elapsed SLA). Strengthens the "15-day SLA" claim. *Specifics (deadline length, non-response → proceed-vs-refuse) need HO input.*
+- **RFI user journey:** no separate RFI "page" — the panel surfaces **contextually on the flagged case** (DIS completeness flag routes the action to the officer). Secondary manual entry = footer "Contact Applicant → Request Info" (existing placeholder; could unify later).
+
+**Two-role / two-login model (Chris) — the big architectural decision:**
+- **Admin/Executive** = oversight: live queue · queue allocations · reports · live reporting · charts (today's dashboard surfaces). **Officer** = their gateway · My Queue · My RFIs · their applications (per-case review).
+- Rationale: **data minimisation** (execs don't open applicant PII; officers do = least-privilege, HO-security-friendly) + it **reinforces the scoring-display policy** (exec = aggregate scores/charts; officer = status-led per-case).
+- **Auth scope for THIS phase: JWT + exactly two logins (one admin, one officer). NO full RBAC build.** Leave any already-scaffolded RBAC as-is. Real SSO/RBAC enforcement = Phase 2.
+
+**Officer gateway + RFI lane plan (informed by repo scan):**
+- **No `/dashboard` index** (404). `src/app/dashboard/reviewer/page.tsx` **already exists** and is the officer's **de-facto landing** (sidebar "My Queue" → it; real worklist `/reviewer/queue` is one click deeper) — BUT it's a hardcoded `mockDashboardStats` page. **Plan: upgrade THIS into the officer gateway** (doorway tiles → My Queue · My RFIs · Live Intelligence + a derived "RFIs: N awaiting · M overdue" strip). No new gateway route needed.
+- **RFI lane = new `/dashboard/reviewer/rfis`** — officer's RFI cases grouped **Awaiting · Returned · Overdue** + due dates, click-through to the case. Driven by a small provider method + route over corpus RFI data. New "My RFIs" nav item (slots into "Visa Processing", replacing a `href="#"` placeholder).
+- **Role toggle (Exec ⇄ Officer)** — header toggle mirroring `OfficerSwitcher`/`OfficerContext` (identity = `useOfficer()` + localStorage `demo-selected-officer-id`), swaps the landing. (Was to be light scaffold; now superseded by the **JWT two-login** decision above.)
+- Repo facts: identity via `src/contexts/OfficerContext.tsx` (`useOfficer()`); nav `src/components/dashboard/SidebarNavigation.tsx` (badges hardcoded; Pending/Completed/Escalated/Decisions = `href="#"`); SLA helpers exist `src/lib/officerQueue.ts` (`SLA_WORKING_DAYS=15`, `slaDaysRemaining`, "Overdue"); `'Awaiting Info'` is already a lifecycle status; RFI currently exists **only** per-case (no lane yet).
+
+### ▶ NEXT (after Marshall organises the commit/push)
+1. **Write the design note** `docs/specs/2026-06-30-rfi-officer-roles-design.md` (the decisions above; V5 governs data contracts / V4 governs UX, so most of this is UX+access, NOT a V5 rewrite — only the RFI `AWAITING_INFO`/return queue-state touches V5, and that's HO-pending).
+2. **Build (fresh):** JWT two-login (admin + officer) → officer gateway (upgrade `/dashboard/reviewer`) → RFI lane (`/dashboard/reviewer/rfis`). Scaffold-level; Phase-2 parks: re-ingestion (ruled out), notifications engine, applicant portal, real SLA timers/persistence, full RBAC.
+3. **Still open:** Slice 3c (OV-panel polish — 4 notes). ⚠️ Cross-agent: Agent 2 to align Officer-Workload chart scale to ~25/day.
+
+### ⚠️ Lenny's corpus still UNCOMMITTED (his lane, demo-critical)
+18 `data/demo-corpus/deep_set/applications/*.json` (`M`) + untracked `data/demo-corpus/deep_set/integrity_report.json` = Lenny's 3.0 enrichment. **Sam's 3a/3b code depends on it at runtime** → must be in the repo for a fresh-checkout demo. Marshall to surface this as a path-level decision for Chris (Lenny commits it, or include in this bundle with the integrity report as evidence).
+
+---
+
+## ⏸ 30 June 2026 (prior): Slice 3a DONE (per-case deep review live + dynamic header)
 
 **State:** branch `feat/dis-integration-v3`, **my source committed + pushed, tree clean of my files.** `tsc --noEmit` **76** (0 new baseline); full vitest **174 pass / 24 skip**. I am **Sam** (data/queue/app lane). Handoff: `docs/cc-notes/2026-06-30-FRESH-CHAT-START-HERE.md`; plan + Lenny's AUTHORITATIVE 3.0 brief: `docs/specs/2026-06-29-slice3-deep-review-plan.md`.
 
