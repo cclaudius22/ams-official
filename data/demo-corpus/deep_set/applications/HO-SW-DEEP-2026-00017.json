@@ -56,7 +56,7 @@
       "sponsorStatus": "ACTIVE",
       "sponsorRating": "A",
       "jobTitle": "Backend Engineer",
-      "annualIncome": 54700.0,
+      "annualIncome": 54700,
       "monthlyGrossPay": 4558.33,
       "cosReferenceNumber": "COS-2026-0094397",
       "cosIssueDate": "2026-04-15",
@@ -81,10 +81,10 @@
       "testType": "IELTS_ACADEMIC",
       "testReferenceNumber": "26CN458816LI",
       "overallScore": 8.5,
-      "speakingScore": 9.0,
-      "listeningScore": 8.0,
+      "speakingScore": 9,
+      "listeningScore": 8,
       "readingScore": 8.5,
-      "writingScore": 8.0,
+      "writingScore": 8,
       "testDate": "2026-02-18"
     },
     "travelHistory": {
@@ -405,10 +405,2041 @@
     }
   ],
   "ov_assessment": {
-    "overall_risk": "MEDIUM",
-    "intent_risk": "MEDIUM",
-    "rootedness_risk": "MEDIUM",
-    "recommendation_alignment": "caseworker_judgement_required",
-    "summary": "Scenario-consistent OV assessment derived from corpus ground truth for demo review."
+    "model_version": "ov-risk-v0.9-demo-corpus",
+    "overall": {
+      "risk_band": "MEDIUM",
+      "score": 68,
+      "summary": "Jing Li presents a medium-risk review case. The core route can be assessed, but exact_soc_going_rate needs officer attention before final decision."
+    },
+    "recommendation": "Proceed to officer review - resolve the soft factor before deciding.",
+    "dimensions": [
+      {
+        "key": "rootedness",
+        "label": "Rootedness",
+        "score": 72,
+        "status": "Moderate ties",
+        "reasoning": "Identity and travel history are coherent, but the flagged item tempers confidence until reviewed.",
+        "factors": [
+          "Route issue tempers confidence",
+          "Identity evidence present"
+        ]
+      },
+      {
+        "key": "intent",
+        "label": "Intent",
+        "score": 66,
+        "status": "Needs confirmation",
+        "reasoning": "Intent is plausible, but exact_soc_going_rate needs confirmation.",
+        "factors": [
+          "Salary evidence issue",
+          "CoS review required"
+        ]
+      },
+      {
+        "key": "credibility",
+        "label": "Credibility",
+        "score": 64,
+        "status": "Review advised",
+        "reasoning": "Credibility is mostly supported, with a tempering factor: exact_soc_going_rate.",
+        "factors": [
+          "Soft flag",
+          "Evidence review required"
+        ]
+      }
+    ]
+  },
+  "dis_application_view": {
+    "recommendation": {
+      "recommendation": "MANUAL_REVIEW",
+      "recommendation_reason": "Jing Li requires manual review: exact_soc_going_rate.",
+      "caseworker_summary": "Jing Li requires manual review: exact_soc_going_rate.",
+      "evaluation_breakdown": {
+        "drools_evaluation": "18 of 20 rules satisfied; 0 failed; 1 require review; 1 not applicable.",
+        "external_checks_evaluation": "7 of 7 external checks clear.",
+        "opa_evaluation": "11 of 12 OPA policies passed/allowed; 1 denied or flagged."
+      },
+      "hard_fail_rules": [],
+      "soft_flag_rules": [
+        "RULE-W03",
+        "OPA-S02"
+      ],
+      "rules_summary": {
+        "rules": {
+          "drools_rules_evaluated": 20,
+          "drools_rules_passed": 18,
+          "drools_rules_failed": 0,
+          "drools_rules_not_applicable": 1
+        },
+        "opa_policies": {
+          "opa_total_evaluated": 12,
+          "opa_total_passed": 11,
+          "opa_total_failed": 1,
+          "opa_hard_evaluated": 6,
+          "opa_hard_passed": 6,
+          "opa_hard_failed": 0,
+          "opa_soft_evaluated": 6,
+          "opa_soft_passed": 5,
+          "opa_soft_failed": 1
+        },
+        "external_checks": {
+          "external_checks_evaluated": 7,
+          "external_checks_passed": 7,
+          "external_checks_failed": 0,
+          "external_checks_error": 0
+        }
+      },
+      "completeness_score": 83,
+      "completeness_status": "COMPLETE",
+      "generated_at": "2026-06-29T09:00:00Z",
+      "recommendation_at": "2026-06-29T09:00:00Z",
+      "drools_version": [
+        {
+          "rule_file": "universal/universal_rules.drl",
+          "rule_version_id": "rv-demo-u-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "rule_file": "skilled_worker/skilled_worker_rules.drl",
+          "rule_version_id": "rv-demo-sw-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "opa_version": [
+        {
+          "policy_file": "hard/hard_policies.rego",
+          "policy_version_id": "pv-demo-hard-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "policy_file": "soft/soft_policies.rego",
+          "policy_version_id": "pv-demo-soft-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "note": "This is a system recommendation to assist caseworker decision-making. Final determination rests with the authorised decision-maker."
+    },
+    "component_scores": {
+      "passport": {
+        "component": "passport",
+        "score": 95,
+        "status": "VALID",
+        "confidence": 0.97,
+        "status_description": "Passport E6975465 valid until 2033-06-09; MRZ check passed.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U01",
+            "rule_name": "Passport Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Passport E6975465 issued by CN is valid until 2033-06-09; MRZ check passed."
+          }
+        ],
+        "opa_results": [
+          {
+            "policy_id": "OPA-H02",
+            "policy_name": "Passport_Verification",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          },
+          {
+            "policy_id": "OPA-H03",
+            "policy_name": "Interpol_SLTD",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT"
+        ],
+        "external_check_types": [
+          "PASSPORT_VERIFY",
+          "INTERPOL",
+          "BORDER_CONTROL"
+        ]
+      },
+      "financial": {
+        "component": "financial",
+        "score": 90,
+        "status": "SUFFICIENT",
+        "confidence": 0.92,
+        "status_description": "Bank evidence reviewed; lowest observed balance £1,582.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W09",
+            "rule_name": "Maintenance Funds",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,582."
+          }
+        ],
+        "extraction_sources": [
+          "BANK_STATEMENT"
+        ],
+        "external_check_types": []
+      },
+      "employment": {
+        "component": "employment",
+        "score": 68,
+        "status": "REVIEW_REQUIRED",
+        "confidence": 0.94,
+        "status_description": "Salary £54,700 assessed against general and SOC 2134 thresholds.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W01",
+            "rule_name": "CoS Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "CoS COS-2026-0094397 is assigned, unused, and within validity window."
+          },
+          {
+            "rule_id": "RULE-W02",
+            "rule_name": "Sponsor Licence Status",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Sponsor The Laurels Care Home (THE-2022-5567) is A rated and active."
+          },
+          {
+            "rule_id": "RULE-W03",
+            "rule_name": "Salary Threshold - General",
+            "result": "FAIL",
+            "severity": "MANDATORY",
+            "details": "Salary sits exactly on or close to the applicable threshold (£54,700); officer should confirm no rounding or old-threshold treatment is being applied.",
+            "remediation": "Review source evidence and record officer rationale before final decision."
+          },
+          {
+            "rule_id": "RULE-W15",
+            "rule_name": "Start Date Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": [
+          "COS_CHECK"
+        ]
+      },
+      "english_language": {
+        "component": "english_language",
+        "score": 91,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "IELTS_ACADEMIC overall 8.5; B2 requirement met.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W08",
+            "rule_name": "English Language",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "English language evidence: IELTS_ACADEMIC overall score 8.5; B2 requirement met."
+          }
+        ],
+        "extraction_sources": [
+          "IELTS_CERTIFICATE",
+          "DEGREE_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "immigration_compliance": {
+        "component": "immigration_compliance",
+        "score": 96,
+        "status": "COMPLIANT",
+        "confidence": 0.98,
+        "status_description": "No adverse immigration compliance history in the corpus case.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W12",
+            "rule_name": "Previous Immigration Compliance",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "BORDER_CONTROL"
+        ]
+      },
+      "criminal_record": {
+        "component": "criminal_record",
+        "score": 95,
+        "status": "CLEAR",
+        "confidence": 0.98,
+        "status_description": "No convictions declared and no Interpol hard match.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W11",
+            "rule_name": "Criminal Record Disclosure",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "WORLDCHECK",
+          "INTERPOL"
+        ]
+      },
+      "health": {
+        "component": "health",
+        "score": 90,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "TB certificate present and valid where required.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W10",
+            "rule_name": "TB Test Certificate",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "TB certificate present from IOM Migration Health Assessment Centre, China."
+          }
+        ],
+        "extraction_sources": [
+          "TB_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "document_quality": {
+        "component": "document_quality",
+        "score": 93,
+        "status": "ACCEPTABLE",
+        "confidence": 0.87,
+        "status_description": "All required documents are legible and extracted.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U05",
+            "rule_name": "Document Extraction Confidence",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold."
+          },
+          {
+            "rule_id": "RULE-W13",
+            "rule_name": "Application Completeness",
+            "result": "PASS",
+            "severity": "ADVISORY",
+            "details": "All required Skilled Worker document categories are present for initial review."
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT",
+          "EMPLOYMENT_LETTER",
+          "BANK_STATEMENT",
+          "DEGREE_CERTIFICATE",
+          "PAYSLIP",
+          "IELTS_CERTIFICATE",
+          "TB_CERTIFICATE",
+          "PHOTO"
+        ],
+        "external_check_types": []
+      },
+      "fraud_risk": {
+        "component": "fraud_risk",
+        "score": 88,
+        "status": "LOW_RISK",
+        "confidence": 0.82,
+        "raw_fraud_score": 0.12,
+        "status_description": "No document fraud signal above review threshold.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W14",
+            "rule_name": "Document Fraud Detection",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No critical fraud signal detected in document metadata, layout, cross-document consistency, or content plausibility."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": []
+      }
+    },
+    "source_channel": "govdirect",
+    "rule_results": [
+      {
+        "rule_id": "RULE-U01",
+        "rule_name": "Passport Validity",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Passport E6975465 issued by CN is valid until 2033-06-09; MRZ check passed.",
+        "evidence_refs": [
+          "document_extractions:PASSPORT",
+          "external_checks:PASSPORT_VERIFY"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U02",
+        "rule_name": "Biometric Verification",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "vac_in_person verification completed at VAC Birmingham - 103 Edmund Street, B3 2HJ; fingerprints and photograph captured.",
+        "evidence_refs": [
+          "submission_payload:biometric_verification"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U03",
+        "rule_name": "Sanctions Screening",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sanctions and adverse-media screening returned no hard block.",
+        "evidence_refs": [
+          "external_checks:WORLDCHECK"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U04",
+        "rule_name": "Duplicate Application Check",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No duplicate application was identified for passport, name/date of birth, or source reference.",
+        "evidence_refs": [
+          "submission_payload:applicant",
+          "source_reference"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U05",
+        "rule_name": "Document Extraction Confidence",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold.",
+        "evidence_refs": [
+          "document_extractions"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W01",
+        "rule_name": "CoS Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "CoS COS-2026-0094397 is assigned, unused, and within validity window.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.cosReferenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W02",
+        "rule_name": "Sponsor Licence Status",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sponsor The Laurels Care Home (THE-2022-5567) is A rated and active.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.sponsorLicenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W03",
+        "rule_name": "Salary Threshold - General",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "REVIEW_REQUIRED",
+        "severity": "MANDATORY",
+        "reasoning": "Salary sits exactly on or close to the applicable threshold (£54,700); officer should confirm no rounding or old-threshold treatment is being applied.",
+        "remediation": "Review source evidence and record officer rationale before final decision.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.annualIncome",
+          "document_extractions:EMPLOYMENT_LETTER",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W04",
+        "rule_name": "Salary Threshold - New Entrant",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "NOT_APPLICABLE",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant is not a new entrant; the general salary threshold route applies instead.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.isNewEntrant"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W05",
+        "rule_name": "SOC Code Eligibility",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "SOC 2134 (Programmers and software development professionals) is eligible for Skilled Worker sponsorship.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W06",
+        "rule_name": "Immigration Salary List Check",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "ADVISORY",
+        "reasoning": "Immigration Salary List check completed; standard threshold treatment applied unless explicitly stated by the route data.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W07",
+        "rule_name": "Job Skill Level",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Role Backend Engineer is treated as meeting the required skill level for SOC 2134.",
+        "evidence_refs": [
+          "document_extractions:DEGREE_CERTIFICATE",
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W08",
+        "rule_name": "English Language",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "English language evidence: IELTS_ACADEMIC overall score 8.5; B2 requirement met.",
+        "evidence_refs": [
+          "document_extractions:IELTS_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W09",
+        "rule_name": "Maintenance Funds",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,582.",
+        "evidence_refs": [
+          "document_extractions:BANK_STATEMENT"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W10",
+        "rule_name": "TB Test Certificate",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "TB certificate present from IOM Migration Health Assessment Centre, China.",
+        "evidence_refs": [
+          "document_extractions:TB_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W11",
+        "rule_name": "Criminal Record Disclosure",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue.",
+        "evidence_refs": [
+          "submission_payload:answers_criminalRecord",
+          "external_checks:INTERPOL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W12",
+        "rule_name": "Previous Immigration Compliance",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case.",
+        "evidence_refs": [
+          "submission_payload:answers_travelHistory",
+          "external_checks:BORDER_CONTROL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W13",
+        "rule_name": "Application Completeness",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "ADVISORY",
+        "reasoning": "All required Skilled Worker document categories are present for initial review.",
+        "evidence_refs": [
+          "documents",
+          "completeness.missing_or_insufficient"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W14",
+        "rule_name": "Document Fraud Detection",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No critical fraud signal detected in document metadata, layout, cross-document consistency, or content plausibility.",
+        "evidence_refs": [
+          "document_extractions",
+          "fraud_signals"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W15",
+        "rule_name": "Start Date Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.startDate"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "opa_results": [
+      {
+        "policy_id": "OPA-H01",
+        "policy_name": "Sanctions_WorldCheck_HardBlock",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H02",
+        "policy_name": "Passport_Verification",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H03",
+        "policy_name": "Interpol_SLTD",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H04",
+        "policy_name": "Auth_Session_Validation",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H05",
+        "policy_name": "Document_Fraud_Score",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H06",
+        "policy_name": "Data_Residency",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S01",
+        "policy_name": "Biometric_Borderline",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S02",
+        "policy_name": "WorldCheck_Low_Medium",
+        "policy_type": "SOFT",
+        "outcome": "FLAG",
+        "denial_reasons": [
+          "Officer review required: exact_soc_going_rate."
+        ],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S03",
+        "policy_name": "Completeness_Low",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S04",
+        "policy_name": "Rapid_Submission_Bot",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S05",
+        "policy_name": "Enhanced_Scrutiny_Nationality",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S06",
+        "policy_name": "Infrastructure_Alerts",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "external_checks": [
+      {
+        "check_id": "chk-017-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": null,
+        "check_type": "WORLDCHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "categories_checked": [
+            "SANCTIONS",
+            "PEP",
+            "ADVERSE_MEDIA"
+          ],
+          "matches_found": []
+        },
+        "response_time_ms": 350,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-017-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-001-00017",
+        "check_type": "INTERPOL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_stolen": false,
+          "is_lost": false,
+          "is_revoked": false
+        },
+        "response_time_ms": 440,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-017-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-001-00017",
+        "check_type": "PASSPORT_VERIFY",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "document_number": "E6975465",
+          "overall_match": true,
+          "check_digit_valid": true,
+          "document_status": "VALID"
+        },
+        "response_time_ms": 530,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-017-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-001-00017",
+        "check_type": "BORDER_CONTROL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "has_overstay": false,
+          "has_deportation": false,
+          "has_refusal_at_border": false,
+          "previous_uk_refusals": false
+        },
+        "response_time_ms": 620,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-017-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": null,
+        "check_type": "DEVICE_IP_RISK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_vpn": false,
+          "is_tor": false,
+          "is_proxy": false,
+          "submission_velocity": "NORMAL"
+        },
+        "response_time_ms": 710,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-017-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": null,
+        "check_type": "EMAIL_PHONE_REPUTATION",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "email": "jing.li.0092@gmail.com",
+          "disposable_email": false,
+          "known_fraud_phone": false
+        },
+        "response_time_ms": 800,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-017-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": null,
+        "check_type": "COS_CHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "cos_reference_number": "COS-2026-0094397",
+          "sponsor_name": "The Laurels Care Home",
+          "sponsor_licence_number": "THE-2022-5567",
+          "sponsor_licence_status": "A_RATED",
+          "soc_code": "2134",
+          "job_title": "Backend Engineer",
+          "salary_on_cos_gbp": 54700,
+          "salary_matches_threshold": true,
+          "salary_matches_employment_letter": true
+        },
+        "response_time_ms": 890,
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "documents": [
+      {
+        "dis_document_id": "ho-doc-001-00017",
+        "document_type": "PASSPORT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PASSPORT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2435
+      },
+      {
+        "dis_document_id": "ho-doc-002-00017",
+        "document_type": "EMPLOYMENT_LETTER",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/EMPLOYMENT_LETTER_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2448
+      },
+      {
+        "dis_document_id": "ho-doc-003-00017",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/BANK_STATEMENT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2774
+      },
+      {
+        "dis_document_id": "ho-doc-004-00017",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/BANK_STATEMENT_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2769
+      },
+      {
+        "dis_document_id": "ho-doc-005-00017",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/BANK_STATEMENT_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2769
+      },
+      {
+        "dis_document_id": "ho-doc-006-00017",
+        "document_type": "DEGREE_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/DEGREE_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 1958
+      },
+      {
+        "dis_document_id": "ho-doc-007-00017",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PAYSLIP_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/PAYSLIP/PAYSLIP_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2252
+      },
+      {
+        "dis_document_id": "ho-doc-008-00017",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PAYSLIP_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/PAYSLIP/PAYSLIP_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2252
+      },
+      {
+        "dis_document_id": "ho-doc-009-00017",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PAYSLIP_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/PAYSLIP/PAYSLIP_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2251
+      },
+      {
+        "dis_document_id": "ho-doc-010-00017",
+        "document_type": "IELTS_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/IELTS_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2040
+      },
+      {
+        "dis_document_id": "ho-doc-011-00017",
+        "document_type": "TB_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/TB_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2058
+      },
+      {
+        "dis_document_id": "ho-doc-012-00017",
+        "document_type": "PHOTO",
+        "requirement_tier": "SUPPORTING",
+        "processing_tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PHOTO_001.jpg",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00017/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "UPLOADED",
+        "quality_score": 0.94,
+        "mime_type": "image/jpeg",
+        "file_size_bytes": 17622
+      }
+    ],
+    "document_extractions": [
+      {
+        "extraction_id": "extr-017-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-003-00017",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/BANK_STATEMENT_001.json"
+        },
+        "extracted_data": {
+          "bank_name": "NatWest",
+          "account_holder": "Jing Li",
+          "statement_month": "2026-01",
+          "account_number": "86466735",
+          "sort_code": "16-64-92",
+          "branch_name": "NatWest Glasgow City Branch",
+          "branch_address": "14 Blythswood Square, Glasgow G2 4AU",
+          "opening_balance": 3207,
+          "closing_balance": 4959.07,
+          "salary_credit": 3376.96,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-01-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 1198.89,
+              "credit": 0,
+              "balance": 2008.11
+            },
+            {
+              "date": "2026-01-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 180,
+              "credit": 0,
+              "balance": 1828.11
+            },
+            {
+              "date": "2026-01-10",
+              "description": "CARD TESCO STORES",
+              "debit": 60.83,
+              "credit": 0,
+              "balance": 1767.28
+            },
+            {
+              "date": "2026-01-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 125.35,
+              "credit": 0,
+              "balance": 1641.93
+            },
+            {
+              "date": "2026-01-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 45.84,
+              "credit": 0,
+              "balance": 1596.09
+            },
+            {
+              "date": "2026-01-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 13.98,
+              "credit": 0,
+              "balance": 1582.11
+            },
+            {
+              "date": "2026-01-31",
+              "description": "BACS THE LAURELS CARE HOME",
+              "debit": 0,
+              "credit": 3376.96,
+              "balance": 4959.07
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Jing Li",
+          "account_number_last4": "6735",
+          "sort_code": "16-64-92",
+          "bank_name": "NatWest",
+          "statement_month": "2026-01",
+          "opening_balance_gbp": 3207,
+          "closing_balance_gbp": 4959.07,
+          "lowest_balance_gbp": 1582.11,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 3376.96
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/BANK_STATEMENT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/BANK_STATEMENT_001.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-004-00017",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/BANK_STATEMENT_002.json"
+        },
+        "extracted_data": {
+          "bank_name": "NatWest",
+          "account_holder": "Jing Li",
+          "statement_month": "2026-02",
+          "account_number": "86466735",
+          "sort_code": "16-64-92",
+          "branch_name": "NatWest Croydon High Street Branch",
+          "branch_address": "40 High Street, Croydon CR9 1XP",
+          "opening_balance": 3418,
+          "closing_balance": 5301.85,
+          "salary_credit": 3376.96,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-02-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 1113.88,
+              "credit": 0,
+              "balance": 2304.12
+            },
+            {
+              "date": "2026-02-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 159.82,
+              "credit": 0,
+              "balance": 2144.3
+            },
+            {
+              "date": "2026-02-10",
+              "description": "CARD TESCO STORES",
+              "debit": 43.25,
+              "credit": 0,
+              "balance": 2101.05
+            },
+            {
+              "date": "2026-02-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 116.5,
+              "credit": 0,
+              "balance": 1984.55
+            },
+            {
+              "date": "2026-02-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 43.2,
+              "credit": 0,
+              "balance": 1941.35
+            },
+            {
+              "date": "2026-02-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 16.46,
+              "credit": 0,
+              "balance": 1924.89
+            },
+            {
+              "date": "2026-02-28",
+              "description": "BACS THE LAURELS CARE HOME",
+              "debit": 0,
+              "credit": 3376.96,
+              "balance": 5301.85
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Jing Li",
+          "account_number_last4": "6735",
+          "sort_code": "16-64-92",
+          "bank_name": "NatWest",
+          "statement_month": "2026-02",
+          "opening_balance_gbp": 3418,
+          "closing_balance_gbp": 5301.85,
+          "lowest_balance_gbp": 1924.89,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 3376.96
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/BANK_STATEMENT_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/BANK_STATEMENT_002.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-005-00017",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/BANK_STATEMENT_003.json"
+        },
+        "extracted_data": {
+          "bank_name": "NatWest",
+          "account_holder": "Jing Li",
+          "statement_month": "2026-03",
+          "account_number": "86466735",
+          "sort_code": "16-64-92",
+          "branch_name": "NatWest Glasgow City Branch",
+          "branch_address": "14 Blythswood Square, Glasgow G2 4AU",
+          "opening_balance": 3629,
+          "closing_balance": 5794.91,
+          "salary_credit": 3376.96,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-03-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 877.54,
+              "credit": 0,
+              "balance": 2751.46
+            },
+            {
+              "date": "2026-03-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 153.5,
+              "credit": 0,
+              "balance": 2597.96
+            },
+            {
+              "date": "2026-03-10",
+              "description": "CARD TESCO STORES",
+              "debit": 49.89,
+              "credit": 0,
+              "balance": 2548.07
+            },
+            {
+              "date": "2026-03-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 88,
+              "credit": 0,
+              "balance": 2460.07
+            },
+            {
+              "date": "2026-03-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 32.2,
+              "credit": 0,
+              "balance": 2427.87
+            },
+            {
+              "date": "2026-03-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 9.92,
+              "credit": 0,
+              "balance": 2417.95
+            },
+            {
+              "date": "2026-03-31",
+              "description": "BACS THE LAURELS CARE HOME",
+              "debit": 0,
+              "credit": 3376.96,
+              "balance": 5794.91
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Jing Li",
+          "account_number_last4": "6735",
+          "sort_code": "16-64-92",
+          "bank_name": "NatWest",
+          "statement_month": "2026-03",
+          "opening_balance_gbp": 3629,
+          "closing_balance_gbp": 5794.91,
+          "lowest_balance_gbp": 2417.95,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 3376.96
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/BANK_STATEMENT_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/BANK_STATEMENT_003.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-006-00017",
+        "document_type": "DEGREE_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/degree-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/DEGREE_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "institution": "Tsinghua University",
+          "student_name": "JING LI",
+          "degree_title": "Master of Science in Data Analytics",
+          "date_conferred": "2016-07-15",
+          "country": "CN"
+        },
+        "normalised_fields": {
+          "institution_name": "Tsinghua University",
+          "candidate_name": "JING LI",
+          "qualification_title": "Master of Science in Data Analytics",
+          "award_date": "2016-07-15",
+          "country_code": "CN",
+          "rqf_level_equivalent": 6
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/DEGREE_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/DEGREE_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-002-00017",
+        "document_type": "EMPLOYMENT_LETTER",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/employment-letter",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.93,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/EMPLOYMENT_LETTER_001.json"
+        },
+        "extracted_data": {
+          "letter_date": "2026-05-20",
+          "employer_name": "The Laurels Care Home",
+          "employee_name": "Jing Li",
+          "job_title": "Backend Engineer",
+          "soc_code": "2134",
+          "cos_reference": "COS-2026-0094397",
+          "start_date": "2026-07-01",
+          "annual_salary": 54700,
+          "monthly_gross_pay": 4558.33,
+          "hours_per_week": 37.5,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "normalised_fields": {
+          "employer_name": "The Laurels Care Home",
+          "job_title": "Backend Engineer",
+          "soc_code": "2134",
+          "cos_reference_number": "COS-2026-0094397",
+          "start_date": "2026-07-01",
+          "annual_salary_gbp": 54700,
+          "monthly_gross_pay_gbp": 4558.33,
+          "hours_per_week": 37.5,
+          "letter_date": "2026-05-20",
+          "salary_matches_cos": true,
+          "employer_matches_cos": true,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/EMPLOYMENT_LETTER_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/EMPLOYMENT_LETTER_001.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-010-00017",
+        "document_type": "IELTS_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/ielts-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/IELTS_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "candidate_name": "Jing Li",
+          "candidate_number": "744218",
+          "test_date": "2026-02-18",
+          "overall_band_score": 8.5,
+          "listening_score": 8,
+          "reading_score": 8.5,
+          "writing_score": 8,
+          "speaking_score": 9,
+          "test_reference_number": "26CN458816LI"
+        },
+        "normalised_fields": {
+          "test_type": "IELTS_ACADEMIC",
+          "candidate_name": "Jing Li",
+          "test_date": "2026-02-18",
+          "overall_score": 8.5,
+          "listening_score": 8,
+          "reading_score": 8.5,
+          "writing_score": 8,
+          "speaking_score": 9,
+          "test_reference_number": "26CN458816LI",
+          "meets_b2_minimum": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/IELTS_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/IELTS_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-001-00017",
+        "document_type": "PASSPORT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_ID_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/passport",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/PASSPORT_001.json"
+        },
+        "extracted_data": {
+          "full_name": "LI JING",
+          "surname": "LI",
+          "given_names": "JING",
+          "date_of_birth": "1971-10-09",
+          "gender": "F",
+          "nationality": "CHN",
+          "passport_number": "E6975465",
+          "date_of_issue": "2023-06-09",
+          "date_of_expiry": "2033-06-09",
+          "issuing_country": "CHN",
+          "mrz_line1": "P<CHNLI<<JING<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+          "mrz_line2": "E6975465<0CHN7110092F3306091<<<<<<<<<<<<<<06"
+        },
+        "normalised_fields": {
+          "document_number": "E6975465",
+          "surname": "LI",
+          "given_names": "JING",
+          "full_name": "LI JING",
+          "date_of_birth": "1971-10-09",
+          "nationality_code": "CHN",
+          "sex": "F",
+          "issue_date": "2023-06-09",
+          "expiry_date": "2033-06-09",
+          "issuing_country_code": "CHN",
+          "mrz_valid": true,
+          "mrz_checksum_passed": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          },
+          "mrz_check": {
+            "score": 0,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PASSPORT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/PASSPORT_001.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-08",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-007-00017",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/PAYSLIP_001.json"
+        },
+        "extracted_data": {
+          "employer_name": "The Laurels Care Home",
+          "employee_name": "Jing Li",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay": 4558.33,
+          "annualized_gross_pay": 54699.96,
+          "tax_deducted": 702.17,
+          "ni_deducted": 251.28,
+          "pension_deducted": 227.92,
+          "net_pay": 3376.96,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000092",
+          "tax_code": "1257L",
+          "ni_number": "EF116697C"
+        },
+        "normalised_fields": {
+          "employer_name": "The Laurels Care Home",
+          "employee_name": "Jing Li",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay_gbp": 4558.33,
+          "annualized_gross_pay_gbp": 54699.96,
+          "net_pay_gbp": 3376.96,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000092",
+          "tax_code": "1257L",
+          "ni_number": "EF116697C"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PAYSLIP_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/PAYSLIP_001.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-09",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-008-00017",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/PAYSLIP_002.json"
+        },
+        "extracted_data": {
+          "employer_name": "The Laurels Care Home",
+          "employee_name": "Jing Li",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay": 4558.33,
+          "annualized_gross_pay": 54699.96,
+          "tax_deducted": 702.17,
+          "ni_deducted": 251.28,
+          "pension_deducted": 227.92,
+          "net_pay": 3376.96,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000092",
+          "tax_code": "1257L",
+          "ni_number": "EF116697C"
+        },
+        "normalised_fields": {
+          "employer_name": "The Laurels Care Home",
+          "employee_name": "Jing Li",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay_gbp": 4558.33,
+          "annualized_gross_pay_gbp": 54699.96,
+          "net_pay_gbp": 3376.96,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000092",
+          "tax_code": "1257L",
+          "ni_number": "EF116697C"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PAYSLIP_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/PAYSLIP_002.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-10",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-009-00017",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.93,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/PAYSLIP_003.json"
+        },
+        "extracted_data": {
+          "employer_name": "The Laurels Care Home",
+          "employee_name": "Jing Li",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay": 4558.33,
+          "annualized_gross_pay": 54699.96,
+          "tax_deducted": 702.17,
+          "ni_deducted": 251.28,
+          "pension_deducted": 227.92,
+          "net_pay": 3376.96,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000092",
+          "tax_code": "1257L",
+          "ni_number": "EF116697C"
+        },
+        "normalised_fields": {
+          "employer_name": "The Laurels Care Home",
+          "employee_name": "Jing Li",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay_gbp": 4558.33,
+          "annualized_gross_pay_gbp": 54699.96,
+          "net_pay_gbp": 3376.96,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000092",
+          "tax_code": "1257L",
+          "ni_number": "EF116697C"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PAYSLIP_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/PAYSLIP_003.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-11",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-012-00017",
+        "document_type": "PHOTO",
+        "tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/photo",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.9,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/PHOTO_001.json"
+        },
+        "extracted_data": {
+          "applicant_name": "Jing Li",
+          "filename": "PHOTO_001.jpg",
+          "image_label": "PASSPORT PHOTO - SYNTHETIC",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "normalised_fields": {
+          "applicant_name": "Jing Li",
+          "filename": "PHOTO_001.jpg",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "fraud_score": null,
+        "fraud_status": null,
+        "fraud_signals": null,
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/PHOTO_001.jpg",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/PHOTO_001.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-017-12",
+        "dis_application_id": "dis-ho-sw-deep-2026-00017",
+        "document_id": "ho-doc-011-00017",
+        "document_type": "TB_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/tb-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00017/TB_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "clinic_name": "IOM Migration Health Assessment Centre, China",
+          "doctor_name": "Dr Lin Chen",
+          "applicant_name": "Jing Li",
+          "date_of_birth": "1971-10-09",
+          "test_date": "2026-03-10",
+          "result": "clear",
+          "valid_until": "2026-09-10"
+        },
+        "normalised_fields": {
+          "clinic_name": "IOM Migration Health Assessment Centre, China",
+          "doctor_name": "Dr Lin Chen",
+          "applicant_name": "Jing Li",
+          "date_of_birth": "1971-10-09",
+          "test_date": "2026-03-10",
+          "result": "clear",
+          "valid_until": "2026-09-10"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00017/TB_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00017/TB_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T14:39:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "llm_summary": "Jing Li is a CN national applying for Skilled Worker permission sponsored by The Laurels Care Home for Backend Engineer (SOC 2134). The application states salary £54,700 against the SOC going rate £54,700 and start date 2026-07-01. DIS routes the case to manual review because exact_soc_going_rate. The officer should inspect the linked evidence and use the RFI flow where further evidence is needed.",
+    "queue_state": "READY_FOR_REVIEW",
+    "source_application_id": "HO-SW-DEEP-2026-00017",
+    "source_reference": "GV-DEEP-00017",
+    "dis_application_id": "dis-ho-sw-deep-2026-00017",
+    "submitted_at": "2026-06-04T14:39:00Z"
   }
 }

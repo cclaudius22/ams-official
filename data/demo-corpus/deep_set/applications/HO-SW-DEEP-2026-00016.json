@@ -56,8 +56,8 @@
       "sponsorStatus": "ACTIVE",
       "sponsorRating": "A",
       "jobTitle": "IT quality and testing professionals",
-      "annualIncome": 41700.0,
-      "monthlyGrossPay": 3475.0,
+      "annualIncome": 41700,
+      "monthlyGrossPay": 3475,
       "cosReferenceNumber": "COS-2026-2177451",
       "cosIssueDate": "2026-04-15",
       "cosExpiryDate": "2026-09-15",
@@ -81,8 +81,8 @@
       "testType": "IELTS_ACADEMIC",
       "testReferenceNumber": "26IN951497SIN",
       "overallScore": 7.5,
-      "speakingScore": 8.0,
-      "listeningScore": 7.0,
+      "speakingScore": 8,
+      "listeningScore": 7,
       "readingScore": 7.5,
       "writingScore": 7.5,
       "testDate": "2026-02-18"
@@ -405,10 +405,2041 @@
     }
   ],
   "ov_assessment": {
-    "overall_risk": "MEDIUM",
-    "intent_risk": "MEDIUM",
-    "rootedness_risk": "MEDIUM",
-    "recommendation_alignment": "caseworker_judgement_required",
-    "summary": "Scenario-consistent OV assessment derived from corpus ground truth for demo review."
+    "model_version": "ov-risk-v0.9-demo-corpus",
+    "overall": {
+      "risk_band": "MEDIUM",
+      "score": 68,
+      "summary": "Karan Singh presents a medium-risk review case. The core route can be assessed, but exact_general_salary_floor needs officer attention before final decision."
+    },
+    "recommendation": "Proceed to officer review - resolve the soft factor before deciding.",
+    "dimensions": [
+      {
+        "key": "rootedness",
+        "label": "Rootedness",
+        "score": 72,
+        "status": "Moderate ties",
+        "reasoning": "Identity and travel history are coherent, but the flagged item tempers confidence until reviewed.",
+        "factors": [
+          "Route issue tempers confidence",
+          "Identity evidence present"
+        ]
+      },
+      {
+        "key": "intent",
+        "label": "Intent",
+        "score": 66,
+        "status": "Needs confirmation",
+        "reasoning": "Intent is plausible, but exact_general_salary_floor needs confirmation.",
+        "factors": [
+          "Salary evidence issue",
+          "CoS review required"
+        ]
+      },
+      {
+        "key": "credibility",
+        "label": "Credibility",
+        "score": 64,
+        "status": "Review advised",
+        "reasoning": "Credibility is mostly supported, with a tempering factor: exact_general_salary_floor.",
+        "factors": [
+          "Soft flag",
+          "Evidence review required"
+        ]
+      }
+    ]
+  },
+  "dis_application_view": {
+    "recommendation": {
+      "recommendation": "MANUAL_REVIEW",
+      "recommendation_reason": "Karan Singh requires manual review: exact_general_salary_floor.",
+      "caseworker_summary": "Karan Singh requires manual review: exact_general_salary_floor.",
+      "evaluation_breakdown": {
+        "drools_evaluation": "18 of 20 rules satisfied; 0 failed; 1 require review; 1 not applicable.",
+        "external_checks_evaluation": "7 of 7 external checks clear.",
+        "opa_evaluation": "11 of 12 OPA policies passed/allowed; 1 denied or flagged."
+      },
+      "hard_fail_rules": [],
+      "soft_flag_rules": [
+        "RULE-W03",
+        "OPA-S02"
+      ],
+      "rules_summary": {
+        "rules": {
+          "drools_rules_evaluated": 20,
+          "drools_rules_passed": 18,
+          "drools_rules_failed": 0,
+          "drools_rules_not_applicable": 1
+        },
+        "opa_policies": {
+          "opa_total_evaluated": 12,
+          "opa_total_passed": 11,
+          "opa_total_failed": 1,
+          "opa_hard_evaluated": 6,
+          "opa_hard_passed": 6,
+          "opa_hard_failed": 0,
+          "opa_soft_evaluated": 6,
+          "opa_soft_passed": 5,
+          "opa_soft_failed": 1
+        },
+        "external_checks": {
+          "external_checks_evaluated": 7,
+          "external_checks_passed": 7,
+          "external_checks_failed": 0,
+          "external_checks_error": 0
+        }
+      },
+      "completeness_score": 83,
+      "completeness_status": "COMPLETE",
+      "generated_at": "2026-06-29T09:00:00Z",
+      "recommendation_at": "2026-06-29T09:00:00Z",
+      "drools_version": [
+        {
+          "rule_file": "universal/universal_rules.drl",
+          "rule_version_id": "rv-demo-u-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "rule_file": "skilled_worker/skilled_worker_rules.drl",
+          "rule_version_id": "rv-demo-sw-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "opa_version": [
+        {
+          "policy_file": "hard/hard_policies.rego",
+          "policy_version_id": "pv-demo-hard-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "policy_file": "soft/soft_policies.rego",
+          "policy_version_id": "pv-demo-soft-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "note": "This is a system recommendation to assist caseworker decision-making. Final determination rests with the authorised decision-maker."
+    },
+    "component_scores": {
+      "passport": {
+        "component": "passport",
+        "score": 95,
+        "status": "VALID",
+        "confidence": 0.97,
+        "status_description": "Passport P2727545 valid until 2034-07-19; MRZ check passed.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U01",
+            "rule_name": "Passport Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Passport P2727545 issued by IN is valid until 2034-07-19; MRZ check passed."
+          }
+        ],
+        "opa_results": [
+          {
+            "policy_id": "OPA-H02",
+            "policy_name": "Passport_Verification",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          },
+          {
+            "policy_id": "OPA-H03",
+            "policy_name": "Interpol_SLTD",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT"
+        ],
+        "external_check_types": [
+          "PASSPORT_VERIFY",
+          "INTERPOL",
+          "BORDER_CONTROL"
+        ]
+      },
+      "financial": {
+        "component": "financial",
+        "score": 90,
+        "status": "SUFFICIENT",
+        "confidence": 0.92,
+        "status_description": "Bank evidence reviewed; lowest observed balance £1,963.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W09",
+            "rule_name": "Maintenance Funds",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,963."
+          }
+        ],
+        "extraction_sources": [
+          "BANK_STATEMENT"
+        ],
+        "external_check_types": []
+      },
+      "employment": {
+        "component": "employment",
+        "score": 68,
+        "status": "REVIEW_REQUIRED",
+        "confidence": 0.94,
+        "status_description": "Salary £41,700 assessed against general and SOC 2136 thresholds.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W01",
+            "rule_name": "CoS Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "CoS COS-2026-2177451 is assigned, unused, and within validity window."
+          },
+          {
+            "rule_id": "RULE-W02",
+            "rule_name": "Sponsor Licence Status",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Sponsor My India Ltd TA Mother India (MYX-2024-2087) is A rated and active."
+          },
+          {
+            "rule_id": "RULE-W03",
+            "rule_name": "Salary Threshold - General",
+            "result": "FAIL",
+            "severity": "MANDATORY",
+            "details": "Salary sits exactly on or close to the applicable threshold (£41,700); officer should confirm no rounding or old-threshold treatment is being applied.",
+            "remediation": "Review source evidence and record officer rationale before final decision."
+          },
+          {
+            "rule_id": "RULE-W15",
+            "rule_name": "Start Date Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": [
+          "COS_CHECK"
+        ]
+      },
+      "english_language": {
+        "component": "english_language",
+        "score": 91,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "IELTS_ACADEMIC overall 7.5; B2 requirement met.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W08",
+            "rule_name": "English Language",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "English language evidence: IELTS_ACADEMIC overall score 7.5; B2 requirement met."
+          }
+        ],
+        "extraction_sources": [
+          "IELTS_CERTIFICATE",
+          "DEGREE_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "immigration_compliance": {
+        "component": "immigration_compliance",
+        "score": 96,
+        "status": "COMPLIANT",
+        "confidence": 0.98,
+        "status_description": "No adverse immigration compliance history in the corpus case.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W12",
+            "rule_name": "Previous Immigration Compliance",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "BORDER_CONTROL"
+        ]
+      },
+      "criminal_record": {
+        "component": "criminal_record",
+        "score": 95,
+        "status": "CLEAR",
+        "confidence": 0.98,
+        "status_description": "No convictions declared and no Interpol hard match.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W11",
+            "rule_name": "Criminal Record Disclosure",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "WORLDCHECK",
+          "INTERPOL"
+        ]
+      },
+      "health": {
+        "component": "health",
+        "score": 90,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "TB certificate present and valid where required.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W10",
+            "rule_name": "TB Test Certificate",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "TB certificate present from IOM Migration Health Assessment Centre, India."
+          }
+        ],
+        "extraction_sources": [
+          "TB_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "document_quality": {
+        "component": "document_quality",
+        "score": 93,
+        "status": "ACCEPTABLE",
+        "confidence": 0.87,
+        "status_description": "All required documents are legible and extracted.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U05",
+            "rule_name": "Document Extraction Confidence",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold."
+          },
+          {
+            "rule_id": "RULE-W13",
+            "rule_name": "Application Completeness",
+            "result": "PASS",
+            "severity": "ADVISORY",
+            "details": "All required Skilled Worker document categories are present for initial review."
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT",
+          "EMPLOYMENT_LETTER",
+          "BANK_STATEMENT",
+          "DEGREE_CERTIFICATE",
+          "PAYSLIP",
+          "IELTS_CERTIFICATE",
+          "TB_CERTIFICATE",
+          "PHOTO"
+        ],
+        "external_check_types": []
+      },
+      "fraud_risk": {
+        "component": "fraud_risk",
+        "score": 88,
+        "status": "LOW_RISK",
+        "confidence": 0.82,
+        "raw_fraud_score": 0.12,
+        "status_description": "No document fraud signal above review threshold.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W14",
+            "rule_name": "Document Fraud Detection",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No critical fraud signal detected in document metadata, layout, cross-document consistency, or content plausibility."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": []
+      }
+    },
+    "source_channel": "govdirect",
+    "rule_results": [
+      {
+        "rule_id": "RULE-U01",
+        "rule_name": "Passport Validity",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Passport P2727545 issued by IN is valid until 2034-07-19; MRZ check passed.",
+        "evidence_refs": [
+          "document_extractions:PASSPORT",
+          "external_checks:PASSPORT_VERIFY"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U02",
+        "rule_name": "Biometric Verification",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "vac_in_person verification completed at VAC Manchester - 1 First Street, M15 4FN; fingerprints and photograph captured.",
+        "evidence_refs": [
+          "submission_payload:biometric_verification"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U03",
+        "rule_name": "Sanctions Screening",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sanctions and adverse-media screening returned no hard block.",
+        "evidence_refs": [
+          "external_checks:WORLDCHECK"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U04",
+        "rule_name": "Duplicate Application Check",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No duplicate application was identified for passport, name/date of birth, or source reference.",
+        "evidence_refs": [
+          "submission_payload:applicant",
+          "source_reference"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U05",
+        "rule_name": "Document Extraction Confidence",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold.",
+        "evidence_refs": [
+          "document_extractions"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W01",
+        "rule_name": "CoS Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "CoS COS-2026-2177451 is assigned, unused, and within validity window.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.cosReferenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W02",
+        "rule_name": "Sponsor Licence Status",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sponsor My India Ltd TA Mother India (MYX-2024-2087) is A rated and active.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.sponsorLicenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W03",
+        "rule_name": "Salary Threshold - General",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "REVIEW_REQUIRED",
+        "severity": "MANDATORY",
+        "reasoning": "Salary sits exactly on or close to the applicable threshold (£41,700); officer should confirm no rounding or old-threshold treatment is being applied.",
+        "remediation": "Review source evidence and record officer rationale before final decision.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.annualIncome",
+          "document_extractions:EMPLOYMENT_LETTER",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W04",
+        "rule_name": "Salary Threshold - New Entrant",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "NOT_APPLICABLE",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant is not a new entrant; the general salary threshold route applies instead.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.isNewEntrant"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W05",
+        "rule_name": "SOC Code Eligibility",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "SOC 2136 (IT quality and testing professionals) is eligible for Skilled Worker sponsorship.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W06",
+        "rule_name": "Immigration Salary List Check",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "ADVISORY",
+        "reasoning": "Immigration Salary List check completed; standard threshold treatment applied unless explicitly stated by the route data.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W07",
+        "rule_name": "Job Skill Level",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Role IT quality and testing professionals is treated as meeting the required skill level for SOC 2136.",
+        "evidence_refs": [
+          "document_extractions:DEGREE_CERTIFICATE",
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W08",
+        "rule_name": "English Language",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "English language evidence: IELTS_ACADEMIC overall score 7.5; B2 requirement met.",
+        "evidence_refs": [
+          "document_extractions:IELTS_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W09",
+        "rule_name": "Maintenance Funds",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,963.",
+        "evidence_refs": [
+          "document_extractions:BANK_STATEMENT"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W10",
+        "rule_name": "TB Test Certificate",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "TB certificate present from IOM Migration Health Assessment Centre, India.",
+        "evidence_refs": [
+          "document_extractions:TB_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W11",
+        "rule_name": "Criminal Record Disclosure",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue.",
+        "evidence_refs": [
+          "submission_payload:answers_criminalRecord",
+          "external_checks:INTERPOL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W12",
+        "rule_name": "Previous Immigration Compliance",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case.",
+        "evidence_refs": [
+          "submission_payload:answers_travelHistory",
+          "external_checks:BORDER_CONTROL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W13",
+        "rule_name": "Application Completeness",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "ADVISORY",
+        "reasoning": "All required Skilled Worker document categories are present for initial review.",
+        "evidence_refs": [
+          "documents",
+          "completeness.missing_or_insufficient"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W14",
+        "rule_name": "Document Fraud Detection",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No critical fraud signal detected in document metadata, layout, cross-document consistency, or content plausibility.",
+        "evidence_refs": [
+          "document_extractions",
+          "fraud_signals"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W15",
+        "rule_name": "Start Date Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.startDate"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "opa_results": [
+      {
+        "policy_id": "OPA-H01",
+        "policy_name": "Sanctions_WorldCheck_HardBlock",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H02",
+        "policy_name": "Passport_Verification",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H03",
+        "policy_name": "Interpol_SLTD",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H04",
+        "policy_name": "Auth_Session_Validation",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H05",
+        "policy_name": "Document_Fraud_Score",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H06",
+        "policy_name": "Data_Residency",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S01",
+        "policy_name": "Biometric_Borderline",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S02",
+        "policy_name": "WorldCheck_Low_Medium",
+        "policy_type": "SOFT",
+        "outcome": "FLAG",
+        "denial_reasons": [
+          "Officer review required: exact_general_salary_floor."
+        ],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S03",
+        "policy_name": "Completeness_Low",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S04",
+        "policy_name": "Rapid_Submission_Bot",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S05",
+        "policy_name": "Enhanced_Scrutiny_Nationality",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S06",
+        "policy_name": "Infrastructure_Alerts",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "external_checks": [
+      {
+        "check_id": "chk-016-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": null,
+        "check_type": "WORLDCHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "categories_checked": [
+            "SANCTIONS",
+            "PEP",
+            "ADVERSE_MEDIA"
+          ],
+          "matches_found": []
+        },
+        "response_time_ms": 350,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-016-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-001-00016",
+        "check_type": "INTERPOL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_stolen": false,
+          "is_lost": false,
+          "is_revoked": false
+        },
+        "response_time_ms": 440,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-016-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-001-00016",
+        "check_type": "PASSPORT_VERIFY",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "document_number": "P2727545",
+          "overall_match": true,
+          "check_digit_valid": true,
+          "document_status": "VALID"
+        },
+        "response_time_ms": 530,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-016-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-001-00016",
+        "check_type": "BORDER_CONTROL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "has_overstay": false,
+          "has_deportation": false,
+          "has_refusal_at_border": false,
+          "previous_uk_refusals": false
+        },
+        "response_time_ms": 620,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-016-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": null,
+        "check_type": "DEVICE_IP_RISK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_vpn": false,
+          "is_tor": false,
+          "is_proxy": false,
+          "submission_velocity": "NORMAL"
+        },
+        "response_time_ms": 710,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-016-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": null,
+        "check_type": "EMAIL_PHONE_REPUTATION",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "email": "karan.singh.0091@protonmail.com",
+          "disposable_email": false,
+          "known_fraud_phone": false
+        },
+        "response_time_ms": 800,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-016-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": null,
+        "check_type": "COS_CHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "cos_reference_number": "COS-2026-2177451",
+          "sponsor_name": "My India Ltd TA Mother India",
+          "sponsor_licence_number": "MYX-2024-2087",
+          "sponsor_licence_status": "A_RATED",
+          "soc_code": "2136",
+          "job_title": "IT quality and testing professionals",
+          "salary_on_cos_gbp": 41700,
+          "salary_matches_threshold": true,
+          "salary_matches_employment_letter": true
+        },
+        "response_time_ms": 890,
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "documents": [
+      {
+        "dis_document_id": "ho-doc-001-00016",
+        "document_type": "PASSPORT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PASSPORT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2439
+      },
+      {
+        "dis_document_id": "ho-doc-002-00016",
+        "document_type": "EMPLOYMENT_LETTER",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/EMPLOYMENT_LETTER_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2436
+      },
+      {
+        "dis_document_id": "ho-doc-003-00016",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/BANK_STATEMENT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2776
+      },
+      {
+        "dis_document_id": "ho-doc-004-00016",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/BANK_STATEMENT_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2783
+      },
+      {
+        "dis_document_id": "ho-doc-005-00016",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/BANK_STATEMENT_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2766
+      },
+      {
+        "dis_document_id": "ho-doc-006-00016",
+        "document_type": "DEGREE_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/DEGREE_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 1958
+      },
+      {
+        "dis_document_id": "ho-doc-007-00016",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PAYSLIP_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/PAYSLIP/PAYSLIP_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2257
+      },
+      {
+        "dis_document_id": "ho-doc-008-00016",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PAYSLIP_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/PAYSLIP/PAYSLIP_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2257
+      },
+      {
+        "dis_document_id": "ho-doc-009-00016",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PAYSLIP_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/PAYSLIP/PAYSLIP_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2254
+      },
+      {
+        "dis_document_id": "ho-doc-010-00016",
+        "document_type": "IELTS_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/IELTS_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2047
+      },
+      {
+        "dis_document_id": "ho-doc-011-00016",
+        "document_type": "TB_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/TB_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2070
+      },
+      {
+        "dis_document_id": "ho-doc-012-00016",
+        "document_type": "PHOTO",
+        "requirement_tier": "SUPPORTING",
+        "processing_tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PHOTO_001.jpg",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00016/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "UPLOADED",
+        "quality_score": 0.94,
+        "mime_type": "image/jpeg",
+        "file_size_bytes": 17622
+      }
+    ],
+    "document_extractions": [
+      {
+        "extraction_id": "extr-016-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-003-00016",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/BANK_STATEMENT_001.json"
+        },
+        "extracted_data": {
+          "bank_name": "RBC",
+          "account_holder": "Karan Singh",
+          "statement_month": "2026-01",
+          "account_number": "67990261",
+          "sort_code": "83-99-15",
+          "branch_name": "RBC London City Branch",
+          "branch_address": "100 Bishopsgate, London EC2N 4AA",
+          "opening_balance": 3194,
+          "closing_balance": 4584.85,
+          "salary_credit": 2621.59,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-01-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 881.44,
+              "credit": 0,
+              "balance": 2312.56
+            },
+            {
+              "date": "2026-01-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 119.89,
+              "credit": 0,
+              "balance": 2192.67
+            },
+            {
+              "date": "2026-01-10",
+              "description": "CARD TESCO STORES",
+              "debit": 87.88,
+              "credit": 0,
+              "balance": 2104.79
+            },
+            {
+              "date": "2026-01-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 97.76,
+              "credit": 0,
+              "balance": 2007.03
+            },
+            {
+              "date": "2026-01-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 34.31,
+              "credit": 0,
+              "balance": 1972.72
+            },
+            {
+              "date": "2026-01-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 9.46,
+              "credit": 0,
+              "balance": 1963.26
+            },
+            {
+              "date": "2026-01-31",
+              "description": "BACS MY INDIA LTD TA MOTHER INDIA",
+              "debit": 0,
+              "credit": 2621.59,
+              "balance": 4584.85
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Karan Singh",
+          "account_number_last4": "0261",
+          "sort_code": "83-99-15",
+          "bank_name": "RBC",
+          "statement_month": "2026-01",
+          "opening_balance_gbp": 3194,
+          "closing_balance_gbp": 4584.85,
+          "lowest_balance_gbp": 1963.26,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2621.59
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/BANK_STATEMENT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/BANK_STATEMENT_001.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-004-00016",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/BANK_STATEMENT_002.json"
+        },
+        "extracted_data": {
+          "bank_name": "RBC",
+          "account_holder": "Karan Singh",
+          "statement_month": "2026-02",
+          "account_number": "67990261",
+          "sort_code": "83-99-15",
+          "branch_name": "RBC Manchester Corporate Branch",
+          "branch_address": "1 Spinningfields Square, Manchester M3 3AP",
+          "opening_balance": 3405,
+          "closing_balance": 4640.74,
+          "salary_credit": 2621.59,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-02-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 980.09,
+              "credit": 0,
+              "balance": 2424.91
+            },
+            {
+              "date": "2026-02-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 161.78,
+              "credit": 0,
+              "balance": 2263.13
+            },
+            {
+              "date": "2026-02-10",
+              "description": "CARD TESCO STORES",
+              "debit": 60.08,
+              "credit": 0,
+              "balance": 2203.05
+            },
+            {
+              "date": "2026-02-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 93.88,
+              "credit": 0,
+              "balance": 2109.17
+            },
+            {
+              "date": "2026-02-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 55.54,
+              "credit": 0,
+              "balance": 2053.63
+            },
+            {
+              "date": "2026-02-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 34.48,
+              "credit": 0,
+              "balance": 2019.15
+            },
+            {
+              "date": "2026-02-28",
+              "description": "BACS MY INDIA LTD TA MOTHER INDIA",
+              "debit": 0,
+              "credit": 2621.59,
+              "balance": 4640.74
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Karan Singh",
+          "account_number_last4": "0261",
+          "sort_code": "83-99-15",
+          "bank_name": "RBC",
+          "statement_month": "2026-02",
+          "opening_balance_gbp": 3405,
+          "closing_balance_gbp": 4640.74,
+          "lowest_balance_gbp": 2019.15,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2621.59
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/BANK_STATEMENT_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/BANK_STATEMENT_002.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-005-00016",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/BANK_STATEMENT_003.json"
+        },
+        "extracted_data": {
+          "bank_name": "RBC",
+          "account_holder": "Karan Singh",
+          "statement_month": "2026-03",
+          "account_number": "67990261",
+          "sort_code": "83-99-15",
+          "branch_name": "RBC London City Branch",
+          "branch_address": "100 Bishopsgate, London EC2N 4AA",
+          "opening_balance": 3616,
+          "closing_balance": 4691.47,
+          "salary_credit": 2621.59,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-03-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 1191.08,
+              "credit": 0,
+              "balance": 2424.92
+            },
+            {
+              "date": "2026-03-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 135.08,
+              "credit": 0,
+              "balance": 2289.84
+            },
+            {
+              "date": "2026-03-10",
+              "description": "CARD TESCO STORES",
+              "debit": 47.08,
+              "credit": 0,
+              "balance": 2242.76
+            },
+            {
+              "date": "2026-03-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 128.18,
+              "credit": 0,
+              "balance": 2114.58
+            },
+            {
+              "date": "2026-03-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 19.39,
+              "credit": 0,
+              "balance": 2095.19
+            },
+            {
+              "date": "2026-03-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 25.31,
+              "credit": 0,
+              "balance": 2069.88
+            },
+            {
+              "date": "2026-03-31",
+              "description": "BACS MY INDIA LTD TA MOTHER INDIA",
+              "debit": 0,
+              "credit": 2621.59,
+              "balance": 4691.47
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Karan Singh",
+          "account_number_last4": "0261",
+          "sort_code": "83-99-15",
+          "bank_name": "RBC",
+          "statement_month": "2026-03",
+          "opening_balance_gbp": 3616,
+          "closing_balance_gbp": 4691.47,
+          "lowest_balance_gbp": 2069.88,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2621.59
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/BANK_STATEMENT_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/BANK_STATEMENT_003.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-006-00016",
+        "document_type": "DEGREE_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/degree-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/DEGREE_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "institution": "University of Mumbai",
+          "student_name": "KARAN SINGH",
+          "degree_title": "Bachelor of Engineering",
+          "date_conferred": "2015-07-15",
+          "country": "IN"
+        },
+        "normalised_fields": {
+          "institution_name": "University of Mumbai",
+          "candidate_name": "KARAN SINGH",
+          "qualification_title": "Bachelor of Engineering",
+          "award_date": "2015-07-15",
+          "country_code": "IN",
+          "rqf_level_equivalent": 6
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/DEGREE_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/DEGREE_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-002-00016",
+        "document_type": "EMPLOYMENT_LETTER",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/employment-letter",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.93,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/EMPLOYMENT_LETTER_001.json"
+        },
+        "extracted_data": {
+          "letter_date": "2026-05-20",
+          "employer_name": "My India Ltd TA Mother India",
+          "employee_name": "Karan Singh",
+          "job_title": "IT quality and testing professionals",
+          "soc_code": "2136",
+          "cos_reference": "COS-2026-2177451",
+          "start_date": "2026-07-01",
+          "annual_salary": 41700,
+          "monthly_gross_pay": 3475,
+          "hours_per_week": 37.5,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "normalised_fields": {
+          "employer_name": "My India Ltd TA Mother India",
+          "job_title": "IT quality and testing professionals",
+          "soc_code": "2136",
+          "cos_reference_number": "COS-2026-2177451",
+          "start_date": "2026-07-01",
+          "annual_salary_gbp": 41700,
+          "monthly_gross_pay_gbp": 3475,
+          "hours_per_week": 37.5,
+          "letter_date": "2026-05-20",
+          "salary_matches_cos": true,
+          "employer_matches_cos": true,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/EMPLOYMENT_LETTER_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/EMPLOYMENT_LETTER_001.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-010-00016",
+        "document_type": "IELTS_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/ielts-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/IELTS_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "candidate_name": "Karan Singh",
+          "candidate_number": "804232",
+          "test_date": "2026-02-18",
+          "overall_band_score": 7.5,
+          "listening_score": 7,
+          "reading_score": 7.5,
+          "writing_score": 7.5,
+          "speaking_score": 8,
+          "test_reference_number": "26IN951497SIN"
+        },
+        "normalised_fields": {
+          "test_type": "IELTS_ACADEMIC",
+          "candidate_name": "Karan Singh",
+          "test_date": "2026-02-18",
+          "overall_score": 7.5,
+          "listening_score": 7,
+          "reading_score": 7.5,
+          "writing_score": 7.5,
+          "speaking_score": 8,
+          "test_reference_number": "26IN951497SIN",
+          "meets_b2_minimum": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/IELTS_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/IELTS_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-001-00016",
+        "document_type": "PASSPORT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_ID_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/passport",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/PASSPORT_001.json"
+        },
+        "extracted_data": {
+          "full_name": "SINGH KARAN",
+          "surname": "SINGH",
+          "given_names": "KARAN",
+          "date_of_birth": "1981-12-30",
+          "gender": "M",
+          "nationality": "IND",
+          "passport_number": "P2727545",
+          "date_of_issue": "2024-07-19",
+          "date_of_expiry": "2034-07-19",
+          "issuing_country": "IND",
+          "mrz_line1": "P<INDSINGH<<KARAN<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+          "mrz_line2": "P2727545<1IND8112303M3407194<<<<<<<<<<<<<<04"
+        },
+        "normalised_fields": {
+          "document_number": "P2727545",
+          "surname": "SINGH",
+          "given_names": "KARAN",
+          "full_name": "SINGH KARAN",
+          "date_of_birth": "1981-12-30",
+          "nationality_code": "IND",
+          "sex": "M",
+          "issue_date": "2024-07-19",
+          "expiry_date": "2034-07-19",
+          "issuing_country_code": "IND",
+          "mrz_valid": true,
+          "mrz_checksum_passed": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          },
+          "mrz_check": {
+            "score": 0,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PASSPORT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/PASSPORT_001.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-08",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-007-00016",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/PAYSLIP_001.json"
+        },
+        "extracted_data": {
+          "employer_name": "My India Ltd TA Mother India",
+          "employee_name": "Karan Singh",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay": 3475,
+          "annualized_gross_pay": 41700,
+          "tax_deducted": 485.5,
+          "ni_deducted": 194.16,
+          "pension_deducted": 173.75,
+          "net_pay": 2621.59,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000091",
+          "tax_code": "1257L",
+          "ni_number": "GH985863D"
+        },
+        "normalised_fields": {
+          "employer_name": "My India Ltd TA Mother India",
+          "employee_name": "Karan Singh",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay_gbp": 3475,
+          "annualized_gross_pay_gbp": 41700,
+          "net_pay_gbp": 2621.59,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000091",
+          "tax_code": "1257L",
+          "ni_number": "GH985863D"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PAYSLIP_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/PAYSLIP_001.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-09",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-008-00016",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/PAYSLIP_002.json"
+        },
+        "extracted_data": {
+          "employer_name": "My India Ltd TA Mother India",
+          "employee_name": "Karan Singh",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay": 3475,
+          "annualized_gross_pay": 41700,
+          "tax_deducted": 485.5,
+          "ni_deducted": 194.16,
+          "pension_deducted": 173.75,
+          "net_pay": 2621.59,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000091",
+          "tax_code": "1257L",
+          "ni_number": "GH985863D"
+        },
+        "normalised_fields": {
+          "employer_name": "My India Ltd TA Mother India",
+          "employee_name": "Karan Singh",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay_gbp": 3475,
+          "annualized_gross_pay_gbp": 41700,
+          "net_pay_gbp": 2621.59,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000091",
+          "tax_code": "1257L",
+          "ni_number": "GH985863D"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PAYSLIP_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/PAYSLIP_002.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-10",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-009-00016",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.93,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/PAYSLIP_003.json"
+        },
+        "extracted_data": {
+          "employer_name": "My India Ltd TA Mother India",
+          "employee_name": "Karan Singh",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay": 3475,
+          "annualized_gross_pay": 41700,
+          "tax_deducted": 485.5,
+          "ni_deducted": 194.16,
+          "pension_deducted": 173.75,
+          "net_pay": 2621.59,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000091",
+          "tax_code": "1257L",
+          "ni_number": "GH985863D"
+        },
+        "normalised_fields": {
+          "employer_name": "My India Ltd TA Mother India",
+          "employee_name": "Karan Singh",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay_gbp": 3475,
+          "annualized_gross_pay_gbp": 41700,
+          "net_pay_gbp": 2621.59,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000091",
+          "tax_code": "1257L",
+          "ni_number": "GH985863D"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PAYSLIP_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/PAYSLIP_003.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-11",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-012-00016",
+        "document_type": "PHOTO",
+        "tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/photo",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.9,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/PHOTO_001.json"
+        },
+        "extracted_data": {
+          "applicant_name": "Karan Singh",
+          "filename": "PHOTO_001.jpg",
+          "image_label": "PASSPORT PHOTO - SYNTHETIC",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "normalised_fields": {
+          "applicant_name": "Karan Singh",
+          "filename": "PHOTO_001.jpg",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "fraud_score": null,
+        "fraud_status": null,
+        "fraud_signals": null,
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/PHOTO_001.jpg",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/PHOTO_001.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-016-12",
+        "dis_application_id": "dis-ho-sw-deep-2026-00016",
+        "document_id": "ho-doc-011-00016",
+        "document_type": "TB_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/tb-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00016/TB_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "clinic_name": "IOM Migration Health Assessment Centre, India",
+          "doctor_name": "Dr Michael Reyes",
+          "applicant_name": "Karan Singh",
+          "date_of_birth": "1981-12-30",
+          "test_date": "2026-03-10",
+          "result": "clear",
+          "valid_until": "2026-09-10"
+        },
+        "normalised_fields": {
+          "clinic_name": "IOM Migration Health Assessment Centre, India",
+          "doctor_name": "Dr Michael Reyes",
+          "applicant_name": "Karan Singh",
+          "date_of_birth": "1981-12-30",
+          "test_date": "2026-03-10",
+          "result": "clear",
+          "valid_until": "2026-09-10"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00016/TB_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00016/TB_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T14:02:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "llm_summary": "Karan Singh is a IN national applying for Skilled Worker permission sponsored by My India Ltd TA Mother India for IT quality and testing professionals (SOC 2136). The application states salary £41,700 against the SOC going rate £41,200 and start date 2026-07-01. DIS routes the case to manual review because exact_general_salary_floor. The officer should inspect the linked evidence and use the RFI flow where further evidence is needed.",
+    "queue_state": "READY_FOR_REVIEW",
+    "source_application_id": "HO-SW-DEEP-2026-00016",
+    "source_reference": "GV-DEEP-00016",
+    "dis_application_id": "dis-ho-sw-deep-2026-00016",
+    "submitted_at": "2026-06-04T14:02:00Z"
   }
 }
