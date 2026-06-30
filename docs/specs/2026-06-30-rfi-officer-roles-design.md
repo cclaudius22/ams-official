@@ -1,6 +1,6 @@
 # RFI Lifecycle + Officer/Executive Roles — Design Note (decisions lock)
 
-**Date:** 2026-06-30 · **Owners:** Sam (design), Chris (decisions), Lenny (audit) · **Status:** Draft for Lenny audit — *no JWT/officer/RFI coding starts until this is audited & approved.*
+**Date:** 2026-06-30 · **Owners:** Sam (design), Chris (decisions), Lenny (audit) · **Status:** Lenny audit = **PASS with required edits**; **patched 30 Jun** (findings #1–5 + minor — see §10). Ready for build — *no JWT/officer/RFI coding until Chris approves.*
 
 ## 0. Purpose, scope, how to read
 
@@ -41,27 +41,22 @@ DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run d
 
 ## 2. JWT / session shape
 
-**Decision:** **JWT** issued at login, stored in an **httpOnly, Secure, SameSite=Lax cookie**, verified in **Next.js middleware** for `/dashboard/**`. Two **seeded** demo accounts. No user DB / signup / password reset this phase.
+**Decision:** **ADAPT the existing auth layer (`src/lib/auth.ts`) — do NOT introduce a parallel one.** It already provides JWT sign/verify, current-user resolution, the `auth-token` httpOnly cookie, bcrypt hashing, and an **env-aware** secure flag. Reuse all of it; add exactly one field.
 
-**Login entry:** reuse/extend the existing sign-in route if present (the old auth stub redirected to `/signin`); otherwise add `/signin`. A POST credential route (e.g. `/api/auth/login`) validates against the two seeded accounts and sets the cookie; `/api/auth/logout` clears it.
+**Reuse (existing, unchanged):**
+- **Secret:** `JWT_SECRET` env (dev fallback present), HS256, `JWT_EXPIRES_IN` (default `8h`).
+- **Cookie:** `auth-token` — `httpOnly`, `sameSite=lax`, `path=/`, and **`secure: process.env.NODE_ENV === 'production'`** (so localhost HTTP dev works — this is finding #3, already correct in code at `auth.ts:81`).
+- **Helpers:** `generateToken` / `verifyToken` / `getCurrentUser` / `getTokenFromRequest` / `setAuthCookie` / `clearAuthCookie`.
 
-**Token claims (locked shape):**
-```jsonc
-{
-  "sub": "user-exec-1" | "user-officer-1", // demo account id
-  "role": "admin" | "officer",             // the ONLY access dimension this phase
-  "name": "…",                             // display
-  "officerId": "officer-demo" | null,      // links an officer login → ConsulateOfficial (queue scoping); null for admin
-  "iat": <issued>, "exp": <issued + session TTL>
-}
-```
-- **Secret:** server-side `AUTH_JWT_SECRET` (dev value committed-free; real secret = deploy config). HS256 for the scaffold.
-- **Session:** single short-lived token (e.g. 8–12h demo TTL). **No refresh tokens** this phase — expiry = re-login.
-- **Identity wiring:** the officer login's `officerId` claim **seeds `OfficerContext`** (today driven by `localStorage['demo-selected-officer-id']` + `OfficerSwitcher`). So "who am I" flows from the token, not a manual pick.
-- **OfficerSwitcher:** retained as a **demo-only impersonation** affordance (present an officer's queue without re-logging-in). Available to the Executive/demo role; **not** an officer-facing privilege.
+**Extend (one additive field):** add **`officerId?: string`** to `JWTPayload` for queue scoping. Existing `{ userId, email, role, organizationId, iat?, exp? }` → `{ userId, email, role, organizationId, officerId?, iat?, exp? }`. This phase uses **`role ∈ { 'admin', 'officer' }`** (the field already exists as `string`); `officerId` is set for officer logins (maps to a `ConsulateOfficial`), omitted/empty for admin.
 
-**Scaffold-now:** JWT issue/verify, httpOnly cookie, middleware gate, two seeded accounts, role-based landing.
-**Phase-2 / needs-HO:** real credential store + hashing, SSO/OIDC, refresh/rotation, MFA, per-session audit, secret management.
+**Demo seeded accounts (the demo-vs-DB decision, LOCKED):** the existing login is **Prisma DB-backed**. For the **ams-demo** run (file corpus, no Postgres required) add a **demo-login path** that authenticates **two fixed seeded accounts** (one admin; one officer mapped to a `ConsulateOfficial` via `officerId`) and mints a token via the existing `generateToken` — **bypassing the Prisma user lookup**. Gate that path behind the demo env (e.g. `DATA_PROVIDER=ams-demo`) so production keeps the real DB-backed login untouched. Routes: `POST /api/auth/login` (validate → `setAuthCookie`), `POST /api/auth/logout` (`clearAuthCookie`). **Login page:** reuse/extend the existing `/signin` stub (the parked auth item) — confirm exact route at build.
+- **Session:** single token, existing 8h TTL. **No refresh tokens** this phase — expiry = re-login.
+- **Identity wiring:** the officer login's `officerId` claim **seeds `OfficerContext`** (today `localStorage['demo-selected-officer-id']` + `OfficerSwitcher`). "Who am I" flows from the token, not a manual pick.
+- **OfficerSwitcher — resolves finding #1 (impersonation vs admin no-PII):** it is **not** an admin-views-PII path. In demo mode it **mints/switches into an officer-scoped session** (`role='officer'`, that officer's `officerId`) — i.e. *act as this officer*. Admin-qua-admin never holds per-case PII; switching means **becoming** an officer session. It's a demo presenter affordance, not a standing admin privilege.
+
+**Scaffold-now:** reuse existing JWT/cookie/helpers; extend payload with `officerId`; 2 seeded demo accounts (Prisma-bypassed under ams-demo); middleware gate; role-based landing.
+**Phase-2 / needs-HO:** the real Prisma-backed credential path, SSO/OIDC, refresh/rotation, MFA, per-session audit, secret management.
 
 ---
 
@@ -75,14 +70,16 @@ DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run d
 - **Identity:** reads the current officer from the JWT/`OfficerContext` (`useOfficer()`); tiles + counts scope to that officer.
 - **Nav:** add a **"My RFIs"** item to `SidebarNavigation.tsx` "Visa Processing" (replacing a `href="#"` placeholder); fix "My Queue" to land on the gateway (it already does) with the worklist one tile away.
 
-**Route gating (middleware, by `role` claim):**
+**Route gating (Next middleware, by `role` claim — COARSE, role-only):**
 | Route | admin | officer |
 |---|---|---|
 | `/dashboard/livequeue`, `/dashboard/live-intelligence` | ✅ | redirect → `/dashboard/reviewer` |
-| `/dashboard/reviewer`, `/reviewer/queue`, `/reviewer/rfis`, `/reviewer/[id]` | redirect → `/dashboard/livequeue` | ✅ |
+| `/dashboard/reviewer`, `/dashboard/reviewer/queue`, `/dashboard/reviewer/rfis`, `/dashboard/reviewer/[applicationId]` | redirect → `/dashboard/livequeue` | ✅ |
 | unauthenticated | → `/signin` | → `/signin` |
 
-**Scaffold-now:** the gateway tiles, derived strip, "My RFIs" nav, middleware redirects.
+**Per-case ownership guard (finding #5 — middleware role-gating is NOT sufficient):** the per-case page `/dashboard/reviewer/[applicationId]` AND the review/RFI APIs (`/api/ams-demo/applications/[id]/review`, and any decide/RFI route) MUST verify the case's `assignedTo` against the token's `officerId` → **403 / redirect / 404** when it isn't theirs. Role gating only checks *which role*, not *which case* — without this guard an officer could open another officer's applicant (and their PII) by URL. For the demo, the RFI hero(es) are assigned to the demo officer so the happy path passes; the guard enforces the boundary.
+
+**Scaffold-now:** the gateway tiles, derived strip, "My RFIs" nav, middleware redirects, and the per-case ownership guard.
 **Phase-2:** real per-officer stats (accuracy, throughput), real notification feed, personalisation.
 
 ---
@@ -101,7 +98,7 @@ There is **no applicant login this phase** (two logins = admin + officer). The a
 | See aggregate RFI volume / SLA health | ❌ | own cases | ✅ |
 
 **Locks:**
-- Officers act **only on their assigned cases** (queue scoped by `officerId`).
+- Officers act **only on their assigned cases** — **enforced at the per-case page + review/RFI APIs** by the ownership guard (§3), not merely by queue filtering or nav. `assignedTo` must match the token `officerId`.
 - Applicants see/respond to **only their own** RFI; never see assessment internals.
 - Executives **view** RFI aggregates but **cannot act** on individual RFIs (separation of duties).
 
@@ -114,7 +111,12 @@ There is **no applicant login this phase** (two logins = admin + officer). The a
 
 **Decision (Chris): NO re-ingestion.** When the applicant supplies the missing doc, it is **attached** to the case and the **officer manually assesses** it against DIS's existing (pre-RFI) assessment. **DIS does not re-run or re-score.** The new evidence is labelled "officer-reviewed; DIS re-scoring = Phase 2."
 
-**State model** (uses the existing `QueueState` union in `src/api-contracts/dis.ts` + the `'Awaiting Info'` lifecycle status):
+**State model — three distinct layers, kept separate (finding #4):**
+- **DIS `QueueState`** (`src/api-contracts/dis.ts`) = `FAILED_INTAKE | AWAITING_DOCS | IN_PIPELINE | READY_FOR_REVIEW | AUTO_RECOMMENDED | CALLBACK_SENT`. **Unchanged this slice — `AWAITING_INFO` is NOT a member and we do NOT add it to the contract.**
+- **`'Awaiting Info'` display status** (`src/types/liveQueue.ts`) = an existing lifecycle/display status the queue can carry.
+- **RFI lifecycle phase** = a **local / derived, in-memory** state for this slice: `GAP_FLAGGED → AWAITING_INFO → RESPONDED` (the RFI panel + the RFI lane). Here `AWAITING_INFO` is the RFI *phase*, **not** a DIS contract state. Promoting it to a first-class `QueueState` is **HO/V5-pending** (§8.5).
+
+The diagram below is the **RFI phase flow** (derived), not a `QueueState` change:
 
 ```
 READY_FOR_REVIEW                         ← case ready to decide
@@ -184,13 +186,27 @@ The demo is **green** only when this click-path works end-to-end (with `DATA_PRO
 ## 9. Decisions locked (checklist)
 
 - [x] Two demo logins only: **admin** + **officer**; no full RBAC this phase.
-- [x] Auth = **JWT** in **httpOnly cookie**, verified in **Next middleware**; claims `{sub, role, name, officerId, iat, exp}`; 2 seeded accounts; no refresh.
+- [x] Auth = **ADAPT existing `src/lib/auth.ts`** (reuse `JWT_SECRET`, `auth-token` httpOnly cookie, env-aware `secure`, helpers); **extend `JWTPayload` with `officerId`**; `role ∈ {admin, officer}`; 2 seeded accounts, **Prisma-bypassed under ams-demo**; no refresh.
 - [x] **Officer login landing = `/dashboard/reviewer`** (upgrade existing page into the gateway); **admin landing = `/dashboard/livequeue`**.
-- [x] Officer identity flows from the **JWT `officerId`** → seeds `OfficerContext`; `OfficerSwitcher` = demo impersonation only.
+- [x] Officer identity flows from the **JWT `officerId`** → seeds `OfficerContext`; `OfficerSwitcher` = **mints an officer-scoped demo session** (act-as-officer), never admin-views-PII.
+- [x] **Per-case ownership guard** (`assignedTo === token.officerId`) enforced at `/dashboard/reviewer/[applicationId]` + review/RFI APIs — not just middleware role-gating.
+- [x] **`AWAITING_INFO` is a local/derived RFI phase, NOT a DIS `QueueState` change** (contract unchanged; promotion = HO/V5-pending §8.5).
 - [x] **RFI lane** at `/dashboard/reviewer/rfis`, grouped **Awaiting / Returned / Overdue**, corpus-derived.
 - [x] Applicant portal = **Phase 2**; officers act only on assigned cases; execs view aggregates, don't act.
-- [x] **No DIS re-ingestion** on RFI response; officer manually assesses; **clock-stop** while `AWAITING_INFO`.
+- [x] **No DIS re-ingestion** on RFI response; officer manually assesses; **clock-stop** while awaiting.
 - [x] State transitions are **in-memory/derived** for the demo; persistence + real timers = Phase 2.
 - [x] Demo acceptance path = §6.
 
 **Next after Lenny audit + approval:** writing-plans → build in order **JWT two-login → officer gateway → RFI lane**. No coding until this note is approved.
+
+---
+
+## 10. Audit response — Lenny review (30 Jun), verdict PASS with required edits
+
+All five findings + the minor verified and patched — no pushback (all sound; #2 and #3 verified firsthand against `src/lib/auth.ts`):
+1. **Impersonation vs admin no-PII** → §2: `OfficerSwitcher` **mints an officer-scoped session** (act-as-officer), never admin-views-PII.
+2. **Auth conflict with existing code** → §2 rewritten to **adapt `src/lib/auth.ts`** (reuse `JWT_SECRET`, `auth-token` cookie + helpers) + **extend `JWTPayload` with `officerId`** + 2 seeded demo accounts **Prisma-bypassed under ams-demo**.
+3. **Localhost cookie** → §2: explicit `secure: process.env.NODE_ENV === 'production'` (already correct in code at `auth.ts:81`).
+4. **`AWAITING_INFO` not a `QueueState`** → §5 rewritten into three explicit layers; `AWAITING_INFO` is a **local/derived RFI phase**, DIS contract unchanged, promotion HO/V5-pending (§8.5).
+5. **Assigned-case enforcement** → §3 + §4: **per-case ownership guard** (`assignedTo === token.officerId`) at the page + review/RFI APIs, beyond middleware role-gating.
+6. **Minor route paths** → §3 route table uses full `/dashboard/reviewer/...` paths.
