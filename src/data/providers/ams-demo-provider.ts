@@ -35,6 +35,8 @@ import { mapDisAlignedApp } from './disAlignedAdapter'
 import { mapDeepSetReview } from './deepSetReviewAdapter'
 import type { DeepSetReview, DeepSetReviewCapable } from './deepSetReviewAdapter'
 import { mapDeepSetApplicationDetail } from './deepSetApplicationDetailAdapter'
+import { mapRfi } from './deepSetRfiAdapter'
+import type { RfiSummary } from './deepSetRfiAdapter'
 
 export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCapable {
   private corpusPath: string
@@ -42,6 +44,7 @@ export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCa
   private assignments: Map<string, string> = new Map() // appId -> officerId
   private statusOverrides: Map<string, ApplicationStatus> = new Map()
   private initialized = false
+  private rawBulk: Map<string, unknown> = new Map()
 
   // Slice 3a — the deep_set (18 skilled-worker cases enriched to full
   // DISApplicationView + OVAssessment). Loaded lazily and separately from the
@@ -63,7 +66,10 @@ export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCa
       try {
         const raw = JSON.parse(await fs.readFile(path.join(appsDir, file), 'utf-8'))
         const live = mapDisAlignedApp(raw)
-        if (live.id) this.cache.set(live.id, live)
+        if (live.id) {
+          this.cache.set(live.id, live)
+          this.rawBulk.set(live.id, raw)
+        }
       } catch (err) {
         console.error(`[AmsDemoProvider] Failed to load ${file}:`, err)
       }
@@ -120,14 +126,14 @@ export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCa
     }
   }
 
-  // Bulk corpus has no legacy ApplicationDetail. Deep_set ids return a real
-  // per-applicant ApplicationDetail built from the corpus record (Slice 3a) so
-  // the reviewer page header + section accordion show the actual applicant — not
-  // the hardcoded John-Doe mock. The DIS/OV panels are served separately by
-  // getDeepSetReview() via /api/ams-demo/applications/:id/review.
+  // Deep_set and bulk ids return a real per-applicant ApplicationDetail built
+  // from the corpus record so the reviewer page header + section accordion show
+  // the actual applicant — not the hardcoded John-Doe mock. Deep_set DIS/OV
+  // panels are served separately by getDeepSetReview() via
+  // /api/ams-demo/applications/:id/review; bulk ids are queue/header only.
   async getApplicationById(id: string): Promise<ApplicationDetail | null> {
     await this.ensureDeepSetLoaded()
-    const raw = this.deepSetRaw.get(id)
+    const raw = this.deepSetRaw.get(id) ?? this.rawBulk.get(id)
     if (raw === undefined) return null
     return mapDeepSetApplicationDetail(raw)
   }
@@ -170,7 +176,35 @@ export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCa
     await this.ensureDeepSetLoaded()
     const raw = this.deepSetRaw.get(id)
     if (raw === undefined) return null
-    return mapDeepSetReview(raw)
+    const review = mapDeepSetReview(raw)
+    if (!review) return null
+    review.rfi = await this.loadRfi(raw)
+    return review
+  }
+
+  /**
+   * Slice 3b scaffold — for an RFI-enabled case, read the issued `request.json`
+   * and applicant `response.json` artifacts (paths from `rfi_lifecycle`) and
+   * build the RfiSummary. Best-effort: a missing/unreadable artifact just yields
+   * a thinner summary; non-RFI cases return null.
+   */
+  private async loadRfi(raw: unknown): Promise<RfiSummary | null> {
+    const lc = (raw as { rfi_lifecycle?: { enabled?: boolean; request_artifact?: unknown; response_artifact?: unknown } })
+      .rfi_lifecycle
+    if (!lc?.enabled) return null
+    const readArtifact = async (rel: unknown): Promise<unknown> => {
+      if (typeof rel !== 'string') return undefined
+      try {
+        return JSON.parse(await fs.readFile(path.join(process.cwd(), this.corpusPath, 'deep_set', rel), 'utf-8'))
+      } catch {
+        return undefined
+      }
+    }
+    const [request, response] = await Promise.all([
+      readArtifact(lc.request_artifact),
+      readArtifact(lc.response_artifact),
+    ])
+    return mapRfi(raw, request, response)
   }
 
   async updateApplicationStatus(id: string, status: ApplicationStatus): Promise<boolean> {

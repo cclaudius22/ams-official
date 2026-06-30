@@ -102,7 +102,10 @@ export default function DocumentsSectionDetails({ data }: DocumentsSectionDetail
     <div className="space-y-3">
        <h4 className="text-sm font-medium mb-1">Required Documents Status</h4>
        {data.requiredDocumentsList.map((doc: any, index: number) => (
-          <DocumentItem key={doc.docType || index} doc={doc} />
+          // Key by the unique uploaded filename (a bundle can hold several docs of
+          // the same docType, e.g. 3 bank statements / 3 payslips); fall back to
+          // docType+index so the key is always unique.
+          <DocumentItem key={doc.uploadedDocument?.fileName ?? `${doc.docType ?? 'doc'}-${index}`} doc={doc} />
        ))}
        {/* Optionally, add overall section completion timestamp if available */}
        {data.completedAt && (

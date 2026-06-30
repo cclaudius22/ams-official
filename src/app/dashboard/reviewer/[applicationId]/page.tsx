@@ -7,6 +7,7 @@ import RecommendationSummaryPanel from '@/components/application/RecommendationS
 import GlassBoxTracePanel from '@/components/application/GlassBoxTracePanel'
 import EvidencePanel from '@/components/application/EvidencePanel'
 import OVIntelligencePanel from '@/components/application/OVIntelligencePanel'
+import RFIPanel from '@/components/application/RFIPanel'
 import SectionCard from '@/components/application/SectionCard'
 import DecisionFooter from '@/components/application/DecisionFooter'
 import NoteDialog from '@/components/dialogs/NoteDialog'
@@ -23,6 +24,7 @@ import { ApplicationData } from '@/types/application'
 import { AIScanResult } from '@/types/aiScan'
 import type { DISApplicationView } from '@/api-contracts/dis'
 import type { OVAssessment } from '@/api-contracts/ov'
+import type { RfiSummary } from '@/data/providers/deepSetRfiAdapter'
 import { syntheticOvAssessment } from '@/lib/syntheticOvAssessment'
 import { disViewToLegacyScan } from '@/lib/disViewAdapter'
 import { Accordion } from "@/components/ui/accordion";
@@ -42,6 +44,69 @@ import { mockDISApplicationView } from '@/lib/mockDISData'
 
 // Default empty scan result - use mock as default to ensure page always renders
 const emptyScanResult: AIScanResult = mockScanResult;
+
+const asText = (value: unknown): string => (typeof value === 'string' ? value : '')
+
+function disViewToApplicationData(disView: DISApplicationView, fallbackId: string): ApplicationData {
+  const passportExtraction = disView.document_extractions?.find((e) => e.document_type === 'PASSPORT')
+  const passport = (passportExtraction?.normalised_fields ?? {}) as Record<string, unknown>
+  const givenNames = asText(passport.given_names)
+  const surname = asText(passport.surname)
+  const fullName = `${givenNames} ${surname}`.trim()
+
+  return {
+    applicationId: disView.source_application_id || fallbackId,
+    userId: '',
+    visaTypeId: 'skilled-worker',
+    currentStage: disView.queue_state || 'READY_FOR_REVIEW',
+    verificationPath: 'standard',
+    processingType: 'standard',
+    status: 'review_required',
+    sections: {
+      passport: {
+        status: 'verified',
+        validationStatus: 'valid',
+        updatedAt: disView.submitted_at,
+        data: {
+          sectionId: 'passport',
+          documentNumber: asText(passport.document_number),
+          surname,
+          givenNames,
+          dateOfBirth: asText(passport.date_of_birth),
+          dateOfExpiry: asText(passport.expiry_date),
+          nationality: asText(passport.nationality_code),
+          gender: asText(passport.sex),
+          documentType: 'Passport',
+          issuingCountry: asText(passport.issuing_country_code),
+          issueDate: asText(passport.issue_date),
+          mrzData: {
+            line1: asText(passport.mrz_line_1),
+            line2: asText(passport.mrz_line_2),
+          },
+          scanQuality: 'high',
+        },
+      },
+    },
+    progress: {
+      stageProgress: [],
+      overallProgress: 100,
+      lastUpdated: disView.submitted_at,
+    },
+    metadata: {},
+    timeline: [],
+    applicantDetails: {
+      name: fullName || undefined,
+      givenNames: givenNames || undefined,
+      surname: surname || undefined,
+    },
+    createdAt: disView.submitted_at,
+    updatedAt: disView.submitted_at,
+    sourceChannel: disView.source_channel,
+    disApplicationId: disView.dis_application_id,
+    disView,
+    disQueueState: disView.queue_state,
+  }
+}
 
 export default function OfficialReviewPage() {
   const params = useParams();
@@ -71,6 +136,10 @@ export default function OfficialReviewPage() {
   // (Slice 3a); null → the page uses syntheticOvAssessment() (legacy/demo ids).
   const [ovAssessment, setOvAssessment] = useState<OVAssessment | null>(null);
 
+  // RFI scaffold (Slice 3b). Present only on cases with an enabled rfi_lifecycle
+  // (the 3 heroes). Drives the RFIPanel walkthrough; null → no panel.
+  const [rfi, setRfi] = useState<RfiSummary | null>(null);
+
   // Mock application IDs used by Rachel Johnson (Demo)
   const demoApplicationIds = ['VK-2024-1835', 'VK-2024-1836', 'UK-2024-1837', 'UK-2024-1838'];
 
@@ -99,6 +168,7 @@ export default function OfficialReviewPage() {
       // (Panel 4), applicant-specific, with NO mock/synthetic fallback. The
       // route 404s for non-deep_set ids → we fall through to the DIS read layer.
       setOvAssessment(null);
+      setRfi(null);
       let deepLoaded = false;
       try {
         const reviewRes = await fetch(`/api/ams-demo/applications/${applicationId}/review`);
@@ -107,9 +177,12 @@ export default function OfficialReviewPage() {
           const reviewJson = await reviewRes.json();
           if (!active) return;
           if (reviewJson.success && reviewJson.data?.disView) {
-            setDisView(reviewJson.data.disView);
-            setScanResult(disViewToLegacyScan(reviewJson.data.disView));
+            const deepDisView = reviewJson.data.disView as DISApplicationView;
+            setDisView(deepDisView);
+            setScanResult(disViewToLegacyScan(deepDisView));
+            setApplicationData(disViewToApplicationData(deepDisView, applicationId));
             setOvAssessment(reviewJson.data.ovAssessment ?? null);
+            setRfi(reviewJson.data.rfi ?? null);
             deepLoaded = true;
           }
         }
@@ -195,15 +268,20 @@ export default function OfficialReviewPage() {
             setScanResult(mockScanResult);
           }
         } else {
-          console.log('API failed, using mock data');
-          setApplicationData(mockApplicationData);
-          setScanResult(mockScanResult);
+          console.log(deepLoaded ? 'Application detail API failed, keeping deep_set header' : 'API failed, using mock data');
+          if (!deepLoaded) {
+            setApplicationData(mockApplicationData);
+            setScanResult(mockScanResult);
+          }
         }
       } catch (err) {
         console.error('Error fetching application:', err);
-        // Always fall back to mock data so the page renders
-        setApplicationData(mockApplicationData);
-        setScanResult(mockScanResult);
+        if (!deepLoaded) {
+          // Legacy/demo fallback only. For deep_set ids, keep the header derived
+          // from the enriched DIS view so the page never regresses to John Doe.
+          setApplicationData(mockApplicationData);
+          setScanResult(mockScanResult);
+        }
       } finally {
         if (active) setIsLoading(false);
       }
@@ -373,6 +451,9 @@ export default function OfficialReviewPage() {
         <div className="p-4 md:p-6">
           {/* Application Header */}
           <ApplicationHeader application={applicationData} />
+
+          {/* RFI lifecycle scaffold (Slice 3b) — only on DIS completeness-gap cases */}
+          {rfi?.enabled && <RFIPanel rfi={rfi} />}
 
           {/* Panel 1 — DIS Recommendation Summary (V4 §2 / Task 2.1, open by default) */}
           <RecommendationSummaryPanel disView={disView} />

@@ -67,7 +67,19 @@ describe('AmsDemoProvider.getApplicationById — deep_set serves a real Applicat
     expect(d!.applicantDetails.name).toBeTruthy()
   })
 
-  it('returns null for a non-deep_set / unknown id (bulk unaffected)', async () => {
+  it('returns the per-applicant detail for a bulk queue id too', async () => {
+    const d = await provider.getApplicationById('HO-GT-2026-0000841')
+    expect(d).not.toBeNull()
+    expect(d!.visaTypeId).toBe('global-talent')
+    expect((d!.sections.passport.data as Record<string, unknown>).givenNames).toBe('Fatima')
+    expect((d!.sections.passport.data as Record<string, unknown>).surname).toBe('Khan')
+    expect(d!.applicantDetails.email).toBe('fatima.khan.0505@outlook.com')
+    const json = JSON.stringify(d)
+    expect(json).not.toContain('John James Doe')
+    expect(json).not.toContain('high-potential-individual')
+  })
+
+  it('returns null for an unknown id', async () => {
     expect(await provider.getApplicationById('NOPE-123')).toBeNull()
   })
 })

@@ -19,6 +19,7 @@
  */
 import type { DISApplicationView } from '@/api-contracts/dis'
 import type { OVAssessment } from '@/api-contracts/ov'
+import type { RfiSummary } from './deepSetRfiAdapter'
 
 /** The per-case reviewer payload for one ams-demo deep_set application. */
 export interface DeepSetReview {
@@ -28,6 +29,12 @@ export interface DeepSetReview {
    * page falls back to the synthetic OV. Always present for the enriched 18.
    */
   ovAssessment: OVAssessment | null
+  /**
+   * RFI scaffold context (Slice 3b) — present only on cases with an enabled
+   * `rfi_lifecycle` (the 3 heroes). The provider attaches it; null/absent
+   * otherwise. See deepSetRfiAdapter.
+   */
+  rfi?: RfiSummary | null
 }
 
 /**
