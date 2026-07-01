@@ -69,3 +69,33 @@
   }
 }
 
+/* ── OpenVisa AMS landing — typography helpers ──────────────────────────── */
+@layer components {
+  /* Body/UI face for the marketing surface (scoped, does not touch the app). */
+  .ams-landing {
+    font-family: var(--font-inter-tight), system-ui, -apple-system, sans-serif;
+  }
+  /* Fraunces display: hero H1, big stat numbers, section 03–06 headlines. */
+  .ams-display {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-variation-settings: 'opsz' 144;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  /* JetBrains Mono: section numbers, IDs, snapshot eyebrows. */
+  .ams-mono {
+    font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ams-landing *,
+  .ams-landing *::before,
+  .ams-landing *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
