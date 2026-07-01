@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000064",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "HDFC",
+    "account_holder": "Amina Danladi",
+    "statement_month": "2026-01",
+    "account_number": "37927717",
+    "sort_code": "11-78-46",
+    "branch_name": "HDFC Bank UK Leicester Branch",
+    "branch_address": "96 Belgrave Road, Leicester LE4 5AT",
+    "opening_balance": 2843,
+    "closing_balance": 4156.73,
+    "salary_credit": 3111.41,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1372.54,
+        "credit": 0.0,
+        "balance": 1470.46
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 174.85,
+        "credit": 0.0,
+        "balance": 1295.61
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 89.34,
+        "credit": 0.0,
+        "balance": 1206.27
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 111.48,
+        "credit": 0.0,
+        "balance": 1094.79
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 26.13,
+        "credit": 0.0,
+        "balance": 1068.66
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 23.34,
+        "credit": 0.0,
+        "balance": 1045.32
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS HOAMA (STAPLEHURST) LTD",
+        "debit": 0.0,
+        "credit": 3111.41,
+        "balance": 4156.73
+      }
+    ]
+  }
+}

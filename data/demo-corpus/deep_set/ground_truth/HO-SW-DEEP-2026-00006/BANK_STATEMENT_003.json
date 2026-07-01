@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000006",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "TD Bank",
+    "account_holder": "Lerato Mokoena",
+    "statement_month": "2026-03",
+    "account_number": "79490547",
+    "sort_code": "90-63-64",
+    "branch_name": "TD Bank Birmingham Service Branch",
+    "branch_address": "55 Colmore Row, Birmingham B3 2AA",
+    "opening_balance": 2511,
+    "closing_balance": 4808.22,
+    "salary_credit": 4070.71,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-03-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1355.97,
+        "credit": 0.0,
+        "balance": 1155.03
+      },
+      {
+        "date": "2026-03-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 184.09,
+        "credit": 0.0,
+        "balance": 970.94
+      },
+      {
+        "date": "2026-03-10",
+        "description": "CARD TESCO STORES",
+        "debit": 76.45,
+        "credit": 0.0,
+        "balance": 894.49
+      },
+      {
+        "date": "2026-03-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 86.21,
+        "credit": 0.0,
+        "balance": 808.28
+      },
+      {
+        "date": "2026-03-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 37.19,
+        "credit": 0.0,
+        "balance": 771.09
+      },
+      {
+        "date": "2026-03-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 33.58,
+        "credit": 0.0,
+        "balance": 737.51
+      },
+      {
+        "date": "2026-03-31",
+        "description": "BACS EOS BAKEHOUSE LTD",
+        "debit": 0.0,
+        "credit": 4070.71,
+        "balance": 4808.22
+      }
+    ]
+  }
+}

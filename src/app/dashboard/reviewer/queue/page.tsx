@@ -2,7 +2,7 @@
 'use client'
 
 import React, { useState, useMemo, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ReviewCard from '@/components/dashboard/ReviewCard';
 import { Input } from '@/components/ui/input';
@@ -13,121 +13,11 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils';
 import { useOfficer, getOfficerFullName } from '@/contexts/OfficerContext';
+import { transformApplicationToReview, type ApplicationReview } from '@/lib/officerQueue';
+import type { LiveApplication } from '@/api-contracts/applications';
 
-// Mock data for Rachel Johnson (Demo Officer) to show what the UI looks like
-const mockReviewsForDemo: ApplicationReview[] = [
-  {
-    id: 'VK-2024-1835', applicant: 'Robert Mendoza', riskScore: 78, slaRemaining: '4h 30m', aiRecommendation: 'Review', priority: 'high', status: 'active', flags: ['Background Check Required', 'Multiple Applications'], team: { background: 'Sarah Johnson', identity: 'Uma Khan', document: 'Justin Time' }, lastUpdated: '2 hours ago', documents: ['Passport', 'Bank Statements', 'Employment Letter'], type: 'Business Visa', country: 'Cambodia', submissionDate: '2024-01-10', passport: 'KH12345678'
-  },
-  {
-    id: 'VK-2024-1836', applicant: 'Emma Thompson', riskScore: 45, slaRemaining: '6h 15m', aiRecommendation: 'Approve', priority: 'high', status: 'active', flags: ['First Time Applicant'], team: { background: 'Sarah Johnson', identity: 'Mike Fitzgerald', document: 'Alex Mckenna' }, lastUpdated: '1 hour ago', documents: ['Passport', 'Financial Documents'], type: 'Tourist Visa', country: 'Australia', submissionDate: '2024-01-12', passport: 'AU98765432'
-  },
-  {
-    id: 'UK-2024-1837', applicant: 'Maria Garcia', riskScore: 60, slaRemaining: 'N/A', aiRecommendation: 'Review', priority: 'medium', status: 'pending', flags: ['Incomplete Financials'], team: { background: 'Justin Time', identity: 'Mike Fitzgerald', document: 'Alex Mckenna' }, lastUpdated: '1 day ago', documents: ['Passport'], type: 'Student Visa', country: 'Spain', submissionDate: '2024-01-08', passport: 'ES11223344'
-  },
-  {
-    id: 'UK-2024-1838', applicant: 'Ben Carter', riskScore: 85, slaRemaining: 'N/A', aiRecommendation: 'Reject', priority: 'high', status: 'escalated', flags: ['Potential Fraud Indicators'], team: { background: 'Supervisor', identity: 'Supervisor', document: 'Supervisor' }, lastUpdated: '3 hours ago', documents: ['All'], type: 'Investor Visa', country: 'USA', submissionDate: '2024-01-05', passport: 'US55667788'
-  }
-];
-
-// Types for application review (matches API response structure)
-interface ApplicationReview {
-  id: string;
-  applicant: string;
-  riskScore: number;
-  slaRemaining: string;
-  aiRecommendation: 'Approve' | 'Reject' | 'Review';
-  priority: 'high' | 'medium' | 'low';
-  status: 'active' | 'pending' | 'completed' | 'escalated';
-  flags: string[];
-  team: { background: string; identity: string; document: string; };
-  lastUpdated: string;
-  documents: string[];
-  type: string;
-  country: string;
-  submissionDate: string;
-  passport: string;
-}
-
-// Transform API application data to ReviewCard format
-function transformApplicationToReview(app: any): ApplicationReview {
-  // Handle both detailed and list API response formats
-  const applicantName = app.applicantName ||
-    (app.sections?.passport?.data
-      ? `${app.sections.passport.data.givenNames || ''} ${app.sections.passport.data.surname || ''}`.trim()
-      : 'Unknown Applicant');
-
-  // Parse submittedAt - can be "12h ago" format or ISO date
-  let slaRemaining = '48h';
-  if (app.submittedAt) {
-    if (app.submittedAt.includes('ago')) {
-      // Parse "12h ago" format
-      const match = app.submittedAt.match(/(\d+)h/);
-      if (match) {
-        const hoursAgo = parseInt(match[1], 10);
-        const remainingHours = Math.max(0, 48 - hoursAgo);
-        slaRemaining = remainingHours > 0 ? `${remainingHours}h` : 'Overdue';
-      }
-    } else {
-      // ISO date format
-      const submissionDate = new Date(app.submittedAt);
-      const now = new Date();
-      const hoursSinceSubmission = Math.floor((now.getTime() - submissionDate.getTime()) / (1000 * 60 * 60));
-      const remainingHours = Math.max(0, 48 - hoursSinceSubmission);
-      slaRemaining = remainingHours > 0 ? `${remainingHours}h` : 'Overdue';
-    }
-  }
-
-  // Map status - handle both formats
-  const statusMap: Record<string, ApplicationReview['status']> = {
-    'submitted': 'pending',
-    'under_review': 'active',
-    'In Progress': 'active',
-    'pending_documents': 'pending',
-    'Pending': 'pending',
-    'approved': 'completed',
-    'Approved': 'completed',
-    'rejected': 'completed',
-    'Rejected': 'completed',
-    'escalated': 'escalated',
-    'Escalated': 'escalated',
-  };
-
-  // Use flags from API if available, otherwise generate based on risk
-  const flags: string[] = app.flags || [];
-
-  // Determine priority based on flags
-  const hasHighRisk = flags.some((f: string) => f.toLowerCase().includes('high risk'));
-  const hasNeedsReview = flags.some((f: string) => f.toLowerCase().includes('needs review'));
-  const riskScore = hasHighRisk ? 75 : hasNeedsReview ? 55 : 35;
-  const priority: ApplicationReview['priority'] = hasHighRisk ? 'high' : hasNeedsReview ? 'medium' : 'low';
-
-  // Map AI recommendation
-  const aiRecommendation: ApplicationReview['aiRecommendation'] =
-    hasHighRisk ? 'Review' : hasNeedsReview ? 'Review' : 'Approve';
-
-  return {
-    id: app.id || app.applicationId,
-    applicant: applicantName,
-    riskScore,
-    slaRemaining,
-    aiRecommendation,
-    priority,
-    status: statusMap[app.status] || 'active',
-    flags,
-    team: {
-      background: 'Pending',
-      identity: 'Pending',
-      document: 'Pending',
-    },
-    lastUpdated: app.submittedAt || 'Recently',
-    documents: ['Passport', 'Supporting Documents'],
-    type: app.visaType || 'Unknown',
-    country: app.country || 'Unknown',
-    submissionDate: new Date().toISOString().split('T')[0],
-    passport: 'N/A',
-  };
-}
+// `ApplicationReview` + the transform live in `@/lib/officerQueue` (Slice 2, unit-tested).
+// The Rachel-demo hardcoded mock was removed — every officer now shows their REAL assigned cases.
 
 export default function ReviewQueuePage() {
   const { currentOfficer, isLoading: officerLoading } = useOfficer();
@@ -137,7 +27,7 @@ export default function ReviewQueuePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch applications when officer changes
+  // Fetch the current officer's assigned applications whenever the officer changes.
   useEffect(() => {
     async function fetchApplications() {
       if (!currentOfficer) return;
@@ -145,33 +35,21 @@ export default function ReviewQueuePage() {
       setIsLoading(true);
       setError(null);
 
-      // Special case: Rachel Johnson (Demo) shows hardcoded mock data
-      if (currentOfficer.id === 'officer-demo') {
-        console.log('Using mock data for Rachel Johnson (Demo)');
-        setApplications(mockReviewsForDemo);
-        setIsLoading(false);
-        return;
-      }
-
       try {
         const params = new URLSearchParams({
           assignedTo: currentOfficer.id,
           pageSize: '50',
         });
 
-        console.log('Fetching applications for officer:', currentOfficer.id);
         const response = await fetch(`/api/applications?${params}`);
         const data = await response.json();
-        console.log('API response:', data);
 
         if (data.success) {
-          const applications = data.data || [];
-          const transformed = applications.map(transformApplicationToReview);
-          console.log('Transformed applications:', transformed.length);
-          setApplications(transformed);
+          const apps: LiveApplication[] = data.data || [];
+          const now = new Date();
+          setApplications(apps.map((app) => transformApplicationToReview(app, now)));
           setError(null);
         } else {
-          console.error('API error:', data.error);
           setError(data.error || 'Failed to fetch applications');
           setApplications([]);
         }

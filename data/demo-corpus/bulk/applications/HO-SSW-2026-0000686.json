@@ -1,0 +1,228 @@
+{
+  "source_application_id": "HO-SSW-2026-0000686",
+  "source_reference": "GV-DEMO-0000686",
+  "source_channel": "govdirect",
+  "visa_type": "senior-specialist-worker",
+  "country_code": "GB",
+  "submitted_at": "2026-06-20T23:02:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "ibrahim.adebayo.2289@outlook.com",
+    "first_name": "Ibrahim",
+    "middle_name": null,
+    "last_name": "Adebayo",
+    "date_of_birth": "1981-04-02",
+    "nationality_code": "NG",
+    "gender": "M"
+  },
+  "passport_data": {
+    "number": "A4405877",
+    "issuing_country": "NG",
+    "nationality": "NG",
+    "full_name": "ADEBAYO IBRAHIM",
+    "date_of_birth": "1981-04-02",
+    "gender": "M",
+    "issue_date": "2024-08-27",
+    "expiry_date": "2034-08-27",
+    "mrz_line1": "P<NGAADEBAYO<<IBRAHIM<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "A4405877<9NGA8104029M3408272<<<<<<<<<<<<<<06"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC Cardiff - 2 Central Square, CF10 1FS",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-3289",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Ibrahim",
+      "middleName": null,
+      "lastName": "Adebayo",
+      "dateOfBirth": "1981-04-02",
+      "nationality": "NG",
+      "maritalStatus": "married"
+    },
+    "employment": {
+      "status": "employed",
+      "employerName": "Medley Pharma Limited",
+      "sponsorLicenceNumber": "MED-2022-2031",
+      "sponsorStatus": "ACTIVE",
+      "sponsorRating": "A",
+      "jobTitle": "Senior Technology Programme Manager",
+      "annualIncome": 74200.0,
+      "monthlyGrossPay": 6183.33,
+      "cosReferenceNumber": "COS-2026-SSW-719408",
+      "cosIssueDate": "2026-04-15",
+      "cosExpiryDate": "2026-09-15",
+      "socCode": "2133",
+      "socTitle": "IT specialist managers",
+      "socGoingRateAnnual": 70800,
+      "startDate": "2026-07-01",
+      "salaryFrequency": "ANNUAL",
+      "hoursPerWeek": 37.5,
+      "isNewEntrant": false,
+      "newEntrantReason": null,
+      "previousUkEmployment": false,
+      "routeRequirement": "Global Business Mobility - Senior or Specialist Worker",
+      "overseasEmploymentMonths": 48
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-2289-8913",
+      "visaFeeReference": "VF-2026-SSW-000686",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26NG232336ADE",
+      "overallScore": 6.0,
+      "speakingScore": 6.5,
+      "listeningScore": 6.0,
+      "readingScore": 6.0,
+      "writingScore": 6.0,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "NG",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": true,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": "IOM Migration Health Assessment Centre, Nigeria",
+      "tbCertificateClinicCountry": "NG"
+    },
+    "routeSpecific": {
+      "route": "senior-specialist-worker",
+      "phase": "PHASE_2_QUEUE_ONLY",
+      "phase_note": "DIS pipeline configured - full deep review live in Phase 2.",
+      "display_label": "Senior or Specialist Worker"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-0000686",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2445,
+      "uploaded_at": "2026-06-20T22:20:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-002-0000686",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2460,
+      "uploaded_at": "2026-06-20T22:23:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-003-0000686",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2780,
+      "uploaded_at": "2026-06-20T22:26:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-004-0000686",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2788,
+      "uploaded_at": "2026-06-20T22:29:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-005-0000686",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1972,
+      "uploaded_at": "2026-06-20T22:32:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-006-0000686",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/PAYSLIPS/PAYSLIPS_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2258,
+      "uploaded_at": "2026-06-20T22:35:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-007-0000686",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/PAYSLIPS/PAYSLIPS_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2256,
+      "uploaded_at": "2026-06-20T22:38:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-008-0000686",
+      "type": "TB_CERTIFICATE",
+      "filename": "TB_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2070,
+      "uploaded_at": "2026-06-20T22:41:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-009-0000686",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000686/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-20T22:44:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-SSW-2026-0000686",
+  "anomaly_type": "fail_rules",
+  "anomaly_details": [
+    "salary below Senior or Specialist Worker minimum",
+    "overseas employment period below route requirement"
+  ],
+  "recommendation": "RECOMMEND_REJECT"
+}

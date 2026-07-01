@@ -1,0 +1,24 @@
+{
+  "document_type": "PAYSLIPS",
+  "application_id": "HO-SW-2026-00000003",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "employer_name": "Walton Care Limited",
+    "employee_name": "Adaeze Zainab Danladi",
+    "pay_period_start": "2026-02-01",
+    "pay_period_end": "2026-02-28",
+    "gross_pay": 5166.67,
+    "annualized_gross_pay": 62000.04,
+    "tax_deducted": 823.83,
+    "ni_deducted": 251.28,
+    "pension_deducted": 258.33,
+    "net_pay": 3833.23,
+    "pay_frequency": "MONTHLY",
+    "employee_number": "EMP-000003",
+    "tax_code": "1257L",
+    "ni_number": "JK498626D"
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "source_application_id": "HO-SW-2026-0000116",
+  "source_reference": "GV-DEMO-0000116",
+  "source_channel": "govdirect",
+  "visa_type": "skilled-worker",
+  "country_code": "GB",
+  "submitted_at": "2026-06-06T07:32:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "fatima.mirza.0116@gmail.com",
+    "first_name": "Fatima",
+    "middle_name": null,
+    "last_name": "Mirza",
+    "date_of_birth": "1978-05-24",
+    "nationality_code": "PK",
+    "gender": "F"
+  },
+  "passport_data": {
+    "number": "K9158195",
+    "issuing_country": "PK",
+    "nationality": "PK",
+    "full_name": "MIRZA FATIMA",
+    "date_of_birth": "1978-05-24",
+    "gender": "F",
+    "issue_date": "2019-07-02",
+    "expiry_date": "2029-07-02",
+    "mrz_line1": "P<PAKMIRZA<<FATIMA<<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "K9158195<6PAK7805248F2907022<<<<<<<<<<<<<<06"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC Manchester - 1 First Street, M15 4FN",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-1116",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Fatima",
+      "middleName": null,
+      "lastName": "Mirza",
+      "dateOfBirth": "1978-05-24",
+      "nationality": "PK",
+      "maritalStatus": "single"
+    },
+    "employment": {
+      "status": "employed",
+      "employerName": "Lely Atlantic Limited",
+      "sponsorLicenceNumber": "LEL-2021-9538",
+      "sponsorStatus": "ACTIVE",
+      "sponsorRating": "A",
+      "jobTitle": "Sales accounts and business development managers",
+      "annualIncome": 66600.0,
+      "monthlyGrossPay": 5550.0,
+      "cosReferenceNumber": "COS-2026-3136185",
+      "cosIssueDate": "2026-04-15",
+      "cosExpiryDate": "2026-09-15",
+      "socCode": "3556",
+      "socTitle": "Sales accounts and business development managers",
+      "socGoingRateAnnual": 55200,
+      "startDate": "2026-07-01",
+      "salaryFrequency": "ANNUAL",
+      "hoursPerWeek": 37.5,
+      "isNewEntrant": false,
+      "newEntrantReason": null,
+      "previousUkEmployment": false
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-0116-1972",
+      "visaFeeReference": "VF-2026-SW-000116",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26PK971559MIR",
+      "overallScore": 9.0,
+      "speakingScore": 9.0,
+      "listeningScore": 9.0,
+      "readingScore": 8.5,
+      "writingScore": 9.0,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "PK",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": true,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": "IOM Migration Health Assessment Centre, Pakistan",
+      "tbCertificateClinicCountry": "PK"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-0000116",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2443,
+      "uploaded_at": "2026-06-06T06:50:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-002-0000116",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2446,
+      "uploaded_at": "2026-06-06T06:53:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-003-0000116",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2785,
+      "uploaded_at": "2026-06-06T06:56:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-004-0000116",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2783,
+      "uploaded_at": "2026-06-06T06:59:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-005-0000116",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2778,
+      "uploaded_at": "2026-06-06T07:02:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-006-0000116",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1977,
+      "uploaded_at": "2026-06-06T07:05:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-007-0000116",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/PAYSLIPS/PAYSLIPS_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2261,
+      "uploaded_at": "2026-06-06T07:08:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-008-0000116",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/PAYSLIPS/PAYSLIPS_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2261,
+      "uploaded_at": "2026-06-06T07:11:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-009-0000116",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/PAYSLIPS/PAYSLIPS_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2259,
+      "uploaded_at": "2026-06-06T07:14:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-010-0000116",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2050,
+      "uploaded_at": "2026-06-06T07:17:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-011-0000116",
+      "type": "TB_CERTIFICATE",
+      "filename": "TB_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2074,
+      "uploaded_at": "2026-06-06T07:20:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-012-0000116",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-2026-0000116/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-06T07:23:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-SW-2026-0000116",
+  "anomaly_type": "clean",
+  "anomaly_details": null,
+  "recommendation": "RECOMMEND_APPROVE"
+}

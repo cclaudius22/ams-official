@@ -1,0 +1,20 @@
+{
+  "rfi_id": "RFI-HO-SW-DEEP-2026-00014",
+  "application_id": "HO-SW-DEEP-2026-00014",
+  "status": "APPLICANT_RESPONDED",
+  "received_at": "2026-06-27T09:40:00Z",
+  "applicant_message": "Employer supplied corrected salary confirmation letter matching the CoS salary.",
+  "supplied_documents": [
+    {
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "relative_path": "applicant_response/EMPLOYMENT_LETTER_001.pdf"
+    }
+  ],
+  "post_response_recommendation": "MANUAL_REVIEW",
+  "caseworker_decision_options": [
+    "APPROVE_AFTER_REVIEW",
+    "REJECT_AFTER_REVIEW",
+    "REQUEST_MORE_INFO"
+  ]
+}

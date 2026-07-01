@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000064",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "DANLADI AMINA",
+    "surname": "DANLADI",
+    "given_names": "AMINA",
+    "date_of_birth": "1975-07-08",
+    "gender": "F",
+    "nationality": "NGA",
+    "passport_number": "A1382325",
+    "date_of_issue": "2021-12-15",
+    "date_of_expiry": "2031-12-15",
+    "issuing_country": "NGA",
+    "mrz_line1": "P<NGADANLADI<<AMINA<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "A1382325<0NGA7507081F3112157<<<<<<<<<<<<<<00"
+  }
+}

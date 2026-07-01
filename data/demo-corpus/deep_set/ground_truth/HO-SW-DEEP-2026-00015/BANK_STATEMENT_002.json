@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000064",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "HDFC",
+    "account_holder": "Amina Danladi",
+    "statement_month": "2026-02",
+    "account_number": "37927717",
+    "sort_code": "11-78-46",
+    "branch_name": "HDFC Bank UK Harrow Branch",
+    "branch_address": "284 Station Road, Harrow HA1 2EA",
+    "opening_balance": 3054,
+    "closing_balance": 4404.26,
+    "salary_credit": 3111.41,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1378.92,
+        "credit": 0.0,
+        "balance": 1675.08
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 136.32,
+        "credit": 0.0,
+        "balance": 1538.76
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 57.34,
+        "credit": 0.0,
+        "balance": 1481.42
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 92.61,
+        "credit": 0.0,
+        "balance": 1388.81
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 62.98,
+        "credit": 0.0,
+        "balance": 1325.83
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 32.98,
+        "credit": 0.0,
+        "balance": 1292.85
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS HOAMA (STAPLEHURST) LTD",
+        "debit": 0.0,
+        "credit": 3111.41,
+        "balance": 4404.26
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "source_application_id": "HO-GT-2026-F0003",
+  "source_reference": "REF-3",
+  "visa_type": "global-talent",
+  "country_code": "CN",
+  "submitted_at": "2026-06-18T10:00:00Z",
+  "anomaly_type": "suspicious",
+  "applicant": { "first_name": "Chen", "last_name": "Li" }
+}

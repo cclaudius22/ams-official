@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000063",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "Barclays",
+    "account_holder": "Jun Ming Wang",
+    "statement_month": "2026-03",
+    "account_number": "43209360",
+    "sort_code": "30-80-27",
+    "branch_name": "Barclays Manchester Market Street Branch",
+    "branch_address": "51 Market Street, Manchester M1 1PW",
+    "opening_balance": 3252,
+    "closing_balance": 4682.01,
+    "salary_credit": 2919.4,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-03-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1023.31,
+        "credit": 0.0,
+        "balance": 2228.69
+      },
+      {
+        "date": "2026-03-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 159.52,
+        "credit": 0.0,
+        "balance": 2069.17
+      },
+      {
+        "date": "2026-03-10",
+        "description": "CARD TESCO STORES",
+        "debit": 91.97,
+        "credit": 0.0,
+        "balance": 1977.2
+      },
+      {
+        "date": "2026-03-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 128.15,
+        "credit": 0.0,
+        "balance": 1849.05
+      },
+      {
+        "date": "2026-03-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 63.55,
+        "credit": 0.0,
+        "balance": 1785.5
+      },
+      {
+        "date": "2026-03-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 22.89,
+        "credit": 0.0,
+        "balance": 1762.61
+      },
+      {
+        "date": "2026-03-31",
+        "description": "BACS VERACITY GROUP LIMITED",
+        "debit": 0.0,
+        "credit": 2919.4,
+        "balance": 4682.01
+      }
+    ]
+  }
+}

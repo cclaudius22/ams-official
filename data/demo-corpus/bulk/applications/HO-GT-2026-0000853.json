@@ -1,0 +1,193 @@
+{
+  "source_application_id": "HO-GT-2026-0000853",
+  "source_reference": "GV-DEMO-0000853",
+  "source_channel": "govdirect",
+  "visa_type": "global-talent",
+  "country_code": "GB",
+  "submitted_at": "2026-06-04T06:01:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "hasan.chowdhury.0517@outlook.com",
+    "first_name": "Hasan",
+    "middle_name": null,
+    "last_name": "Chowdhury",
+    "date_of_birth": "1974-07-09",
+    "nationality_code": "BD",
+    "gender": "M"
+  },
+  "passport_data": {
+    "number": "B7298634",
+    "issuing_country": "BD",
+    "nationality": "BD",
+    "full_name": "CHOWDHURY HASAN",
+    "date_of_birth": "1974-07-09",
+    "gender": "M",
+    "issue_date": "2022-03-31",
+    "expiry_date": "2032-03-31",
+    "mrz_line1": "P<BGDCHOWDHURY<<HASAN<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "B7298634<6BGD7407099M3203318<<<<<<<<<<<<<<06"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC Birmingham - 103 Edmund Street, B3 2HJ",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-1517",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Hasan",
+      "middleName": null,
+      "lastName": "Chowdhury",
+      "dateOfBirth": "1974-07-09",
+      "nationality": "BD",
+      "maritalStatus": "single"
+    },
+    "employment": {
+      "status": "endorsed_global_talent_applicant",
+      "employerName": "Royal Academy of Engineering",
+      "sponsorLicenceNumber": null,
+      "sponsorStatus": null,
+      "sponsorRating": null,
+      "jobTitle": "AI Research Fellow",
+      "annualIncome": 0.0,
+      "monthlyGrossPay": 0.0,
+      "cosReferenceNumber": null,
+      "cosIssueDate": null,
+      "cosExpiryDate": null,
+      "socCode": null,
+      "socTitle": null,
+      "socGoingRateAnnual": null,
+      "startDate": "2026-08-15",
+      "salaryFrequency": null,
+      "hoursPerWeek": null,
+      "isNewEntrant": null,
+      "newEntrantReason": null,
+      "previousUkEmployment": false,
+      "endorsingBody": "Royal Academy of Engineering",
+      "endorsementReference": "GT-RAENG-2026-11873",
+      "talentField": "Engineering and AI Safety"
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-0517-8789",
+      "visaFeeReference": "VF-2026-GT-000853",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26BD121858CHO",
+      "overallScore": 7.5,
+      "speakingScore": 7.5,
+      "listeningScore": 8.0,
+      "readingScore": 8.0,
+      "writingScore": 7.0,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "BD",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": true,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": "IOM Migration Health Assessment Centre, Bangladesh",
+      "tbCertificateClinicCountry": "BD"
+    },
+    "routeSpecific": {
+      "route": "global-talent",
+      "phase": "PHASE_2_QUEUE_ONLY",
+      "phase_note": "DIS pipeline configured - full deep review live in Phase 2.",
+      "display_label": "Global Talent"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-0000853",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-GT-2026-0000853/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2460,
+      "uploaded_at": "2026-06-04T05:19:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-002-0000853",
+      "type": "ENDORSEMENT_LETTER",
+      "filename": "ENDORSEMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-GT-2026-0000853/ENDORSEMENT_LETTER/ENDORSEMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2453,
+      "uploaded_at": "2026-06-04T05:22:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-003-0000853",
+      "type": "EVIDENCE_OF_TALENT",
+      "filename": "EVIDENCE_OF_TALENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-GT-2026-0000853/EVIDENCE_OF_TALENT/EVIDENCE_OF_TALENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1957,
+      "uploaded_at": "2026-06-04T05:25:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-004-0000853",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-GT-2026-0000853/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2053,
+      "uploaded_at": "2026-06-04T05:28:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-005-0000853",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-GT-2026-0000853/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2781,
+      "uploaded_at": "2026-06-04T05:31:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-006-0000853",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-GT-2026-0000853/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-04T05:34:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-GT-2026-0000853",
+  "anomaly_type": "clean",
+  "anomaly_details": null,
+  "recommendation": "RECOMMEND_APPROVE"
+}

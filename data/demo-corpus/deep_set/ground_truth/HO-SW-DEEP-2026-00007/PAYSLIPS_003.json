@@ -1,0 +1,24 @@
+{
+  "document_type": "PAYSLIPS",
+  "application_id": "HO-SW-2026-00000076",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "employer_name": "POOJA SWEETS & SAVOURIES LTD",
+    "employee_name": "Angelica Dela Cruz",
+    "pay_period_start": "2026-03-01",
+    "pay_period_end": "2026-03-31",
+    "gross_pay": 3474.92,
+    "annualized_gross_pay": 41699.04,
+    "tax_deducted": 485.48,
+    "ni_deducted": 194.15,
+    "pension_deducted": 173.75,
+    "net_pay": 2621.54,
+    "pay_frequency": "MONTHLY",
+    "employee_number": "EMP-000076",
+    "tax_code": "1257L",
+    "ni_number": "CD167437D"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "rfi_id": "RFI-HO-SW-DEEP-2026-00013",
+  "application_id": "HO-SW-DEEP-2026-00013",
+  "status": "APPLICANT_RESPONDED",
+  "received_at": "2026-06-27T09:40:00Z",
+  "applicant_message": "Applicant supplied complete February 2026 bank statement with salary credit visible.",
+  "supplied_documents": [
+    {
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "relative_path": "applicant_response/BANK_STATEMENT_002.pdf"
+    }
+  ],
+  "post_response_recommendation": "MANUAL_REVIEW",
+  "caseworker_decision_options": [
+    "APPROVE_AFTER_REVIEW",
+    "REJECT_AFTER_REVIEW",
+    "REQUEST_MORE_INFO"
+  ]
+}

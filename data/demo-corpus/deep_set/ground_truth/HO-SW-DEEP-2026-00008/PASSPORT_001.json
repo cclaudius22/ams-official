@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000077",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "ASANTE MENSAH",
+    "surname": "ASANTE",
+    "given_names": "MENSAH",
+    "date_of_birth": "2001-03-02",
+    "gender": "M",
+    "nationality": "GHA",
+    "passport_number": "G8189725",
+    "date_of_issue": "2024-10-04",
+    "date_of_expiry": "2034-10-04",
+    "issuing_country": "GHA",
+    "mrz_line1": "P<GHAASANTE<<MENSAH<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "G8189725<6GHA0103026M3410048<<<<<<<<<<<<<<04"
+  }
+}

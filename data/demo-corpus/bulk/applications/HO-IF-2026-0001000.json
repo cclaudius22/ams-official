@@ -1,0 +1,195 @@
+{
+  "source_application_id": "HO-IF-2026-0001000",
+  "source_reference": "GV-DEMO-0001000",
+  "source_channel": "govdirect",
+  "visa_type": "innovator-founder",
+  "country_code": "GB",
+  "submitted_at": "2026-06-08T00:40:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "rohan.sharma.2435@protonmail.com",
+    "first_name": "Rohan",
+    "middle_name": null,
+    "last_name": "Sharma",
+    "date_of_birth": "1999-08-17",
+    "nationality_code": "IN",
+    "gender": "M"
+  },
+  "passport_data": {
+    "number": "P5562853",
+    "issuing_country": "IN",
+    "nationality": "IN",
+    "full_name": "SHARMA ROHAN",
+    "date_of_birth": "1999-08-17",
+    "gender": "M",
+    "issue_date": "2021-06-13",
+    "expiry_date": "2031-06-13",
+    "mrz_line1": "P<INDSHARMA<<ROHAN<<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "P5562853<5IND9908176M3106132<<<<<<<<<<<<<<02"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC London - 66 Wilson Street, EC2A 2BT",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-3435",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Rohan",
+      "middleName": null,
+      "lastName": "Sharma",
+      "dateOfBirth": "1999-08-17",
+      "nationality": "IN",
+      "maritalStatus": "single"
+    },
+    "employment": {
+      "status": "innovator_founder_applicant",
+      "employerName": "Endorsed founder venture",
+      "sponsorLicenceNumber": null,
+      "sponsorStatus": null,
+      "sponsorRating": null,
+      "jobTitle": "Founder and Chief Executive",
+      "annualIncome": 0.0,
+      "monthlyGrossPay": 0.0,
+      "cosReferenceNumber": null,
+      "cosIssueDate": null,
+      "cosExpiryDate": null,
+      "socCode": null,
+      "socTitle": null,
+      "socGoingRateAnnual": null,
+      "startDate": "2026-08-01",
+      "salaryFrequency": null,
+      "hoursPerWeek": null,
+      "isNewEntrant": null,
+      "newEntrantReason": null,
+      "previousUkEmployment": false,
+      "endorsingBody": "Innovator International",
+      "endorsementReference": "IF-END-2026-774901",
+      "businessSector": "Climate analytics SaaS"
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-2435-1395",
+      "visaFeeReference": "VF-2026-IF-001000",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26IN783007SHA",
+      "overallScore": 6.0,
+      "speakingScore": 6.0,
+      "listeningScore": 5.5,
+      "readingScore": 5.5,
+      "writingScore": 6.0,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "IN",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": true,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": "IOM Migration Health Assessment Centre, India",
+      "tbCertificateClinicCountry": "IN"
+    },
+    "routeSpecific": {
+      "route": "innovator-founder",
+      "phase": "PHASE_2_QUEUE_ONLY",
+      "phase_note": "DIS pipeline configured - full deep review live in Phase 2.",
+      "display_label": "Innovator Founder"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-0001000",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-IF-2026-0001000/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2440,
+      "uploaded_at": "2026-06-07T23:58:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-002-0001000",
+      "type": "ENDORSEMENT_LETTER",
+      "filename": "ENDORSEMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-IF-2026-0001000/ENDORSEMENT_LETTER/ENDORSEMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2453,
+      "uploaded_at": "2026-06-08T00:01:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-003-0001000",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-IF-2026-0001000/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2786,
+      "uploaded_at": "2026-06-08T00:04:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-004-0001000",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-IF-2026-0001000/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2791,
+      "uploaded_at": "2026-06-08T00:07:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-005-0001000",
+      "type": "BUSINESS_PLAN",
+      "filename": "BUSINESS_PLAN_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-IF-2026-0001000/BUSINESS_PLAN/BUSINESS_PLAN_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2453,
+      "uploaded_at": "2026-06-08T00:10:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-006-0001000",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-IF-2026-0001000/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-08T00:13:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-IF-2026-0001000",
+  "anomaly_type": "edge_case",
+  "anomaly_details": [
+    "endorsement issued on the same day as application submission"
+  ],
+  "recommendation": "MANUAL_REVIEW"
+}

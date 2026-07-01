@@ -1,0 +1,15 @@
+{
+  "document_type": "PHOTO",
+  "application_id": "HO-SW-2026-00000092",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "applicant_name": "Jing Li",
+    "filename": "PHOTO_001.jpg",
+    "image_label": "PASSPORT PHOTO - SYNTHETIC",
+    "width_px": 600,
+    "height_px": 760
+  }
+}

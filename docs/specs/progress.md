@@ -67,7 +67,7 @@ We completed a **full Confluence review** on 2026-04-12 and identified **10 crit
 - Employment Letter listed as Tier 1 / GEMINI_VISION (should be Tier 2 / Custom Extractor)
 - Degree Certificate section has `document_type: "IELTS_CERTIFICATE"` (copy-paste error)
 - 7 corrections posted by Chris on 1 April — NO RESPONSE from Preety
-**Impact on AMS:** Cannot trust Preety's schema as authoritative. Our local Canonical Schema draft is more accurate.
+**Impact on AMS:** Using our Canonical Schema (V1.2) as the authoritative source.
 
 ### 8. Canonical Schema not published to Confluence yet
 - Confluence page 27328513 is still a placeholder ("coming soon")
@@ -149,7 +149,7 @@ We completed a **full Confluence review** on 2026-04-12 and identified **10 crit
 ## Key contacts
 
 - **Ranita** (Deloitte) — AI/ML, Document AI Custom Extractor, updated Data Extraction Strategy yesterday
-- **Preety** (Deloitte) — Drools rules, extraction schema (7 corrections outstanding since Apr 1)
+- **Preety** (Deloitte) — Drools rules, extraction schema
 - **Neeraj** (Deloitte) — Tech Lead, overseeing mock APIs
 - **Vidhyotha** (Deloitte) — OPA policies (H01-H04 completed 8-10 Apr)
 - **Satyarth** (Deloitte) — Fraud scoring (awaiting timeline on fraudulent samples)
@@ -161,7 +161,7 @@ We completed a **full Confluence review** on 2026-04-12 and identified **10 crit
 
 - Exact threshold values for decision logic — STILL PENDING (Callback Payload Spec unchanged since Mar 23)
 - Component score weighting for overall_score — STILL PENDING
-- Preety's extraction schema corrections — 7 corrections posted Apr 1, NO RESPONSE
+- 7 extraction schema corrections — posted 1 April, awaiting response
 - DecisionDraft V2 — punch list posted Apr 6, awaiting V2
 - PostgreSQL + BigQuery schema review — REQUESTED from Preety (Q32)
 - Error/retry contract (DIS is down) — still open

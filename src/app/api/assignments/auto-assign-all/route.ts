@@ -1,121 +1,71 @@
 /**
  * POST /api/assignments/auto-assign-all
- * Automatically assign all unassigned applications to officers based on specialization
+ *
+ * Capacity-aware allocation of the DECISION workload. Operates ONLY on
+ * `Processed` + unassigned apps (apps must be processed first via
+ * /api/assignments/process-intake). Uses the pure `allocateBatch` allocator so
+ * the cap counts each officer's current load (activeApplications + new <= cap)
+ * — no officer is overloaded. Returns assigned + the visible backlog
+ * (unallocated) + per-officer load/cap so the board can show capacity.
+ * See docs/specs/2026-06-24-multi-visa-queue-allocation-design.md §6.2.
  */
+import { NextResponse } from 'next/server'
+import { getDataProvider } from '@/data/providers'
+import { allocateBatch, type AllocatableApp } from '@/services/assignment/allocate-batch'
 
-import { NextRequest, NextResponse } from 'next/server';
-import { getDataProvider } from '@/data/providers';
-import { suggestOfficerForApplication } from '@/services/assignment/auto-assign';
+const CAP_PER_OFFICER = 25
 
 export interface AutoAssignResult {
-  totalProcessed: number;
-  assigned: number;
-  failed: number;
-  byOfficer: Record<string, { name: string; count: number; visaTypes: string[] }>;
-  byVisaType: Record<string, { count: number; officer: string }>;
-  errors: string[];
+  assigned: number
+  unallocated: number
+  capPerOfficer: number
+  byOfficer: Record<string, { name: string; count: number; load: number; capacity: number }>
 }
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
-    console.log(`[Auto-Assign] Starting auto-assign-all...`);
+    const provider = await getDataProvider()
+    const { data: apps } = await provider.getApplications({}, { page: 1, pageSize: 100000 })
+    const officers = await provider.getOfficers()
 
-    const provider = await getDataProvider();
-    console.log(`[Auto-Assign] Provider initialized: ${provider.isInitialized()}`);
+    // GUARDRAIL: assign only Processed + unassigned apps.
+    const pending = apps.filter((a) => a.status === 'Processed' && !a.assignedTo)
+    const allocatable: AllocatableApp[] = pending.map((a) => ({
+      id: a.id,
+      // visaTypeId is the canonical key the adapter always sets for allocatable apps;
+      // 'unknown' (→ no specialist → queued) is the safe fallback if it's ever missing.
+      visaTypeKey: a.visaTypeId ?? 'unknown',
+    }))
 
-    // Get all unassigned applications
-    const { data: applications, total } = await provider.getApplications(
-      {},
-      { page: 1, pageSize: 10000 }
-    );
-    console.log(`[Auto-Assign] Fetched ${applications.length} applications (total: ${total})`);
+    const result = allocateBatch(allocatable, officers, { capPerOfficer: CAP_PER_OFFICER })
 
-    const unassigned = applications.filter(
-      app => app.status === 'Pending Assignment' && !app.assignedTo
-    );
-
-    console.log(`[Auto-Assign] Processing ${unassigned.length} unassigned applications`);
-
-    // Log first few unassigned apps for debugging
-    if (unassigned.length > 0) {
-      console.log(`[Auto-Assign] First unassigned app:`, {
-        id: unassigned[0].id,
-        visaType: unassigned[0].visaType,
-        status: unassigned[0].status,
-      });
-    }
-
-    const result: AutoAssignResult = {
-      totalProcessed: unassigned.length,
-      assigned: 0,
-      failed: 0,
-      byOfficer: {},
-      byVisaType: {},
-      errors: [],
-    };
-
-    // Process each application
-    for (const app of unassigned) {
-      try {
-        console.log(`[Auto-Assign] Processing: ${app.id} (${app.visaType})`);
-
-        // Get suggestion for this application
-        const suggestion = await suggestOfficerForApplication(app.id, provider);
-        const officer = suggestion.suggestedOfficer;
-
-        console.log(`[Auto-Assign] Assigning ${app.id} to ${officer.firstName} ${officer.lastName}`);
-
-        // Assign to suggested officer
-        const success = await provider.assignApplication(app.id, officer.id, 'auto');
-
-        if (success) {
-          result.assigned++;
-
-          // Track by officer
-          const officerName = `${officer.firstName} ${officer.lastName}`;
-          if (!result.byOfficer[officer.id]) {
-            result.byOfficer[officer.id] = {
-              name: officerName,
-              count: 0,
-              visaTypes: [],
-            };
-          }
-          result.byOfficer[officer.id].count++;
-
-          // Track visa types per officer
-          const visaType = app.visaType.split(',')[0].trim();
-          if (!result.byOfficer[officer.id].visaTypes.includes(visaType)) {
-            result.byOfficer[officer.id].visaTypes.push(visaType);
-          }
-
-          // Track by visa type
-          if (!result.byVisaType[visaType]) {
-            result.byVisaType[visaType] = { count: 0, officer: officerName };
-          }
-          result.byVisaType[visaType].count++;
-        } else {
-          result.failed++;
-          result.errors.push(`Failed to assign ${app.id}`);
-        }
-      } catch (err) {
-        result.failed++;
-        const errorMsg = err instanceof Error ? err.message : 'Unknown';
-        console.error(`[Auto-Assign] Failed to process ${app.id}:`, err);
-        result.errors.push(`Error processing ${app.id}: ${errorMsg}`);
+    // Persist the assignments + the overflow backlog.
+    // Spec §6.2/§6.4: overflow (no specialist under cap) → status 'Awaiting Allocation'
+    // so the backlog is distinguishable from un-processed and the Auto-Allocate button settles.
+    for (const assignment of result.assignments) {
+      if (assignment.officerId) {
+        await provider.assignApplication(assignment.appId, assignment.officerId, 'auto')
+      } else {
+        await provider.updateApplicationStatus(assignment.appId, 'Awaiting Allocation')
       }
     }
 
-    console.log(`[Auto-Assign] Complete: ${result.assigned} assigned, ${result.failed} failed`);
+    // Enrich the per-officer breakdown with names for the board.
+    const byOfficer: AutoAssignResult['byOfficer'] = {}
+    for (const [id, info] of Object.entries(result.byOfficer)) {
+      const officer = officers.find((o) => o.id === id)
+      byOfficer[id] = { name: officer ? `${officer.firstName} ${officer.lastName}` : id, ...info }
+    }
 
-    return NextResponse.json({
-      success: true,
-      data: result,
-    });
+    const data: AutoAssignResult = {
+      assigned: result.assignments.filter((a) => a.officerId).length,
+      unallocated: result.unallocated.length,
+      capPerOfficer: CAP_PER_OFFICER,
+      byOfficer,
+    }
+    return NextResponse.json({ success: true, data })
   } catch (error) {
-    console.error('[API] POST /assignments/auto-assign-all error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to auto-assign applications' },
-      { status: 500 }
-    );
+    console.error('[API] POST /assignments/auto-assign-all error:', error)
+    return NextResponse.json({ success: false, error: 'Failed to auto-assign applications' }, { status: 500 })
   }
 }

@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000077",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "TD Bank",
+    "account_holder": "Mensah Asante",
+    "statement_month": "2026-01",
+    "account_number": "56453841",
+    "sort_code": "90-27-48",
+    "branch_name": "TD Bank London International Branch",
+    "branch_address": "60 Threadneedle Street, London EC2R 8HP",
+    "opening_balance": 3012,
+    "closing_balance": 4757.95,
+    "salary_credit": 3376.91,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1251.44,
+        "credit": 0.0,
+        "balance": 1760.56
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 155.0,
+        "credit": 0.0,
+        "balance": 1605.56
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 82.36,
+        "credit": 0.0,
+        "balance": 1523.2
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 99.8,
+        "credit": 0.0,
+        "balance": 1423.4
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 26.69,
+        "credit": 0.0,
+        "balance": 1396.71
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 15.67,
+        "credit": 0.0,
+        "balance": 1381.04
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS NYA INTERNATIONAL (UK) LIMIT",
+        "debit": 0.0,
+        "credit": 3376.91,
+        "balance": 4757.95
+      }
+    ]
+  }
+}

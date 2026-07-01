@@ -1,0 +1,196 @@
+{
+  "source_application_id": "HO-SP-2026-0000807",
+  "source_reference": "GV-DEMO-0000807",
+  "source_channel": "govdirect",
+  "visa_type": "spouse-partner",
+  "country_code": "GB",
+  "submitted_at": "2026-06-24T01:39:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "neha.bose.2320@gmail.com",
+    "first_name": "Neha",
+    "middle_name": null,
+    "last_name": "Bose",
+    "date_of_birth": "1977-10-09",
+    "nationality_code": "IN",
+    "gender": "F"
+  },
+  "passport_data": {
+    "number": "P2977084",
+    "issuing_country": "IN",
+    "nationality": "IN",
+    "full_name": "BOSE NEHA",
+    "date_of_birth": "1977-10-09",
+    "gender": "F",
+    "issue_date": "2023-02-09",
+    "expiry_date": "2033-02-09",
+    "mrz_line1": "P<INDBOSE<<NEHA<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "P2977084<8IND7710090F3302093<<<<<<<<<<<<<<08"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC London - 66 Wilson Street, EC2A 2BT",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-3320",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Neha",
+      "middleName": null,
+      "lastName": "Bose",
+      "dateOfBirth": "1977-10-09",
+      "nationality": "IN",
+      "maritalStatus": "single"
+    },
+    "employment": {
+      "status": "family_route_sponsor_assessed",
+      "employerName": "UK settled partner sponsor",
+      "sponsorLicenceNumber": null,
+      "sponsorStatus": null,
+      "sponsorRating": null,
+      "jobTitle": "Partner route applicant",
+      "annualIncome": 0.0,
+      "monthlyGrossPay": 0.0,
+      "cosReferenceNumber": null,
+      "cosIssueDate": null,
+      "cosExpiryDate": null,
+      "socCode": null,
+      "socTitle": null,
+      "socGoingRateAnnual": null,
+      "startDate": null,
+      "salaryFrequency": null,
+      "hoursPerWeek": null,
+      "isNewEntrant": null,
+      "newEntrantReason": null,
+      "previousUkEmployment": false,
+      "relationshipType": "Spouse",
+      "sponsorIncomeGbp": 36200,
+      "relationshipEvidenceCount": 8
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-2320-9440",
+      "visaFeeReference": "VF-2026-SP-000807",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26IN672581BOS",
+      "overallScore": 6.5,
+      "speakingScore": 7.0,
+      "listeningScore": 7.0,
+      "readingScore": 7.0,
+      "writingScore": 6.5,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "IN",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": true,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": "IOM Migration Health Assessment Centre, India",
+      "tbCertificateClinicCountry": "IN"
+    },
+    "routeSpecific": {
+      "route": "spouse-partner",
+      "phase": "PHASE_2_QUEUE_ONLY",
+      "phase_note": "DIS pipeline configured - full deep review live in Phase 2.",
+      "display_label": "Spouse or Partner"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-0000807",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SP-2026-0000807/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2435,
+      "uploaded_at": "2026-06-24T00:57:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-002-0000807",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SP-2026-0000807/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2788,
+      "uploaded_at": "2026-06-24T01:00:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-003-0000807",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SP-2026-0000807/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2780,
+      "uploaded_at": "2026-06-24T01:03:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-004-0000807",
+      "type": "MARRIAGE_CERTIFICATE",
+      "filename": "MARRIAGE_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SP-2026-0000807/MARRIAGE_CERTIFICATE/MARRIAGE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2425,
+      "uploaded_at": "2026-06-24T01:06:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-005-0000807",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SP-2026-0000807/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2047,
+      "uploaded_at": "2026-06-24T01:09:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-006-0000807",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SP-2026-0000807/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-24T01:12:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-SP-2026-0000807",
+  "anomaly_type": "fail_rules",
+  "anomaly_details": [
+    "financial requirement not met by sponsor income or savings",
+    "relationship evidence insufficient"
+  ],
+  "recommendation": "RECOMMEND_REJECT"
+}

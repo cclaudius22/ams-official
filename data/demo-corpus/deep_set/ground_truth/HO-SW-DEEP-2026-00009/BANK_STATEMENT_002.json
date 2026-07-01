@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000078",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "HSBC",
+    "account_holder": "Adewale Emeka Adebayo",
+    "statement_month": "2026-02",
+    "account_number": "66145642",
+    "sort_code": "73-66-78",
+    "branch_name": "HSBC Canary Wharf Branch",
+    "branch_address": "8 Canada Square, London E14 5HQ",
+    "opening_balance": 3236,
+    "closing_balance": 4437.91,
+    "salary_credit": 2621.54,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1014.17,
+        "credit": 0.0,
+        "balance": 2221.83
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 142.89,
+        "credit": 0.0,
+        "balance": 2078.94
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 59.15,
+        "credit": 0.0,
+        "balance": 2019.79
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 108.21,
+        "credit": 0.0,
+        "balance": 1911.58
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 61.21,
+        "credit": 0.0,
+        "balance": 1850.37
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 34.0,
+        "credit": 0.0,
+        "balance": 1816.37
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS LOTUS THAI MASSAGE & SPA CHA",
+        "debit": 0.0,
+        "credit": 2621.54,
+        "balance": 4437.91
+      }
+    ]
+  }
+}

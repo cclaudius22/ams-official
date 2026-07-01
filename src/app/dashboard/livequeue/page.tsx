@@ -20,6 +20,8 @@ import AssignmentModal from '@/components/dashboard/AssignmentModal'
 // --- Type Imports ---
 import { LiveApplication, LiveQueueFilters, LiveQueueStats } from '@/types/liveQueue'
 import { ConsulateOfficial } from '@/api-contracts/users'
+import type { AutoAssignResult } from '@/app/api/assignments/auto-assign-all/route'
+import type { ProcessIntakeResult } from '@/app/api/assignments/process-intake/route'
 
 // Calculate queue stats from applications
 function calculateQueueStats(applications: LiveApplication[] | undefined): LiveQueueStats {
@@ -37,7 +39,10 @@ function calculateQueueStats(applications: LiveApplication[] | undefined): LiveQ
     applications.forEach(app => {
       // Count by status - handle both display and internal status formats
       const status = app.status;
-      if (status === 'Pending' || status === 'Pending Assignment') {
+      if (
+        status === 'Pending' || status === 'Pending Assignment' ||
+        status === 'Received' || status === 'Processed' || status === 'Awaiting Allocation'
+      ) {
         stats.pending++;
       } else if (status === 'In Progress') {
         stats.inProgress++;
@@ -77,11 +82,10 @@ export default function LiveQueuePage() {
   const [showAssignmentModal, setShowAssignmentModal] = useState(false);
   const [isAssigning, setIsAssigning] = useState(false);
   const [isAutoAssigning, setIsAutoAssigning] = useState(false);
-  const [autoAssignResult, setAutoAssignResult] = useState<{
-    assigned: number;
-    failed: number;
-    byOfficer: Record<string, { name: string; count: number; visaTypes: string[] }>;
-  } | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [processed, setProcessed] = useState(false);
+  const [distribution, setDistribution] = useState<ProcessIntakeResult['distribution'] | null>(null);
+  const [autoAssignResult, setAutoAssignResult] = useState<AutoAssignResult | null>(null);
   const [filters, setFilters] = useState<LiveQueueFilters>({
     search: '',
     status: [],
@@ -288,18 +292,35 @@ export default function LiveQueuePage() {
     setShowAdvancedFilters(false);
   };
 
-  // Auto-assign all unassigned applications
-  const handleAutoAssignAll = async () => {
-    const unassignedCount = applications.filter(
-      app => app.status === 'Pending Assignment' && !app.assignedTo
-    ).length;
+  // Process intake — the machine beat: reveal the pre-computed recommendations + distribution
+  const handleProcessIntake = async () => {
+    setIsProcessing(true);
+    try {
+      const response = await fetch('/api/assignments/process-intake', { method: 'POST' });
+      const data = await response.json();
+      if (data.success) {
+        setDistribution(data.data.distribution);
+        setProcessed(true);
+        await fetchApplications();
+      } else {
+        alert(`Process intake failed: ${data.error}`);
+      }
+    } catch (err) {
+      console.error('Process intake error:', err);
+      alert('Failed to process intake');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
-    if (unassignedCount === 0) {
-      alert('No unassigned applications to process');
+  // Auto-allocate the decision workload (Processed + unassigned) within officer capacity
+  const handleAutoAssignAll = async () => {
+    if (processedUnassignedCount === 0) {
+      alert('No processed, unassigned applications to allocate. Process intake first.');
       return;
     }
 
-    if (!confirm(`Auto-assign ${unassignedCount} applications to officers based on specialization?`)) {
+    if (!confirm(`Auto-allocate ${processedUnassignedCount} processed applications to officers within capacity?`)) {
       return;
     }
 
@@ -316,28 +337,36 @@ export default function LiveQueuePage() {
 
       if (data.success) {
         setAutoAssignResult(data.data);
-        // Refresh to show updated assignments
+        // Refresh to show updated assignments + officer loads
         await fetchApplications();
+        await fetchOfficers();
       } else {
-        alert(`Auto-assign failed: ${data.error}`);
+        alert(`Auto-allocate failed: ${data.error}`);
       }
     } catch (err) {
       console.error('Auto-assign error:', err);
-      alert('Failed to auto-assign applications');
+      alert('Failed to auto-allocate applications');
     } finally {
       setIsAutoAssigning(false);
     }
   };
 
-  // Count unassigned applications
-  const unassignedCount = useMemo(() =>
-    applications.filter(app => app.status === 'Pending Assignment' && !app.assignedTo).length,
+  // Count processed, unassigned applications — the allocatable pool
+  const processedUnassignedCount = useMemo(() =>
+    applications.filter(app => app.status === 'Processed' && !app.assignedTo).length,
+    [applications]
+  );
+
+  // Reset visibility derives from the actual queue state so it survives a reload
+  // (the client-only `processed`/`autoAssignResult` flags reset on remount).
+  const isDirty = useMemo(
+    () => applications.some(app => app.status !== 'Received' || !!app.assignedTo),
     [applications]
   );
 
   // Reset all assignments (for demo)
   const handleResetAssignments = async () => {
-    if (!confirm('Reset all assignments? This will set all applications back to "Pending Assignment".')) {
+    if (!confirm('Reset the demo? This clears processing + assignments (all applications back to "Received").')) {
       return;
     }
 
@@ -347,7 +376,10 @@ export default function LiveQueuePage() {
 
       if (data.success) {
         setAutoAssignResult(null);
+        setProcessed(false);
+        setDistribution(null);
         await fetchApplications();
+        await fetchOfficers();
       } else {
         alert(`Reset failed: ${data.error}`);
       }
@@ -403,8 +435,8 @@ export default function LiveQueuePage() {
           <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={refreshData} disabled={isRefreshing} title="Refresh Queue" >
             <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
           </Button>
-          {unassignedCount < applications.length && (
-            <Button variant="ghost" size="sm" className="h-8 px-2 text-orange-600 hover:text-orange-700 hover:bg-orange-50" onClick={handleResetAssignments} title="Reset all assignments (Demo)">
+          {(isDirty || processed || autoAssignResult) && (
+            <Button variant="ghost" size="sm" className="h-8 px-2 text-orange-600 hover:text-orange-700 hover:bg-orange-50" onClick={handleResetAssignments} title="Reset the demo (back to Received)">
               <RotateCcw className="h-4 w-4 mr-1" />
               Reset
             </Button>
@@ -435,7 +467,26 @@ export default function LiveQueuePage() {
             <Button variant="outline" disabled={selectedApplications.length === 0} onClick={handleAssign}>
               <UserCog className="h-4 w-4 mr-2" /> Assign ({selectedApplications.length})
             </Button>
-            {unassignedCount > 0 && (
+            {!processed && (
+              <Button
+                onClick={handleProcessIntake}
+                disabled={isProcessing}
+                className="bg-violet-600 hover:bg-violet-700 text-white"
+              >
+                {isProcessing ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-4 w-4 mr-2" />
+                    Process intake ({applications.length})
+                  </>
+                )}
+              </Button>
+            )}
+            {processed && processedUnassignedCount > 0 && (
               <Button
                 onClick={handleAutoAssignAll}
                 disabled={isAutoAssigning}
@@ -444,12 +495,12 @@ export default function LiveQueuePage() {
                 {isAutoAssigning ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Assigning...
+                    Allocating...
                   </>
                 ) : (
                   <>
                     <Wand2 className="h-4 w-4 mr-2" />
-                    Auto-Assign All ({unassignedCount})
+                    Auto-Allocate ({processedUnassignedCount})
                   </>
                 )}
               </Button>
@@ -457,7 +508,25 @@ export default function LiveQueuePage() {
           </div>
         </div>
 
-        {/* Auto-Assign Results Banner */}
+        {/* Recommendation distribution — revealed on Process intake (the machine beat) */}
+        {processed && distribution && (
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+              <div className="text-xs font-medium text-green-700 uppercase tracking-wide">Recommend approve</div>
+              <div className="text-2xl font-bold text-green-700">{distribution.RECOMMEND_APPROVE}</div>
+            </div>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
+              <div className="text-xs font-medium text-red-700 uppercase tracking-wide">Recommend refuse</div>
+              <div className="text-2xl font-bold text-red-700">{distribution.RECOMMEND_REJECT}</div>
+            </div>
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-center">
+              <div className="text-xs font-medium text-amber-700 uppercase tracking-wide">Manual review</div>
+              <div className="text-2xl font-bold text-amber-700">{distribution.MANUAL_REVIEW}</div>
+            </div>
+          </div>
+        )}
+
+        {/* Auto-Allocation Results Banner */}
         {autoAssignResult && (
           <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-4 mb-4">
             <div className="flex items-start justify-between">
@@ -465,24 +534,26 @@ export default function LiveQueuePage() {
                 <div className="flex items-center gap-2 mb-2">
                   <CheckCircle className="h-5 w-5 text-green-600" />
                   <span className="font-semibold text-green-800">
-                    Auto-Assignment Complete
+                    Auto-Allocation Complete
                   </span>
                 </div>
                 <p className="text-sm text-gray-600 mb-3">
-                  Successfully assigned <span className="font-bold text-green-700">{autoAssignResult.assigned}</span> applications
-                  {autoAssignResult.failed > 0 && (
-                    <span className="text-red-600"> ({autoAssignResult.failed} failed)</span>
-                  )}
+                  Allocated <span className="font-bold text-green-700">{autoAssignResult.assigned}</span> within capacity
+                  <span className="mx-1.5">·</span>
+                  <span className="font-bold text-orange-600">{autoAssignResult.unallocated}</span> queued, awaiting capacity
+                  <span className="mx-1.5 text-gray-400">|</span>
+                  cap {autoAssignResult.capPerOfficer}/officer
+                </p>
+                <p className="text-xs text-gray-500 mb-3 flex items-center gap-1.5">
+                  <Clock className="h-3.5 w-3.5 text-gray-400 flex-shrink-0" />
+                  Today&apos;s intake — officers at their daily decision capacity. Backlog clears in ~{autoAssignResult.assigned > 0 ? Math.ceil((autoAssignResult.assigned + autoAssignResult.unallocated) / autoAssignResult.assigned) : 0} working days, within the 15-working-day SLA.
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {Object.entries(autoAssignResult.byOfficer).map(([id, data]) => (
                     <div key={id} className="bg-white rounded-md p-2 border border-gray-200">
                       <div className="font-medium text-sm">{data.name}</div>
-                      <div className="text-lg font-bold text-blue-600">{data.count}</div>
-                      <div className="text-xs text-gray-500">
-                        {data.visaTypes.slice(0, 2).join(', ')}
-                        {data.visaTypes.length > 2 && ` +${data.visaTypes.length - 2}`}
-                      </div>
+                      <div className="text-xs text-gray-500">+{data.count} new</div>
+                      <div className="text-sm font-bold text-blue-600">load {data.load}/{data.capacity}</div>
                     </div>
                   ))}
                 </div>

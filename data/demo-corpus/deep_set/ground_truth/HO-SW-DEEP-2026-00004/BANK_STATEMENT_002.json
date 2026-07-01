@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000004",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "HDFC",
+    "account_holder": "Dev Karan Sharma",
+    "statement_month": "2026-02",
+    "account_number": "91848625",
+    "sort_code": "84-88-70",
+    "branch_name": "HDFC Bank UK Harrow Branch",
+    "branch_address": "284 Station Road, Harrow HA1 2EA",
+    "opening_balance": 2274,
+    "closing_balance": 4665.77,
+    "salary_credit": 4164.46,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1350.63,
+        "credit": 0.0,
+        "balance": 923.37
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 167.0,
+        "credit": 0.0,
+        "balance": 756.37
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 88.7,
+        "credit": 0.0,
+        "balance": 667.67
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 118.47,
+        "credit": 0.0,
+        "balance": 549.2
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 19.28,
+        "credit": 0.0,
+        "balance": 529.92
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 28.61,
+        "credit": 0.0,
+        "balance": 501.31
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS NOKIA UK LIMITED",
+        "debit": 0.0,
+        "credit": 4164.46,
+        "balance": 4665.77
+      }
+    ]
+  }
+}

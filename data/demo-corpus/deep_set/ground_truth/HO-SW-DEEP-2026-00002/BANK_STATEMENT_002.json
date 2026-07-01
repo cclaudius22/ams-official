@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000002",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "NatWest",
+    "account_holder": "Faisal Bilal Malik",
+    "statement_month": "2026-02",
+    "account_number": "60128224",
+    "sort_code": "28-84-91",
+    "branch_name": "NatWest Croydon High Street Branch",
+    "branch_address": "40 High Street, Croydon CR9 1XP",
+    "opening_balance": 2248,
+    "closing_balance": 4366.24,
+    "salary_credit": 3801.97,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1250.12,
+        "credit": 0.0,
+        "balance": 997.88
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 152.52,
+        "credit": 0.0,
+        "balance": 845.36
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 83.21,
+        "credit": 0.0,
+        "balance": 762.15
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 103.84,
+        "credit": 0.0,
+        "balance": 658.31
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 62.03,
+        "credit": 0.0,
+        "balance": 596.28
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 32.01,
+        "credit": 0.0,
+        "balance": 564.27
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS RINASHA PROPERTIES LIMITED",
+        "debit": 0.0,
+        "credit": 3801.97,
+        "balance": 4366.24
+      }
+    ]
+  }
+}

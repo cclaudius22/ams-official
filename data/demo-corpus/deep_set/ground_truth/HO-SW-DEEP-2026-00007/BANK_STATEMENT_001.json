@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000076",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "Santander",
+    "account_holder": "Angelica Dela Cruz",
+    "statement_month": "2026-01",
+    "account_number": "34990840",
+    "sort_code": "77-49-34",
+    "branch_name": "Santander Cardiff Queen Street Branch",
+    "branch_address": "5 Queen Street, Cardiff CF10 2AF",
+    "opening_balance": 2999,
+    "closing_balance": 4004.02,
+    "salary_credit": 2621.54,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1274.32,
+        "credit": 0.0,
+        "balance": 1724.68
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 116.24,
+        "credit": 0.0,
+        "balance": 1608.44
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 58.05,
+        "credit": 0.0,
+        "balance": 1550.39
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 122.9,
+        "credit": 0.0,
+        "balance": 1427.49
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 22.04,
+        "credit": 0.0,
+        "balance": 1405.45
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 22.97,
+        "credit": 0.0,
+        "balance": 1382.48
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS POOJA SWEETS & SAVOURIES LTD",
+        "debit": 0.0,
+        "credit": 2621.54,
+        "balance": 4004.02
+      }
+    ]
+  }
+}

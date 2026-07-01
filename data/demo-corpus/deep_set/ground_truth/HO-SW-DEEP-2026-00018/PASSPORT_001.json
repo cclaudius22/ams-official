@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000093",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "MENDOZA ISABELLA",
+    "surname": "MENDOZA",
+    "given_names": "ISABELLA",
+    "date_of_birth": "1997-12-27",
+    "gender": "F",
+    "nationality": "PHL",
+    "passport_number": "P6284649",
+    "date_of_issue": "2024-04-15",
+    "date_of_expiry": "2034-04-15",
+    "issuing_country": "PHL",
+    "mrz_line1": "P<PHLMENDOZA<<ISABELLA<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "P6284649<4PHL9712272F3404159<<<<<<<<<<<<<<02"
+  }
+}

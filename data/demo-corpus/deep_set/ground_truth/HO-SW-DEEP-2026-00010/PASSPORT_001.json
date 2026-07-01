@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000079",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "ASANTE YAW MENSAH",
+    "surname": "ASANTE",
+    "given_names": "YAW MENSAH",
+    "date_of_birth": "1980-05-17",
+    "gender": "M",
+    "nationality": "GHA",
+    "passport_number": "G7876472",
+    "date_of_issue": "2022-01-01",
+    "date_of_expiry": "2032-01-01",
+    "issuing_country": "GHA",
+    "mrz_line1": "P<GHAASANTE<<YAW<MENSAH<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "G7876472<7GHA8005171M3201015<<<<<<<<<<<<<<04"
+  }
+}

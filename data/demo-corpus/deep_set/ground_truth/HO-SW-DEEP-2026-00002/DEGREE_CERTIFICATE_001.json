@@ -1,0 +1,15 @@
+{
+  "document_type": "DEGREE_CERTIFICATE",
+  "application_id": "HO-SW-2026-00000002",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "institution": "Lahore University of Management Sciences",
+    "student_name": "FAISAL BILAL MALIK",
+    "degree_title": "Master of Science in Data Analytics",
+    "date_conferred": "2016-07-15",
+    "country": "PK"
+  }
+}

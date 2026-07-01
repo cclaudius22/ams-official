@@ -1,0 +1,22 @@
+{
+  "document_type": "EMPLOYMENT_LETTER",
+  "application_id": "HO-SW-2026-00000006",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "letter_date": "2026-05-20",
+    "employer_name": "EOS Bakehouse Ltd",
+    "employee_name": "Lerato Mokoena",
+    "job_title": "IT project managers",
+    "soc_code": "2131",
+    "cos_reference": "COS-2026-8807498",
+    "start_date": "2026-07-01",
+    "annual_salary": 65800.0,
+    "monthly_gross_pay": 5483.33,
+    "hours_per_week": 37.5,
+    "signatory_name": "Helen Morris",
+    "signatory_title": "HR Manager"
+  }
+}

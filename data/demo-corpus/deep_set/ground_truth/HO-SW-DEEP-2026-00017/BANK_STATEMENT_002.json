@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000092",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "NatWest",
+    "account_holder": "Jing Li",
+    "statement_month": "2026-02",
+    "account_number": "86466735",
+    "sort_code": "16-64-92",
+    "branch_name": "NatWest Croydon High Street Branch",
+    "branch_address": "40 High Street, Croydon CR9 1XP",
+    "opening_balance": 3418,
+    "closing_balance": 5301.85,
+    "salary_credit": 3376.96,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1113.88,
+        "credit": 0.0,
+        "balance": 2304.12
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 159.82,
+        "credit": 0.0,
+        "balance": 2144.3
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 43.25,
+        "credit": 0.0,
+        "balance": 2101.05
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 116.5,
+        "credit": 0.0,
+        "balance": 1984.55
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 43.2,
+        "credit": 0.0,
+        "balance": 1941.35
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 16.46,
+        "credit": 0.0,
+        "balance": 1924.89
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS THE LAURELS CARE HOME",
+        "debit": 0.0,
+        "credit": 3376.96,
+        "balance": 5301.85
+      }
+    ]
+  }
+}

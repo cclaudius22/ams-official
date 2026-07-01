@@ -1,0 +1,9 @@
+{
+  "source_application_id": "HO-SW-2026-F0001",
+  "source_reference": "REF-1",
+  "visa_type": "skilled-worker",
+  "country_code": "IN",
+  "submitted_at": "2026-06-20T10:00:00Z",
+  "anomaly_type": "clean",
+  "applicant": { "first_name": "Aisha", "last_name": "Khan" }
+}

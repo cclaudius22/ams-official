@@ -1,0 +1,11 @@
+Housekeeping I deliberately left alone, for the record:
+
+  - The 76 pre-existing TypeScript errors in the onboarding component tree — that's the real
+  code-debt item, but it's a half-day of focused work in a subsystem unrelated to the DIS
+  push, and not worth tangling into this branch. Worth its own ticket.
+  - The two malformed April commit messages (f32fb5b/c0eebb0 with embedded "Subject:" lines)
+  — fixing them means rewriting pushed history; not worth it.
+  - progress.md and the sign-off request — both still live documents, untouched.
+
+  The repo now tells a clean story to anyone who opens it: two authoritative specs, one
+  evidence file, one current build log, and a clearly-labelled graveyard.

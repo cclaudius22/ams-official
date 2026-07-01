@@ -1,0 +1,2182 @@
+{
+  "source_application_id": "HO-SW-DEEP-2026-00013",
+  "source_reference": "GV-DEEP-00013",
+  "source_channel": "govdirect",
+  "visa_type": "skilled-worker",
+  "country_code": "GB",
+  "submitted_at": "2026-06-04T12:11:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "lucas.santos.0062@yahoo.com",
+    "first_name": "Lucas",
+    "middle_name": "Marcos",
+    "last_name": "Santos",
+    "date_of_birth": "1990-02-06",
+    "nationality_code": "BR",
+    "gender": "M"
+  },
+  "passport_data": {
+    "number": "A2254776",
+    "issuing_country": "BR",
+    "nationality": "BR",
+    "full_name": "SANTOS LUCAS MARCOS",
+    "date_of_birth": "1990-02-06",
+    "gender": "M",
+    "issue_date": "2023-01-22",
+    "expiry_date": "2033-01-22",
+    "mrz_line1": "P<BRASANTOS<<LUCAS<MARCOS<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "A2254776<9BRA9002063M3301225<<<<<<<<<<<<<<06"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC Birmingham - 103 Edmund Street, B3 2HJ",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-1062",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Lucas",
+      "middleName": "Marcos",
+      "lastName": "Santos",
+      "dateOfBirth": "1990-02-06",
+      "nationality": "BR",
+      "maritalStatus": "single"
+    },
+    "employment": {
+      "status": "employed",
+      "employerName": "SANSONS CHARTERED ACCOUNTANTS",
+      "sponsorLicenceNumber": "SAN-2023-8277",
+      "sponsorStatus": "ACTIVE",
+      "sponsorRating": "A",
+      "jobTitle": "Teachers of English as a foreign language",
+      "annualIncome": 41908.5,
+      "monthlyGrossPay": 3492.38,
+      "cosReferenceNumber": "COS-2026-7103850",
+      "cosIssueDate": "2026-04-15",
+      "cosExpiryDate": "2026-09-15",
+      "socCode": "2317",
+      "socTitle": "Teachers of English as a foreign language",
+      "socGoingRateAnnual": 36200,
+      "startDate": "2026-07-01",
+      "salaryFrequency": "ANNUAL",
+      "hoursPerWeek": 37.5,
+      "isNewEntrant": false,
+      "newEntrantReason": null,
+      "previousUkEmployment": false
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-0062-1054",
+      "visaFeeReference": "VF-2026-SW-000062",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26BR111460SAN",
+      "overallScore": 8.5,
+      "speakingScore": 9,
+      "listeningScore": 9,
+      "readingScore": 8,
+      "writingScore": 8.5,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "BR",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": false,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": null,
+      "tbCertificateClinicCountry": null
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-00013",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2453,
+      "uploaded_at": "2026-06-04T11:29:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-002-00013",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2451,
+      "uploaded_at": "2026-06-04T11:32:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-003-00013",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2801,
+      "uploaded_at": "2026-06-04T11:35:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-005-00013",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2791,
+      "uploaded_at": "2026-06-04T11:41:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-006-00013",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1974,
+      "uploaded_at": "2026-06-04T11:44:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-007-00013",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PAYSLIPS/PAYSLIPS_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2271,
+      "uploaded_at": "2026-06-04T11:47:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-008-00013",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PAYSLIPS/PAYSLIPS_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2271,
+      "uploaded_at": "2026-06-04T11:50:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-009-00013",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PAYSLIPS/PAYSLIPS_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2268,
+      "uploaded_at": "2026-06-04T11:53:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-010-00013",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2055,
+      "uploaded_at": "2026-06-04T11:56:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-011-00013",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-04T11:59:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-SW-DEEP-2026-00013",
+  "anomaly_type": "suspicious",
+  "anomaly_details": [
+    "insufficient bank statement month 2"
+  ],
+  "recommendation": "MANUAL_REVIEW",
+  "rfi_lifecycle": {
+    "enabled": true,
+    "queue_state_before_response": "AWAITING_INFO",
+    "queue_state_after_response": "READY_FOR_REVIEW",
+    "issue": "insufficient bank statement month 2",
+    "removed_initial_document": "BANK_STATEMENT_002.pdf",
+    "request_artifact": "rfi_artifacts/HO-SW-DEEP-2026-00013/request.json",
+    "response_artifact": "rfi_artifacts/HO-SW-DEEP-2026-00013/response.json"
+  },
+  "rules_summary": {
+    "drools": {
+      "rules_evaluated": 20,
+      "passed": 18,
+      "failed": 0,
+      "review_required": 2,
+      "not_applicable": 0
+    },
+    "opa": {
+      "policies_evaluated": 12,
+      "allow": 12,
+      "deny": 0,
+      "flag": 1
+    },
+    "external_checks": {
+      "checks_evaluated": 7,
+      "clear": 7,
+      "flagged": 0
+    },
+    "source_details": [
+      "insufficient bank statement month 2"
+    ]
+  },
+  "flagged_rule_ids": [
+    "RULE-W09"
+  ],
+  "opa_policy_results": [
+    {
+      "policy_id": "OPA-H01",
+      "policy_name": "Sanctions_WorldCheck_HardBlock",
+      "outcome": "ALLOW"
+    },
+    {
+      "policy_id": "OPA-H05",
+      "policy_name": "Document_Fraud_Score",
+      "outcome": "ALLOW"
+    },
+    {
+      "policy_id": "OPA-S03",
+      "policy_name": "Completeness_Low",
+      "outcome": "FLAG"
+    }
+  ],
+  "external_check_results": [
+    {
+      "check_type": "WORLDCHECK",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "INTERPOL",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "PASSPORT_VERIFY",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "COS_CHECK",
+      "status": "CLEAR"
+    }
+  ],
+  "completeness": {
+    "status": "INCOMPLETE_PENDING",
+    "score": 74,
+    "missing_or_insufficient": [
+      "insufficient bank statement month 2"
+    ]
+  },
+  "document_assessments": [
+    {
+      "document_id": "ho-doc-001-00013",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-002-00013",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-003-00013",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-005-00013",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-006-00013",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-007-00013",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-008-00013",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-009-00013",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-010-00013",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-011-00013",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "extraction_status": "UPLOADED",
+      "fraud_signal": "CLEAR"
+    }
+  ],
+  "ov_assessment": {
+    "model_version": "ov-risk-v0.9-demo-corpus",
+    "overall": {
+      "risk_band": "MEDIUM",
+      "score": 68,
+      "summary": "Lucas Santos presents a medium-risk review case. The core route can be assessed, but insufficient bank statement month 2 needs officer attention before final decision."
+    },
+    "recommendation": "Proceed to officer review - resolve the soft factor before deciding.",
+    "dimensions": [
+      {
+        "key": "rootedness",
+        "label": "Rootedness",
+        "score": 72,
+        "status": "Moderate ties",
+        "reasoning": "Identity and travel history are coherent, but the flagged item tempers confidence until reviewed.",
+        "factors": [
+          "Route issue tempers confidence",
+          "Identity evidence present"
+        ]
+      },
+      {
+        "key": "intent",
+        "label": "Intent",
+        "score": 66,
+        "status": "Needs confirmation",
+        "reasoning": "Intent is plausible, but insufficient bank statement month 2 needs confirmation.",
+        "factors": [
+          "Salary evidence issue",
+          "CoS review required"
+        ]
+      },
+      {
+        "key": "credibility",
+        "label": "Credibility",
+        "score": 58,
+        "status": "Review advised",
+        "reasoning": "Credibility is mostly supported, with a tempering factor: insufficient bank statement month 2.",
+        "factors": [
+          "Soft flag",
+          "Evidence review required",
+          "RFI candidate"
+        ]
+      }
+    ]
+  },
+  "dis_application_view": {
+    "recommendation": {
+      "recommendation": "MANUAL_REVIEW",
+      "recommendation_reason": "Lucas Santos requires manual review: insufficient bank statement month 2.",
+      "caseworker_summary": "Lucas Santos requires manual review: insufficient bank statement month 2.",
+      "evaluation_breakdown": {
+        "drools_evaluation": "18 of 20 rules satisfied; 0 failed; 1 require review; 1 not applicable.",
+        "external_checks_evaluation": "7 of 7 external checks clear.",
+        "opa_evaluation": "11 of 12 OPA policies passed/allowed; 1 denied or flagged."
+      },
+      "hard_fail_rules": [],
+      "soft_flag_rules": [
+        "RULE-W13",
+        "OPA-S03"
+      ],
+      "rules_summary": {
+        "rules": {
+          "drools_rules_evaluated": 20,
+          "drools_rules_passed": 18,
+          "drools_rules_failed": 0,
+          "drools_rules_not_applicable": 1
+        },
+        "opa_policies": {
+          "opa_total_evaluated": 12,
+          "opa_total_passed": 11,
+          "opa_total_failed": 1,
+          "opa_hard_evaluated": 6,
+          "opa_hard_passed": 6,
+          "opa_hard_failed": 0,
+          "opa_soft_evaluated": 6,
+          "opa_soft_passed": 5,
+          "opa_soft_failed": 1
+        },
+        "external_checks": {
+          "external_checks_evaluated": 7,
+          "external_checks_passed": 7,
+          "external_checks_failed": 0,
+          "external_checks_error": 0
+        }
+      },
+      "completeness_score": 74,
+      "completeness_status": "INCOMPLETE_PENDING",
+      "generated_at": "2026-06-29T09:00:00Z",
+      "recommendation_at": "2026-06-29T09:00:00Z",
+      "drools_version": [
+        {
+          "rule_file": "universal/universal_rules.drl",
+          "rule_version_id": "rv-demo-u-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "rule_file": "skilled_worker/skilled_worker_rules.drl",
+          "rule_version_id": "rv-demo-sw-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "opa_version": [
+        {
+          "policy_file": "hard/hard_policies.rego",
+          "policy_version_id": "pv-demo-hard-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "policy_file": "soft/soft_policies.rego",
+          "policy_version_id": "pv-demo-soft-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "note": "This is a system recommendation to assist caseworker decision-making. Final determination rests with the authorised decision-maker."
+    },
+    "component_scores": {
+      "passport": {
+        "component": "passport",
+        "score": 95,
+        "status": "VALID",
+        "confidence": 0.97,
+        "status_description": "Passport A2254776 valid until 2033-01-22; MRZ check passed.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U01",
+            "rule_name": "Passport Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Passport A2254776 issued by BR is valid until 2033-01-22; MRZ check passed."
+          }
+        ],
+        "opa_results": [
+          {
+            "policy_id": "OPA-H02",
+            "policy_name": "Passport_Verification",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          },
+          {
+            "policy_id": "OPA-H03",
+            "policy_name": "Interpol_SLTD",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT"
+        ],
+        "external_check_types": [
+          "PASSPORT_VERIFY",
+          "INTERPOL",
+          "BORDER_CONTROL"
+        ]
+      },
+      "financial": {
+        "component": "financial",
+        "score": 62,
+        "status": "REVIEW_REQUIRED",
+        "confidence": 0.92,
+        "status_description": "Bank evidence reviewed; lowest observed balance £1,299.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W09",
+            "rule_name": "Maintenance Funds",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,299."
+          }
+        ],
+        "extraction_sources": [
+          "BANK_STATEMENT"
+        ],
+        "external_check_types": []
+      },
+      "employment": {
+        "component": "employment",
+        "score": 92,
+        "status": "MET",
+        "confidence": 0.94,
+        "status_description": "Salary £41,909 assessed against general and SOC 2317 thresholds.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W01",
+            "rule_name": "CoS Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "CoS COS-2026-7103850 is assigned, unused, and within validity window."
+          },
+          {
+            "rule_id": "RULE-W02",
+            "rule_name": "Sponsor Licence Status",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Sponsor SANSONS CHARTERED ACCOUNTANTS (SAN-2023-8277) is A rated and active."
+          },
+          {
+            "rule_id": "RULE-W03",
+            "rule_name": "Salary Threshold - General",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Annual salary £41,909 is assessed against the Skilled Worker general threshold and SOC 2317 going rate £36,200."
+          },
+          {
+            "rule_id": "RULE-W15",
+            "rule_name": "Start Date Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": [
+          "COS_CHECK"
+        ]
+      },
+      "english_language": {
+        "component": "english_language",
+        "score": 91,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "IELTS_ACADEMIC overall 8.5; B2 requirement met.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W08",
+            "rule_name": "English Language",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "English language evidence: IELTS_ACADEMIC overall score 8.5; B2 requirement met."
+          }
+        ],
+        "extraction_sources": [
+          "IELTS_CERTIFICATE",
+          "DEGREE_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "immigration_compliance": {
+        "component": "immigration_compliance",
+        "score": 96,
+        "status": "COMPLIANT",
+        "confidence": 0.98,
+        "status_description": "No adverse immigration compliance history in the corpus case.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W12",
+            "rule_name": "Previous Immigration Compliance",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "BORDER_CONTROL"
+        ]
+      },
+      "criminal_record": {
+        "component": "criminal_record",
+        "score": 95,
+        "status": "CLEAR",
+        "confidence": 0.98,
+        "status_description": "No convictions declared and no Interpol hard match.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W11",
+            "rule_name": "Criminal Record Disclosure",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "WORLDCHECK",
+          "INTERPOL"
+        ]
+      },
+      "health": null,
+      "document_quality": {
+        "component": "document_quality",
+        "score": 68,
+        "status": "REVIEW_REQUIRED",
+        "confidence": 0.87,
+        "status_description": "Document gap: insufficient bank statement month 2.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U05",
+            "rule_name": "Document Extraction Confidence",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold."
+          },
+          {
+            "rule_id": "RULE-W13",
+            "rule_name": "Application Completeness",
+            "result": "FAIL",
+            "severity": "ADVISORY",
+            "details": "Completeness requires officer attention: insufficient bank statement month 2.",
+            "remediation": "Review source evidence and record officer rationale before final decision."
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT",
+          "EMPLOYMENT_LETTER",
+          "BANK_STATEMENT",
+          "DEGREE_CERTIFICATE",
+          "PAYSLIP",
+          "IELTS_CERTIFICATE",
+          "PHOTO"
+        ],
+        "external_check_types": []
+      },
+      "fraud_risk": {
+        "component": "fraud_risk",
+        "score": 88,
+        "status": "LOW_RISK",
+        "confidence": 0.82,
+        "raw_fraud_score": 0.12,
+        "status_description": "No document fraud signal above review threshold.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W14",
+            "rule_name": "Document Fraud Detection",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No critical fraud signal detected in document metadata, layout, cross-document consistency, or content plausibility."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": []
+      }
+    },
+    "source_channel": "govdirect",
+    "rule_results": [
+      {
+        "rule_id": "RULE-U01",
+        "rule_name": "Passport Validity",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Passport A2254776 issued by BR is valid until 2033-01-22; MRZ check passed.",
+        "evidence_refs": [
+          "document_extractions:PASSPORT",
+          "external_checks:PASSPORT_VERIFY"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U02",
+        "rule_name": "Biometric Verification",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "vac_in_person verification completed at VAC Birmingham - 103 Edmund Street, B3 2HJ; fingerprints and photograph captured.",
+        "evidence_refs": [
+          "submission_payload:biometric_verification"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U03",
+        "rule_name": "Sanctions Screening",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sanctions and adverse-media screening returned no hard block.",
+        "evidence_refs": [
+          "external_checks:WORLDCHECK"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U04",
+        "rule_name": "Duplicate Application Check",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No duplicate application was identified for passport, name/date of birth, or source reference.",
+        "evidence_refs": [
+          "submission_payload:applicant",
+          "source_reference"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U05",
+        "rule_name": "Document Extraction Confidence",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold.",
+        "evidence_refs": [
+          "document_extractions"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W01",
+        "rule_name": "CoS Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "CoS COS-2026-7103850 is assigned, unused, and within validity window.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.cosReferenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W02",
+        "rule_name": "Sponsor Licence Status",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sponsor SANSONS CHARTERED ACCOUNTANTS (SAN-2023-8277) is A rated and active.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.sponsorLicenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W03",
+        "rule_name": "Salary Threshold - General",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Annual salary £41,909 is assessed against the Skilled Worker general threshold and SOC 2317 going rate £36,200.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.annualIncome",
+          "document_extractions:EMPLOYMENT_LETTER",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W04",
+        "rule_name": "Salary Threshold - New Entrant",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "NOT_APPLICABLE",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant is not a new entrant; the general salary threshold route applies instead.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.isNewEntrant"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W05",
+        "rule_name": "SOC Code Eligibility",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "SOC 2317 (Teachers of English as a foreign language) is eligible for Skilled Worker sponsorship.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W06",
+        "rule_name": "Immigration Salary List Check",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "ADVISORY",
+        "reasoning": "Immigration Salary List check completed; standard threshold treatment applied unless explicitly stated by the route data.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W07",
+        "rule_name": "Job Skill Level",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Role Teachers of English as a foreign language is treated as meeting the required skill level for SOC 2317.",
+        "evidence_refs": [
+          "document_extractions:DEGREE_CERTIFICATE",
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W08",
+        "rule_name": "English Language",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "English language evidence: IELTS_ACADEMIC overall score 8.5; B2 requirement met.",
+        "evidence_refs": [
+          "document_extractions:IELTS_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W09",
+        "rule_name": "Maintenance Funds",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,299.",
+        "evidence_refs": [
+          "document_extractions:BANK_STATEMENT"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W10",
+        "rule_name": "TB Test Certificate",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "TB certificate not required for this applicant profile.",
+        "evidence_refs": [
+          "document_extractions:TB_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W11",
+        "rule_name": "Criminal Record Disclosure",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue.",
+        "evidence_refs": [
+          "submission_payload:answers_criminalRecord",
+          "external_checks:INTERPOL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W12",
+        "rule_name": "Previous Immigration Compliance",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case.",
+        "evidence_refs": [
+          "submission_payload:answers_travelHistory",
+          "external_checks:BORDER_CONTROL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W13",
+        "rule_name": "Application Completeness",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "REVIEW_REQUIRED",
+        "severity": "ADVISORY",
+        "reasoning": "Completeness requires officer attention: insufficient bank statement month 2.",
+        "remediation": "Review source evidence and record officer rationale before final decision.",
+        "evidence_refs": [
+          "documents",
+          "completeness.missing_or_insufficient"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W14",
+        "rule_name": "Document Fraud Detection",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No critical fraud signal detected in document metadata, layout, cross-document consistency, or content plausibility.",
+        "evidence_refs": [
+          "document_extractions",
+          "fraud_signals"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W15",
+        "rule_name": "Start Date Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.startDate"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "opa_results": [
+      {
+        "policy_id": "OPA-H01",
+        "policy_name": "Sanctions_WorldCheck_HardBlock",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H02",
+        "policy_name": "Passport_Verification",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H03",
+        "policy_name": "Interpol_SLTD",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H04",
+        "policy_name": "Auth_Session_Validation",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H05",
+        "policy_name": "Document_Fraud_Score",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H06",
+        "policy_name": "Data_Residency",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S01",
+        "policy_name": "Biometric_Borderline",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S02",
+        "policy_name": "WorldCheck_Low_Medium",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S03",
+        "policy_name": "Completeness_Low",
+        "policy_type": "SOFT",
+        "outcome": "FLAG",
+        "denial_reasons": [
+          "Completeness is INCOMPLETE_PENDING; insufficient bank statement month 2."
+        ],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S04",
+        "policy_name": "Rapid_Submission_Bot",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S05",
+        "policy_name": "Enhanced_Scrutiny_Nationality",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S06",
+        "policy_name": "Infrastructure_Alerts",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "external_checks": [
+      {
+        "check_id": "chk-013-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": null,
+        "check_type": "WORLDCHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "categories_checked": [
+            "SANCTIONS",
+            "PEP",
+            "ADVERSE_MEDIA"
+          ],
+          "matches_found": []
+        },
+        "response_time_ms": 350,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-013-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-001-00013",
+        "check_type": "INTERPOL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_stolen": false,
+          "is_lost": false,
+          "is_revoked": false
+        },
+        "response_time_ms": 440,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-013-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-001-00013",
+        "check_type": "PASSPORT_VERIFY",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "document_number": "A2254776",
+          "overall_match": true,
+          "check_digit_valid": true,
+          "document_status": "VALID"
+        },
+        "response_time_ms": 530,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-013-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-001-00013",
+        "check_type": "BORDER_CONTROL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "has_overstay": false,
+          "has_deportation": false,
+          "has_refusal_at_border": false,
+          "previous_uk_refusals": false
+        },
+        "response_time_ms": 620,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-013-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": null,
+        "check_type": "DEVICE_IP_RISK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_vpn": false,
+          "is_tor": false,
+          "is_proxy": false,
+          "submission_velocity": "NORMAL"
+        },
+        "response_time_ms": 710,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-013-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": null,
+        "check_type": "EMAIL_PHONE_REPUTATION",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "email": "lucas.santos.0062@yahoo.com",
+          "disposable_email": false,
+          "known_fraud_phone": false
+        },
+        "response_time_ms": 800,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-013-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": null,
+        "check_type": "COS_CHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "cos_reference_number": "COS-2026-7103850",
+          "sponsor_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "sponsor_licence_number": "SAN-2023-8277",
+          "sponsor_licence_status": "A_RATED",
+          "soc_code": "2317",
+          "job_title": "Teachers of English as a foreign language",
+          "salary_on_cos_gbp": 41908.5,
+          "salary_matches_threshold": true,
+          "salary_matches_employment_letter": true
+        },
+        "response_time_ms": 890,
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "documents": [
+      {
+        "dis_document_id": "ho-doc-001-00013",
+        "document_type": "PASSPORT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PASSPORT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2453
+      },
+      {
+        "dis_document_id": "ho-doc-002-00013",
+        "document_type": "EMPLOYMENT_LETTER",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/EMPLOYMENT_LETTER_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2451
+      },
+      {
+        "dis_document_id": "ho-doc-003-00013",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/BANK_STATEMENT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2801
+      },
+      {
+        "dis_document_id": "ho-doc-005-00013",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/BANK_STATEMENT_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2791
+      },
+      {
+        "dis_document_id": "ho-doc-006-00013",
+        "document_type": "DEGREE_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/DEGREE_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 1974
+      },
+      {
+        "dis_document_id": "ho-doc-007-00013",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PAYSLIP_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PAYSLIP/PAYSLIP_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2271
+      },
+      {
+        "dis_document_id": "ho-doc-008-00013",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PAYSLIP_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PAYSLIP/PAYSLIP_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2271
+      },
+      {
+        "dis_document_id": "ho-doc-009-00013",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PAYSLIP_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PAYSLIP/PAYSLIP_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2268
+      },
+      {
+        "dis_document_id": "ho-doc-010-00013",
+        "document_type": "IELTS_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/IELTS_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2055
+      },
+      {
+        "dis_document_id": "ho-doc-011-00013",
+        "document_type": "PHOTO",
+        "requirement_tier": "SUPPORTING",
+        "processing_tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PHOTO_001.jpg",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00013/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "UPLOADED",
+        "quality_score": 0.94,
+        "mime_type": "image/jpeg",
+        "file_size_bytes": 17622
+      }
+    ],
+    "document_extractions": [
+      {
+        "extraction_id": "extr-013-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-003-00013",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/BANK_STATEMENT_001.json"
+        },
+        "extracted_data": {
+          "bank_name": "NatWest",
+          "account_holder": "Lucas Marcos Santos",
+          "statement_month": "2026-01",
+          "account_number": "68634108",
+          "sort_code": "37-35-95",
+          "branch_name": "NatWest Glasgow City Branch",
+          "branch_address": "14 Blythswood Square, Glasgow G2 4AU",
+          "opening_balance": 2817,
+          "closing_balance": 3932.33,
+          "salary_credit": 2633.23,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-01-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 1150.87,
+              "credit": 0,
+              "balance": 1666.13
+            },
+            {
+              "date": "2026-01-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 180.54,
+              "credit": 0,
+              "balance": 1485.59
+            },
+            {
+              "date": "2026-01-10",
+              "description": "CARD TESCO STORES",
+              "debit": 87.51,
+              "credit": 0,
+              "balance": 1398.08
+            },
+            {
+              "date": "2026-01-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 71.22,
+              "credit": 0,
+              "balance": 1326.86
+            },
+            {
+              "date": "2026-01-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 18.56,
+              "credit": 0,
+              "balance": 1308.3
+            },
+            {
+              "date": "2026-01-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 9.2,
+              "credit": 0,
+              "balance": 1299.1
+            },
+            {
+              "date": "2026-01-31",
+              "description": "BACS SANSONS CHARTERED ACCOUNTANT",
+              "debit": 0,
+              "credit": 2633.23,
+              "balance": 3932.33
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Lucas Marcos Santos",
+          "account_number_last4": "4108",
+          "sort_code": "37-35-95",
+          "bank_name": "NatWest",
+          "statement_month": "2026-01",
+          "opening_balance_gbp": 2817,
+          "closing_balance_gbp": 3932.33,
+          "lowest_balance_gbp": 1299.1,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2633.23
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/BANK_STATEMENT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/BANK_STATEMENT_001.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-005-00013",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/BANK_STATEMENT_003.json"
+        },
+        "extracted_data": {
+          "bank_name": "NatWest",
+          "account_holder": "Lucas Marcos Santos",
+          "statement_month": "2026-03",
+          "account_number": "68634108",
+          "sort_code": "37-35-95",
+          "branch_name": "NatWest Glasgow City Branch",
+          "branch_address": "14 Blythswood Square, Glasgow G2 4AU",
+          "opening_balance": 3239,
+          "closing_balance": 4454.96,
+          "salary_credit": 2633.23,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-03-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 1046.02,
+              "credit": 0,
+              "balance": 2192.98
+            },
+            {
+              "date": "2026-03-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 136.2,
+              "credit": 0,
+              "balance": 2056.78
+            },
+            {
+              "date": "2026-03-10",
+              "description": "CARD TESCO STORES",
+              "debit": 87.74,
+              "credit": 0,
+              "balance": 1969.04
+            },
+            {
+              "date": "2026-03-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 88.76,
+              "credit": 0,
+              "balance": 1880.28
+            },
+            {
+              "date": "2026-03-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 33.21,
+              "credit": 0,
+              "balance": 1847.07
+            },
+            {
+              "date": "2026-03-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 25.34,
+              "credit": 0,
+              "balance": 1821.73
+            },
+            {
+              "date": "2026-03-31",
+              "description": "BACS SANSONS CHARTERED ACCOUNTANT",
+              "debit": 0,
+              "credit": 2633.23,
+              "balance": 4454.96
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Lucas Marcos Santos",
+          "account_number_last4": "4108",
+          "sort_code": "37-35-95",
+          "bank_name": "NatWest",
+          "statement_month": "2026-03",
+          "opening_balance_gbp": 3239,
+          "closing_balance_gbp": 4454.96,
+          "lowest_balance_gbp": 1821.73,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2633.23
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/BANK_STATEMENT_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/BANK_STATEMENT_003.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-006-00013",
+        "document_type": "DEGREE_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/degree-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/DEGREE_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "institution": "University of Sao Paulo",
+          "student_name": "LUCAS MARCOS SANTOS",
+          "degree_title": "Master of Science in Data Analytics",
+          "date_conferred": "2016-07-15",
+          "country": "BR"
+        },
+        "normalised_fields": {
+          "institution_name": "University of Sao Paulo",
+          "candidate_name": "LUCAS MARCOS SANTOS",
+          "qualification_title": "Master of Science in Data Analytics",
+          "award_date": "2016-07-15",
+          "country_code": "BR",
+          "rqf_level_equivalent": 6
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/DEGREE_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/DEGREE_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-002-00013",
+        "document_type": "EMPLOYMENT_LETTER",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/employment-letter",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/EMPLOYMENT_LETTER_001.json"
+        },
+        "extracted_data": {
+          "letter_date": "2026-05-20",
+          "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "employee_name": "Lucas Santos",
+          "job_title": "Teachers of English as a foreign language",
+          "soc_code": "2317",
+          "cos_reference": "COS-2026-7103850",
+          "start_date": "2026-07-01",
+          "annual_salary": 41908.5,
+          "monthly_gross_pay": 3492.38,
+          "hours_per_week": 37.5,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "normalised_fields": {
+          "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "job_title": "Teachers of English as a foreign language",
+          "soc_code": "2317",
+          "cos_reference_number": "COS-2026-7103850",
+          "start_date": "2026-07-01",
+          "annual_salary_gbp": 41908.5,
+          "monthly_gross_pay_gbp": 3492.38,
+          "hours_per_week": 37.5,
+          "letter_date": "2026-05-20",
+          "salary_matches_cos": true,
+          "employer_matches_cos": true,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/EMPLOYMENT_LETTER_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/EMPLOYMENT_LETTER_001.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-010-00013",
+        "document_type": "IELTS_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/ielts-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.93,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/IELTS_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "candidate_name": "Lucas Marcos Santos",
+          "candidate_number": "223164",
+          "test_date": "2026-02-18",
+          "overall_band_score": 8.5,
+          "listening_score": 9,
+          "reading_score": 8,
+          "writing_score": 8.5,
+          "speaking_score": 9,
+          "test_reference_number": "26BR111460SAN"
+        },
+        "normalised_fields": {
+          "test_type": "IELTS_ACADEMIC",
+          "candidate_name": "Lucas Marcos Santos",
+          "test_date": "2026-02-18",
+          "overall_score": 8.5,
+          "listening_score": 9,
+          "reading_score": 8,
+          "writing_score": 8.5,
+          "speaking_score": 9,
+          "test_reference_number": "26BR111460SAN",
+          "meets_b2_minimum": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/IELTS_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/IELTS_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-001-00013",
+        "document_type": "PASSPORT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_ID_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/passport",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/PASSPORT_001.json"
+        },
+        "extracted_data": {
+          "full_name": "SANTOS LUCAS MARCOS",
+          "surname": "SANTOS",
+          "given_names": "LUCAS MARCOS",
+          "date_of_birth": "1990-02-06",
+          "gender": "M",
+          "nationality": "BRA",
+          "passport_number": "A2254776",
+          "date_of_issue": "2023-01-22",
+          "date_of_expiry": "2033-01-22",
+          "issuing_country": "BRA",
+          "mrz_line1": "P<BRASANTOS<<LUCAS<MARCOS<<<<<<<<<<<<<<<<<<<",
+          "mrz_line2": "A2254776<9BRA9002063M3301225<<<<<<<<<<<<<<06"
+        },
+        "normalised_fields": {
+          "document_number": "A2254776",
+          "surname": "SANTOS",
+          "given_names": "LUCAS MARCOS",
+          "full_name": "SANTOS LUCAS MARCOS",
+          "date_of_birth": "1990-02-06",
+          "nationality_code": "BRA",
+          "sex": "M",
+          "issue_date": "2023-01-22",
+          "expiry_date": "2033-01-22",
+          "issuing_country_code": "BRA",
+          "mrz_valid": true,
+          "mrz_checksum_passed": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          },
+          "mrz_check": {
+            "score": 0,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PASSPORT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/PASSPORT_001.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-007-00013",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/PAYSLIP_001.json"
+        },
+        "extracted_data": {
+          "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "employee_name": "Lucas Marcos Santos",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay": 3492.38,
+          "annualized_gross_pay": 41908.56,
+          "tax_deducted": 488.98,
+          "ni_deducted": 195.55,
+          "pension_deducted": 174.62,
+          "net_pay": 2633.23,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000062",
+          "tax_code": "1257L",
+          "ni_number": "WX275068D"
+        },
+        "normalised_fields": {
+          "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "employee_name": "Lucas Marcos Santos",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay_gbp": 3492.38,
+          "annualized_gross_pay_gbp": 41908.56,
+          "net_pay_gbp": 2633.23,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000062",
+          "tax_code": "1257L",
+          "ni_number": "WX275068D"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PAYSLIP_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/PAYSLIP_001.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-08",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-008-00013",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/PAYSLIP_002.json"
+        },
+        "extracted_data": {
+          "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "employee_name": "Lucas Marcos Santos",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay": 3492.38,
+          "annualized_gross_pay": 41908.56,
+          "tax_deducted": 488.98,
+          "ni_deducted": 195.55,
+          "pension_deducted": 174.62,
+          "net_pay": 2633.23,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000062",
+          "tax_code": "1257L",
+          "ni_number": "WX275068D"
+        },
+        "normalised_fields": {
+          "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "employee_name": "Lucas Marcos Santos",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay_gbp": 3492.38,
+          "annualized_gross_pay_gbp": 41908.56,
+          "net_pay_gbp": 2633.23,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000062",
+          "tax_code": "1257L",
+          "ni_number": "WX275068D"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PAYSLIP_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/PAYSLIP_002.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-09",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-009-00013",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/PAYSLIP_003.json"
+        },
+        "extracted_data": {
+          "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "employee_name": "Lucas Marcos Santos",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay": 3492.38,
+          "annualized_gross_pay": 41908.56,
+          "tax_deducted": 488.98,
+          "ni_deducted": 195.55,
+          "pension_deducted": 174.62,
+          "net_pay": 2633.23,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000062",
+          "tax_code": "1257L",
+          "ni_number": "WX275068D"
+        },
+        "normalised_fields": {
+          "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+          "employee_name": "Lucas Marcos Santos",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay_gbp": 3492.38,
+          "annualized_gross_pay_gbp": 41908.56,
+          "net_pay_gbp": 2633.23,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000062",
+          "tax_code": "1257L",
+          "ni_number": "WX275068D"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PAYSLIP_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/PAYSLIP_003.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-013-10",
+        "dis_application_id": "dis-ho-sw-deep-2026-00013",
+        "document_id": "ho-doc-011-00013",
+        "document_type": "PHOTO",
+        "tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/photo",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.9,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00013/PHOTO_001.json"
+        },
+        "extracted_data": {
+          "applicant_name": "Lucas Marcos Santos",
+          "filename": "PHOTO_001.jpg",
+          "image_label": "PASSPORT PHOTO - SYNTHETIC",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "normalised_fields": {
+          "applicant_name": "Lucas Marcos Santos",
+          "filename": "PHOTO_001.jpg",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "fraud_score": null,
+        "fraud_status": null,
+        "fraud_signals": null,
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00013/PHOTO_001.jpg",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00013/PHOTO_001.json",
+        "created_at": "2026-06-04T12:11:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "llm_summary": "Lucas Santos is a BR national applying for Skilled Worker permission sponsored by SANSONS CHARTERED ACCOUNTANTS for Teachers of English as a foreign language (SOC 2317). The application states salary £41,909 against the SOC going rate £36,200 and start date 2026-07-01. DIS routes the case to manual review because insufficient bank statement month 2. The officer should inspect the linked evidence and use the RFI flow where further evidence is needed.",
+    "queue_state": "READY_FOR_REVIEW",
+    "source_application_id": "HO-SW-DEEP-2026-00013",
+    "source_reference": "GV-DEEP-00013",
+    "dis_application_id": "dis-ho-sw-deep-2026-00013",
+    "submitted_at": "2026-06-04T12:11:00Z"
+  }
+}

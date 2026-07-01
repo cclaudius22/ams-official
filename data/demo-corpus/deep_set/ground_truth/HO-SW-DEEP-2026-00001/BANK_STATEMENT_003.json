@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000001",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "Barclays",
+    "account_holder": "Karan Nair",
+    "statement_month": "2026-03",
+    "account_number": "41243220",
+    "sort_code": "84-79-47",
+    "branch_name": "Barclays Manchester Market Street Branch",
+    "branch_address": "51 Market Street, Manchester M1 1PW",
+    "opening_balance": 2446,
+    "closing_balance": 4155.02,
+    "salary_credit": 3201.97,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-03-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1123.54,
+        "credit": 0.0,
+        "balance": 1322.46
+      },
+      {
+        "date": "2026-03-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 142.0,
+        "credit": 0.0,
+        "balance": 1180.46
+      },
+      {
+        "date": "2026-03-10",
+        "description": "CARD TESCO STORES",
+        "debit": 80.27,
+        "credit": 0.0,
+        "balance": 1100.19
+      },
+      {
+        "date": "2026-03-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 96.8,
+        "credit": 0.0,
+        "balance": 1003.39
+      },
+      {
+        "date": "2026-03-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 40.67,
+        "credit": 0.0,
+        "balance": 962.72
+      },
+      {
+        "date": "2026-03-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 9.67,
+        "credit": 0.0,
+        "balance": 953.05
+      },
+      {
+        "date": "2026-03-31",
+        "description": "BACS MIRAK GLOBAL SERVICES (UK) L",
+        "debit": 0.0,
+        "credit": 3201.97,
+        "balance": 4155.02
+      }
+    ]
+  }
+}

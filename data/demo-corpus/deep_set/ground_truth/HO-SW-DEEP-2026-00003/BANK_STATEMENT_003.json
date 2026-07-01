@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000003",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "RBC",
+    "account_holder": "Adaeze Zainab Danladi",
+    "statement_month": "2026-03",
+    "account_number": "51908132",
+    "sort_code": "36-75-46",
+    "branch_name": "RBC London City Branch",
+    "branch_address": "100 Bishopsgate, London EC2N 4AA",
+    "opening_balance": 2472,
+    "closing_balance": 4703.01,
+    "salary_credit": 3833.23,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-03-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1155.73,
+        "credit": 0.0,
+        "balance": 1316.27
+      },
+      {
+        "date": "2026-03-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 169.66,
+        "credit": 0.0,
+        "balance": 1146.61
+      },
+      {
+        "date": "2026-03-10",
+        "description": "CARD TESCO STORES",
+        "debit": 77.55,
+        "credit": 0.0,
+        "balance": 1069.06
+      },
+      {
+        "date": "2026-03-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 104.17,
+        "credit": 0.0,
+        "balance": 964.89
+      },
+      {
+        "date": "2026-03-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 62.53,
+        "credit": 0.0,
+        "balance": 902.36
+      },
+      {
+        "date": "2026-03-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 32.58,
+        "credit": 0.0,
+        "balance": 869.78
+      },
+      {
+        "date": "2026-03-31",
+        "description": "BACS WALTON CARE LIMITED",
+        "debit": 0.0,
+        "credit": 3833.23,
+        "balance": 4703.01
+      }
+    ]
+  }
+}

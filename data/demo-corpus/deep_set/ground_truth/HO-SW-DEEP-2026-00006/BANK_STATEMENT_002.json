@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000006",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "TD Bank",
+    "account_holder": "Lerato Mokoena",
+    "statement_month": "2026-02",
+    "account_number": "79490547",
+    "sort_code": "90-63-64",
+    "branch_name": "TD Bank London International Branch",
+    "branch_address": "60 Threadneedle Street, London EC2R 8HP",
+    "opening_balance": 2300,
+    "closing_balance": 4745.22,
+    "salary_credit": 4070.71,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1271.23,
+        "credit": 0.0,
+        "balance": 1028.77
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 124.35,
+        "credit": 0.0,
+        "balance": 904.42
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 76.58,
+        "credit": 0.0,
+        "balance": 827.84
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 106.79,
+        "credit": 0.0,
+        "balance": 721.05
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 18.96,
+        "credit": 0.0,
+        "balance": 702.09
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 27.58,
+        "credit": 0.0,
+        "balance": 674.51
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS EOS BAKEHOUSE LTD",
+        "debit": 0.0,
+        "credit": 4070.71,
+        "balance": 4745.22
+      }
+    ]
+  }
+}

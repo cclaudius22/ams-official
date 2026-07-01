@@ -1,0 +1,20 @@
+{
+  "rfi_id": "RFI-HO-SW-DEEP-2026-00012",
+  "application_id": "HO-SW-DEEP-2026-00012",
+  "status": "APPLICANT_RESPONDED",
+  "received_at": "2026-06-27T09:40:00Z",
+  "applicant_message": "Applicant supplied February 2026 payslip matching the bank BACS salary credit.",
+  "supplied_documents": [
+    {
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "relative_path": "applicant_response/PAYSLIPS_002.pdf"
+    }
+  ],
+  "post_response_recommendation": "MANUAL_REVIEW",
+  "caseworker_decision_options": [
+    "APPROVE_AFTER_REVIEW",
+    "REJECT_AFTER_REVIEW",
+    "REQUEST_MORE_INFO"
+  ]
+}

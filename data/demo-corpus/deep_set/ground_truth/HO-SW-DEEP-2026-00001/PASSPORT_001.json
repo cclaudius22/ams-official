@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000001",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "NAIR KARAN",
+    "surname": "NAIR",
+    "given_names": "KARAN",
+    "date_of_birth": "1974-11-17",
+    "gender": "M",
+    "nationality": "IND",
+    "passport_number": "P5094734",
+    "date_of_issue": "2022-03-16",
+    "date_of_expiry": "2032-03-16",
+    "issuing_country": "IND",
+    "mrz_line1": "P<INDNAIR<<KARAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "P5094734<5IND7411179M3203167<<<<<<<<<<<<<<04"
+  }
+}

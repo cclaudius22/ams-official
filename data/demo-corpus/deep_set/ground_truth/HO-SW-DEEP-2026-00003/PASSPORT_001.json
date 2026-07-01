@@ -1,0 +1,22 @@
+{
+  "document_type": "PASSPORT",
+  "application_id": "HO-SW-2026-00000003",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "full_name": "DANLADI ADAEZE ZAINAB",
+    "surname": "DANLADI",
+    "given_names": "ADAEZE ZAINAB",
+    "date_of_birth": "1977-06-21",
+    "gender": "F",
+    "nationality": "NGA",
+    "passport_number": "A2182311",
+    "date_of_issue": "2024-01-28",
+    "date_of_expiry": "2034-01-28",
+    "issuing_country": "NGA",
+    "mrz_line1": "P<NGADANLADI<<ADAEZE<ZAINAB<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "A2182311<2NGA7706219F3401284<<<<<<<<<<<<<<02"
+  }
+}

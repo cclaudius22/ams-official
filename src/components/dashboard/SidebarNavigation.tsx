@@ -113,7 +113,7 @@ export default function SidebarNavigation() {
         {/* Visa Processing Section */}
         <NavSection title="Visa Processing" icon="/icons/visa.svg">
           <NavLink href="/dashboard/reviewer" badge="23">My Queue</NavLink>
-          <NavLink href="#" badge="12">Pending</NavLink>
+          <NavLink href="/dashboard/reviewer/rfis">My RFIs</NavLink>
           <NavLink href="#">Completed</NavLink>
           <NavLink href="#" badge="3" badgeColor="text-red-600 bg-gray-100">Escalated</NavLink>
           <NavLink href="#">Decisions</NavLink>

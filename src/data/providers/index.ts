@@ -108,6 +108,10 @@ export async function getDataProvider(): Promise<ApplicationDataProvider> {
       const { JsonDataProvider } = await import('./json-provider');
       const syntheticPath = process.env.SYNTHETIC_DATA_PATH || '../openvisa-synthetic-data/output_demo';
       providerInstance = new JsonDataProvider(syntheticPath);
+    } else if (providerType === 'ams-demo') {
+      const { AmsDemoProvider } = await import('./ams-demo-provider');
+      const corpusPath = process.env.AMS_DEMO_CORPUS_PATH || 'data/demo-corpus';
+      providerInstance = new AmsDemoProvider(corpusPath);
     } else {
       // Future: Prisma provider
       throw new Error(`Unknown data provider: ${providerType}`);

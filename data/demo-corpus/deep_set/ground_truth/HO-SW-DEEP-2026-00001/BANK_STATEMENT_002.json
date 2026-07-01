@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000001",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "Barclays",
+    "account_holder": "Karan Nair",
+    "statement_month": "2026-02",
+    "account_number": "41243220",
+    "sort_code": "84-79-47",
+    "branch_name": "Barclays Leeds City Branch",
+    "branch_address": "1 Park Row, Leeds LS1 5WU",
+    "opening_balance": 2235,
+    "closing_balance": 3954.85,
+    "salary_credit": 3201.97,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1136.52,
+        "credit": 0.0,
+        "balance": 1098.48
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 146.59,
+        "credit": 0.0,
+        "balance": 951.89
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 53.71,
+        "credit": 0.0,
+        "balance": 898.18
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 77.82,
+        "credit": 0.0,
+        "balance": 820.36
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 42.2,
+        "credit": 0.0,
+        "balance": 778.16
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 25.28,
+        "credit": 0.0,
+        "balance": 752.88
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS MIRAK GLOBAL SERVICES (UK) L",
+        "debit": 0.0,
+        "credit": 3201.97,
+        "balance": 3954.85
+      }
+    ]
+  }
+}

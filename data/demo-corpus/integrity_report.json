@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "validated_at": "2026-06-24T21:36:00Z",
+  "checks": [
+    "bulk exact count and distributions",
+    "deep_set count and skilled-worker-only route",
+    "recommendation deterministic mapping from anomaly_type",
+    "submitted_at range 2026-06-03 through 2026-06-24",
+    "unique source_application_id and source_reference",
+    "all referenced document files exist and size_bytes matches disk",
+    "deep_set review scaffolding fields present",
+    "three RFI lifecycle artifact folders with request/response JSON"
+  ],
+  "errors": [],
+  "bulk": {
+    "total_applications": 1000,
+    "visa_type_distribution": {
+      "global-talent": 100,
+      "innovator-founder": 60,
+      "spouse-partner": 120,
+      "senior-specialist-worker": 120,
+      "student": 300,
+      "skilled-worker": 300
+    },
+    "anomaly_distribution": {
+      "clean": 600,
+      "fail_rules": 250,
+      "suspicious": 90,
+      "edge_case": 60
+    },
+    "recommendation_distribution": {
+      "RECOMMEND_APPROVE": 600,
+      "RECOMMEND_REJECT": 250,
+      "MANUAL_REVIEW": 150
+    }
+  },
+  "deep_set": {
+    "total_applications": 18,
+    "visa_type_distribution": {
+      "skilled-worker": 18
+    },
+    "anomaly_distribution": {
+      "clean": 6,
+      "fail_rules": 5,
+      "suspicious": 4,
+      "edge_case": 3
+    },
+    "recommendation_distribution": {
+      "RECOMMEND_APPROVE": 6,
+      "RECOMMEND_REJECT": 5,
+      "MANUAL_REVIEW": 7
+    },
+    "rfi_cases": [
+      "HO-SW-DEEP-2026-00012",
+      "HO-SW-DEEP-2026-00013",
+      "HO-SW-DEEP-2026-00014"
+    ]
+  }
+}

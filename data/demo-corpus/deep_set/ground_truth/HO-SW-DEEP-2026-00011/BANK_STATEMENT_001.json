@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000080",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "RBC",
+    "account_holder": "Rafael Santos",
+    "statement_month": "2026-01",
+    "account_number": "50195120",
+    "sort_code": "57-95-37",
+    "branch_name": "RBC Manchester Corporate Branch",
+    "branch_address": "1 Spinningfields Square, Manchester M3 3AP",
+    "opening_balance": 3051,
+    "closing_balance": 4134.86,
+    "salary_credit": 2621.54,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1239.85,
+        "credit": 0.0,
+        "balance": 1811.15
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 122.26,
+        "credit": 0.0,
+        "balance": 1688.89
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 53.71,
+        "credit": 0.0,
+        "balance": 1635.18
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 75.97,
+        "credit": 0.0,
+        "balance": 1559.21
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 20.35,
+        "credit": 0.0,
+        "balance": 1538.86
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 25.54,
+        "credit": 0.0,
+        "balance": 1513.32
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS DM ALL MOBILE ACCESSORIES LI",
+        "debit": 0.0,
+        "credit": 2621.54,
+        "balance": 4134.86
+      }
+    ]
+  }
+}

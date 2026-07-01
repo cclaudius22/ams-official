@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000061",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "ICICI",
+    "account_holder": "Tunde Bello",
+    "statement_month": "2026-02",
+    "account_number": "26281809",
+    "sort_code": "86-99-52",
+    "branch_name": "ICICI Bank UK Southall Branch",
+    "branch_address": "45 The Broadway, Southall UB1 1JY",
+    "opening_balance": 3015,
+    "closing_balance": 3874.2,
+    "salary_credit": 2633.23,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1384.92,
+        "credit": 0.0,
+        "balance": 1630.08
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 167.36,
+        "credit": 0.0,
+        "balance": 1462.72
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 86.1,
+        "credit": 0.0,
+        "balance": 1376.62
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 79.1,
+        "credit": 0.0,
+        "balance": 1297.52
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 33.68,
+        "credit": 0.0,
+        "balance": 1263.84
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 22.87,
+        "credit": 0.0,
+        "balance": 1240.97
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS RIPLEY DETAILING LTD",
+        "debit": 0.0,
+        "credit": 2633.23,
+        "balance": 3874.2
+      }
+    ]
+  }
+}

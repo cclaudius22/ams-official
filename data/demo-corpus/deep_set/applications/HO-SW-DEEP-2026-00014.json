@@ -1,0 +1,2471 @@
+{
+  "source_application_id": "HO-SW-DEEP-2026-00014",
+  "source_reference": "GV-DEEP-00014",
+  "source_channel": "govdirect",
+  "visa_type": "skilled-worker",
+  "country_code": "GB",
+  "submitted_at": "2026-06-04T12:48:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "jun.wang.0063@protonmail.com",
+    "first_name": "Jun",
+    "middle_name": "Ming",
+    "last_name": "Wang",
+    "date_of_birth": "1992-12-25",
+    "nationality_code": "CN",
+    "gender": "M"
+  },
+  "passport_data": {
+    "number": "E8539758",
+    "issuing_country": "CN",
+    "nationality": "CN",
+    "full_name": "WANG JUN MING",
+    "date_of_birth": "1992-12-25",
+    "gender": "M",
+    "issue_date": "2022-05-07",
+    "expiry_date": "2032-05-07",
+    "mrz_line1": "P<CHNWANG<<JUN<MING<<<<<<<<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "E8539758<1CHN9212255M3205079<<<<<<<<<<<<<<04"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC Edinburgh - 6 Waterloo Place, EH1 3BG",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-1063",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Jun",
+      "middleName": "Ming",
+      "lastName": "Wang",
+      "dateOfBirth": "1992-12-25",
+      "nationality": "CN",
+      "maritalStatus": "married"
+    },
+    "employment": {
+      "status": "employed",
+      "employerName": "Veracity Group Limited",
+      "sponsorLicenceNumber": "VER-2024-8927",
+      "sponsorStatus": "ACTIVE",
+      "sponsorRating": "A",
+      "jobTitle": "Mechanical engineers",
+      "annualIncome": 47034,
+      "monthlyGrossPay": 3919.5,
+      "cosReferenceNumber": "COS-2026-7172797",
+      "cosIssueDate": "2026-04-15",
+      "cosExpiryDate": "2026-09-15",
+      "socCode": "2122",
+      "socTitle": "Mechanical engineers",
+      "socGoingRateAnnual": 46800,
+      "startDate": "2026-07-01",
+      "salaryFrequency": "ANNUAL",
+      "hoursPerWeek": 37.5,
+      "isNewEntrant": false,
+      "newEntrantReason": null,
+      "previousUkEmployment": false
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-0063-1071",
+      "visaFeeReference": "VF-2026-SW-000063",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26CN638834WAN",
+      "overallScore": 6,
+      "speakingScore": 6,
+      "listeningScore": 6,
+      "readingScore": 5.5,
+      "writingScore": 6,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "CN",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": true,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": "IOM Migration Health Assessment Centre, China",
+      "tbCertificateClinicCountry": "CN"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-00014",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2446,
+      "uploaded_at": "2026-06-04T12:06:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-002-00014",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2418,
+      "uploaded_at": "2026-06-04T12:09:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-003-00014",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2773,
+      "uploaded_at": "2026-06-04T12:12:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-004-00014",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2776,
+      "uploaded_at": "2026-06-04T12:15:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-005-00014",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2775,
+      "uploaded_at": "2026-06-04T12:18:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-006-00014",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1961,
+      "uploaded_at": "2026-06-04T12:21:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-007-00014",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PAYSLIPS/PAYSLIPS_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2257,
+      "uploaded_at": "2026-06-04T12:24:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-008-00014",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PAYSLIPS/PAYSLIPS_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2258,
+      "uploaded_at": "2026-06-04T12:27:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-009-00014",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PAYSLIPS/PAYSLIPS_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2257,
+      "uploaded_at": "2026-06-04T12:30:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-010-00014",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2052,
+      "uploaded_at": "2026-06-04T12:33:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-011-00014",
+      "type": "TB_CERTIFICATE",
+      "filename": "TB_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2072,
+      "uploaded_at": "2026-06-04T12:36:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-012-00014",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-04T12:39:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-SW-DEEP-2026-00014",
+  "anomaly_type": "suspicious",
+  "anomaly_details": [
+    "employment-letter salary does not match CoS"
+  ],
+  "recommendation": "MANUAL_REVIEW",
+  "rfi_lifecycle": {
+    "enabled": true,
+    "queue_state_before_response": "AWAITING_INFO",
+    "queue_state_after_response": "READY_FOR_REVIEW",
+    "issue": "employment-letter salary does not match CoS",
+    "removed_initial_document": null,
+    "request_artifact": "rfi_artifacts/HO-SW-DEEP-2026-00014/request.json",
+    "response_artifact": "rfi_artifacts/HO-SW-DEEP-2026-00014/response.json"
+  },
+  "rules_summary": {
+    "drools": {
+      "rules_evaluated": 20,
+      "passed": 18,
+      "failed": 0,
+      "review_required": 2,
+      "not_applicable": 0
+    },
+    "opa": {
+      "policies_evaluated": 12,
+      "allow": 12,
+      "deny": 0,
+      "flag": 1
+    },
+    "external_checks": {
+      "checks_evaluated": 7,
+      "clear": 7,
+      "flagged": 0
+    },
+    "source_details": [
+      "employment-letter salary does not match CoS"
+    ]
+  },
+  "flagged_rule_ids": [
+    "RULE-W14"
+  ],
+  "opa_policy_results": [
+    {
+      "policy_id": "OPA-H01",
+      "policy_name": "Sanctions_WorldCheck_HardBlock",
+      "outcome": "ALLOW"
+    },
+    {
+      "policy_id": "OPA-H05",
+      "policy_name": "Document_Fraud_Score",
+      "outcome": "ALLOW"
+    },
+    {
+      "policy_id": "OPA-S03",
+      "policy_name": "Completeness_Low",
+      "outcome": "FLAG"
+    }
+  ],
+  "external_check_results": [
+    {
+      "check_type": "WORLDCHECK",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "INTERPOL",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "PASSPORT_VERIFY",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "COS_CHECK",
+      "status": "CLEAR"
+    }
+  ],
+  "completeness": {
+    "status": "INCOMPLETE_PENDING",
+    "score": 74,
+    "missing_or_insufficient": [
+      "employment-letter salary does not match CoS"
+    ]
+  },
+  "document_assessments": [
+    {
+      "document_id": "ho-doc-001-00014",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-002-00014",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-003-00014",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-004-00014",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-005-00014",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-006-00014",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-007-00014",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-008-00014",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-009-00014",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "REVIEW"
+    },
+    {
+      "document_id": "ho-doc-010-00014",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-011-00014",
+      "type": "TB_CERTIFICATE",
+      "filename": "TB_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-012-00014",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "extraction_status": "UPLOADED",
+      "fraud_signal": "CLEAR"
+    }
+  ],
+  "ov_assessment": {
+    "model_version": "ov-risk-v0.9-demo-corpus",
+    "overall": {
+      "risk_band": "MEDIUM",
+      "score": 68,
+      "summary": "Jun Wang presents a medium-risk review case. The core route can be assessed, but employment-letter salary does not match CoS needs officer attention before final decision."
+    },
+    "recommendation": "Proceed to officer review - resolve the soft factor before deciding.",
+    "dimensions": [
+      {
+        "key": "rootedness",
+        "label": "Rootedness",
+        "score": 72,
+        "status": "Moderate ties",
+        "reasoning": "Identity and travel history are coherent, but the flagged item tempers confidence until reviewed.",
+        "factors": [
+          "Route issue tempers confidence",
+          "Identity evidence present"
+        ]
+      },
+      {
+        "key": "intent",
+        "label": "Intent",
+        "score": 66,
+        "status": "Needs confirmation",
+        "reasoning": "Intent is plausible, but employment-letter salary does not match CoS needs confirmation.",
+        "factors": [
+          "Salary evidence issue",
+          "CoS review required"
+        ]
+      },
+      {
+        "key": "credibility",
+        "label": "Credibility",
+        "score": 58,
+        "status": "Review advised",
+        "reasoning": "Credibility is mostly supported, with a tempering factor: employment-letter salary does not match CoS.",
+        "factors": [
+          "Soft flag",
+          "Evidence review required",
+          "RFI candidate"
+        ]
+      }
+    ]
+  },
+  "dis_application_view": {
+    "recommendation": {
+      "recommendation": "MANUAL_REVIEW",
+      "recommendation_reason": "Jun Wang requires manual review: employment-letter salary does not match CoS.",
+      "caseworker_summary": "Jun Wang requires manual review: employment-letter salary does not match CoS.",
+      "evaluation_breakdown": {
+        "drools_evaluation": "16 of 20 rules satisfied; 0 failed; 3 require review; 1 not applicable.",
+        "external_checks_evaluation": "6 of 7 external checks clear; 1 flagged for officer review.",
+        "opa_evaluation": "10 of 12 OPA policies passed/allowed; 2 denied or flagged."
+      },
+      "hard_fail_rules": [],
+      "soft_flag_rules": [
+        "RULE-W03",
+        "RULE-W13",
+        "RULE-W14",
+        "OPA-S02",
+        "OPA-S03",
+        "EXT_COS_CHECK"
+      ],
+      "rules_summary": {
+        "rules": {
+          "drools_rules_evaluated": 20,
+          "drools_rules_passed": 16,
+          "drools_rules_failed": 0,
+          "drools_rules_not_applicable": 1
+        },
+        "opa_policies": {
+          "opa_total_evaluated": 12,
+          "opa_total_passed": 10,
+          "opa_total_failed": 2,
+          "opa_hard_evaluated": 6,
+          "opa_hard_passed": 6,
+          "opa_hard_failed": 0,
+          "opa_soft_evaluated": 6,
+          "opa_soft_passed": 4,
+          "opa_soft_failed": 2
+        },
+        "external_checks": {
+          "external_checks_evaluated": 7,
+          "external_checks_passed": 6,
+          "external_checks_failed": 1,
+          "external_checks_error": 0
+        }
+      },
+      "completeness_score": 74,
+      "completeness_status": "INCOMPLETE_PENDING",
+      "generated_at": "2026-06-29T09:00:00Z",
+      "recommendation_at": "2026-06-29T09:00:00Z",
+      "drools_version": [
+        {
+          "rule_file": "universal/universal_rules.drl",
+          "rule_version_id": "rv-demo-u-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "rule_file": "skilled_worker/skilled_worker_rules.drl",
+          "rule_version_id": "rv-demo-sw-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "opa_version": [
+        {
+          "policy_file": "hard/hard_policies.rego",
+          "policy_version_id": "pv-demo-hard-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "policy_file": "soft/soft_policies.rego",
+          "policy_version_id": "pv-demo-soft-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "note": "This is a system recommendation to assist caseworker decision-making. Final determination rests with the authorised decision-maker."
+    },
+    "component_scores": {
+      "passport": {
+        "component": "passport",
+        "score": 95,
+        "status": "VALID",
+        "confidence": 0.97,
+        "status_description": "Passport E8539758 valid until 2032-05-07; MRZ check passed.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U01",
+            "rule_name": "Passport Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Passport E8539758 issued by CN is valid until 2032-05-07; MRZ check passed."
+          }
+        ],
+        "opa_results": [
+          {
+            "policy_id": "OPA-H02",
+            "policy_name": "Passport_Verification",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          },
+          {
+            "policy_id": "OPA-H03",
+            "policy_name": "Interpol_SLTD",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT"
+        ],
+        "external_check_types": [
+          "PASSPORT_VERIFY",
+          "INTERPOL",
+          "BORDER_CONTROL"
+        ]
+      },
+      "financial": {
+        "component": "financial",
+        "score": 90,
+        "status": "SUFFICIENT",
+        "confidence": 0.92,
+        "status_description": "Bank evidence reviewed; lowest observed balance £1,078.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W09",
+            "rule_name": "Maintenance Funds",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,078."
+          }
+        ],
+        "extraction_sources": [
+          "BANK_STATEMENT"
+        ],
+        "external_check_types": []
+      },
+      "employment": {
+        "component": "employment",
+        "score": 68,
+        "status": "REVIEW_REQUIRED",
+        "confidence": 0.94,
+        "status_description": "Salary £47,034 assessed against general and SOC 2122 thresholds.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W01",
+            "rule_name": "CoS Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "CoS COS-2026-7172797 is assigned, unused, and within validity window."
+          },
+          {
+            "rule_id": "RULE-W02",
+            "rule_name": "Sponsor Licence Status",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Sponsor Veracity Group Limited (VER-2024-8927) is A rated and active."
+          },
+          {
+            "rule_id": "RULE-W03",
+            "rule_name": "Salary Threshold - General",
+            "result": "FAIL",
+            "severity": "MANDATORY",
+            "details": "Salary evidence needs reconciliation: CoS/employment data show £47,034, but the scenario flags an employment-letter salary mismatch.",
+            "remediation": "Review source evidence and record officer rationale before final decision."
+          },
+          {
+            "rule_id": "RULE-W15",
+            "rule_name": "Start Date Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": [
+          "COS_CHECK"
+        ]
+      },
+      "english_language": {
+        "component": "english_language",
+        "score": 91,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "IELTS_ACADEMIC overall 6; B2 requirement met.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W08",
+            "rule_name": "English Language",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "English language evidence: IELTS_ACADEMIC overall score 6; B2 requirement met."
+          }
+        ],
+        "extraction_sources": [
+          "IELTS_CERTIFICATE",
+          "DEGREE_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "immigration_compliance": {
+        "component": "immigration_compliance",
+        "score": 96,
+        "status": "COMPLIANT",
+        "confidence": 0.98,
+        "status_description": "No adverse immigration compliance history in the corpus case.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W12",
+            "rule_name": "Previous Immigration Compliance",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "BORDER_CONTROL"
+        ]
+      },
+      "criminal_record": {
+        "component": "criminal_record",
+        "score": 95,
+        "status": "CLEAR",
+        "confidence": 0.98,
+        "status_description": "No convictions declared and no Interpol hard match.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W11",
+            "rule_name": "Criminal Record Disclosure",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "WORLDCHECK",
+          "INTERPOL"
+        ]
+      },
+      "health": {
+        "component": "health",
+        "score": 90,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "TB certificate present and valid where required.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W10",
+            "rule_name": "TB Test Certificate",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "TB certificate present from IOM Migration Health Assessment Centre, China."
+          }
+        ],
+        "extraction_sources": [
+          "TB_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "document_quality": {
+        "component": "document_quality",
+        "score": 68,
+        "status": "REVIEW_REQUIRED",
+        "confidence": 0.87,
+        "status_description": "Document gap: employment-letter salary does not match CoS.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U05",
+            "rule_name": "Document Extraction Confidence",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold."
+          },
+          {
+            "rule_id": "RULE-W13",
+            "rule_name": "Application Completeness",
+            "result": "FAIL",
+            "severity": "ADVISORY",
+            "details": "Completeness requires officer attention: employment-letter salary does not match CoS.",
+            "remediation": "Review source evidence and record officer rationale before final decision."
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT",
+          "EMPLOYMENT_LETTER",
+          "BANK_STATEMENT",
+          "DEGREE_CERTIFICATE",
+          "PAYSLIP",
+          "IELTS_CERTIFICATE",
+          "TB_CERTIFICATE",
+          "PHOTO"
+        ],
+        "external_check_types": []
+      },
+      "fraud_risk": {
+        "component": "fraud_risk",
+        "score": 64,
+        "status": "REVIEW_REQUIRED",
+        "confidence": 0.82,
+        "raw_fraud_score": 0.36,
+        "status_description": "Cross-document salary inconsistency requires officer review.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W14",
+            "rule_name": "Document Fraud Detection",
+            "result": "FAIL",
+            "severity": "MANDATORY",
+            "details": "Employment-letter salary differs from the CoS salary and requires confirmation before decision.",
+            "remediation": "Review source evidence and record officer rationale before final decision."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": []
+      }
+    },
+    "source_channel": "govdirect",
+    "rule_results": [
+      {
+        "rule_id": "RULE-U01",
+        "rule_name": "Passport Validity",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Passport E8539758 issued by CN is valid until 2032-05-07; MRZ check passed.",
+        "evidence_refs": [
+          "document_extractions:PASSPORT",
+          "external_checks:PASSPORT_VERIFY"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U02",
+        "rule_name": "Biometric Verification",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "vac_in_person verification completed at VAC Edinburgh - 6 Waterloo Place, EH1 3BG; fingerprints and photograph captured.",
+        "evidence_refs": [
+          "submission_payload:biometric_verification"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U03",
+        "rule_name": "Sanctions Screening",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sanctions and adverse-media screening returned no hard block.",
+        "evidence_refs": [
+          "external_checks:WORLDCHECK"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U04",
+        "rule_name": "Duplicate Application Check",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No duplicate application was identified for passport, name/date of birth, or source reference.",
+        "evidence_refs": [
+          "submission_payload:applicant",
+          "source_reference"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U05",
+        "rule_name": "Document Extraction Confidence",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold.",
+        "evidence_refs": [
+          "document_extractions"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W01",
+        "rule_name": "CoS Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "CoS COS-2026-7172797 is assigned, unused, and within validity window.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.cosReferenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W02",
+        "rule_name": "Sponsor Licence Status",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sponsor Veracity Group Limited (VER-2024-8927) is A rated and active.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.sponsorLicenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W03",
+        "rule_name": "Salary Threshold - General",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "REVIEW_REQUIRED",
+        "severity": "MANDATORY",
+        "reasoning": "Salary evidence needs reconciliation: CoS/employment data show £47,034, but the scenario flags an employment-letter salary mismatch.",
+        "remediation": "Review source evidence and record officer rationale before final decision.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.annualIncome",
+          "document_extractions:EMPLOYMENT_LETTER",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W04",
+        "rule_name": "Salary Threshold - New Entrant",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "NOT_APPLICABLE",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant is not a new entrant; the general salary threshold route applies instead.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.isNewEntrant"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W05",
+        "rule_name": "SOC Code Eligibility",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "SOC 2122 (Mechanical engineers) is eligible for Skilled Worker sponsorship.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W06",
+        "rule_name": "Immigration Salary List Check",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "ADVISORY",
+        "reasoning": "Immigration Salary List check completed; standard threshold treatment applied unless explicitly stated by the route data.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W07",
+        "rule_name": "Job Skill Level",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Role Mechanical engineers is treated as meeting the required skill level for SOC 2122.",
+        "evidence_refs": [
+          "document_extractions:DEGREE_CERTIFICATE",
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W08",
+        "rule_name": "English Language",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "English language evidence: IELTS_ACADEMIC overall score 6; B2 requirement met.",
+        "evidence_refs": [
+          "document_extractions:IELTS_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W09",
+        "rule_name": "Maintenance Funds",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,078.",
+        "evidence_refs": [
+          "document_extractions:BANK_STATEMENT"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W10",
+        "rule_name": "TB Test Certificate",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "TB certificate present from IOM Migration Health Assessment Centre, China.",
+        "evidence_refs": [
+          "document_extractions:TB_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W11",
+        "rule_name": "Criminal Record Disclosure",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue.",
+        "evidence_refs": [
+          "submission_payload:answers_criminalRecord",
+          "external_checks:INTERPOL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W12",
+        "rule_name": "Previous Immigration Compliance",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case.",
+        "evidence_refs": [
+          "submission_payload:answers_travelHistory",
+          "external_checks:BORDER_CONTROL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W13",
+        "rule_name": "Application Completeness",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "REVIEW_REQUIRED",
+        "severity": "ADVISORY",
+        "reasoning": "Completeness requires officer attention: employment-letter salary does not match CoS.",
+        "remediation": "Review source evidence and record officer rationale before final decision.",
+        "evidence_refs": [
+          "documents",
+          "completeness.missing_or_insufficient"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W14",
+        "rule_name": "Document Fraud Detection",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "REVIEW_REQUIRED",
+        "severity": "MANDATORY",
+        "reasoning": "Employment-letter salary differs from the CoS salary and requires confirmation before decision.",
+        "remediation": "Review source evidence and record officer rationale before final decision.",
+        "evidence_refs": [
+          "document_extractions",
+          "fraud_signals"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W15",
+        "rule_name": "Start Date Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.startDate"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "opa_results": [
+      {
+        "policy_id": "OPA-H01",
+        "policy_name": "Sanctions_WorldCheck_HardBlock",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H02",
+        "policy_name": "Passport_Verification",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H03",
+        "policy_name": "Interpol_SLTD",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H04",
+        "policy_name": "Auth_Session_Validation",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H05",
+        "policy_name": "Document_Fraud_Score",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H06",
+        "policy_name": "Data_Residency",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S01",
+        "policy_name": "Biometric_Borderline",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S02",
+        "policy_name": "WorldCheck_Low_Medium",
+        "policy_type": "SOFT",
+        "outcome": "FLAG",
+        "denial_reasons": [
+          "Officer review required: employment-letter salary does not match CoS."
+        ],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S03",
+        "policy_name": "Completeness_Low",
+        "policy_type": "SOFT",
+        "outcome": "FLAG",
+        "denial_reasons": [
+          "Completeness is INCOMPLETE_PENDING; employment-letter salary does not match CoS."
+        ],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S04",
+        "policy_name": "Rapid_Submission_Bot",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S05",
+        "policy_name": "Enhanced_Scrutiny_Nationality",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S06",
+        "policy_name": "Infrastructure_Alerts",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "external_checks": [
+      {
+        "check_id": "chk-014-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": null,
+        "check_type": "WORLDCHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "categories_checked": [
+            "SANCTIONS",
+            "PEP",
+            "ADVERSE_MEDIA"
+          ],
+          "matches_found": []
+        },
+        "response_time_ms": 350,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-014-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-001-00014",
+        "check_type": "INTERPOL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_stolen": false,
+          "is_lost": false,
+          "is_revoked": false
+        },
+        "response_time_ms": 440,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-014-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-001-00014",
+        "check_type": "PASSPORT_VERIFY",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "document_number": "E8539758",
+          "overall_match": true,
+          "check_digit_valid": true,
+          "document_status": "VALID"
+        },
+        "response_time_ms": 530,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-014-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-001-00014",
+        "check_type": "BORDER_CONTROL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "has_overstay": false,
+          "has_deportation": false,
+          "has_refusal_at_border": false,
+          "previous_uk_refusals": false
+        },
+        "response_time_ms": 620,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-014-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": null,
+        "check_type": "DEVICE_IP_RISK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_vpn": false,
+          "is_tor": false,
+          "is_proxy": false,
+          "submission_velocity": "NORMAL"
+        },
+        "response_time_ms": 710,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-014-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": null,
+        "check_type": "EMAIL_PHONE_REPUTATION",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "email": "jun.wang.0063@protonmail.com",
+          "disposable_email": false,
+          "known_fraud_phone": false
+        },
+        "response_time_ms": 800,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-014-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": null,
+        "check_type": "COS_CHECK",
+        "check_status": "FLAGGED",
+        "risk_level": "MEDIUM",
+        "confidence_score": 0.78,
+        "flags": {
+          "requires_officer_review": true,
+          "issue": "employment-letter salary does not match CoS"
+        },
+        "response_payload": {
+          "cos_reference_number": "COS-2026-7172797",
+          "sponsor_name": "Veracity Group Limited",
+          "sponsor_licence_number": "VER-2024-8927",
+          "sponsor_licence_status": "A_RATED",
+          "soc_code": "2122",
+          "job_title": "Mechanical engineers",
+          "salary_on_cos_gbp": 47034,
+          "salary_matches_threshold": true,
+          "salary_matches_employment_letter": false
+        },
+        "response_time_ms": 890,
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "documents": [
+      {
+        "dis_document_id": "ho-doc-001-00014",
+        "document_type": "PASSPORT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PASSPORT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2446
+      },
+      {
+        "dis_document_id": "ho-doc-002-00014",
+        "document_type": "EMPLOYMENT_LETTER",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/EMPLOYMENT_LETTER_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2418
+      },
+      {
+        "dis_document_id": "ho-doc-003-00014",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/BANK_STATEMENT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2773
+      },
+      {
+        "dis_document_id": "ho-doc-004-00014",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/BANK_STATEMENT_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2776
+      },
+      {
+        "dis_document_id": "ho-doc-005-00014",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/BANK_STATEMENT_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2775
+      },
+      {
+        "dis_document_id": "ho-doc-006-00014",
+        "document_type": "DEGREE_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/DEGREE_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 1961
+      },
+      {
+        "dis_document_id": "ho-doc-007-00014",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PAYSLIP_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PAYSLIP/PAYSLIP_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2257
+      },
+      {
+        "dis_document_id": "ho-doc-008-00014",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PAYSLIP_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PAYSLIP/PAYSLIP_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2258
+      },
+      {
+        "dis_document_id": "ho-doc-009-00014",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PAYSLIP_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PAYSLIP/PAYSLIP_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2257
+      },
+      {
+        "dis_document_id": "ho-doc-010-00014",
+        "document_type": "IELTS_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/IELTS_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2052
+      },
+      {
+        "dis_document_id": "ho-doc-011-00014",
+        "document_type": "TB_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/TB_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2072
+      },
+      {
+        "dis_document_id": "ho-doc-012-00014",
+        "document_type": "PHOTO",
+        "requirement_tier": "SUPPORTING",
+        "processing_tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PHOTO_001.jpg",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00014/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "UPLOADED",
+        "quality_score": 0.94,
+        "mime_type": "image/jpeg",
+        "file_size_bytes": 17622
+      }
+    ],
+    "document_extractions": [
+      {
+        "extraction_id": "extr-014-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-003-00014",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/BANK_STATEMENT_001.json"
+        },
+        "extracted_data": {
+          "bank_name": "Barclays",
+          "account_holder": "Jun Ming Wang",
+          "statement_month": "2026-01",
+          "account_number": "43209360",
+          "sort_code": "30-80-27",
+          "branch_name": "Barclays Manchester Market Street Branch",
+          "branch_address": "51 Market Street, Manchester M1 1PW",
+          "opening_balance": 2830,
+          "closing_balance": 3996.99,
+          "salary_credit": 2919.4,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-01-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 1358.25,
+              "credit": 0,
+              "balance": 1471.75
+            },
+            {
+              "date": "2026-01-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 130.47,
+              "credit": 0,
+              "balance": 1341.28
+            },
+            {
+              "date": "2026-01-10",
+              "description": "CARD TESCO STORES",
+              "debit": 91.1,
+              "credit": 0,
+              "balance": 1250.18
+            },
+            {
+              "date": "2026-01-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 129.51,
+              "credit": 0,
+              "balance": 1120.67
+            },
+            {
+              "date": "2026-01-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 32.47,
+              "credit": 0,
+              "balance": 1088.2
+            },
+            {
+              "date": "2026-01-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 10.61,
+              "credit": 0,
+              "balance": 1077.59
+            },
+            {
+              "date": "2026-01-31",
+              "description": "BACS VERACITY GROUP LIMITED",
+              "debit": 0,
+              "credit": 2919.4,
+              "balance": 3996.99
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Jun Ming Wang",
+          "account_number_last4": "9360",
+          "sort_code": "30-80-27",
+          "bank_name": "Barclays",
+          "statement_month": "2026-01",
+          "opening_balance_gbp": 2830,
+          "closing_balance_gbp": 3996.99,
+          "lowest_balance_gbp": 1077.59,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2919.4
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/BANK_STATEMENT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/BANK_STATEMENT_001.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-004-00014",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/BANK_STATEMENT_002.json"
+        },
+        "extracted_data": {
+          "bank_name": "Barclays",
+          "account_holder": "Jun Ming Wang",
+          "statement_month": "2026-02",
+          "account_number": "43209360",
+          "sort_code": "30-80-27",
+          "branch_name": "Barclays Leeds City Branch",
+          "branch_address": "1 Park Row, Leeds LS1 5WU",
+          "opening_balance": 3041,
+          "closing_balance": 4686.99,
+          "salary_credit": 2919.4,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-02-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 890.09,
+              "credit": 0,
+              "balance": 2150.91
+            },
+            {
+              "date": "2026-02-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 139.16,
+              "credit": 0,
+              "balance": 2011.75
+            },
+            {
+              "date": "2026-02-10",
+              "description": "CARD TESCO STORES",
+              "debit": 84.49,
+              "credit": 0,
+              "balance": 1927.26
+            },
+            {
+              "date": "2026-02-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 75.28,
+              "credit": 0,
+              "balance": 1851.98
+            },
+            {
+              "date": "2026-02-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 52.86,
+              "credit": 0,
+              "balance": 1799.12
+            },
+            {
+              "date": "2026-02-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 31.53,
+              "credit": 0,
+              "balance": 1767.59
+            },
+            {
+              "date": "2026-02-28",
+              "description": "BACS VERACITY GROUP LIMITED",
+              "debit": 0,
+              "credit": 2919.4,
+              "balance": 4686.99
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Jun Ming Wang",
+          "account_number_last4": "9360",
+          "sort_code": "30-80-27",
+          "bank_name": "Barclays",
+          "statement_month": "2026-02",
+          "opening_balance_gbp": 3041,
+          "closing_balance_gbp": 4686.99,
+          "lowest_balance_gbp": 1767.59,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2919.4
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/BANK_STATEMENT_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/BANK_STATEMENT_002.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-005-00014",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/BANK_STATEMENT_003.json"
+        },
+        "extracted_data": {
+          "bank_name": "Barclays",
+          "account_holder": "Jun Ming Wang",
+          "statement_month": "2026-03",
+          "account_number": "43209360",
+          "sort_code": "30-80-27",
+          "branch_name": "Barclays Manchester Market Street Branch",
+          "branch_address": "51 Market Street, Manchester M1 1PW",
+          "opening_balance": 3252,
+          "closing_balance": 4682.01,
+          "salary_credit": 2919.4,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-03-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 1023.31,
+              "credit": 0,
+              "balance": 2228.69
+            },
+            {
+              "date": "2026-03-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 159.52,
+              "credit": 0,
+              "balance": 2069.17
+            },
+            {
+              "date": "2026-03-10",
+              "description": "CARD TESCO STORES",
+              "debit": 91.97,
+              "credit": 0,
+              "balance": 1977.2
+            },
+            {
+              "date": "2026-03-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 128.15,
+              "credit": 0,
+              "balance": 1849.05
+            },
+            {
+              "date": "2026-03-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 63.55,
+              "credit": 0,
+              "balance": 1785.5
+            },
+            {
+              "date": "2026-03-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 22.89,
+              "credit": 0,
+              "balance": 1762.61
+            },
+            {
+              "date": "2026-03-31",
+              "description": "BACS VERACITY GROUP LIMITED",
+              "debit": 0,
+              "credit": 2919.4,
+              "balance": 4682.01
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Jun Ming Wang",
+          "account_number_last4": "9360",
+          "sort_code": "30-80-27",
+          "bank_name": "Barclays",
+          "statement_month": "2026-03",
+          "opening_balance_gbp": 3252,
+          "closing_balance_gbp": 4682.01,
+          "lowest_balance_gbp": 1762.61,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2919.4
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/BANK_STATEMENT_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/BANK_STATEMENT_003.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-006-00014",
+        "document_type": "DEGREE_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/degree-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/DEGREE_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "institution": "Fudan University",
+          "student_name": "JUN MING WANG",
+          "degree_title": "Bachelor of Science in Nursing",
+          "date_conferred": "2017-07-15",
+          "country": "CN"
+        },
+        "normalised_fields": {
+          "institution_name": "Fudan University",
+          "candidate_name": "JUN MING WANG",
+          "qualification_title": "Bachelor of Science in Nursing",
+          "award_date": "2017-07-15",
+          "country_code": "CN",
+          "rqf_level_equivalent": 6
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/DEGREE_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/DEGREE_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-002-00014",
+        "document_type": "EMPLOYMENT_LETTER",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/employment-letter",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.88,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/EMPLOYMENT_LETTER_001.json"
+        },
+        "extracted_data": {
+          "letter_date": "2026-05-20",
+          "employer_name": "Veracity Group Limited",
+          "employee_name": "Jun Wang",
+          "job_title": "Mechanical engineers",
+          "soc_code": "2122",
+          "cos_reference": "COS-2026-7172797",
+          "start_date": "2026-07-01",
+          "annual_salary": 47034,
+          "monthly_gross_pay": 3919.5,
+          "hours_per_week": 37.5,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "normalised_fields": {
+          "employer_name": "Veracity Group Limited",
+          "job_title": "Mechanical engineers",
+          "soc_code": "2122",
+          "cos_reference_number": "COS-2026-7172797",
+          "start_date": "2026-07-01",
+          "annual_salary_gbp": 47034,
+          "monthly_gross_pay_gbp": 3919.5,
+          "hours_per_week": 37.5,
+          "letter_date": "2026-05-20",
+          "salary_matches_cos": false,
+          "employer_matches_cos": true,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "fraud_score": 0.58,
+        "fraud_status": "LOW_RISK",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.58,
+            "flags": [
+              "SALARY_MISMATCH_WITH_COS"
+            ]
+          },
+          "content_plausibility": {
+            "score": 0.24,
+            "flags": [
+              "EMPLOYMENT_LETTER_REQUIRES_CONFIRMATION"
+            ]
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/EMPLOYMENT_LETTER_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/EMPLOYMENT_LETTER_001.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-010-00014",
+        "document_type": "IELTS_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/ielts-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/IELTS_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "candidate_name": "Jun Ming Wang",
+          "candidate_number": "477193",
+          "test_date": "2026-02-18",
+          "overall_band_score": 6,
+          "listening_score": 6,
+          "reading_score": 5.5,
+          "writing_score": 6,
+          "speaking_score": 6,
+          "test_reference_number": "26CN638834WAN"
+        },
+        "normalised_fields": {
+          "test_type": "IELTS_ACADEMIC",
+          "candidate_name": "Jun Ming Wang",
+          "test_date": "2026-02-18",
+          "overall_score": 6,
+          "listening_score": 6,
+          "reading_score": 5.5,
+          "writing_score": 6,
+          "speaking_score": 6,
+          "test_reference_number": "26CN638834WAN",
+          "meets_b2_minimum": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/IELTS_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/IELTS_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-001-00014",
+        "document_type": "PASSPORT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_ID_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/passport",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/PASSPORT_001.json"
+        },
+        "extracted_data": {
+          "full_name": "WANG JUN MING",
+          "surname": "WANG",
+          "given_names": "JUN MING",
+          "date_of_birth": "1992-12-25",
+          "gender": "M",
+          "nationality": "CHN",
+          "passport_number": "E8539758",
+          "date_of_issue": "2022-05-07",
+          "date_of_expiry": "2032-05-07",
+          "issuing_country": "CHN",
+          "mrz_line1": "P<CHNWANG<<JUN<MING<<<<<<<<<<<<<<<<<<<<<<<<<",
+          "mrz_line2": "E8539758<1CHN9212255M3205079<<<<<<<<<<<<<<04"
+        },
+        "normalised_fields": {
+          "document_number": "E8539758",
+          "surname": "WANG",
+          "given_names": "JUN MING",
+          "full_name": "WANG JUN MING",
+          "date_of_birth": "1992-12-25",
+          "nationality_code": "CHN",
+          "sex": "M",
+          "issue_date": "2022-05-07",
+          "expiry_date": "2032-05-07",
+          "issuing_country_code": "CHN",
+          "mrz_valid": true,
+          "mrz_checksum_passed": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          },
+          "mrz_check": {
+            "score": 0,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PASSPORT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/PASSPORT_001.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-08",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-007-00014",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/PAYSLIP_001.json"
+        },
+        "extracted_data": {
+          "employer_name": "Veracity Group Limited",
+          "employee_name": "Jun Ming Wang",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay": 3919.5,
+          "annualized_gross_pay": 47034,
+          "tax_deducted": 574.4,
+          "ni_deducted": 229.72,
+          "pension_deducted": 195.98,
+          "net_pay": 2919.4,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000063",
+          "tax_code": "1257L",
+          "ni_number": "JK630145C"
+        },
+        "normalised_fields": {
+          "employer_name": "Veracity Group Limited",
+          "employee_name": "Jun Ming Wang",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay_gbp": 3919.5,
+          "annualized_gross_pay_gbp": 47034,
+          "net_pay_gbp": 2919.4,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000063",
+          "tax_code": "1257L",
+          "ni_number": "JK630145C"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PAYSLIP_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/PAYSLIP_001.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-09",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-008-00014",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/PAYSLIP_002.json"
+        },
+        "extracted_data": {
+          "employer_name": "Veracity Group Limited",
+          "employee_name": "Jun Ming Wang",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay": 3919.5,
+          "annualized_gross_pay": 47034,
+          "tax_deducted": 574.4,
+          "ni_deducted": 229.72,
+          "pension_deducted": 195.98,
+          "net_pay": 2919.4,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000063",
+          "tax_code": "1257L",
+          "ni_number": "JK630145C"
+        },
+        "normalised_fields": {
+          "employer_name": "Veracity Group Limited",
+          "employee_name": "Jun Ming Wang",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay_gbp": 3919.5,
+          "annualized_gross_pay_gbp": 47034,
+          "net_pay_gbp": 2919.4,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000063",
+          "tax_code": "1257L",
+          "ni_number": "JK630145C"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PAYSLIP_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/PAYSLIP_002.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-10",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-009-00014",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.93,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/PAYSLIP_003.json"
+        },
+        "extracted_data": {
+          "employer_name": "Veracity Group Limited",
+          "employee_name": "Jun Ming Wang",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay": 3919.5,
+          "annualized_gross_pay": 47034,
+          "tax_deducted": 574.4,
+          "ni_deducted": 229.72,
+          "pension_deducted": 195.98,
+          "net_pay": 2919.4,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000063",
+          "tax_code": "1257L",
+          "ni_number": "JK630145C"
+        },
+        "normalised_fields": {
+          "employer_name": "Veracity Group Limited",
+          "employee_name": "Jun Ming Wang",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay_gbp": 3919.5,
+          "annualized_gross_pay_gbp": 47034,
+          "net_pay_gbp": 2919.4,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000063",
+          "tax_code": "1257L",
+          "ni_number": "JK630145C"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PAYSLIP_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/PAYSLIP_003.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-11",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-012-00014",
+        "document_type": "PHOTO",
+        "tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/photo",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.9,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/PHOTO_001.json"
+        },
+        "extracted_data": {
+          "applicant_name": "Jun Ming Wang",
+          "filename": "PHOTO_001.jpg",
+          "image_label": "PASSPORT PHOTO - SYNTHETIC",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "normalised_fields": {
+          "applicant_name": "Jun Ming Wang",
+          "filename": "PHOTO_001.jpg",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "fraud_score": null,
+        "fraud_status": null,
+        "fraud_signals": null,
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/PHOTO_001.jpg",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/PHOTO_001.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-014-12",
+        "dis_application_id": "dis-ho-sw-deep-2026-00014",
+        "document_id": "ho-doc-011-00014",
+        "document_type": "TB_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/tb-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00014/TB_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "clinic_name": "IOM Migration Health Assessment Centre, China",
+          "doctor_name": "Dr Michael Reyes",
+          "applicant_name": "Jun Ming Wang",
+          "date_of_birth": "1992-12-25",
+          "test_date": "2026-03-10",
+          "result": "clear",
+          "valid_until": "2026-09-10"
+        },
+        "normalised_fields": {
+          "clinic_name": "IOM Migration Health Assessment Centre, China",
+          "doctor_name": "Dr Michael Reyes",
+          "applicant_name": "Jun Ming Wang",
+          "date_of_birth": "1992-12-25",
+          "test_date": "2026-03-10",
+          "result": "clear",
+          "valid_until": "2026-09-10"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00014/TB_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00014/TB_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T12:48:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "llm_summary": "Jun Wang is a CN national applying for Skilled Worker permission sponsored by Veracity Group Limited for Mechanical engineers (SOC 2122). The application states salary £47,034 against the SOC going rate £46,800 and start date 2026-07-01. DIS routes the case to manual review because employment-letter salary does not match CoS. The officer should inspect the linked evidence and use the RFI flow where further evidence is needed.",
+    "queue_state": "READY_FOR_REVIEW",
+    "source_application_id": "HO-SW-DEEP-2026-00014",
+    "source_reference": "GV-DEEP-00014",
+    "dis_application_id": "dis-ho-sw-deep-2026-00014",
+    "submitted_at": "2026-06-04T12:48:00Z"
+  }
+}

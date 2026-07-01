@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000005",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "RBC",
+    "account_holder": "Amina Ngozi Okafor",
+    "statement_month": "2026-01",
+    "account_number": "45749876",
+    "sort_code": "73-52-20",
+    "branch_name": "RBC London City Branch",
+    "branch_address": "100 Bishopsgate, London EC2N 4AA",
+    "opening_balance": 2076,
+    "closing_balance": 4068.32,
+    "salary_credit": 3539.47,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-01-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 1163.64,
+        "credit": 0.0,
+        "balance": 912.36
+      },
+      {
+        "date": "2026-01-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 162.12,
+        "credit": 0.0,
+        "balance": 750.24
+      },
+      {
+        "date": "2026-01-10",
+        "description": "CARD TESCO STORES",
+        "debit": 81.15,
+        "credit": 0.0,
+        "balance": 669.09
+      },
+      {
+        "date": "2026-01-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 103.96,
+        "credit": 0.0,
+        "balance": 565.13
+      },
+      {
+        "date": "2026-01-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 23.97,
+        "credit": 0.0,
+        "balance": 541.16
+      },
+      {
+        "date": "2026-01-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 12.31,
+        "credit": 0.0,
+        "balance": 528.85
+      },
+      {
+        "date": "2026-01-31",
+        "description": "BACS UNION FAST FOODS LIMITED",
+        "debit": 0.0,
+        "credit": 3539.47,
+        "balance": 4068.32
+      }
+    ]
+  }
+}

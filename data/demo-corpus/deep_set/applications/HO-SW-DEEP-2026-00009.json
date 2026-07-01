@@ -1,0 +1,2446 @@
+{
+  "source_application_id": "HO-SW-DEEP-2026-00009",
+  "source_reference": "GV-DEEP-00009",
+  "source_channel": "govdirect",
+  "visa_type": "skilled-worker",
+  "country_code": "GB",
+  "submitted_at": "2026-06-04T09:43:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "adewale.adebayo.0078@yahoo.com",
+    "first_name": "Adewale",
+    "middle_name": "Emeka",
+    "last_name": "Adebayo",
+    "date_of_birth": "2003-08-11",
+    "nationality_code": "NG",
+    "gender": "M"
+  },
+  "passport_data": {
+    "number": "A5332289",
+    "issuing_country": "NG",
+    "nationality": "NG",
+    "full_name": "ADEBAYO ADEWALE EMEKA",
+    "date_of_birth": "2003-08-11",
+    "gender": "M",
+    "issue_date": "2024-01-15",
+    "expiry_date": "2034-01-15",
+    "mrz_line1": "P<NGAADEBAYO<<ADEWALE<EMEKA<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "A5332289<0NGA0308119M3401158<<<<<<<<<<<<<<04"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC Edinburgh - 6 Waterloo Place, EH1 3BG",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-1078",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Adewale",
+      "middleName": "Emeka",
+      "lastName": "Adebayo",
+      "dateOfBirth": "2003-08-11",
+      "nationality": "NG",
+      "maritalStatus": "married"
+    },
+    "employment": {
+      "status": "employed",
+      "employerName": "Lotus Thai Massage & Spa Chard Ltd",
+      "sponsorLicenceNumber": "LOT-2021-7743",
+      "sponsorStatus": "ACTIVE",
+      "sponsorRating": "A",
+      "jobTitle": "IT quality and testing professionals",
+      "annualIncome": 41699,
+      "monthlyGrossPay": 3474.92,
+      "cosReferenceNumber": "COS-2026-0568808",
+      "cosIssueDate": "2026-04-15",
+      "cosExpiryDate": "2026-09-15",
+      "socCode": "2136",
+      "socTitle": "IT quality and testing professionals",
+      "socGoingRateAnnual": 41200,
+      "startDate": "2026-07-01",
+      "salaryFrequency": "ANNUAL",
+      "hoursPerWeek": 48,
+      "isNewEntrant": false,
+      "newEntrantReason": null,
+      "previousUkEmployment": false
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-0078-1326",
+      "visaFeeReference": "VF-2026-SW-000078",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26NG277846ADE",
+      "overallScore": 7,
+      "speakingScore": 7,
+      "listeningScore": 7,
+      "readingScore": 7.5,
+      "writingScore": 7,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "NG",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": true,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": "IOM Migration Health Assessment Centre, Nigeria",
+      "tbCertificateClinicCountry": "NG"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-00009",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2456,
+      "uploaded_at": "2026-06-04T09:01:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-002-00009",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2447,
+      "uploaded_at": "2026-06-04T09:04:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-003-00009",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2794,
+      "uploaded_at": "2026-06-04T09:07:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-004-00009",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2789,
+      "uploaded_at": "2026-06-04T09:10:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-005-00009",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2790,
+      "uploaded_at": "2026-06-04T09:13:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-006-00009",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1972,
+      "uploaded_at": "2026-06-04T09:16:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-007-00009",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PAYSLIPS/PAYSLIPS_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2274,
+      "uploaded_at": "2026-06-04T09:19:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-008-00009",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PAYSLIPS/PAYSLIPS_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2274,
+      "uploaded_at": "2026-06-04T09:22:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-009-00009",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PAYSLIPS/PAYSLIPS_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2272,
+      "uploaded_at": "2026-06-04T09:25:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-010-00009",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2058,
+      "uploaded_at": "2026-06-04T09:28:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-011-00009",
+      "type": "TB_CERTIFICATE",
+      "filename": "TB_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2075,
+      "uploaded_at": "2026-06-04T09:31:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-012-00009",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-04T09:34:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-SW-DEEP-2026-00009",
+  "anomaly_type": "fail_rules",
+  "anomaly_details": [
+    "salary_1_below_general_floor",
+    "old_threshold_trap",
+    "hourly_minimum_fail"
+  ],
+  "recommendation": "RECOMMEND_REJECT",
+  "rfi_lifecycle": {
+    "enabled": false
+  },
+  "rules_summary": {
+    "drools": {
+      "rules_evaluated": 20,
+      "passed": 17,
+      "failed": 3,
+      "review_required": 0,
+      "not_applicable": 0
+    },
+    "opa": {
+      "policies_evaluated": 12,
+      "allow": 10,
+      "deny": 2,
+      "flag": 0
+    },
+    "external_checks": {
+      "checks_evaluated": 7,
+      "clear": 6,
+      "flagged": 1
+    },
+    "source_details": [
+      "salary_1_below_general_floor",
+      "old_threshold_trap",
+      "hourly_minimum_fail"
+    ]
+  },
+  "flagged_rule_ids": [
+    "RULE-W03"
+  ],
+  "opa_policy_results": [
+    {
+      "policy_id": "OPA-H01",
+      "policy_name": "Sanctions_WorldCheck_HardBlock",
+      "outcome": "ALLOW"
+    },
+    {
+      "policy_id": "OPA-H05",
+      "policy_name": "Document_Fraud_Score",
+      "outcome": "DENY"
+    },
+    {
+      "policy_id": "OPA-S03",
+      "policy_name": "Completeness_Low",
+      "outcome": "PASS"
+    }
+  ],
+  "external_check_results": [
+    {
+      "check_type": "WORLDCHECK",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "INTERPOL",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "PASSPORT_VERIFY",
+      "status": "CLEAR"
+    },
+    {
+      "check_type": "COS_CHECK",
+      "status": "FLAGGED"
+    }
+  ],
+  "completeness": {
+    "status": "COMPLETE",
+    "score": 69,
+    "missing_or_insufficient": []
+  },
+  "document_assessments": [
+    {
+      "document_id": "ho-doc-001-00009",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-002-00009",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-003-00009",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-004-00009",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-005-00009",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-006-00009",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-007-00009",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-008-00009",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-009-00009",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_003.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-010-00009",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-011-00009",
+      "type": "TB_CERTIFICATE",
+      "filename": "TB_CERTIFICATE_001.pdf",
+      "extraction_status": "EXTRACTED",
+      "fraud_signal": "CLEAR"
+    },
+    {
+      "document_id": "ho-doc-012-00009",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "extraction_status": "UPLOADED",
+      "fraud_signal": "CLEAR"
+    }
+  ],
+  "ov_assessment": {
+    "model_version": "ov-risk-v0.9-demo-corpus",
+    "overall": {
+      "risk_band": "HIGH",
+      "score": 46,
+      "summary": "Adewale Adebayo presents elevated risk for this route because a mandatory salary requirement is not met on the supplied evidence."
+    },
+    "recommendation": "Do not proceed without addressing the mandatory route failure.",
+    "dimensions": [
+      {
+        "key": "rootedness",
+        "label": "Rootedness",
+        "score": 58,
+        "status": "Limited confidence",
+        "reasoning": "Rootedness evidence is present, but route credibility is weakened by the mandatory failure.",
+        "factors": [
+          "Route issue tempers confidence",
+          "Identity evidence present"
+        ]
+      },
+      {
+        "key": "intent",
+        "label": "Intent",
+        "score": 45,
+        "status": "Not supported",
+        "reasoning": "The stated employment route is not supported by the required salary evidence.",
+        "factors": [
+          "Salary evidence issue",
+          "CoS review required"
+        ]
+      },
+      {
+        "key": "credibility",
+        "label": "Credibility",
+        "score": 42,
+        "status": "Weak",
+        "reasoning": "Credibility is reduced because mandatory salary evidence fails the route requirement.",
+        "factors": [
+          "Mandatory salary failure",
+          "Officer rationale required"
+        ]
+      }
+    ]
+  },
+  "dis_application_view": {
+    "recommendation": {
+      "recommendation": "RECOMMEND_REJECT",
+      "recommendation_reason": "Adewale Adebayo does not satisfy a mandatory Skilled Worker salary rule: Annual salary £41,699 is below the current Skilled Worker general salary floor; mandatory salary rule not satisfied.",
+      "caseworker_summary": "Adewale Adebayo does not satisfy a mandatory Skilled Worker salary rule: Annual salary £41,699 is below the current Skilled Worker general salary floor; mandatory salary rule not satisfied.",
+      "evaluation_breakdown": {
+        "drools_evaluation": "18 of 20 rules satisfied; 1 failed; 0 require review; 1 not applicable.",
+        "external_checks_evaluation": "7 of 7 external checks clear.",
+        "opa_evaluation": "12 of 12 OPA policies passed/allowed; 0 denied or flagged."
+      },
+      "hard_fail_rules": [
+        "RULE-W03"
+      ],
+      "soft_flag_rules": [],
+      "rules_summary": {
+        "rules": {
+          "drools_rules_evaluated": 20,
+          "drools_rules_passed": 18,
+          "drools_rules_failed": 1,
+          "drools_rules_not_applicable": 1
+        },
+        "opa_policies": {
+          "opa_total_evaluated": 12,
+          "opa_total_passed": 12,
+          "opa_total_failed": 0,
+          "opa_hard_evaluated": 6,
+          "opa_hard_passed": 6,
+          "opa_hard_failed": 0,
+          "opa_soft_evaluated": 6,
+          "opa_soft_passed": 6,
+          "opa_soft_failed": 0
+        },
+        "external_checks": {
+          "external_checks_evaluated": 7,
+          "external_checks_passed": 7,
+          "external_checks_failed": 0,
+          "external_checks_error": 0
+        }
+      },
+      "completeness_score": 69,
+      "completeness_status": "COMPLETE",
+      "generated_at": "2026-06-29T09:00:00Z",
+      "recommendation_at": "2026-06-29T09:00:00Z",
+      "drools_version": [
+        {
+          "rule_file": "universal/universal_rules.drl",
+          "rule_version_id": "rv-demo-u-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "rule_file": "skilled_worker/skilled_worker_rules.drl",
+          "rule_version_id": "rv-demo-sw-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "opa_version": [
+        {
+          "policy_file": "hard/hard_policies.rego",
+          "policy_version_id": "pv-demo-hard-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        },
+        {
+          "policy_file": "soft/soft_policies.rego",
+          "policy_version_id": "pv-demo-soft-2026-06-29",
+          "created_at": "2026-06-29T00:00:00Z"
+        }
+      ],
+      "note": "This is a system recommendation to assist caseworker decision-making. Final determination rests with the authorised decision-maker."
+    },
+    "component_scores": {
+      "passport": {
+        "component": "passport",
+        "score": 95,
+        "status": "VALID",
+        "confidence": 0.97,
+        "status_description": "Passport A5332289 valid until 2034-01-15; MRZ check passed.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U01",
+            "rule_name": "Passport Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Passport A5332289 issued by NG is valid until 2034-01-15; MRZ check passed."
+          }
+        ],
+        "opa_results": [
+          {
+            "policy_id": "OPA-H02",
+            "policy_name": "Passport_Verification",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          },
+          {
+            "policy_id": "OPA-H03",
+            "policy_name": "Interpol_SLTD",
+            "policy_type": "HARD",
+            "outcome": "PASS"
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT"
+        ],
+        "external_check_types": [
+          "PASSPORT_VERIFY",
+          "INTERPOL",
+          "BORDER_CONTROL"
+        ]
+      },
+      "financial": {
+        "component": "financial",
+        "score": 90,
+        "status": "SUFFICIENT",
+        "confidence": 0.92,
+        "status_description": "Bank evidence reviewed; lowest observed balance £1,787.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W09",
+            "rule_name": "Maintenance Funds",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,787."
+          }
+        ],
+        "extraction_sources": [
+          "BANK_STATEMENT"
+        ],
+        "external_check_types": []
+      },
+      "employment": {
+        "component": "employment",
+        "score": 30,
+        "status": "BELOW_THRESHOLD",
+        "confidence": 0.94,
+        "status_description": "Salary £41,699 assessed against general and SOC 2136 thresholds.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W01",
+            "rule_name": "CoS Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "CoS COS-2026-0568808 is assigned, unused, and within validity window."
+          },
+          {
+            "rule_id": "RULE-W02",
+            "rule_name": "Sponsor Licence Status",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Sponsor Lotus Thai Massage & Spa Chard Ltd (LOT-2021-7743) is A rated and active."
+          },
+          {
+            "rule_id": "RULE-W03",
+            "rule_name": "Salary Threshold - General",
+            "result": "FAIL",
+            "severity": "MANDATORY",
+            "details": "Annual salary £41,699 is below the current Skilled Worker general salary floor; mandatory salary rule not satisfied.",
+            "remediation": "Refusal recommended unless corrected evidence changes the salary assessment."
+          },
+          {
+            "rule_id": "RULE-W15",
+            "rule_name": "Start Date Validity",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": [
+          "COS_CHECK"
+        ]
+      },
+      "english_language": {
+        "component": "english_language",
+        "score": 91,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "IELTS_ACADEMIC overall 7; B2 requirement met.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W08",
+            "rule_name": "English Language",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "English language evidence: IELTS_ACADEMIC overall score 7; B2 requirement met."
+          }
+        ],
+        "extraction_sources": [
+          "IELTS_CERTIFICATE",
+          "DEGREE_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "immigration_compliance": {
+        "component": "immigration_compliance",
+        "score": 96,
+        "status": "COMPLIANT",
+        "confidence": 0.98,
+        "status_description": "No adverse immigration compliance history in the corpus case.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W12",
+            "rule_name": "Previous Immigration Compliance",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "BORDER_CONTROL"
+        ]
+      },
+      "criminal_record": {
+        "component": "criminal_record",
+        "score": 95,
+        "status": "CLEAR",
+        "confidence": 0.98,
+        "status_description": "No convictions declared and no Interpol hard match.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W11",
+            "rule_name": "Criminal Record Disclosure",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue."
+          }
+        ],
+        "extraction_sources": [],
+        "external_check_types": [
+          "WORLDCHECK",
+          "INTERPOL"
+        ]
+      },
+      "health": {
+        "component": "health",
+        "score": 90,
+        "status": "MET",
+        "confidence": 0.9,
+        "status_description": "TB certificate present and valid where required.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W10",
+            "rule_name": "TB Test Certificate",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "TB certificate present from IOM Migration Health Assessment Centre, Nigeria."
+          }
+        ],
+        "extraction_sources": [
+          "TB_CERTIFICATE"
+        ],
+        "external_check_types": []
+      },
+      "document_quality": {
+        "component": "document_quality",
+        "score": 93,
+        "status": "ACCEPTABLE",
+        "confidence": 0.87,
+        "status_description": "All required documents are legible and extracted.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-U05",
+            "rule_name": "Document Extraction Confidence",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold."
+          },
+          {
+            "rule_id": "RULE-W13",
+            "rule_name": "Application Completeness",
+            "result": "PASS",
+            "severity": "ADVISORY",
+            "details": "All required Skilled Worker document categories are present for initial review."
+          }
+        ],
+        "extraction_sources": [
+          "PASSPORT",
+          "EMPLOYMENT_LETTER",
+          "BANK_STATEMENT",
+          "DEGREE_CERTIFICATE",
+          "PAYSLIP",
+          "IELTS_CERTIFICATE",
+          "TB_CERTIFICATE",
+          "PHOTO"
+        ],
+        "external_check_types": []
+      },
+      "fraud_risk": {
+        "component": "fraud_risk",
+        "score": 88,
+        "status": "LOW_RISK",
+        "confidence": 0.82,
+        "raw_fraud_score": 0.12,
+        "status_description": "No document fraud signal above review threshold.",
+        "rule_results": [
+          {
+            "rule_id": "RULE-W14",
+            "rule_name": "Document Fraud Detection",
+            "result": "PASS",
+            "severity": "MANDATORY",
+            "details": "No critical fraud signal detected in document metadata, layout, cross-document consistency, or content plausibility."
+          }
+        ],
+        "extraction_sources": [
+          "EMPLOYMENT_LETTER"
+        ],
+        "external_check_types": []
+      }
+    },
+    "source_channel": "govdirect",
+    "rule_results": [
+      {
+        "rule_id": "RULE-U01",
+        "rule_name": "Passport Validity",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Passport A5332289 issued by NG is valid until 2034-01-15; MRZ check passed.",
+        "evidence_refs": [
+          "document_extractions:PASSPORT",
+          "external_checks:PASSPORT_VERIFY"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U02",
+        "rule_name": "Biometric Verification",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "vac_in_person verification completed at VAC Edinburgh - 6 Waterloo Place, EH1 3BG; fingerprints and photograph captured.",
+        "evidence_refs": [
+          "submission_payload:biometric_verification"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U03",
+        "rule_name": "Sanctions Screening",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sanctions and adverse-media screening returned no hard block.",
+        "evidence_refs": [
+          "external_checks:WORLDCHECK"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U04",
+        "rule_name": "Duplicate Application Check",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No duplicate application was identified for passport, name/date of birth, or source reference.",
+        "evidence_refs": [
+          "submission_payload:applicant",
+          "source_reference"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-U05",
+        "rule_name": "Document Extraction Confidence",
+        "rule_category": "UNIVERSAL",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Critical documents present in the initial bundle have extraction confidence at or above the demo threshold.",
+        "evidence_refs": [
+          "document_extractions"
+        ],
+        "rule_version_id": "rv-demo-u-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W01",
+        "rule_name": "CoS Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "CoS COS-2026-0568808 is assigned, unused, and within validity window.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.cosReferenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W02",
+        "rule_name": "Sponsor Licence Status",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Sponsor Lotus Thai Massage & Spa Chard Ltd (LOT-2021-7743) is A rated and active.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.sponsorLicenceNumber",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W03",
+        "rule_name": "Salary Threshold - General",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "NOT_SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Annual salary £41,699 is below the current Skilled Worker general salary floor; mandatory salary rule not satisfied.",
+        "remediation": "Refusal recommended unless corrected evidence changes the salary assessment.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.annualIncome",
+          "document_extractions:EMPLOYMENT_LETTER",
+          "external_checks:COS_CHECK"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W04",
+        "rule_name": "Salary Threshold - New Entrant",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "NOT_APPLICABLE",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant is not a new entrant; the general salary threshold route applies instead.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.isNewEntrant"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W05",
+        "rule_name": "SOC Code Eligibility",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "SOC 2136 (IT quality and testing professionals) is eligible for Skilled Worker sponsorship.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W06",
+        "rule_name": "Immigration Salary List Check",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "ADVISORY",
+        "reasoning": "Immigration Salary List check completed; standard threshold treatment applied unless explicitly stated by the route data.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W07",
+        "rule_name": "Job Skill Level",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Role IT quality and testing professionals is treated as meeting the required skill level for SOC 2136.",
+        "evidence_refs": [
+          "document_extractions:DEGREE_CERTIFICATE",
+          "submission_payload:answers_employment.socCode"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W08",
+        "rule_name": "English Language",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "English language evidence: IELTS_ACADEMIC overall score 7; B2 requirement met.",
+        "evidence_refs": [
+          "document_extractions:IELTS_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W09",
+        "rule_name": "Maintenance Funds",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Maintenance evidence reviewed across available bank statements; lowest observed balance £1,787.",
+        "evidence_refs": [
+          "document_extractions:BANK_STATEMENT"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W10",
+        "rule_name": "TB Test Certificate",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "TB certificate present from IOM Migration Health Assessment Centre, Nigeria.",
+        "evidence_refs": [
+          "document_extractions:TB_CERTIFICATE"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W11",
+        "rule_name": "Criminal Record Disclosure",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Applicant declared no convictions or pending charges; external criminality checks show no hard issue.",
+        "evidence_refs": [
+          "submission_payload:answers_criminalRecord",
+          "external_checks:INTERPOL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W12",
+        "rule_name": "Previous Immigration Compliance",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No prior refusal, deportation, overstay, or adverse immigration compliance history is recorded in the corpus case.",
+        "evidence_refs": [
+          "submission_payload:answers_travelHistory",
+          "external_checks:BORDER_CONTROL"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W13",
+        "rule_name": "Application Completeness",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "ADVISORY",
+        "reasoning": "All required Skilled Worker document categories are present for initial review.",
+        "evidence_refs": [
+          "documents",
+          "completeness.missing_or_insufficient"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W14",
+        "rule_name": "Document Fraud Detection",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "No critical fraud signal detected in document metadata, layout, cross-document consistency, or content plausibility.",
+        "evidence_refs": [
+          "document_extractions",
+          "fraud_signals"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "rule_id": "RULE-W15",
+        "rule_name": "Start Date Validity",
+        "rule_category": "SKILLED_WORKER",
+        "outcome": "SATISFIED",
+        "severity": "MANDATORY",
+        "reasoning": "Employment start date 2026-07-01 is within the acceptable window for the application and CoS timeline.",
+        "evidence_refs": [
+          "submission_payload:answers_employment.startDate"
+        ],
+        "rule_version_id": "rv-demo-sw-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "opa_results": [
+      {
+        "policy_id": "OPA-H01",
+        "policy_name": "Sanctions_WorldCheck_HardBlock",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H02",
+        "policy_name": "Passport_Verification",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H03",
+        "policy_name": "Interpol_SLTD",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H04",
+        "policy_name": "Auth_Session_Validation",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H05",
+        "policy_name": "Document_Fraud_Score",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-H06",
+        "policy_name": "Data_Residency",
+        "policy_type": "HARD",
+        "outcome": "ALLOW",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-hard-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S01",
+        "policy_name": "Biometric_Borderline",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S02",
+        "policy_name": "WorldCheck_Low_Medium",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S03",
+        "policy_name": "Completeness_Low",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S04",
+        "policy_name": "Rapid_Submission_Bot",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S05",
+        "policy_name": "Enhanced_Scrutiny_Nationality",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "policy_id": "OPA-S06",
+        "policy_name": "Infrastructure_Alerts",
+        "policy_type": "SOFT",
+        "outcome": "PASS",
+        "denial_reasons": [],
+        "policy_version_id": "pv-demo-soft-2026-06-29",
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "external_checks": [
+      {
+        "check_id": "chk-009-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": null,
+        "check_type": "WORLDCHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "categories_checked": [
+            "SANCTIONS",
+            "PEP",
+            "ADVERSE_MEDIA"
+          ],
+          "matches_found": []
+        },
+        "response_time_ms": 350,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-009-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-001-00009",
+        "check_type": "INTERPOL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_stolen": false,
+          "is_lost": false,
+          "is_revoked": false
+        },
+        "response_time_ms": 440,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-009-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-001-00009",
+        "check_type": "PASSPORT_VERIFY",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "document_number": "A5332289",
+          "overall_match": true,
+          "check_digit_valid": true,
+          "document_status": "VALID"
+        },
+        "response_time_ms": 530,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-009-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-001-00009",
+        "check_type": "BORDER_CONTROL",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "has_overstay": false,
+          "has_deportation": false,
+          "has_refusal_at_border": false,
+          "previous_uk_refusals": false
+        },
+        "response_time_ms": 620,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-009-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": null,
+        "check_type": "DEVICE_IP_RISK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "is_vpn": false,
+          "is_tor": false,
+          "is_proxy": false,
+          "submission_velocity": "NORMAL"
+        },
+        "response_time_ms": 710,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-009-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": null,
+        "check_type": "EMAIL_PHONE_REPUTATION",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "email": "adewale.adebayo.0078@yahoo.com",
+          "disposable_email": false,
+          "known_fraud_phone": false
+        },
+        "response_time_ms": 800,
+        "created_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "check_id": "chk-009-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": null,
+        "check_type": "COS_CHECK",
+        "check_status": "CLEAR",
+        "risk_level": "NONE",
+        "confidence_score": 0.96,
+        "flags": {},
+        "response_payload": {
+          "cos_reference_number": "COS-2026-0568808",
+          "sponsor_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "sponsor_licence_number": "LOT-2021-7743",
+          "sponsor_licence_status": "A_RATED",
+          "soc_code": "2136",
+          "job_title": "IT quality and testing professionals",
+          "salary_on_cos_gbp": 41699,
+          "salary_matches_threshold": false,
+          "salary_matches_employment_letter": true
+        },
+        "response_time_ms": 890,
+        "created_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "documents": [
+      {
+        "dis_document_id": "ho-doc-001-00009",
+        "document_type": "PASSPORT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PASSPORT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2456
+      },
+      {
+        "dis_document_id": "ho-doc-002-00009",
+        "document_type": "EMPLOYMENT_LETTER",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/EMPLOYMENT_LETTER_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2447
+      },
+      {
+        "dis_document_id": "ho-doc-003-00009",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/BANK_STATEMENT_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2794
+      },
+      {
+        "dis_document_id": "ho-doc-004-00009",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/BANK_STATEMENT_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2789
+      },
+      {
+        "dis_document_id": "ho-doc-005-00009",
+        "document_type": "BANK_STATEMENT",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/BANK_STATEMENT_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2790
+      },
+      {
+        "dis_document_id": "ho-doc-006-00009",
+        "document_type": "DEGREE_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/DEGREE_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 1972
+      },
+      {
+        "dis_document_id": "ho-doc-007-00009",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PAYSLIP_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PAYSLIP/PAYSLIP_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2274
+      },
+      {
+        "dis_document_id": "ho-doc-008-00009",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PAYSLIP_002.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PAYSLIP/PAYSLIP_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2274
+      },
+      {
+        "dis_document_id": "ho-doc-009-00009",
+        "document_type": "PAYSLIP",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PAYSLIP_003.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PAYSLIP/PAYSLIP_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2272
+      },
+      {
+        "dis_document_id": "ho-doc-010-00009",
+        "document_type": "IELTS_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/IELTS_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2058
+      },
+      {
+        "dis_document_id": "ho-doc-011-00009",
+        "document_type": "TB_CERTIFICATE",
+        "requirement_tier": "REQUIRED",
+        "processing_tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/TB_CERTIFICATE_001.pdf",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/TB_CERTIFICATE/TB_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "EXTRACTED",
+        "quality_score": 0.96,
+        "mime_type": "application/pdf",
+        "file_size_bytes": 2075
+      },
+      {
+        "dis_document_id": "ho-doc-012-00009",
+        "document_type": "PHOTO",
+        "requirement_tier": "SUPPORTING",
+        "processing_tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "gcs_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PHOTO_001.jpg",
+        "image_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SW-DEEP-2026-00009/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+        "processing_status": "UPLOADED",
+        "quality_score": 0.94,
+        "mime_type": "image/jpeg",
+        "file_size_bytes": 17622
+      }
+    ],
+    "document_extractions": [
+      {
+        "extraction_id": "extr-009-01",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-003-00009",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/BANK_STATEMENT_001.json"
+        },
+        "extracted_data": {
+          "bank_name": "HSBC",
+          "account_holder": "Adewale Emeka Adebayo",
+          "statement_month": "2026-01",
+          "account_number": "66145642",
+          "sort_code": "73-66-78",
+          "branch_name": "HSBC Birmingham New Street Branch",
+          "branch_address": "130 New Street, Birmingham B2 4JU",
+          "opening_balance": 3025,
+          "closing_balance": 4408.3,
+          "salary_credit": 2621.54,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-01-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 886.09,
+              "credit": 0,
+              "balance": 2138.91
+            },
+            {
+              "date": "2026-01-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 129.99,
+              "credit": 0,
+              "balance": 2008.92
+            },
+            {
+              "date": "2026-01-10",
+              "description": "CARD TESCO STORES",
+              "debit": 52.31,
+              "credit": 0,
+              "balance": 1956.61
+            },
+            {
+              "date": "2026-01-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 76.57,
+              "credit": 0,
+              "balance": 1880.04
+            },
+            {
+              "date": "2026-01-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 64.42,
+              "credit": 0,
+              "balance": 1815.62
+            },
+            {
+              "date": "2026-01-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 28.86,
+              "credit": 0,
+              "balance": 1786.76
+            },
+            {
+              "date": "2026-01-31",
+              "description": "BACS LOTUS THAI MASSAGE & SPA CHA",
+              "debit": 0,
+              "credit": 2621.54,
+              "balance": 4408.3
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Adewale Emeka Adebayo",
+          "account_number_last4": "5642",
+          "sort_code": "73-66-78",
+          "bank_name": "HSBC",
+          "statement_month": "2026-01",
+          "opening_balance_gbp": 3025,
+          "closing_balance_gbp": 4408.3,
+          "lowest_balance_gbp": 1786.76,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2621.54
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/BANK_STATEMENT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/BANK_STATEMENT_001.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-02",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-004-00009",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/BANK_STATEMENT_002.json"
+        },
+        "extracted_data": {
+          "bank_name": "HSBC",
+          "account_holder": "Adewale Emeka Adebayo",
+          "statement_month": "2026-02",
+          "account_number": "66145642",
+          "sort_code": "73-66-78",
+          "branch_name": "HSBC Canary Wharf Branch",
+          "branch_address": "8 Canada Square, London E14 5HQ",
+          "opening_balance": 3236,
+          "closing_balance": 4437.91,
+          "salary_credit": 2621.54,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-02-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 1014.17,
+              "credit": 0,
+              "balance": 2221.83
+            },
+            {
+              "date": "2026-02-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 142.89,
+              "credit": 0,
+              "balance": 2078.94
+            },
+            {
+              "date": "2026-02-10",
+              "description": "CARD TESCO STORES",
+              "debit": 59.15,
+              "credit": 0,
+              "balance": 2019.79
+            },
+            {
+              "date": "2026-02-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 108.21,
+              "credit": 0,
+              "balance": 1911.58
+            },
+            {
+              "date": "2026-02-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 61.21,
+              "credit": 0,
+              "balance": 1850.37
+            },
+            {
+              "date": "2026-02-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 34,
+              "credit": 0,
+              "balance": 1816.37
+            },
+            {
+              "date": "2026-02-28",
+              "description": "BACS LOTUS THAI MASSAGE & SPA CHA",
+              "debit": 0,
+              "credit": 2621.54,
+              "balance": 4437.91
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Adewale Emeka Adebayo",
+          "account_number_last4": "5642",
+          "sort_code": "73-66-78",
+          "bank_name": "HSBC",
+          "statement_month": "2026-02",
+          "opening_balance_gbp": 3236,
+          "closing_balance_gbp": 4437.91,
+          "lowest_balance_gbp": 1816.37,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2621.54
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/BANK_STATEMENT_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/BANK_STATEMENT_002.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-03",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-005-00009",
+        "document_type": "BANK_STATEMENT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_FORM_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/bank-statement",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/BANK_STATEMENT_003.json"
+        },
+        "extracted_data": {
+          "bank_name": "HSBC",
+          "account_holder": "Adewale Emeka Adebayo",
+          "statement_month": "2026-03",
+          "account_number": "66145642",
+          "sort_code": "73-66-78",
+          "branch_name": "HSBC Birmingham New Street Branch",
+          "branch_address": "130 New Street, Birmingham B2 4JU",
+          "opening_balance": 3447,
+          "closing_balance": 4750.64,
+          "salary_credit": 2621.54,
+          "salary_credit_type": "NET_PAY",
+          "transactions": [
+            {
+              "date": "2026-03-02",
+              "description": "D/D RENTAL PAYMENT",
+              "debit": 954.82,
+              "credit": 0,
+              "balance": 2492.18
+            },
+            {
+              "date": "2026-03-06",
+              "description": "D/D COUNCIL TAX",
+              "debit": 152.53,
+              "credit": 0,
+              "balance": 2339.65
+            },
+            {
+              "date": "2026-03-10",
+              "description": "CARD TESCO STORES",
+              "debit": 92.11,
+              "credit": 0,
+              "balance": 2247.54
+            },
+            {
+              "date": "2026-03-14",
+              "description": "D/D ENERGY SUPPLIER",
+              "debit": 74.43,
+              "credit": 0,
+              "balance": 2173.11
+            },
+            {
+              "date": "2026-03-18",
+              "description": "CARD TRAINLINE.COM",
+              "debit": 34.47,
+              "credit": 0,
+              "balance": 2138.64
+            },
+            {
+              "date": "2026-03-22",
+              "description": "CARD BOOTS PHARMACY",
+              "debit": 9.54,
+              "credit": 0,
+              "balance": 2129.1
+            },
+            {
+              "date": "2026-03-31",
+              "description": "BACS LOTUS THAI MASSAGE & SPA CHA",
+              "debit": 0,
+              "credit": 2621.54,
+              "balance": 4750.64
+            }
+          ]
+        },
+        "normalised_fields": {
+          "account_holder_name": "Adewale Emeka Adebayo",
+          "account_number_last4": "5642",
+          "sort_code": "73-66-78",
+          "bank_name": "HSBC",
+          "statement_month": "2026-03",
+          "opening_balance_gbp": 3447,
+          "closing_balance_gbp": 4750.64,
+          "lowest_balance_gbp": 2129.1,
+          "salary_credit_detected": true,
+          "monthly_salary_amount_gbp": 2621.54
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/BANK_STATEMENT_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/BANK_STATEMENT_003.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-04",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-006-00009",
+        "document_type": "DEGREE_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/degree-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/DEGREE_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "institution": "University of Lagos",
+          "student_name": "ADEWALE EMEKA ADEBAYO",
+          "degree_title": "Bachelor of Science in Computer Science",
+          "date_conferred": "2022-07-15",
+          "country": "NG"
+        },
+        "normalised_fields": {
+          "institution_name": "University of Lagos",
+          "candidate_name": "ADEWALE EMEKA ADEBAYO",
+          "qualification_title": "Bachelor of Science in Computer Science",
+          "award_date": "2022-07-15",
+          "country_code": "NG",
+          "rqf_level_equivalent": 6
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/DEGREE_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/DEGREE_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-05",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-002-00009",
+        "document_type": "EMPLOYMENT_LETTER",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/employment-letter",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.93,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/EMPLOYMENT_LETTER_001.json"
+        },
+        "extracted_data": {
+          "letter_date": "2026-05-20",
+          "employer_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "employee_name": "Adewale Emeka Adebayo",
+          "job_title": "IT quality and testing professionals",
+          "soc_code": "2136",
+          "cos_reference": "COS-2026-0568808",
+          "start_date": "2026-07-01",
+          "annual_salary": 41699,
+          "monthly_gross_pay": 3474.92,
+          "hours_per_week": 48,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "normalised_fields": {
+          "employer_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "job_title": "IT quality and testing professionals",
+          "soc_code": "2136",
+          "cos_reference_number": "COS-2026-0568808",
+          "start_date": "2026-07-01",
+          "annual_salary_gbp": 41699,
+          "monthly_gross_pay_gbp": 3474.92,
+          "hours_per_week": 48,
+          "letter_date": "2026-05-20",
+          "salary_matches_cos": true,
+          "employer_matches_cos": true,
+          "signatory_name": "Helen Morris",
+          "signatory_title": "HR Manager"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/EMPLOYMENT_LETTER_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/EMPLOYMENT_LETTER_001.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-06",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-010-00009",
+        "document_type": "IELTS_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/ielts-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.94,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/IELTS_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "candidate_name": "Adewale Emeka Adebayo",
+          "candidate_number": "715606",
+          "test_date": "2026-02-18",
+          "overall_band_score": 7,
+          "listening_score": 7,
+          "reading_score": 7.5,
+          "writing_score": 7,
+          "speaking_score": 7,
+          "test_reference_number": "26NG277846ADE"
+        },
+        "normalised_fields": {
+          "test_type": "IELTS_ACADEMIC",
+          "candidate_name": "Adewale Emeka Adebayo",
+          "test_date": "2026-02-18",
+          "overall_score": 7,
+          "listening_score": 7,
+          "reading_score": 7.5,
+          "writing_score": 7,
+          "speaking_score": 7,
+          "test_reference_number": "26NG277846ADE",
+          "meets_b2_minimum": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/IELTS_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/IELTS_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-07",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-001-00009",
+        "document_type": "PASSPORT",
+        "tier": "TIER_1",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_ID_PARSER",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/passport",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/PASSPORT_001.json"
+        },
+        "extracted_data": {
+          "full_name": "ADEBAYO ADEWALE EMEKA",
+          "surname": "ADEBAYO",
+          "given_names": "ADEWALE EMEKA",
+          "date_of_birth": "2003-08-11",
+          "gender": "M",
+          "nationality": "NGA",
+          "passport_number": "A5332289",
+          "date_of_issue": "2024-01-15",
+          "date_of_expiry": "2034-01-15",
+          "issuing_country": "NGA",
+          "mrz_line1": "P<NGAADEBAYO<<ADEWALE<EMEKA<<<<<<<<<<<<<<<<<",
+          "mrz_line2": "A5332289<0NGA0308119M3401158<<<<<<<<<<<<<<04"
+        },
+        "normalised_fields": {
+          "document_number": "A5332289",
+          "surname": "ADEBAYO",
+          "given_names": "ADEWALE EMEKA",
+          "full_name": "ADEBAYO ADEWALE EMEKA",
+          "date_of_birth": "2003-08-11",
+          "nationality_code": "NGA",
+          "sex": "M",
+          "issue_date": "2024-01-15",
+          "expiry_date": "2034-01-15",
+          "issuing_country_code": "NGA",
+          "mrz_valid": true,
+          "mrz_checksum_passed": true
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          },
+          "mrz_check": {
+            "score": 0,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PASSPORT_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/PASSPORT_001.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-08",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-007-00009",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.96,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/PAYSLIP_001.json"
+        },
+        "extracted_data": {
+          "employer_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "employee_name": "Adewale Emeka Adebayo",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay": 3474.92,
+          "annualized_gross_pay": 41699.04,
+          "tax_deducted": 485.48,
+          "ni_deducted": 194.15,
+          "pension_deducted": 173.75,
+          "net_pay": 2621.54,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000078",
+          "tax_code": "1257L",
+          "ni_number": "AB481863B"
+        },
+        "normalised_fields": {
+          "employer_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "employee_name": "Adewale Emeka Adebayo",
+          "pay_period_start": "2026-01-01",
+          "pay_period_end": "2026-01-31",
+          "gross_pay_gbp": 3474.92,
+          "annualized_gross_pay_gbp": 41699.04,
+          "net_pay_gbp": 2621.54,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000078",
+          "tax_code": "1257L",
+          "ni_number": "AB481863B"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PAYSLIP_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/PAYSLIP_001.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-09",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-008-00009",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.97,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/PAYSLIP_002.json"
+        },
+        "extracted_data": {
+          "employer_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "employee_name": "Adewale Emeka Adebayo",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay": 3474.92,
+          "annualized_gross_pay": 41699.04,
+          "tax_deducted": 485.48,
+          "ni_deducted": 194.15,
+          "pension_deducted": 173.75,
+          "net_pay": 2621.54,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000078",
+          "tax_code": "1257L",
+          "ni_number": "AB481863B"
+        },
+        "normalised_fields": {
+          "employer_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "employee_name": "Adewale Emeka Adebayo",
+          "pay_period_start": "2026-02-01",
+          "pay_period_end": "2026-02-28",
+          "gross_pay_gbp": 3474.92,
+          "annualized_gross_pay_gbp": 41699.04,
+          "net_pay_gbp": 2621.54,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000078",
+          "tax_code": "1257L",
+          "ni_number": "AB481863B"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PAYSLIP_002.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/PAYSLIP_002.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-10",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-009-00009",
+        "document_type": "PAYSLIP",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/payslips",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.93,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/PAYSLIP_003.json"
+        },
+        "extracted_data": {
+          "employer_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "employee_name": "Adewale Emeka Adebayo",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay": 3474.92,
+          "annualized_gross_pay": 41699.04,
+          "tax_deducted": 485.48,
+          "ni_deducted": 194.15,
+          "pension_deducted": 173.75,
+          "net_pay": 2621.54,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000078",
+          "tax_code": "1257L",
+          "ni_number": "AB481863B"
+        },
+        "normalised_fields": {
+          "employer_name": "Lotus Thai Massage & Spa Chard Ltd",
+          "employee_name": "Adewale Emeka Adebayo",
+          "pay_period_start": "2026-03-01",
+          "pay_period_end": "2026-03-31",
+          "gross_pay_gbp": 3474.92,
+          "annualized_gross_pay_gbp": 41699.04,
+          "net_pay_gbp": 2621.54,
+          "pay_frequency": "MONTHLY",
+          "employee_number": "EMP-000078",
+          "tax_code": "1257L",
+          "ni_number": "AB481863B"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PAYSLIP_003.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/PAYSLIP_003.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-11",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-012-00009",
+        "document_type": "PHOTO",
+        "tier": "TIER_2",
+        "criticality": "SUPPORTING",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/photo",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.9,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/PHOTO_001.json"
+        },
+        "extracted_data": {
+          "applicant_name": "Adewale Emeka Adebayo",
+          "filename": "PHOTO_001.jpg",
+          "image_label": "PASSPORT PHOTO - SYNTHETIC",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "normalised_fields": {
+          "applicant_name": "Adewale Emeka Adebayo",
+          "filename": "PHOTO_001.jpg",
+          "width_px": 600,
+          "height_px": 760
+        },
+        "fraud_score": null,
+        "fraud_status": null,
+        "fraud_signals": null,
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/PHOTO_001.jpg",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/PHOTO_001.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      },
+      {
+        "extraction_id": "extr-009-12",
+        "dis_application_id": "dis-ho-sw-deep-2026-00009",
+        "document_id": "ho-doc-011-00009",
+        "document_type": "TB_CERTIFICATE",
+        "tier": "TIER_2",
+        "criticality": "CRITICAL",
+        "extraction_method": "DOC_AI_CUSTOM_EXTRACTOR",
+        "processor_id": "projects/prj-demo-dis/locations/europe-west2/processors/tb-certificate",
+        "processor_version": "demo-v1.0",
+        "extraction_confidence": 0.95,
+        "raw_extraction": {
+          "synthetic_ground_truth_file": "ground_truth/HO-SW-DEEP-2026-00009/TB_CERTIFICATE_001.json"
+        },
+        "extracted_data": {
+          "clinic_name": "IOM Migration Health Assessment Centre, Nigeria",
+          "doctor_name": "Dr Lin Chen",
+          "applicant_name": "Adewale Emeka Adebayo",
+          "date_of_birth": "2003-08-11",
+          "test_date": "2026-03-10",
+          "result": "clear",
+          "valid_until": "2026-09-10"
+        },
+        "normalised_fields": {
+          "clinic_name": "IOM Migration Health Assessment Centre, Nigeria",
+          "doctor_name": "Dr Lin Chen",
+          "applicant_name": "Adewale Emeka Adebayo",
+          "date_of_birth": "2003-08-11",
+          "test_date": "2026-03-10",
+          "result": "clear",
+          "valid_until": "2026-09-10"
+        },
+        "fraud_score": 0.05,
+        "fraud_status": "CLEAR",
+        "fraud_signals": {
+          "metadata_analysis": {
+            "score": 0.04,
+            "flags": []
+          },
+          "font_consistency": {
+            "score": 0.03,
+            "flags": []
+          },
+          "layout_anomaly": {
+            "score": 0.03,
+            "flags": []
+          },
+          "document_quality": {
+            "score": 0.04,
+            "flags": []
+          },
+          "cross_doc_consistency": {
+            "score": 0.05,
+            "flags": []
+          },
+          "content_plausibility": {
+            "score": 0.04,
+            "flags": []
+          }
+        },
+        "source_channel": "govdirect",
+        "gcs_raw_path": "gs://ams-demo-corpus/deep_set/documents/HO-SW-DEEP-2026-00009/TB_CERTIFICATE_001.pdf",
+        "gcs_processed_path": "gs://ams-demo-corpus/deep_set/ground_truth/HO-SW-DEEP-2026-00009/TB_CERTIFICATE_001.json",
+        "created_at": "2026-06-04T09:43:00Z",
+        "updated_at": "2026-06-29T09:00:00Z"
+      }
+    ],
+    "llm_summary": "Adewale Adebayo is a NG national applying for Skilled Worker permission sponsored by Lotus Thai Massage & Spa Chard Ltd for IT quality and testing professionals (SOC 2136). The application states salary £41,699 against the SOC going rate £41,200 and start date 2026-07-01. DIS recommends refusal because a mandatory salary rule is not satisfied. Annual salary £41,699 is below the current Skilled Worker general salary floor; mandatory salary rule not satisfied.",
+    "queue_state": "READY_FOR_REVIEW",
+    "source_application_id": "HO-SW-DEEP-2026-00009",
+    "source_reference": "GV-DEEP-00009",
+    "dis_application_id": "dis-ho-sw-deep-2026-00009",
+    "submitted_at": "2026-06-04T09:43:00Z"
+  }
+}

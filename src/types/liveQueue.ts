@@ -1,4 +1,5 @@
 // Types for the Live Queue functionality
+import type { RecommendationOutcome } from '@/api-contracts/dis'
 
 export interface ConsulateOfficial {
     id: string;
@@ -15,13 +16,19 @@ export interface ConsulateOfficial {
     visaType: string;      // Type of visa (e.g., 'Tourist, 30 Days')
     category?: string;     // Visa category (e.g., 'Business', 'Medical')
     submittedAt: string;   // Timestamp or relative time
-    status: 'In Progress' | 'Approved' | 'Pending' | 'Rejected' | 'Escalated' | 'Pending Assignment' | 'Awaiting Info';
+    status: 'In Progress' | 'Approved' | 'Pending' | 'Rejected' | 'Escalated' | 'Pending Assignment' | 'Awaiting Info'
+      | 'Received' | 'Processed' | 'Awaiting Allocation' | 'Decided';   // demo lifecycle (AmsDemoProvider)
     assignedTo?: {
       id: string;
       name: string;
       avatar?: string;
     };
     flags?: string[];      // Any special flags or notes
+    // --- DIS-aligned demo fields (optional; populated by AmsDemoProvider) ---
+    visaTypeId?: string;   // canonical visa key (registry)
+    recommendation?: RecommendationOutcome;
+    anomalyType?: string;
+    sourceReference?: string;
   }
   
   export interface LiveQueueFilters {

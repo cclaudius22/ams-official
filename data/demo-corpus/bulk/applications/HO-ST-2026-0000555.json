@@ -1,0 +1,209 @@
+{
+  "source_application_id": "HO-ST-2026-0000555",
+  "source_reference": "GV-DEMO-0000555",
+  "source_channel": "govdirect",
+  "visa_type": "student",
+  "country_code": "GB",
+  "submitted_at": "2026-06-17T14:15:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "katarzyna.wisniewski.2275@protonmail.com",
+    "first_name": "Katarzyna",
+    "middle_name": null,
+    "last_name": "Wisniewski",
+    "date_of_birth": "1982-06-01",
+    "nationality_code": "PL",
+    "gender": "F"
+  },
+  "passport_data": {
+    "number": "P9599293",
+    "issuing_country": "PL",
+    "nationality": "PL",
+    "full_name": "WISNIEWSKI KATARZYNA",
+    "date_of_birth": "1982-06-01",
+    "gender": "F",
+    "issue_date": "2024-02-01",
+    "expiry_date": "2034-02-01",
+    "mrz_line1": "P<POLWISNIEWSKI<<KATARZYNA<<<<<<<<<<<<<<<<<<",
+    "mrz_line2": "P9599293<1POL8206015F3402018<<<<<<<<<<<<<<08"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC London - 66 Wilson Street, EC2A 2BT",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-3275",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Katarzyna",
+      "middleName": null,
+      "lastName": "Wisniewski",
+      "dateOfBirth": "1982-06-01",
+      "nationality": "PL",
+      "maritalStatus": "single"
+    },
+    "employment": {
+      "status": "student_applicant",
+      "employerName": "University of Manchester",
+      "sponsorLicenceNumber": "STU-2026-4821",
+      "sponsorStatus": "ACTIVE",
+      "sponsorRating": "A",
+      "jobTitle": "MSc Data Science student",
+      "annualIncome": 0.0,
+      "monthlyGrossPay": 0.0,
+      "cosReferenceNumber": null,
+      "cosIssueDate": null,
+      "cosExpiryDate": null,
+      "socCode": null,
+      "socTitle": null,
+      "socGoingRateAnnual": null,
+      "startDate": "2026-09-22",
+      "salaryFrequency": null,
+      "hoursPerWeek": null,
+      "isNewEntrant": null,
+      "newEntrantReason": null,
+      "previousUkEmployment": false,
+      "casReferenceNumber": "CAS-2026-UM-438921",
+      "courseTitle": "MSc Data Science",
+      "courseLevel": "RQF Level 7",
+      "tuitionFeesGbp": 28600,
+      "maintenanceFundsGbp": 12006
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-2275-8675",
+      "visaFeeReference": "VF-2026-ST-000555",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": false,
+      "testType": "IELTS_ACADEMIC",
+      "testReferenceNumber": "26PL798076WIS",
+      "overallScore": 6.5,
+      "speakingScore": 7.0,
+      "listeningScore": 6.0,
+      "readingScore": 7.0,
+      "writingScore": 6.0,
+      "testDate": "2026-02-18"
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "PL",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": false,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": null,
+      "tbCertificateClinicCountry": null
+    },
+    "routeSpecific": {
+      "route": "student",
+      "phase": "PHASE_2_QUEUE_ONLY",
+      "phase_note": "DIS pipeline configured - full deep review live in Phase 2.",
+      "display_label": "Student"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-0000555",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-ST-2026-0000555/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2448,
+      "uploaded_at": "2026-06-17T13:33:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-002-0000555",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-ST-2026-0000555/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2791,
+      "uploaded_at": "2026-06-17T13:36:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-003-0000555",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-ST-2026-0000555/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2790,
+      "uploaded_at": "2026-06-17T13:39:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-004-0000555",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_003.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-ST-2026-0000555/BANK_STATEMENT/BANK_STATEMENT_003.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2788,
+      "uploaded_at": "2026-06-17T13:42:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-005-0000555",
+      "type": "ACADEMIC_TRANSCRIPT",
+      "filename": "ACADEMIC_TRANSCRIPT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-ST-2026-0000555/ACADEMIC_TRANSCRIPT/ACADEMIC_TRANSCRIPT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1969,
+      "uploaded_at": "2026-06-17T13:45:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-006-0000555",
+      "type": "IELTS_CERTIFICATE",
+      "filename": "IELTS_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-ST-2026-0000555/IELTS_CERTIFICATE/IELTS_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2060,
+      "uploaded_at": "2026-06-17T13:48:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-007-0000555",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-ST-2026-0000555/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-17T13:51:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-ST-2026-0000555",
+  "anomaly_type": "fail_rules",
+  "anomaly_details": [
+    "maintenance funds below Student route requirement",
+    "CAS sponsor record requires verification"
+  ],
+  "recommendation": "RECOMMEND_REJECT"
+}

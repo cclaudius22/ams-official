@@ -1,0 +1,19 @@
+{
+  "document_type": "IELTS_CERTIFICATE",
+  "application_id": "HO-SW-2026-00000005",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "candidate_name": "Amina Ngozi Okafor",
+    "candidate_number": "157400",
+    "test_date": "2026-02-18",
+    "overall_band_score": 7.5,
+    "listening_score": 8.0,
+    "reading_score": 7.0,
+    "writing_score": 7.5,
+    "speaking_score": 7.5,
+    "test_reference_number": "26NG258653OKA"
+  }
+}

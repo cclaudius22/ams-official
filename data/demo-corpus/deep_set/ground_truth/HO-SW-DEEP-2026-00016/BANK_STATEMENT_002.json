@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000091",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "RBC",
+    "account_holder": "Karan Singh",
+    "statement_month": "2026-02",
+    "account_number": "67990261",
+    "sort_code": "83-99-15",
+    "branch_name": "RBC Manchester Corporate Branch",
+    "branch_address": "1 Spinningfields Square, Manchester M3 3AP",
+    "opening_balance": 3405,
+    "closing_balance": 4640.74,
+    "salary_credit": 2621.59,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-02-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 980.09,
+        "credit": 0.0,
+        "balance": 2424.91
+      },
+      {
+        "date": "2026-02-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 161.78,
+        "credit": 0.0,
+        "balance": 2263.13
+      },
+      {
+        "date": "2026-02-10",
+        "description": "CARD TESCO STORES",
+        "debit": 60.08,
+        "credit": 0.0,
+        "balance": 2203.05
+      },
+      {
+        "date": "2026-02-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 93.88,
+        "credit": 0.0,
+        "balance": 2109.17
+      },
+      {
+        "date": "2026-02-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 55.54,
+        "credit": 0.0,
+        "balance": 2053.63
+      },
+      {
+        "date": "2026-02-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 34.48,
+        "credit": 0.0,
+        "balance": 2019.15
+      },
+      {
+        "date": "2026-02-28",
+        "description": "BACS MY INDIA LTD TA MOTHER INDIA",
+        "debit": 0.0,
+        "credit": 2621.59,
+        "balance": 4640.74
+      }
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "document_type": "BANK_STATEMENT",
+  "application_id": "HO-SW-2026-00000002",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "bank_name": "NatWest",
+    "account_holder": "Faisal Bilal Malik",
+    "statement_month": "2026-03",
+    "account_number": "60128224",
+    "sort_code": "28-84-91",
+    "branch_name": "NatWest Glasgow City Branch",
+    "branch_address": "14 Blythswood Square, Glasgow G2 4AU",
+    "opening_balance": 2459,
+    "closing_balance": 4914.86,
+    "salary_credit": 3801.97,
+    "salary_credit_type": "NET_PAY",
+    "transactions": [
+      {
+        "date": "2026-03-02",
+        "description": "D/D RENTAL PAYMENT",
+        "debit": 912.02,
+        "credit": 0.0,
+        "balance": 1546.98
+      },
+      {
+        "date": "2026-03-06",
+        "description": "D/D COUNCIL TAX",
+        "debit": 187.37,
+        "credit": 0.0,
+        "balance": 1359.61
+      },
+      {
+        "date": "2026-03-10",
+        "description": "CARD TESCO STORES",
+        "debit": 78.75,
+        "credit": 0.0,
+        "balance": 1280.86
+      },
+      {
+        "date": "2026-03-14",
+        "description": "D/D ENERGY SUPPLIER",
+        "debit": 87.03,
+        "credit": 0.0,
+        "balance": 1193.83
+      },
+      {
+        "date": "2026-03-18",
+        "description": "CARD TRAINLINE.COM",
+        "debit": 51.39,
+        "credit": 0.0,
+        "balance": 1142.44
+      },
+      {
+        "date": "2026-03-22",
+        "description": "CARD BOOTS PHARMACY",
+        "debit": 29.55,
+        "credit": 0.0,
+        "balance": 1112.89
+      },
+      {
+        "date": "2026-03-31",
+        "description": "BACS RINASHA PROPERTIES LIMITED",
+        "debit": 0.0,
+        "credit": 3801.97,
+        "balance": 4914.86
+      }
+    ]
+  }
+}

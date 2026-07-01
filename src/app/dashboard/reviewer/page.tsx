@@ -1,7 +1,7 @@
 // src/app/dashboard/reviewer/page.tsx
 'use client' // May need client components for stats fetching later or interactions
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // Use Card for stats
 import { Button } from '@/components/ui/button';
@@ -14,8 +14,11 @@ import {
   Activity,
   AlertCircle,
   ShieldCheck,
-  ArrowRight
+  ArrowRight,
+  BellRing,
 } from 'lucide-react'; // Import relevant icons
+import { useOfficer } from '@/contexts/OfficerContext';
+import type { RfiLaneItem } from '@/data/providers/rfiQueueAdapter';
 
 // Mock data for stats (replace with TanStack Query later)
 const mockDashboardStats = {
@@ -33,6 +36,31 @@ export default function ReviewerDashboardPage() {
   const stats = mockDashboardStats;
 
   const tasksOnTrack = stats.completedToday >= stats.targetToday; // Simple example logic
+
+  // RFI lane summary (pre-auth) — derived counts for the officer's "My RFIs" strip.
+  // Real data from GET /api/ams-demo/rfis; the strip stays hidden if there are none.
+  const { currentOfficer } = useOfficer();
+  const officerId = currentOfficer?.id ?? 'officer-demo';
+  const [rfis, setRfis] = useState<RfiLaneItem[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/ams-demo/rfis?officerId=${encodeURIComponent(officerId)}`)
+      .then((res) => res.json())
+      .then((json) => {
+        if (!cancelled && json?.success) setRfis(json.data as RfiLaneItem[]);
+      })
+      .catch(() => {
+        /* strip stays quiet if the lane endpoint is unavailable */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [officerId]);
+  const rfiCount = (state: RfiLaneItem['state']) => rfis.filter((r) => r.state === state).length;
+  const nearestDue = rfis
+    .map((r) => r.dueAt)
+    .filter((d): d is string => !!d)
+    .sort()[0];
 
   return (
     <div className="space-y-6">
@@ -62,6 +90,31 @@ export default function ReviewerDashboardPage() {
              </Alert>
         )}
 
+      {/* My RFIs strip (pre-auth) — derived from the RFI lane endpoint */}
+      {rfis.length > 0 && (
+        <Link
+          href="/dashboard/reviewer/rfis"
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg border bg-white px-4 py-3 text-sm transition-colors hover:border-blue-300 hover:bg-blue-50/40"
+        >
+          <span className="flex items-center gap-2 font-medium text-gray-800">
+            <BellRing className="h-4 w-4 text-blue-600" />
+            My RFIs
+          </span>
+          <span className="text-gray-600">{rfiCount('returned')} ready to re-review</span>
+          <span className="text-gray-600">{rfiCount('awaiting')} awaiting</span>
+          <span className={rfiCount('overdue') > 0 ? 'text-red-600' : 'text-gray-600'}>
+            {rfiCount('overdue')} overdue
+          </span>
+          {nearestDue && (
+            <span className="text-gray-500">
+              nearest due {new Date(nearestDue).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+            </span>
+          )}
+          <span className="ml-auto flex items-center gap-1 text-blue-600">
+            View <ArrowRight className="h-4 w-4" />
+          </span>
+        </Link>
+      )}
 
       {/* Quick Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -112,12 +165,18 @@ export default function ReviewerDashboardPage() {
           </Card>
       </div>
 
-      {/* Action / Link to Queue */}
-      <div className="mt-8 text-center sm:text-left">
+      {/* Doorways */}
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard/reviewer/queue" passHref>
               <Button size="lg">
                  Go to My Review Queue
                  <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+          </Link>
+          <Link href="/dashboard/reviewer/rfis" passHref>
+              <Button size="lg" variant="outline">
+                 My RFIs
+                 <BellRing className="ml-2 h-4 w-4" />
               </Button>
           </Link>
       </div>

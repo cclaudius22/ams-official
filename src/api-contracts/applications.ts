@@ -4,6 +4,7 @@
  */
 
 import type { ApiResponse, PaginatedResponse, PaginationParams, DateRange } from './common'
+import type { RecommendationOutcome } from './dis'
 
 // ============================================================================
 // ENUMS & CONSTANTS
@@ -17,6 +18,11 @@ export type ApplicationStatus =
   | 'Escalated'
   | 'Pending Assignment'
   | 'Awaiting Info'
+  // AMS demo lifecycle (AmsDemoProvider): Received → Processed → Awaiting Allocation → Decided
+  | 'Received'
+  | 'Processed'
+  | 'Awaiting Allocation'
+  | 'Decided'
 
 // ============================================================================
 // REQUEST TYPES
@@ -60,6 +66,11 @@ export interface LiveApplication {
   status: ApplicationStatus
   assignedTo?: AssignedOfficer
   flags?: string[]
+  // --- DIS-aligned demo fields (optional; populated by AmsDemoProvider) ---
+  visaTypeId?: string
+  recommendation?: RecommendationOutcome
+  anomalyType?: string
+  sourceReference?: string
 }
 
 export interface ApplicationSection {
@@ -173,7 +184,7 @@ export interface AIScanResult {
   rootednessScore?: number
   intentScore?: number
   issues: ScanIssue[]
-  recommendations: ScanRecommendation[]
+  recommendations: OfficerScanRecommendation[]
 }
 
 export interface ScanIssue {
@@ -186,11 +197,21 @@ export interface ScanIssue {
   context?: Record<string, unknown>
 }
 
-export interface ScanRecommendation {
+/**
+ * Officer-facing action an officer should take in response to a scan finding.
+ * Distinct from the applicant-facing `ScanRecommendation` in `@/types/aiScan`,
+ * which describes what the applicant should do (upload, resubmit, etc.).
+ *
+ * Reconciled in V3 Phase 1 task 1.5 to eliminate the name collision between
+ * the two definitions.
+ */
+export type OfficerActionType = 'verify' | 'request_info' | 'escalate' | 'reject'
+
+export interface OfficerScanRecommendation {
   id: string
   relatedIssueIds: string[]
   message: string
-  actionType: 'verify' | 'request_info' | 'escalate' | 'reject'
+  actionType: OfficerActionType
 }
 
 export type GetScanResultResponse = ApiResponse<AIScanResult>

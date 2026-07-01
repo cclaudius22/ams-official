@@ -1,0 +1,22 @@
+{
+  "document_type": "EMPLOYMENT_LETTER",
+  "application_id": "HO-SW-2026-00000005",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "letter_date": "2026-05-20",
+    "employer_name": "UNION FAST FOODS LIMITED",
+    "employee_name": "Amina Ngozi Okafor",
+    "job_title": "Biochemists and biomedical scientists",
+    "soc_code": "2113",
+    "cos_reference": "COS-2026-2691788",
+    "start_date": "2026-07-01",
+    "annual_salary": 57300.0,
+    "monthly_gross_pay": 4775.0,
+    "hours_per_week": 37.5,
+    "signatory_name": "Helen Morris",
+    "signatory_title": "HR Manager"
+  }
+}

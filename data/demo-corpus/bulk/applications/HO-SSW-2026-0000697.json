@@ -1,0 +1,217 @@
+{
+  "source_application_id": "HO-SSW-2026-0000697",
+  "source_reference": "GV-DEMO-0000697",
+  "source_channel": "govdirect",
+  "visa_type": "senior-specialist-worker",
+  "country_code": "GB",
+  "submitted_at": "2026-06-21T05:49:00Z",
+  "caseworker_id": null,
+  "applicant": {
+    "email": "charlotte.campbell.2300@gmail.com",
+    "first_name": "Charlotte",
+    "middle_name": "Olivia",
+    "last_name": "Campbell",
+    "date_of_birth": "1986-08-27",
+    "nationality_code": "CA",
+    "gender": "F"
+  },
+  "passport_data": {
+    "number": "J3987442",
+    "issuing_country": "CA",
+    "nationality": "CA",
+    "full_name": "CAMPBELL CHARLOTTE OLIVIA",
+    "date_of_birth": "1986-08-27",
+    "gender": "F",
+    "issue_date": "2023-07-09",
+    "expiry_date": "2033-07-09",
+    "mrz_line1": "P<CANCAMPBELL<<CHARLOTTE<OLIVIA<<<<<<<<<<<<<",
+    "mrz_line2": "J3987442<6CAN8608273F3307098<<<<<<<<<<<<<<08"
+  },
+  "biometric_verification": {
+    "method": "vac_in_person",
+    "vac_location": "VAC London - 66 Wilson Street, EC2A 2BT",
+    "vac_appointment_date": "2026-06-13",
+    "fingerprints_captured": true,
+    "photograph_captured": true,
+    "identity_verified_by": "HO-BIO-Officer-3300",
+    "verified_at": "2026-06-13T11:15:00Z",
+    "provider": "home_office_vac",
+    "mrz_check_passed": true,
+    "face_match_score": null,
+    "liveness_passed": null
+  },
+  "answers": {
+    "personalInfo": {
+      "firstName": "Charlotte",
+      "middleName": "Olivia",
+      "lastName": "Campbell",
+      "dateOfBirth": "1986-08-27",
+      "nationality": "CA",
+      "maritalStatus": "single"
+    },
+    "employment": {
+      "status": "employed",
+      "employerName": "Webflow Europe UK Ltd",
+      "sponsorLicenceNumber": "WEB-2025-6279",
+      "sponsorStatus": "ACTIVE",
+      "sponsorRating": "A",
+      "jobTitle": "Senior Technology Programme Manager",
+      "annualIncome": 74200.0,
+      "monthlyGrossPay": 6183.33,
+      "cosReferenceNumber": "COS-2026-SSW-719408",
+      "cosIssueDate": "2026-04-15",
+      "cosExpiryDate": "2026-09-15",
+      "socCode": "2133",
+      "socTitle": "IT specialist managers",
+      "socGoingRateAnnual": 70800,
+      "startDate": "2026-07-01",
+      "salaryFrequency": "ANNUAL",
+      "hoursPerWeek": 48.0,
+      "isNewEntrant": false,
+      "newEntrantReason": null,
+      "previousUkEmployment": true,
+      "routeRequirement": "Global Business Mobility - Senior or Specialist Worker",
+      "overseasEmploymentMonths": 48
+    },
+    "fees": {
+      "ihsReferenceNumber": "IHS-2026-2300-9100",
+      "visaFeeReference": "VF-2026-SSW-000697",
+      "paymentConfirmed": true
+    },
+    "englishLanguage": {
+      "exemptNationality": true,
+      "testType": null,
+      "testReferenceNumber": null,
+      "overallScore": null,
+      "speakingScore": null,
+      "listeningScore": null,
+      "readingScore": null,
+      "writingScore": null,
+      "testDate": null
+    },
+    "travelHistory": {
+      "previousUkVisas": [],
+      "previousUkRefusals": false,
+      "previousDeportations": false,
+      "countriesVisitedLast5Years": [
+        "CA",
+        "GB"
+      ]
+    },
+    "criminalRecord": {
+      "hasConvictions": false,
+      "hasPendingCharges": false,
+      "hasCivilJudgments": false
+    },
+    "healthDeclaration": {
+      "hasTbCertificate": false,
+      "hasHealthConditions": false,
+      "requiresAccessibility": false,
+      "tbCertificateClinicName": null,
+      "tbCertificateClinicCountry": null
+    },
+    "routeSpecific": {
+      "route": "senior-specialist-worker",
+      "phase": "PHASE_2_QUEUE_ONLY",
+      "phase_note": "DIS pipeline configured - full deep review live in Phase 2.",
+      "display_label": "Senior or Specialist Worker"
+    }
+  },
+  "documents": [
+    {
+      "document_id": "ho-doc-001-0000697",
+      "type": "PASSPORT",
+      "filename": "PASSPORT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000697/PASSPORT/PASSPORT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2464,
+      "uploaded_at": "2026-06-21T05:07:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Sheffield"
+    },
+    {
+      "document_id": "ho-doc-002-0000697",
+      "type": "EMPLOYMENT_LETTER",
+      "filename": "EMPLOYMENT_LETTER_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000697/EMPLOYMENT_LETTER/EMPLOYMENT_LETTER_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2446,
+      "uploaded_at": "2026-06-21T05:10:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-003-0000697",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000697/BANK_STATEMENT/BANK_STATEMENT_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2806,
+      "uploaded_at": "2026-06-21T05:13:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-004-0000697",
+      "type": "BANK_STATEMENT",
+      "filename": "BANK_STATEMENT_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000697/BANK_STATEMENT/BANK_STATEMENT_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2803,
+      "uploaded_at": "2026-06-21T05:16:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-005-0000697",
+      "type": "DEGREE_CERTIFICATE",
+      "filename": "DEGREE_CERTIFICATE_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000697/DEGREE_CERTIFICATE/DEGREE_CERTIFICATE_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 1979,
+      "uploaded_at": "2026-06-21T05:19:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Croydon"
+    },
+    {
+      "document_id": "ho-doc-006-0000697",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_001.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000697/PAYSLIPS/PAYSLIPS_001.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2272,
+      "uploaded_at": "2026-06-21T05:22:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Liverpool"
+    },
+    {
+      "document_id": "ho-doc-007-0000697",
+      "type": "PAYSLIPS",
+      "filename": "PAYSLIPS_002.pdf",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000697/PAYSLIPS/PAYSLIPS_002.pdf?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "application/pdf",
+      "size_bytes": 2272,
+      "uploaded_at": "2026-06-21T05:25:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    },
+    {
+      "document_id": "ho-doc-008-0000697",
+      "type": "PHOTO",
+      "filename": "PHOTO_001.jpg",
+      "signed_url": "https://gov-doc-store.homeoffice.gov.uk/applications/HO-SSW-2026-0000697/PHOTO/PHOTO_001.jpg?sig=HMAC_GOV_SIGNATURE_REDACTED&exp=2026-07-15T23:59:59Z",
+      "mime_type": "image/jpeg",
+      "size_bytes": 17622,
+      "uploaded_at": "2026-06-21T05:28:00Z",
+      "scanned_by": null,
+      "scan_location": "Home Office Casework Hub - Glasgow"
+    }
+  ],
+  "callback_url": "https://casework-api.homeoffice.gov.uk/api/v1/dis-decisions/HO-SSW-2026-0000697",
+  "anomaly_type": "fail_rules",
+  "anomaly_details": [
+    "salary below Senior or Specialist Worker minimum",
+    "overseas employment period below route requirement"
+  ],
+  "recommendation": "RECOMMEND_REJECT"
+}

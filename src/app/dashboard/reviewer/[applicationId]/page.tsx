@@ -3,7 +3,11 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import ApplicationHeader from '@/components/application/ApplicationHeader'
-import AIScanResultsRedesigned from '@/components/application/AIScanResults'
+import RecommendationSummaryPanel from '@/components/application/RecommendationSummaryPanel'
+import GlassBoxTracePanel from '@/components/application/GlassBoxTracePanel'
+import EvidencePanel from '@/components/application/EvidencePanel'
+import OVIntelligencePanel from '@/components/application/OVIntelligencePanel'
+import RFIPanel from '@/components/application/RFIPanel'
 import SectionCard from '@/components/application/SectionCard'
 import DecisionFooter from '@/components/application/DecisionFooter'
 import NoteDialog from '@/components/dialogs/NoteDialog'
@@ -18,7 +22,11 @@ import RejectDialog from '@/components/dialogs/RejectDialog';
 
 import { ApplicationData } from '@/types/application'
 import { AIScanResult } from '@/types/aiScan'
-import { triggerNewScan } from '@/lib/api/scans' // Assuming these work
+import type { DISApplicationView } from '@/api-contracts/dis'
+import type { OVAssessment } from '@/api-contracts/ov'
+import type { RfiSummary } from '@/data/providers/deepSetRfiAdapter'
+import { syntheticOvAssessment } from '@/lib/syntheticOvAssessment'
+import { disViewToLegacyScan } from '@/lib/disViewAdapter'
 import { Accordion } from "@/components/ui/accordion";
 import {
   FileText, Fingerprint, User, MapPin, Globe, Briefcase, CreditCard, Plane, Shield,
@@ -32,9 +40,73 @@ import { Badge } from '@/components/ui/badge'
 // Mock data imports (fallback if API fails)
 import { mockApplicationData } from '@/lib/mockdata'
 import { mockScanResult } from '@/lib/mockdata'
+import { mockDISApplicationView } from '@/lib/mockDISData'
 
 // Default empty scan result - use mock as default to ensure page always renders
 const emptyScanResult: AIScanResult = mockScanResult;
+
+const asText = (value: unknown): string => (typeof value === 'string' ? value : '')
+
+function disViewToApplicationData(disView: DISApplicationView, fallbackId: string): ApplicationData {
+  const passportExtraction = disView.document_extractions?.find((e) => e.document_type === 'PASSPORT')
+  const passport = (passportExtraction?.normalised_fields ?? {}) as Record<string, unknown>
+  const givenNames = asText(passport.given_names)
+  const surname = asText(passport.surname)
+  const fullName = `${givenNames} ${surname}`.trim()
+
+  return {
+    applicationId: disView.source_application_id || fallbackId,
+    userId: '',
+    visaTypeId: 'skilled-worker',
+    currentStage: disView.queue_state || 'READY_FOR_REVIEW',
+    verificationPath: 'standard',
+    processingType: 'standard',
+    status: 'review_required',
+    sections: {
+      passport: {
+        status: 'verified',
+        validationStatus: 'valid',
+        updatedAt: disView.submitted_at,
+        data: {
+          sectionId: 'passport',
+          documentNumber: asText(passport.document_number),
+          surname,
+          givenNames,
+          dateOfBirth: asText(passport.date_of_birth),
+          dateOfExpiry: asText(passport.expiry_date),
+          nationality: asText(passport.nationality_code),
+          gender: asText(passport.sex),
+          documentType: 'Passport',
+          issuingCountry: asText(passport.issuing_country_code),
+          issueDate: asText(passport.issue_date),
+          mrzData: {
+            line1: asText(passport.mrz_line_1),
+            line2: asText(passport.mrz_line_2),
+          },
+          scanQuality: 'high',
+        },
+      },
+    },
+    progress: {
+      stageProgress: [],
+      overallProgress: 100,
+      lastUpdated: disView.submitted_at,
+    },
+    metadata: {},
+    timeline: [],
+    applicantDetails: {
+      name: fullName || undefined,
+      givenNames: givenNames || undefined,
+      surname: surname || undefined,
+    },
+    createdAt: disView.submitted_at,
+    updatedAt: disView.submitted_at,
+    sourceChannel: disView.source_channel,
+    disApplicationId: disView.dis_application_id,
+    disView,
+    disQueueState: disView.queue_state,
+  }
+}
 
 export default function OfficialReviewPage() {
   const params = useParams();
@@ -53,11 +125,28 @@ export default function OfficialReviewPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // DIS integration state (Phase 2 — task 2.0)
+  // disView is the canonical DIS processing result. scanResult above is derived
+  // from it via disViewToLegacyScan() for backwards compat with existing components.
+  // Task 2.1 replaces AIScanResultsRedesigned with ComponentScoresDashboard, at
+  // which point scanResult state and the adapter are removed.
+  const [disView, setDisView] = useState<DISApplicationView>(mockDISApplicationView);
+
+  // OV-IP assessment (Panel 4). Per-case from the enriched deep_set when present
+  // (Slice 3a); null → the page uses syntheticOvAssessment() (legacy/demo ids).
+  const [ovAssessment, setOvAssessment] = useState<OVAssessment | null>(null);
+
+  // RFI scaffold (Slice 3b). Present only on cases with an enabled rfi_lifecycle
+  // (the 3 heroes). Drives the RFIPanel walkthrough; null → no panel.
+  const [rfi, setRfi] = useState<RfiSummary | null>(null);
+
   // Mock application IDs used by Rachel Johnson (Demo)
   const demoApplicationIds = ['VK-2024-1835', 'VK-2024-1836', 'UK-2024-1837', 'UK-2024-1838'];
 
   // Fetch application data from API
   useEffect(() => {
+    let active = true; // guards against a stale/out-of-order response landing after the id changed
+
     async function fetchApplicationData() {
       if (!applicationId) return;
 
@@ -68,9 +157,61 @@ export default function OfficialReviewPage() {
       if (demoApplicationIds.includes(applicationId)) {
         console.log('Using mock data for demo application:', applicationId);
         setApplicationData(mockApplicationData);
-        setScanResult(mockScanResult);
+        setDisView(mockDISApplicationView);
+        setScanResult(disViewToLegacyScan(mockDISApplicationView));
         setIsLoading(false);
         return;
+      }
+
+      // Slice 3a — ams-demo deep_set per-case review. Try the enriched corpus
+      // FIRST: a real DISApplicationView (Panels 1–3) + a real OVAssessment
+      // (Panel 4), applicant-specific, with NO mock/synthetic fallback. The
+      // route 404s for non-deep_set ids → we fall through to the DIS read layer.
+      setOvAssessment(null);
+      setRfi(null);
+      let deepLoaded = false;
+      try {
+        const reviewRes = await fetch(`/api/ams-demo/applications/${applicationId}/review`);
+        if (!active) return;
+        if (reviewRes.ok) {
+          const reviewJson = await reviewRes.json();
+          if (!active) return;
+          if (reviewJson.success && reviewJson.data?.disView) {
+            const deepDisView = reviewJson.data.disView as DISApplicationView;
+            setDisView(deepDisView);
+            setScanResult(disViewToLegacyScan(deepDisView));
+            setApplicationData(disViewToApplicationData(deepDisView, applicationId));
+            setOvAssessment(reviewJson.data.ovAssessment ?? null);
+            setRfi(reviewJson.data.rfi ?? null);
+            deepLoaded = true;
+          }
+        }
+      } catch (reviewErr) {
+        if (active) console.error('Error fetching deep review (falling through):', reviewErr);
+      }
+
+      // Phase 2F.4 — wire Panels 1 & 2 to the DIS read layer (replica/mock).
+      // Skipped when the deep_set review already populated the panels. Reset to
+      // the mock fixture FIRST so a failed/slow fetch for THIS id can never leave
+      // the previous applicant's DIS view on screen, then fetch the assembled
+      // DISApplicationView from the replica-backed composite route
+      // (DIS_DATA_PROVIDER selects mock | replica). `active` guards against a
+      // stale response landing after the id changed.
+      if (!deepLoaded) {
+        setDisView(mockDISApplicationView);
+        try {
+          const disResponse = await fetch(`/api/dis/applications/${applicationId}/view`);
+          if (!active) return;
+          if (disResponse.ok) {
+            const disResult = await disResponse.json();
+            if (!active) return;
+            if (disResult.success && disResult.data) {
+              setDisView(disResult.data);
+            }
+          }
+        } catch (disErr) {
+          if (active) console.error('Error fetching DIS view (keeping mock fallback):', disErr);
+        }
       }
 
       try {
@@ -127,21 +268,29 @@ export default function OfficialReviewPage() {
             setScanResult(mockScanResult);
           }
         } else {
-          console.log('API failed, using mock data');
-          setApplicationData(mockApplicationData);
-          setScanResult(mockScanResult);
+          console.log(deepLoaded ? 'Application detail API failed, keeping deep_set header' : 'API failed, using mock data');
+          if (!deepLoaded) {
+            setApplicationData(mockApplicationData);
+            setScanResult(mockScanResult);
+          }
         }
       } catch (err) {
         console.error('Error fetching application:', err);
-        // Always fall back to mock data so the page renders
-        setApplicationData(mockApplicationData);
-        setScanResult(mockScanResult);
+        if (!deepLoaded) {
+          // Legacy/demo fallback only. For deep_set ids, keep the header derived
+          // from the enriched DIS view so the page never regresses to John Doe.
+          setApplicationData(mockApplicationData);
+          setScanResult(mockScanResult);
+        }
       } finally {
-        setIsLoading(false);
+        if (active) setIsLoading(false);
       }
     }
 
     fetchApplicationData();
+    return () => {
+      active = false;
+    };
   }, [applicationId]);
 
   // --- State for NEW Dialogs ---
@@ -303,11 +452,23 @@ export default function OfficialReviewPage() {
           {/* Application Header */}
           <ApplicationHeader application={applicationData} />
 
-          {/* AI Scan Results */}
-          <AIScanResultsRedesigned
-            scanResult={scanResult}
-            onRefreshScan={() => triggerNewScan(applicationData.applicationId)} // Ensure this function exists and works
-          />
+          {/* RFI lifecycle scaffold (Slice 3b) — only on DIS completeness-gap cases */}
+          {rfi?.enabled && <RFIPanel rfi={rfi} />}
+
+          {/* Panel 1 — DIS Recommendation Summary (V4 §2 / Task 2.1, open by default) */}
+          <RecommendationSummaryPanel disView={disView} />
+
+          {/* Panel 2 — Glass Box Rule Trace (V4 §3 / Task 2.2, collapsed by default) */}
+          <GlassBoxTracePanel disView={disView} />
+
+          {/* Panel 3 — Evidence (V4 §4 / SCRUM-64 2.3+2.4, collapsed by default) */}
+          <EvidencePanel disView={disView} />
+
+          {/* Open Visa Intelligence — OV-IP risk model, the deliberate scores-shown panel
+              (replaces the legacy AI Assessment Results). Per-case from the enriched
+              deep_set when present (Slice 3a); otherwise the synthetic mock for
+              legacy/demo ids until Azure inference — LAUNCH_BLOCKERS LB-6 / V5 §7a. */}
+          <OVIntelligencePanel assessment={ovAssessment ?? syntheticOvAssessment()} />
 
           {/* Main Application Sections Accordion */}
           <Accordion type="multiple" className="w-full space-y-3 mt-6">

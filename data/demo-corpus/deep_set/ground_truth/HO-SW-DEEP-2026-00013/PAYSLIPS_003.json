@@ -1,0 +1,24 @@
+{
+  "document_type": "PAYSLIPS",
+  "application_id": "HO-SW-2026-00000062",
+  "synthetic": true,
+  "synthetic_marker": "SYNTHETIC_DATA_DO_NOT_USE_IN_PRODUCTION",
+  "corpus_version": "v4_govdirect",
+  "generated_at": "2026-06-16T10:00:00Z",
+  "fields": {
+    "employer_name": "SANSONS CHARTERED ACCOUNTANTS",
+    "employee_name": "Lucas Marcos Santos",
+    "pay_period_start": "2026-03-01",
+    "pay_period_end": "2026-03-31",
+    "gross_pay": 3492.38,
+    "annualized_gross_pay": 41908.56,
+    "tax_deducted": 488.98,
+    "ni_deducted": 195.55,
+    "pension_deducted": 174.62,
+    "net_pay": 2633.23,
+    "pay_frequency": "MONTHLY",
+    "employee_number": "EMP-000062",
+    "tax_code": "1257L",
+    "ni_number": "WX275068D"
+  }
+}
