@@ -37,8 +37,24 @@ import type { DeepSetReview, DeepSetReviewCapable } from './deepSetReviewAdapter
 import { mapDeepSetApplicationDetail } from './deepSetApplicationDetailAdapter'
 import { mapRfi } from './deepSetRfiAdapter'
 import type { RfiSummary } from './deepSetRfiAdapter'
+import { mapRfiQueueItem } from './rfiQueueAdapter'
+import type { RfiLaneItem, RfiQueueCapable } from './rfiQueueAdapter'
 
-export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCapable {
+/**
+ * Pre-auth ownership convention: the corpus models no officer assignment on the
+ * deep_set RFI heroes (`caseworker_id` is null). Until the auth phase wires real
+ * per-officer ownership, the three HO-SW skilled-worker heroes are split across
+ * the two skilled-worker demo officers by case id — both Rachel Johnson
+ * (officer-demo) and Ricardo Martinez (officer-2) hold a skilled-worker
+ * specialisation. Officers not listed here get an empty lane.
+ */
+const RFI_LANE_ASSIGNMENTS: Record<string, string> = {
+  'HO-SW-DEEP-2026-00012': 'officer-demo', // Rachel Johnson — missing payslip month 2
+  'HO-SW-DEEP-2026-00013': 'officer-demo', // Rachel Johnson — insufficient bank statement month 2
+  'HO-SW-DEEP-2026-00014': 'officer-2', // Ricardo Martinez — CoS salary mismatch
+}
+
+export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCapable, RfiQueueCapable {
   private corpusPath: string
   private cache: Map<string, LiveApplication> = new Map()
   private assignments: Map<string, string> = new Map() // appId -> officerId
@@ -205,6 +221,28 @@ export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCa
       readArtifact(lc.response_artifact),
     ])
     return mapRfi(raw, request, response)
+  }
+
+  /**
+   * RFI lane (pre-auth subset — Task 8): the officer's RFI-enabled deep_set
+   * cases projected into lane rows, with state derived against `nowISO`
+   * (defaults to the real clock; pass a fixed value for deterministic demos).
+   *
+   * Ownership is the assignment map above — each hero is scoped to its assigned
+   * officer; officers with no assigned heroes get an empty lane. Reuses
+   * `loadRfi` so the lane and the per-case panel read the same corpus artifacts.
+   */
+  async getRfiQueue(officerId: string, nowISO: string = new Date().toISOString()): Promise<RfiLaneItem[]> {
+    await this.ensureDeepSetLoaded()
+    const items: RfiLaneItem[] = []
+    for (const [id, raw] of this.deepSetRaw) {
+      if (RFI_LANE_ASSIGNMENTS[id] !== officerId) continue
+      const rfi = await this.loadRfi(raw)
+      const item = mapRfiQueueItem(raw, rfi, nowISO)
+      if (item) items.push(item)
+    }
+    // Deterministic order for the demo: soonest deadline first, then id.
+    return items.sort((a, b) => (a.dueAt ?? '').localeCompare(b.dueAt ?? '') || a.id.localeCompare(b.id))
   }
 
   async updateApplicationStatus(id: string, status: ApplicationStatus): Promise<boolean> {
