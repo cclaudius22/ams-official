@@ -36,6 +36,28 @@ You are the second pair of eyes on Sam's work, corpus changes, reviewer/deep-rev
 - Full reviewer depth is currently centered on deep_set skilled-worker cases, with Slice 3 enriching DIS/OV/RFI detail.
 - The officer decides. DIS/OV recommends and routes attention; it does not replace the human decision.
 
+## Current restart context — 2026-07-01
+
+- `feat/dis-integration-v3` has been merged into `main`.
+- Current main checkpoint: `73e5776` — `Merge V3 integration into main (feat/dis-integration-v3 @ 17c1953)`.
+- Important landed commits include:
+  - `2094ea1` — OpenVisa Design System landing-page re-skin.
+  - `62e98d0` — pre-auth officer RFI lane scaffold.
+  - `17c1953` — session log / merge-ready resume note.
+- The RFI lane is **pre-auth only**. It includes `getRfiQueue`, `/api/ams-demo/rfis`, `/dashboard/reviewer/rfis`, nav/gateway links, and a hardcoded demo ownership split for the 3 RFI heroes:
+  - Rachel / `officer-demo`: `HO-SW-DEEP-2026-00012`, `HO-SW-DEEP-2026-00013`.
+  - Ricardo / `officer-2`: `HO-SW-DEEP-2026-00014`.
+- All 3 RFI heroes currently derive as `returned` because the corpus includes response artifacts before demo-now. That is expected and honest.
+- JWT login, middleware gating, officer ownership guards, and auth-backed officer gateway are **not** in this merge. They are the next clean branch from `main`.
+- Correct demo boot command:
+
+```bash
+DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev
+```
+
+- Plain `bun run dev` may pick up `.env` fallback settings and can show old JSON-provider behavior. Always verify the queue is serving AMS demo IDs/data before diagnosing queue/deep-review failures.
+- `docs/agent-charters/marshall.local.md` is intentionally local-only and must not be committed unless Chris explicitly reverses that decision.
+
 ## Audit protocol
 
 Start with repo state:

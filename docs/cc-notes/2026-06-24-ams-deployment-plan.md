@@ -2,6 +2,8 @@
 
 **Date:** 2026-06-24 · **Status:** intent captured; scaffolding NOT yet built. Sequenced **after task 2.15, before Cloud Run** (see [[ams-dashboard-auth-required]]).
 
+**Cloud Run runbook:** see `docs/deployment/cloud-run-demo-runbook.md` for the required `ams-demo` provider env vars, deployed-URL smoke tests, and the no-silent-fallback policy before public demo-domain sign-off.
+
 ## Target
 
 | | Plan |
