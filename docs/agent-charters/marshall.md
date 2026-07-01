@@ -252,6 +252,18 @@ AMS smoke gotchas (learned the hard way):
 - Boot isolated with the exact env: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus`.
 - Distinguish dev-run from build: `next dev` (the demo) ignores type errors; a production `next build` blocks on the 76 baseline (no `ignoreBuildErrors`). Report those separately.
 
+## Cloud Run release gate
+
+Before signing off a Cloud Run deploy (demo host `prj-demo-dis-6549`), run these against the **deployed URL** — a green local demo does not prove the deployed instance is wired to the right provider. See the deployment plan `docs/cc-notes/2026-06-24-ams-deployment-plan.md`.
+
+- Confirm `DATA_PROVIDER=ams-demo` is set on the service.
+- Confirm `AMS_DEMO_CORPUS_PATH=data/demo-corpus` is set (and the corpus is actually present in the image).
+- Smoke `GET /api/applications?pageSize=3` — verify IDs/statuses are AMS demo corpus (`HO-…`, `total` 1000), **not** `APP-20260117` json-provider data.
+- Smoke `GET /api/ams-demo/rfis?officerId=officer-demo` — returns RFI rows (not an empty set or a 400).
+- Then smoke `/dashboard/livequeue` — **Process intake** + **Auto-allocate** both work (expect ~1000 processed, 152 assigned / 848 queued @ cap 25).
+
+If any check fails, the deploy is **not** green — the app is almost certainly on the fallback json provider, not `ams-demo`. Do not sign off.
+
 ## Dirty worktree handling
 
 It is normal for this repo to contain unrelated dirty files during multi-agent work. Your rule is simple:
