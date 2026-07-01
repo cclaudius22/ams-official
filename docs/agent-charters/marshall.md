@@ -98,6 +98,8 @@ git diff --check main..HEAD
 
 If the branch is ahead by more than one commit, make that explicit. A normal push sends every ahead commit, not just the latest fix.
 
+**Resume-doc freshness:** before a push or merge that lands a slice, confirm `SESSION_LOG.md` (and any resume/handoff doc) actually reflects the work landing — not a state one step behind. A stale resume doc on a shared branch or `main` is a release defect. If the log predates the commits being shipped, update it (or have the owning agent update it) first.
+
 ## Evidence required before asking Chris to push
 
 For each outgoing commit or logical bundle, collect:
@@ -177,6 +179,12 @@ Only after explicit approval:
 git push origin <branch>
 ```
 
+To bank ready commits while holding a not-ready commit back, push a pinned SHA refspec instead — no force, no history rewrite; the held commit stays local on top:
+
+```bash
+git push origin <ready-sha>:<branch>
+```
+
 Immediately capture:
 
 ```bash
@@ -185,6 +193,40 @@ git log --oneline --decorate -3
 ```
 
 If the push is meant to support a demo, verify the repo can still run from the pushed branch and that the expected provider/corpus path works.
+
+## Merge-to-main protocol
+
+`main` is a controlled release surface. Merge only on Chris's named approval (`approve merge <branch> -> main @ <sha>`).
+
+Before merging, confirm main has not diverged:
+
+```bash
+git fetch origin
+git log --oneline <branch>..origin/main   # empty => fast-forward is clean, no surprise commits on main
+```
+
+Merge locally first — do NOT push yet:
+
+```bash
+git checkout main
+git merge --no-ff <sha>      # --no-ff for a milestone marker; fast-forward only if Chris prefers linear history
+```
+
+Verify the merge before it touches origin:
+
+```bash
+git diff --stat main <sha>            # empty => merged tree is byte-identical to the source tip
+git log --oneline <branch>..main      # only the merge commit should appear
+```
+
+Only then push and confirm origin == local:
+
+```bash
+git push origin main
+git log --oneline --decorate -3
+```
+
+Call out merge magnitude when a long-lived integration branch lands — hundreds of files is normal for a first V-merge; say so plainly, do not let it look routine.
 
 ## Demo verification
 
@@ -202,6 +244,14 @@ Minimum evidence depends on scope, but for the AMS queue/deep-review demo it usu
 
 If any part is missing, say exactly what is missing. Do not round up partial evidence to green.
 
+AMS smoke gotchas (learned the hard way):
+
+- Next.js will not run two `dev` servers from one repo — kill the stray one (with the owner's OK) or use an isolated worktree.
+- Do not trust a pre-existing dev server's provider. Verify empirically: `GET /api/applications` must return corpus IDs (`HO-…`, `total` 1000), not `APP-20260117` json-provider data.
+- `/api/livequeue` is a legacy mock endpoint the queue page does NOT use (it reads `/api/applications`) — ignore it; it will mislead you.
+- Boot isolated with the exact env: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus`.
+- Distinguish dev-run from build: `next dev` (the demo) ignores type errors; a production `next build` blocks on the 76 baseline (no `ignoreBuildErrors`). Report those separately.
+
 ## Dirty worktree handling
 
 It is normal for this repo to contain unrelated dirty files during multi-agent work. Your rule is simple:
@@ -210,6 +260,7 @@ It is normal for this repo to contain unrelated dirty files during multi-agent w
 - Dirty unrelated files must not be staged.
 - Dirty unrelated files must be mentioned before push/package/upload so Chris understands what is not being released.
 - If dirty files are in the same paths as the intended release, pause and ask for a path-level decision.
+- **Live files (an agent editing right now) are hands-off.** Do not stage, commit, `restore`, `checkout`, or `stash` a file another agent is actively editing — you either freeze half-finished work or clobber theirs. Get the full live set from the owner, keep it untouched until they hand off a stable state (commit or explicit "done"), then commit by explicit path.
 
 Useful checks:
 
