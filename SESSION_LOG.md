@@ -4,6 +4,34 @@
 
 ---
 
+## ⏸ RESUME HERE — 1 July 2026: landing re-skin + officer RFI lane LANDED; branch merge-ready @ `62e98d0`; auth/gateway build = FRESH CHAT
+
+**State:** branch `feat/dis-integration-v3` **pushed & in sync at HEAD `62e98d0`**. Marshall (RC) release pass = **GREEN, merge-ready**; merge-to-main pending Chris's named approval (**clean fast-forward** — `main` `4690f3b` is a direct ancestor). Run: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev`.
+
+### ✅ Landed this session (Sam) — both pushed to `origin/feat/dis-integration-v3`
+- **`2094ea1`** — landing page **re-skinned** to the OpenVisa Design System (deep-purple hero, Fraunces/JetBrains/Inter, new §04 "Built to be defensible", economics as radial gauges). The `public/design_handoff_ams_landing/` source folder was used then **deleted** (untracked; Sam had referenced it — Chris approved removal).
+- **`62e98d0`** — **pre-auth officer RFI lane scaffold** (`/dashboard/reviewer/rfis` + `/api/ams-demo/rfis` + `rfiQueueAdapter` + provider method + `rfi-queue.test.ts`). **Lenny-audited: PASS + patch applied** (`requestedDocumentType` / `missingItems` / `href`). Additive — no auth/contract/queue changes. Officer-scoped via `?officerId=` (defaults `officer-demo`); **auth wiring is the next phase**.
+
+### ✅ Marshall RC pass — firsthand evidence @ `62e98d0`
+- Tests `vitest run`: **192 pass / 24 skip / 0 fail**. `tsc --noEmit`: **76 baseline, 0 in changed files**.
+- `ams-demo` boot + smoke (all firsthand): queue = **corpus 1000, 0 `APP-20260117`**; process-intake `200` (1000; 600/250/150); auto-allocate `200` (**152 assigned / 848 queued @ cap 25**); deep case `00012` enriched (recommendation + ovAssessment + rfi); RFI lanes populated (officer-demo → 00012+00013, officer-2 → 00014; patch fields live).
+- Self-contained: `data/demo-corpus` = **1000 bulk + 18 deep_set** in-repo (Lenny's enrichment committed `1c9d712`).
+- Known risk (non-demo): production `next build` would fail on the 76 baseline type errors (no `ignoreBuildErrors`) — a pre-deploy cleanup in the **onboarding** + **integrations/mock** subsystems, NOT the demo path.
+
+### ▶ NEXT — auth/gateway/RFI-lane build = **FRESH CHAT** (Sam's call; do NOT continue this token-heavy session)
+**Why fresh:** (1) subagent-driven-development needs coordinator headroom — 10 tasks + browser verification from a heavy context risks hitting the ceiling mid-build (the lose-state we guarded against all day); (2) handoff is bulletproof — audited+approved design note + 10-task TDD plan + this pointer; nothing is in-head that isn't on disk; (3) clean seam — this chat = brainstorm→design→audit→plan, fresh chat = execute.
+
+**Handoff files (all committed):** design note `docs/specs/2026-06-30-rfi-officer-roles-design.md` (audited+approved; `a8fddbb` + patch `6e4b2b6`) · plan `docs/plans/2026-06-30-jwt-officer-gateway-rfi-lane-plan.md` (`6e4b2b6`) · this SESSION_LOG.
+
+**Fresh-chat kickoff prompt:**
+> Execute the AMS auth/gateway/RFI-lane build — read `docs/plans/2026-06-30-jwt-officer-gateway-rfi-lane-plan.md` (spec: `docs/specs/2026-06-30-rfi-officer-roles-design.md`, audited + approved). Build Phase 1→3 via subagent-driven-development, checkpoint per phase. `SESSION_LOG.md` has full state.
+
+**Note for the fresh chat:** the **RFI lane (plan Phase 3) already exists pre-auth** (`62e98d0`) — wire it behind auth (`officerId` from the JWT, not the query param), don't rebuild. **Reuse existing `src/lib/auth.ts`** — do not invent auth. Still open after: **3c** OV-panel polish (4 notes). ⚠️ Cross-agent: Agent 2 align Officer-Workload chart scale to ~25/day.
+
+**(Supersedes the 30 June resume below — 3b scaffold, Lenny's corpus, and the design-note/plan/log commits are all DONE & pushed.)**
+
+---
+
 ## ⏸ RESUME HERE — 30 June 2026 (late): Slice 3b RFI SCAFFOLD done; design locked for officer gateway + RFI lane + two-login (JWT). Marshall organising commit/push.
 
 **State:** branch `feat/dis-integration-v3`, HEAD `94c8630` (= Slice 3a). **3b scaffold + dup-key fix are UNCOMMITTED** — Marshall (release controller, `docs/agent-charters/marshall.md`) is lining up the commit/push. Last measured (Sam-reported): `tsc --noEmit` **76** (0 new), full vitest **184 pass / 24 skip**. Run: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev`.
