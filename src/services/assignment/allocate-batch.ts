@@ -32,7 +32,10 @@ export function allocateBatch(
   config: AllocationConfig
 ): AllocationResult {
   const cap = config.capPerOfficer
-  const active = officers.filter((o) => o.isActive)
+  // Task 4c: officers flagged excludeFromBulkAllocation (e.g. Rachel Johnson /
+  // officer-demo, dedicated to the enriched deep_set corpus) never enter the
+  // eligible pool, regardless of specialization or current load.
+  const active = officers.filter((o) => o.isActive && !o.excludeFromBulkAllocation)
   const load = new Map<string, number>(active.map((o) => [o.id, o.activeApplications ?? 0])) // seed from CURRENT load
   const fresh = new Map<string, number>(active.map((o) => [o.id, 0]))
   const result: AllocationResult = { assignments: [], byOfficer: {}, unallocated: [] }

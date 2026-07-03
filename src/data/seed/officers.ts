@@ -31,6 +31,11 @@ export const defaultOfficers: ConsulateOfficial[] = [
     avgProcessingTime: 30,
     slaCompliance: 98,
     specializations: ['student_visa', 'skilled_worker_visa', 'global_talent_visa'],
+    // Task 4c — Rachel is the dedicated deep-review officer: her reviewer queue
+    // is scoped to the 18 enriched deep_set cases only (assigned at
+    // AmsDemoProvider init). Excluding her from bulk allocation keeps her queue
+    // free of Global Talent/Student/Senior-Specialist/bulk skilled-worker apps.
+    excludeFromBulkAllocation: true,
   },
   {
     id: 'officer-1',

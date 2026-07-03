@@ -17,6 +17,11 @@ import {
  * DERIVED from the corpus (response artifact + `due_at`) against a demo `now` —
  * no persistence, no auth. All 3 heroes in the corpus have already responded
  * (received 2026-06-27), so at demo-today they derive as `returned`.
+ *
+ * Task 4c (Chris directive, 2026-07-02): Rachel Johnson (officer-demo) is now
+ * the SINGLE dedicated deep-review officer — all 3 RFI heroes (including
+ * 00014, moved off Ricardo Martinez / officer-2) route to her, so her RFI
+ * lane is the full 3 and Ricardo's is empty.
  */
 const CORPUS = 'data/demo-corpus'
 const readJson = (rel: string): Record<string, unknown> =>
@@ -80,23 +85,24 @@ describe('AmsDemoProvider.getRfiQueue', () => {
     expect(hasRfiQueueCapability(provider)).toBe(true)
   })
 
-  it("returns Rachel Johnson's (officer-demo) two skilled-worker RFI heroes", async () => {
+  it("returns Rachel Johnson's (officer-demo) all three skilled-worker RFI heroes (Task 4c)", async () => {
     const items = await provider.getRfiQueue('officer-demo', '2026-06-30')
     const ids = items.map((i: RfiLaneItem) => i.id).sort()
-    expect(ids).toEqual(['HO-SW-DEEP-2026-00012', 'HO-SW-DEEP-2026-00013'])
+    expect(ids).toEqual(['HO-SW-DEEP-2026-00012', 'HO-SW-DEEP-2026-00013', 'HO-SW-DEEP-2026-00014'])
     const twelve = items.find((i) => i.id === 'HO-SW-DEEP-2026-00012')!
     expect(twelve.applicantName).toBe('Tunde Bello')
     expect(twelve.issue).toBe('missing payslip month 2')
     expect(twelve.state).toBe('returned')
+    const fourteen = items.find((i) => i.id === 'HO-SW-DEEP-2026-00014')!
+    expect(fourteen.applicantName).toBe('Jun Ming Wang')
+    expect(fourteen.state).toBe('returned')
+    expect(fourteen.requestedDocumentType).toBe('EMPLOYMENT_LETTER')
+    expect(fourteen.href).toBe('/dashboard/reviewer/HO-SW-DEEP-2026-00014')
   })
 
-  it("returns Ricardo Martinez's (officer-2) skilled-worker RFI hero", async () => {
+  it("returns nothing for Ricardo Martinez (officer-2) — his RFI lane is now empty (00014 moved to Rachel)", async () => {
     const items = await provider.getRfiQueue('officer-2', '2026-06-30')
-    expect(items.map((i) => i.id)).toEqual(['HO-SW-DEEP-2026-00014'])
-    expect(items[0].applicantName).toBe('Jun Ming Wang')
-    expect(items[0].state).toBe('returned')
-    expect(items[0].requestedDocumentType).toBe('EMPLOYMENT_LETTER')
-    expect(items[0].href).toBe('/dashboard/reviewer/HO-SW-DEEP-2026-00014')
+    expect(items).toEqual([])
   })
 
   it('returns nothing for an officer with no assigned RFI cases', async () => {
