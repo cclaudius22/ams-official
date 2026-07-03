@@ -4,6 +4,20 @@
 
 ---
 
+## ⏸ RESUME HERE — 3 July 2026 (pit stop): auth phase COMPLETE on `feat/jwt-officer-gateway` @ `e89bee5`; Marshall to push; Tasks 4f/5/6 + acceptance remain
+
+**State:** branch `feat/jwt-officer-gateway` (off `main` @ `a735679`). **9 Sam commits** (`77fbc6b..e89bee5`), every task review-gated via subagent-driven-development (4e verdict was in flight at park — **authoritative task state = `.superpowers/sdd/progress.md`**, the gitignored ledger; read it before dispatching ANYTHING). **+3 Agent-2 charting commits** (`d089355`, `4f75063`, `5c49d1f`) — **mixed-lane branch**; Marshall collects Agent 2's release notes separately. Suite **275 pass / 24 skip**, `tsc --noEmit` **76 baseline (0 new)**. Run: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev`.
+
+**Landed (Sam):** JWT two-login (seeded officer/admin, **branded `/signin`** per landing design system) · **demo-wide route access for BOTH roles** (Chris 3 Jul — design-note §3 amendment; exec-no-PII *deferred not abandoned*; unauth still bounced, authed `/signin` bounces to role landing) · **act-as officer switching** (session-required after security review `e89bee5`; switcher reverts + surfaces failed re-mints) · **Rachel Johnson = dedicated deep-review officer** (all 18 `HO-SW-DEEP-*` incl. 00014 moved off Ricardo; bulk-exempt via seed flag + `allocateBatch`; **no-fallback guarantee test** pins 18/18 real DIS+OV) · **queue country = applicant nationality** (source order `passport_data.nationality → issuing_country → nationality_code`, pass-through, filters follow).
+
+**Lenny asks (pit-stop handoff):** (1) **re-audit the amended design note** — demo-wide access supersedes his audited exec-no-PII premise; his finding #5 (ownership guard) NOT yet landed (= Task 5); (2) **corpus canon deviation** — all 1,018 records carry ISO-2 in structured nationality fields while their own MRZ strings (and DIS canon per Confluence DD/41582602 + DDL `CHAR(3)`) are alpha-3 → generator ticket is his call; AMS adapter is pass-through + alpha-3-pinned either way; (3) **4c scenario check** — 00014→Rachel empties Ricardo's RFI lane; confirm corpus scenario intent survives.
+
+**NEXT (in order):** Task 4f (full country names in queue UI via `Intl.DisplayNames`; codes stay in data) → Task 5 (per-case ownership guard **with admin bypass** per amendment + token-first `officerId` in `/api/ams-demo/rfis`) → Task 6 (gateway doorway tiles; derive counts — kills the hardcoded "23") → spec §6 acceptance run (as amended: no admin-PII-redirect step) + whole-branch review + evidence pack. Then Chris-approved follow-ups: livequeue robustness slice (alert()→banner, intake-count label, sidebar badges, honest OV/DIS empty state on bulk cases — the "Rani Kumari" fallback) and the server-pagination decision.
+
+**Known at park:** OV panel on bulk (non-deep_set) cases still shows the synthetic Rani narrative (LB-6, Chris-approved to fix in the robustness slice, deep_set unaffected). Stray untracked `docs/devdocs/gemma4-azure-inference-quota.md` appeared 3 Jul — not Sam's, owner unknown (likely OV/Azure LB-6 work), left untouched.
+
+---
+
 ## ⏸ RESUME HERE — 1 July 2026: landing re-skin + officer RFI lane LANDED; branch merge-ready @ `62e98d0`; auth/gateway build = FRESH CHAT
 
 **State:** branch `feat/dis-integration-v3` **pushed & in sync at HEAD `62e98d0`**. Marshall (RC) release pass = **GREEN, merge-ready**; merge-to-main pending Chris's named approval (**clean fast-forward** — `main` `4690f3b` is a direct ancestor). Run: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev`.

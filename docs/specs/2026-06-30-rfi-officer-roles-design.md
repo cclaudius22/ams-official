@@ -74,8 +74,10 @@ DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run d
 | Route | admin | officer |
 |---|---|---|
 | `/dashboard/livequeue`, `/dashboard/live-intelligence` | ✅ | redirect → `/dashboard/reviewer` |
-| `/dashboard/reviewer`, `/dashboard/reviewer/queue`, `/dashboard/reviewer/rfis`, `/dashboard/reviewer/[applicationId]` | redirect → `/dashboard/livequeue` | ✅ |
+| `/dashboard/reviewer`, `/dashboard/reviewer/queue`, `/dashboard/reviewer/rfis`, `/dashboard/reviewer/[applicationId]` | ~~redirect → `/dashboard/livequeue`~~ ✅ *(amended — see below)* | ✅ |
 | unauthenticated | → `/signin` | → `/signin` |
+
+> **AMENDMENT (3 Jul 2026, Chris — supersedes the route table above):** for the current demo phase, route gating is **demo-wide for BOTH roles**: any authenticated known-role user (`admin` | `officer`) may open **all** `/dashboard/**` surfaces. What remains enforced: (a) unauthenticated `/dashboard/**` → `/signin`; (b) authenticated `/signin` → `landingFor(role)`; (c) unknown/missing role = unauthenticated; (d) distinct landings — officer → `/dashboard/reviewer`, admin → `/dashboard/livequeue`. `routeDecision()` reduces to a known-role check (role-specific dashboard gating **deferred**, comment left in code). The per-case ownership guard (§3 below / Task 5) **bypasses `role: 'admin'`**; officers remain owns-case-only unless Chris directs otherwise. The §1 data-minimisation posture (exec = no per-case PII; officer = no exec surfaces) is **deferred, not abandoned** — revisit before any HO-facing security conversation; §6 acceptance step 5's "admin PII redirect" check is superseded accordingly.
 
 **Per-case ownership guard (finding #5 — middleware role-gating is NOT sufficient):** the per-case page `/dashboard/reviewer/[applicationId]` AND the review/RFI APIs (`/api/ams-demo/applications/[id]/review`, and any decide/RFI route) MUST verify the case's `assignedTo` against the token's `officerId` → **403 / redirect / 404** when it isn't theirs. Role gating only checks *which role*, not *which case* — without this guard an officer could open another officer's applicant (and their PII) by URL. For the demo, the RFI hero(es) are assigned to the demo officer so the happy path passes; the guard enforces the boundary.
 
