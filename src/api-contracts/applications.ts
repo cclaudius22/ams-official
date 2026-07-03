@@ -59,6 +59,7 @@ export interface AssignedOfficer {
 export interface LiveApplication {
   id: string
   applicantName: string
+  /** Applicant nationality / passport country (source order: passport nationality → passport issuing country → applicant nationality code). NOT the destination/UK country_code. */
   country: string
   visaType: string
   category?: string
