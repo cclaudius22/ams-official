@@ -9,17 +9,6 @@ const SIGNIN = '/signin';
 const ADMIN_LANDING = '/dashboard/livequeue';
 const OFFICER_LANDING = '/dashboard/reviewer';
 
-// Admin-only surfaces an officer must be bounced off of. Intentionally an
-// exact-path list (checked via .includes below), not a prefix match like
-// OFFICER_ONLY_PREFIX below — these are standalone dashboard pages, not a
-// route subtree.
-const ADMIN_ONLY_ROUTES = ['/dashboard/livequeue', '/dashboard/live-intelligence'];
-
-// Officer-only surfaces (the reviewer gateway and everything under it,
-// including per-case paths like /dashboard/reviewer/HO-SW-DEEP-2026-00012
-// and /dashboard/reviewer/rfis) an admin must be bounced off of.
-const OFFICER_ONLY_PREFIX = '/dashboard/reviewer';
-
 export type Role = 'admin' | 'officer';
 
 export interface RouteDecision {
@@ -44,21 +33,16 @@ export function landingFor(role: Role): string {
 // Does `role` may see `pathname`? Unknown/missing role is treated as
 // unauthenticated (controller resolution) — same handling as no valid
 // token, so it's sent to /signin rather than either dashboard landing.
-export function routeDecision(role: string | undefined, pathname: string): RouteDecision {
+//
+// Route access is demo-wide for both known roles: neither role is bounced
+// off the other's dashboard surfaces (e.g. officer may load /dashboard/
+// livequeue and /dashboard/live-intelligence; admin may load /dashboard/
+// reviewer and everything under it). Role-specific dashboard gating is
+// deferred — more AMS features will later split between executive and
+// officer — so this only rejects unknown/missing roles.
+export function routeDecision(role: string | undefined, _pathname: string): RouteDecision {
   if (!isKnownRole(role)) {
     return { allow: false, redirectTo: SIGNIN };
   }
-
-  if (role === 'officer' && ADMIN_ONLY_ROUTES.includes(pathname)) {
-    return { allow: false, redirectTo: OFFICER_LANDING };
-  }
-
-  if (
-    role === 'admin' &&
-    (pathname === OFFICER_ONLY_PREFIX || pathname.startsWith(`${OFFICER_ONLY_PREFIX}/`))
-  ) {
-    return { allow: false, redirectTo: ADMIN_LANDING };
-  }
-
   return { allow: true };
 }

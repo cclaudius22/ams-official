@@ -38,22 +38,16 @@ describe('landingFor', () => {
 })
 
 describe('routeDecision', () => {
-  // --- officer: blocked from admin-only surfaces ---
-  it('blocks officer from /dashboard/livequeue, redirecting to the gateway', () => {
-    expect(routeDecision('officer', '/dashboard/livequeue')).toEqual({
-      allow: false,
-      redirectTo: '/dashboard/reviewer',
-    })
+  // --- route gating is demo-wide: both known roles are allowed on every
+  // current dashboard surface, regardless of which role "owns" it ---
+  it('allows officer on /dashboard/livequeue', () => {
+    expect(routeDecision('officer', '/dashboard/livequeue')).toEqual({ allow: true })
   })
 
-  it('blocks officer from /dashboard/live-intelligence, redirecting to the gateway', () => {
-    expect(routeDecision('officer', '/dashboard/live-intelligence')).toEqual({
-      allow: false,
-      redirectTo: '/dashboard/reviewer',
-    })
+  it('allows officer on /dashboard/live-intelligence', () => {
+    expect(routeDecision('officer', '/dashboard/live-intelligence')).toEqual({ allow: true })
   })
 
-  // --- officer: allowed on reviewer surfaces ---
   it('allows officer on the reviewer gateway', () => {
     expect(routeDecision('officer', '/dashboard/reviewer')).toEqual({ allow: true })
   })
@@ -72,38 +66,24 @@ describe('routeDecision', () => {
     ).toEqual({ allow: true })
   })
 
-  // --- admin: blocked from reviewer surfaces ---
-  it('blocks admin from the reviewer gateway, redirecting to the live queue', () => {
-    expect(routeDecision('admin', '/dashboard/reviewer')).toEqual({
-      allow: false,
-      redirectTo: '/dashboard/livequeue',
-    })
+  it('allows admin on the reviewer gateway', () => {
+    expect(routeDecision('admin', '/dashboard/reviewer')).toEqual({ allow: true })
   })
 
-  it('blocks admin from /dashboard/reviewer/queue', () => {
-    expect(routeDecision('admin', '/dashboard/reviewer/queue')).toEqual({
-      allow: false,
-      redirectTo: '/dashboard/livequeue',
-    })
+  it('allows admin on /dashboard/reviewer/queue', () => {
+    expect(routeDecision('admin', '/dashboard/reviewer/queue')).toEqual({ allow: true })
   })
 
-  it('blocks admin from /dashboard/reviewer/rfis', () => {
-    expect(routeDecision('admin', '/dashboard/reviewer/rfis')).toEqual({
-      allow: false,
-      redirectTo: '/dashboard/livequeue',
-    })
+  it('allows admin on /dashboard/reviewer/rfis', () => {
+    expect(routeDecision('admin', '/dashboard/reviewer/rfis')).toEqual({ allow: true })
   })
 
-  it('blocks admin from a per-case reviewer path', () => {
+  it('allows admin on a per-case reviewer path', () => {
     expect(
       routeDecision('admin', '/dashboard/reviewer/HO-SW-DEEP-2026-00012')
-    ).toEqual({
-      allow: false,
-      redirectTo: '/dashboard/livequeue',
-    })
+    ).toEqual({ allow: true })
   })
 
-  // --- admin: allowed on admin surfaces ---
   it('allows admin on /dashboard/livequeue', () => {
     expect(routeDecision('admin', '/dashboard/livequeue')).toEqual({ allow: true })
   })
