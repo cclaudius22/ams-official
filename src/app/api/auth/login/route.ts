@@ -1,9 +1,10 @@
 // src/app/api/auth/login/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
-import { verifyPassword, generateToken, setAuthCookie, type JWTPayload } from '@/lib/auth';
+import { verifyPassword, generateToken, setAuthCookie, getCurrentUser, type JWTPayload } from '@/lib/auth';
 import { validateDemoLogin } from '@/lib/demoAccounts';
 import { getOfficerById } from '@/data/seed/officers';
+import { isKnownRole } from '@/lib/authRedirect';
 
 // Demo-only: sign a token for `payload`, set the auth cookie, and respond
 // with the shape the demo dashboard expects. Shared by the demo email/
@@ -34,6 +35,19 @@ export async function POST(request: NextRequest) {
       const { actAsOfficerId } = body;
 
       if (actAsOfficerId) {
+        // Security review finding: act-as re-mints a token, so it must not be
+        // reachable by an anonymous caller — require an existing, known-role
+        // session before minting a token for a *different* officer. Policy is
+        // any-known-role (admin or officer) for now; restricting impersonation
+        // to executives and/or a dedicated endpoint is Phase 2, not this fix.
+        const caller = await getCurrentUser(request);
+        if (!caller || !isKnownRole(caller.role)) {
+          return NextResponse.json(
+            { error: 'Sign in before switching officers' },
+            { status: 401 }
+          );
+        }
+
         const officer = getOfficerById(actAsOfficerId);
         if (!officer) {
           return NextResponse.json(
