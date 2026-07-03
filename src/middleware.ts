@@ -12,7 +12,7 @@
 // run on the Node.js runtime (`config.runtime = 'nodejs'` below).
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
-import { landingFor, routeDecision } from '@/lib/authRedirect';
+import { isKnownRole, landingFor, routeDecision } from '@/lib/authRedirect';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -21,12 +21,15 @@ export function middleware(request: NextRequest) {
   const payload = token ? verifyToken(token) : null;
 
   // /signin: a validly-authenticated user shouldn't see the login page —
-  // bounce them straight to their landing. No/invalid token → let them
-  // through to sign in.
+  // bounce them straight to their landing. No/invalid token, or a valid
+  // token with an unknown/missing role, → let them through to sign in
+  // (unknown role is treated as unauthenticated, same as routeDecision
+  // below — gated through the same isKnownRole guard so these two
+  // branches can't diverge again).
   if (pathname === '/signin') {
-    if (payload) {
+    if (payload && isKnownRole(payload.role)) {
       const landingUrl = request.nextUrl.clone();
-      landingUrl.pathname = landingFor(payload.role as 'admin' | 'officer');
+      landingUrl.pathname = landingFor(payload.role);
       return NextResponse.redirect(landingUrl);
     }
     return NextResponse.next();

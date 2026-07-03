@@ -3,7 +3,29 @@
 // Spec: docs/specs/2026-06-30-rfi-officer-roles-design.md §3 route table.
 
 import { describe, it, expect } from 'vitest'
-import { landingFor, routeDecision } from '@/lib/authRedirect'
+import { isKnownRole, landingFor, routeDecision } from '@/lib/authRedirect'
+
+describe('isKnownRole', () => {
+  it('treats admin as known', () => {
+    expect(isKnownRole('admin')).toBe(true)
+  })
+
+  it('treats officer as known', () => {
+    expect(isKnownRole('officer')).toBe(true)
+  })
+
+  it('treats an unrecognized role string as unknown', () => {
+    expect(isKnownRole('applicant')).toBe(false)
+  })
+
+  it('treats an empty-string role as unknown', () => {
+    expect(isKnownRole('')).toBe(false)
+  })
+
+  it('treats a missing role as unknown', () => {
+    expect(isKnownRole(undefined)).toBe(false)
+  })
+})
 
 describe('landingFor', () => {
   it('lands admin on the live queue', () => {
