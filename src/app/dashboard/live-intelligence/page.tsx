@@ -18,6 +18,7 @@ import {
 // Import the LiveMetricsSection component
 import LiveMetricsSection from '@/components/dashboard/LiveMetricsSection'
 import { ProcessingMetricsTab } from '@/components/dashboard/ProcessingMetricsTab'
+import { PredictionsTab } from '@/components/dashboard/PredictionsTab'
 
 export default function LiveIntelligencePage() {
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -168,16 +169,9 @@ export default function LiveIntelligencePage() {
 
             </TabsContent>
 
-        {/* Predictions Tab Content */}
-        <TabsContent value="predictions" className="space-y-4">
-          <Card className="p-6">
-            <CardHeader className="px-0 pt-0">
-              <CardTitle>Future Predictions</CardTitle>
-            </CardHeader>
-            <CardContent className="px-0 pt-6">
-              <p className="text-gray-500">Predictive analytics are being developed. Check back soon for updates.</p>
-            </CardContent>
-          </Card>
+        {/* Predictions Tab Content — operational forecasting (capacity what-if + intake) */}
+        <TabsContent value="predictions">
+          <PredictionsTab />
         </TabsContent>
         
         {/* Geographic Analysis Tab Content */}

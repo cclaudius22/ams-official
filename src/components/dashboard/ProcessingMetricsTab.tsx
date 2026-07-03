@@ -1,6 +1,7 @@
 'use client'
 import { AlertCircle } from 'lucide-react'
 import { useProcessingMetrics } from '@/hooks/useProcessingMetrics'
+import { OFFICER_DAILY_DECISION_CAP } from '@/lib/officerQueue'
 import {
   LineWithTarget,
   HBar,
@@ -8,49 +9,51 @@ import {
   StackedBar,
   Heatmap,
   KpiCard,
-  ChartCard,
-  visaTypeColor,
-  seriesColor,
+  CHART_INK,
   SEMANTIC_COLORS,
 } from '@/components/charts'
 
-// Backlog by day × stage — preserved demo data (real wiring is the deferred contract track).
+// Backlog by day × DIS stage — preserved demo data (real wiring is the deferred contract
+// track). Row vocabulary = the DIS pipeline; colours are Chris-locked (3 Jul), don't restyle.
 const BACKLOG_ROWS = [
-  { id: 'Application Intake', cells: [{ x: 'Mon', value: 12 }, { x: 'Tue', value: 18 }, { x: 'Wed', value: 14 }, { x: 'Thu', value: 8 }, { x: 'Fri', value: 10 }] },
-  { id: 'Document Verification', cells: [{ x: 'Mon', value: 22 }, { x: 'Tue', value: 28 }, { x: 'Wed', value: 32 }, { x: 'Thu', value: 26 }, { x: 'Fri', value: 20 }] },
-  { id: 'Background Check', cells: [{ x: 'Mon', value: 6 }, { x: 'Tue', value: 9 }, { x: 'Wed', value: 14 }, { x: 'Thu', value: 12 }, { x: 'Fri', value: 8 }] },
+  { id: 'Received', cells: [{ x: 'Mon', value: 12 }, { x: 'Tue', value: 18 }, { x: 'Wed', value: 14 }, { x: 'Thu', value: 8 }, { x: 'Fri', value: 10 }] },
+  { id: 'Document Processing', cells: [{ x: 'Mon', value: 22 }, { x: 'Tue', value: 28 }, { x: 'Wed', value: 32 }, { x: 'Thu', value: 26 }, { x: 'Fri', value: 20 }] },
+  { id: 'Rules & Checks', cells: [{ x: 'Mon', value: 6 }, { x: 'Tue', value: 9 }, { x: 'Wed', value: 14 }, { x: 'Thu', value: 12 }, { x: 'Fri', value: 8 }] },
   { id: 'Officer Review', cells: [{ x: 'Mon', value: 18 }, { x: 'Tue', value: 22 }, { x: 'Wed', value: 24 }, { x: 'Thu', value: 20 }, { x: 'Fri', value: 15 }] },
-  { id: 'Final Decision', cells: [{ x: 'Mon', value: 4 }, { x: 'Tue', value: 8 }, { x: 'Wed', value: 12 }, { x: 'Thu', value: 10 }, { x: 'Fri', value: 5 }] },
+  { id: 'Decided', cells: [{ x: 'Mon', value: 4 }, { x: 'Tue', value: 8 }, { x: 'Wed', value: 12 }, { x: 'Thu', value: 10 }, { x: 'Fri', value: 5 }] },
 ]
 
-const STAGE_TIME_SERIES = [
-  { key: 'queueTime', label: 'Queue time', color: '#cbd5e1' },
-  { key: 'activeTime', label: 'Active time', color: visaTypeColor('skilled_worker_visa') },
+// Two-clocks vocabulary (elapsed SLA vs active touch-time)
+const TIME_SERIES = [
+  { key: 'queueTime', label: 'Waiting (elapsed)', color: '#cbd5e1' },
+  { key: 'activeTime', label: 'Active touch-time', color: CHART_INK },
 ]
 
-// Automation performance bars — each metric to a fixed semantic colour.
-const automationPerfColor = (entry: Record<string, unknown>) => {
+// Decision effort per outcome IS a semantic series — each bar means an outcome.
+const effortColor = (entry: Record<string, unknown>) => {
   switch (entry.name) {
-    case 'Error Rate':
-      return SEMANTIC_COLORS.negative
-    case 'Cost Efficiency':
-      return SEMANTIC_COLORS.warning
-    case 'Processing Speed':
-      return SEMANTIC_COLORS.info
-    default:
+    case 'Clear approve':
       return SEMANTIC_COLORS.positive
+    case 'Clear reject':
+      return SEMANTIC_COLORS.negative
+    default:
+      return SEMANTIC_COLORS.warning // Manual + RFI
   }
 }
+
+// Triage donut: clear = the estate ink, manual review = the warning bucket (as everywhere).
+const triageColor = (entry: Record<string, unknown>) =>
+  entry.name === 'Manual review' ? SEMANTIC_COLORS.warning : CHART_INK
 
 export const ProcessingMetricsTab = () => {
   const {
     slaAttainmentTrend,
     slaByVisaType,
     slaMissReasons,
-    cycleTimeByStage,
+    decisionEffortByOutcome,
     queueVsActiveTime,
-    manualVsAuto,
-    automationAccuracy,
+    externalChecksClearRate,
+    triageSplit,
     escalationReasons,
     escalatedResolutionTime,
     isLoading,
@@ -66,27 +69,23 @@ export const ProcessingMetricsTab = () => {
     )
   }
 
-  const automationPerf = [
-    { name: 'Accuracy', value: automationAccuracy },
-    { name: 'Processing Speed', value: 92 },
-    { name: 'Cost Efficiency', value: 85 },
-    { name: 'Error Rate', value: 7 },
-  ]
+  const clearShare = triageSplit[0].value
+  const manualToday = triageSplit[1].value * 10 // of the 1,000/day demo intake
 
   return (
     <div className="space-y-8 p-4 md:p-6">
-      {/* --- SLA Performance --- */}
+      {/* --- SLA Performance (decision SLA — 15 working days) --- */}
       <section className="space-y-6">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">SLA Performance</h3>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="lg:col-span-2">
             <LineWithTarget
-              title="SLA Attainment Rate Over Time (%)"
+              title="Decision SLA Attainment Over Time (%) — 15 Working Days"
               data={slaAttainmentTrend}
               xKey="date"
               valueKey="value"
               valueLabel="SLA %"
-              color={visaTypeColor('skilled_worker_visa')}
+              color={CHART_INK}
               yDomain={[70, 100]}
               valueFormatter={(v) => `${v}%`}
               loading={isLoading}
@@ -96,7 +95,8 @@ export const ProcessingMetricsTab = () => {
             title="SLA Attainment by Visa Type (%)"
             data={slaByVisaType}
             valueKey="value"
-            color={(_, i) => seriesColor(i)}
+            labelWidth={150}
+            color={CHART_INK}
             valueFormatter={(v) => `${v}%`}
             loading={isLoading}
           />
@@ -109,29 +109,29 @@ export const ProcessingMetricsTab = () => {
         </div>
       </section>
 
-      {/* --- Process Stage Efficiency --- */}
+      {/* --- Decision Lane Efficiency (the human bottleneck — the machine is <1 min) --- */}
       <section className="space-y-6">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Process Stage Efficiency</h3>
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Decision Lane Efficiency</h3>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <KpiCard title="Average Processing Time" value={42} unit=" min" trend={-5} invertTrend subtitle="Across all stages" />
-          <KpiCard title="Queue Time" value="3.2" unit=" days" trend={2} invertTrend subtitle="Average wait time" />
-          <KpiCard title="SLA Performance" value={94.8} unit="%" trend={1.2} subtitle="Last 30 days" />
-          <KpiCard title="Current Backlog" value={283} trend={-12} invertTrend subtitle="Across all stages" />
+          <KpiCard title="Machine Processing Time" value="< 1" unit=" min" subtitle="Was ~2 weeks pre-DIS" />
+          <KpiCard title="Decision Queue" value={7} unit=" days" trend={-2} invertTrend subtitle="Today's intake clears in-SLA" />
+          <KpiCard title="SLA Attainment" value={94.8} unit="%" trend={1.2} subtitle="Last 30 days" />
+          <KpiCard title="Decision Backlog" value={848} trend={-12} invertTrend subtitle="Awaiting officer decision" />
         </div>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <HBar
-            title="Average Cycle Time by Stage (Days)"
-            data={cycleTimeByStage}
-            valueKey="avgDays"
+            title="Decision Effort by Recommendation (min)"
+            data={decisionEffortByOutcome}
+            valueKey="avgMinutes"
             labelWidth={120}
-            color={(_, i) => seriesColor(i)}
-            valueFormatter={(v) => `${v} days`}
+            color={effortColor}
+            valueFormatter={(v) => `${v} min`}
             loading={isLoading}
           />
           <StackedBar
-            title="Queue vs Active Time per Stage (Avg Days)"
+            title="Where the Elapsed Time Goes (Avg Days)"
             data={queueVsActiveTime}
-            series={STAGE_TIME_SERIES}
+            series={TIME_SERIES}
             loading={isLoading}
           />
           <div className="lg:col-span-2">
@@ -140,17 +140,25 @@ export const ProcessingMetricsTab = () => {
         </div>
       </section>
 
-      {/* --- Automation & Efficiency --- */}
+      {/* --- Triage & Efficiency (DIS recommends, officers decide — Phase 1 HITL) --- */}
       <section className="space-y-6">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Automation &amp; Efficiency</h3>
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Triage &amp; Efficiency</h3>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <Donut title="Manual vs Automated Processing" data={manualVsAuto} valueFormatter={(v) => `${v}%`} loading={isLoading} />
-          <HBar
-            title="Automation Performance Metrics"
-            data={automationPerf}
-            valueKey="value"
-            color={automationPerfColor}
+          <Donut
+            title="Triage: Clear Recommendation vs Manual Review"
+            data={triageSplit}
+            color={triageColor}
             valueFormatter={(v) => `${v}%`}
+            loading={isLoading}
+          />
+          <HBar
+            title="External Checks — First-Pass Clear Rate (%)"
+            data={externalChecksClearRate}
+            valueKey="value"
+            labelWidth={170}
+            color={CHART_INK}
+            valueFormatter={(v) => `${v}%`}
+            loading={isLoading}
           />
         </div>
         <HBar
@@ -158,14 +166,14 @@ export const ProcessingMetricsTab = () => {
           data={escalationReasons}
           valueKey="value"
           labelWidth={120}
-          color={(_, i) => seriesColor(i)}
+          color={CHART_INK}
           loading={isLoading}
         />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <KpiCard title="Automation Accuracy" value={automationAccuracy} unit="%" trend={2.1} subtitle="vs previous month" />
+          <KpiCard title="Clear Recommendations" value={clearShare} unit="%" subtitle="DIS triage — officers decide" />
+          <KpiCard title="Manual Reviews (Today)" value={manualToday} subtitle="Of 1,000 daily intake" />
+          <KpiCard title="Decision Capacity" value={OFFICER_DAILY_DECISION_CAP} unit=" /officer/day" subtitle="Allocation cap" />
           <KpiCard title="Avg. Escalation Resolution" value={escalatedResolutionTime} unit=" days" subtitle="vs previous month" />
-          <KpiCard title="Automation Rate" value={72} unit="%" trend={5} subtitle="vs previous month" />
-          <KpiCard title="Manual Reviews" value={214} subtitle="Last 30 days" />
         </div>
       </section>
     </div>
