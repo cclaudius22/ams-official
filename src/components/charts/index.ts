@@ -9,6 +9,9 @@
 // Tokens & helpers
 export {
   CHART_PALETTE,
+  CHART_INK,
+  INK_RAMP,
+  inkStep,
   seriesColor,
   statusColor,
   recommendationColor,

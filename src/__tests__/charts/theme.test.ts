@@ -1,5 +1,15 @@
 import { describe, it, expect } from 'vitest'
-import { CHART_PALETTE, seriesColor, statusColor, recommendationColor, visaTypeColor } from '@/components/charts/theme'
+import {
+  CHART_PALETTE,
+  CHART_INK,
+  INK_RAMP,
+  inkStep,
+  seriesColor,
+  statusColor,
+  recommendationColor,
+  visaTypeColor,
+  SEMANTIC_COLORS,
+} from '@/components/charts/theme'
 import { VISA_TYPES } from '@/api-contracts/queue-contract'
 
 const HEX = /^#[0-9a-fA-F]{6}$/
@@ -33,16 +43,38 @@ describe('chart theme', () => {
     expect(statusColor('a-status-we-have-never-seen')).toMatch(HEX) // fallback, no throw
   })
 
-  it('visaTypeColor gives every registered type a stable, distinct colour and survives unknowns', () => {
-    // same colour everywhere for the same type (the "skilled_worker is one colour" rule)
-    expect(visaTypeColor('skilled_worker_visa')).toBe(visaTypeColor('skilled_worker_visa'))
-    // every canonical registry key resolves to a hex colour...
-    for (const v of VISA_TYPES) expect(visaTypeColor(v.key)).toMatch(HEX)
-    // ...and the registered set is fully distinct (no two types share a colour)
-    const colours = VISA_TYPES.map((v) => visaTypeColor(v.key))
-    expect(new Set(colours).size).toBe(VISA_TYPES.length)
-    // unknown key falls back deterministically without throwing
-    expect(visaTypeColor('totally_unknown_visa')).toMatch(HEX)
-    expect(visaTypeColor('totally_unknown_visa')).toBe(visaTypeColor('totally_unknown_visa'))
+  it('visaTypeColor renders EVERY visa type in the single chart ink (quiet-estate rule)', () => {
+    // Chris, 3 Jul: visa types are all one colour — identity comes from labels, not hue.
+    for (const v of VISA_TYPES) expect(visaTypeColor(v.key)).toBe(CHART_INK)
+    // unknown keys get the same ink; nothing throws, nothing rainbows
+    expect(visaTypeColor('totally_unknown_visa')).toBe(CHART_INK)
+  })
+
+  it('anchors the chart ink on the deep ink blue as slot 1', () => {
+    // Chris, 3 Jul (after seeing indigo and blue live): the deep ink blue is the estate ink.
+    expect(CHART_INK).toBe('#2d5a9e')
+    expect(CHART_PALETTE[0]).toBe(CHART_INK)
+  })
+
+  it('uses the muted validated semantic set (no Tailwind-500 primaries)', () => {
+    expect(SEMANTIC_COLORS.positive).toBe('#1f5f40')
+    expect(SEMANTIC_COLORS.negative).toBe('#7f2422')
+    expect(SEMANTIC_COLORS.warning).toBe('#d47a16')
+    expect(SEMANTIC_COLORS.info).toBe('#6b93c4')
+    expect(SEMANTIC_COLORS.neutral).toBe('#94a3b8')
+  })
+
+  it('inkStep spreads n ordinal categories across the validated ink ramp, dark-first', () => {
+    expect(INK_RAMP).toHaveLength(5)
+    for (const c of INK_RAMP) expect(c).toMatch(HEX)
+    // first category gets the darkest step, last the lightest
+    expect(inkStep(0, 5)).toBe(INK_RAMP[4])
+    expect(inkStep(4, 5)).toBe(INK_RAMP[0])
+    // two categories span the full ramp
+    expect(inkStep(0, 2)).toBe(INK_RAMP[4])
+    expect(inkStep(1, 2)).toBe(INK_RAMP[0])
+    // out-of-range indices clamp instead of throwing
+    expect(inkStep(99, 5)).toBe(INK_RAMP[0])
+    expect(inkStep(-1, 5)).toBe(INK_RAMP[4])
   })
 })
