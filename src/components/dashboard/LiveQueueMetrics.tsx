@@ -7,6 +7,7 @@ import { ConsulateOfficial } from '@/api-contracts/users'
 // re-exports getDataProvider, which is server-only — importing values from it into a client
 // component pulls fs/promises into the browser bundle).
 import { normalizeVisaType, visaTypeLabel } from '@/config/visaTypes'
+import { OFFICER_DAILY_DECISION_CAP } from '@/lib/officerQueue'
 import { HBar, Donut, MetricCard, visaTypeColor, statusColor, SEMANTIC_COLORS } from '@/components/charts'
 
 // Pending bucket = pre-decision lifecycle (new statuses + legacy). Owned by the data lane (Agent 1):
@@ -30,6 +31,16 @@ export function toVisaKey(visaTypeId: string | undefined, visaType: string): str
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '')
   return normalizeVisaType(slug) ?? 'unknown'
+}
+
+// Officer-Workload bands scale off the shared daily decision cap (~25/day), not absolute counts:
+// red = at capacity, amber = within 80% of it, green = real headroom. Every officer sits at 25/25
+// after auto-allocate, so cap-relative colour is what makes "the human layer is the bottleneck" read.
+export function workloadColor(load: number): string {
+  const n = Number.isFinite(load) ? load : 0
+  if (n >= OFFICER_DAILY_DECISION_CAP) return SEMANTIC_COLORS.negative
+  if (n >= OFFICER_DAILY_DECISION_CAP * 0.8) return SEMANTIC_COLORS.warning
+  return SEMANTIC_COLORS.positive
 }
 
 interface LiveQueueMetricsProps {
@@ -105,11 +116,8 @@ function LiveQueueMetrics({ applications, officials }: LiveQueueMetricsProps) {
           title="Officer Workload"
           data={officerWorkloadData}
           valueKey="applications"
-          color={(d) => {
-            const n = Number(d.applications) || 0
-            return n > 200 ? SEMANTIC_COLORS.negative : n > 100 ? SEMANTIC_COLORS.warning : SEMANTIC_COLORS.positive
-          }}
-          valueFormatter={(v) => `${v} cases`}
+          color={(d) => workloadColor(Number(d.applications))}
+          valueFormatter={(v) => `${v}/${OFFICER_DAILY_DECISION_CAP} cases`}
           height={200}
           labelWidth={64}
         />
