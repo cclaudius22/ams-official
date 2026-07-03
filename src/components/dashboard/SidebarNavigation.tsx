@@ -4,8 +4,14 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useOfficer, getOfficerFullName, getOfficerInitials, getRoleDisplayName } from '@/contexts/OfficerContext';
+import { usePathname, useRouter } from 'next/navigation';
+import {
+  useOfficer,
+  getOfficerFullName,
+  getOfficerInitials,
+  getRoleDisplayName,
+  STORAGE_KEY as OFFICER_STORAGE_KEY,
+} from '@/contexts/OfficerContext';
 
 interface NavSectionProps {
   title: string;
@@ -82,12 +88,29 @@ const NavLink: React.FC<NavLinkProps> = ({
 };
 
 export default function SidebarNavigation() {
+  const router = useRouter();
   const { currentOfficer, isLoading } = useOfficer();
 
   // Get officer display info
   const officerName = currentOfficer ? getOfficerFullName(currentOfficer) : 'Loading...';
   const officerInitials = currentOfficer ? getOfficerInitials(currentOfficer) : '...';
   const officerRole = currentOfficer ? getRoleDisplayName(currentOfficer.role) : '';
+
+  // Demo-only: clear the server auth cookie, drop the locally-remembered
+  // officer selection so a fresh sign-in doesn't inherit the old one, then
+  // send the user to /signin. The cookie clear is awaited so the following
+  // navigation is gated correctly by src/middleware.ts (no stale-cookie
+  // window where /signin would bounce straight back to the dashboard).
+  async function handleLogout() {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch {
+      // Demo-only: proceed to /signin even if the network call fails —
+      // a logout click should never get stuck.
+    }
+    window.localStorage.removeItem(OFFICER_STORAGE_KEY);
+    router.push('/signin');
+  }
 
   return (
     <div className="w-64 bg-white border-r h-screen overflow-y-auto">
@@ -140,7 +163,7 @@ export default function SidebarNavigation() {
         <div className="mt-auto pt-6">
           <button 
             className="w-full flex items-center px-3 py-2.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors"
-            onClick={() => console.log('Log out clicked')}
+            onClick={handleLogout}
           >
             <svg 
               className="w-5 h-5 mr-2" 

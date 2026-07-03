@@ -1,7 +1,8 @@
 // src/components/dashboard/OfficerSwitcher.tsx
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ChevronDown, User, Beaker } from 'lucide-react';
 import {
   DropdownMenu,
@@ -23,7 +24,43 @@ import {
 import type { ConsulateOfficial } from '@/api-contracts/users';
 
 export default function OfficerSwitcher() {
+  const router = useRouter();
   const { currentOfficer, setCurrentOfficer, officers, isLoading } = useOfficer();
+  const [isActingAs, setIsActingAs] = useState(false);
+
+  // Demo-only: switching officers here is a client-side context change, but
+  // gated /dashboard pages trust the `auth-token` cookie's officerId (see
+  // src/middleware.ts + src/app/api/auth/login/route.ts `actAsOfficerId`
+  // branch). Re-mint that cookie for the newly-picked officer so the rest
+  // of the app agrees with what the switcher now shows, then refresh so
+  // server-gated pages pick up the new token. If the re-mint call fails for
+  // any reason, fall back to the pre-existing client-only switch (no
+  // refresh) rather than blocking the UI on a demo-only endpoint.
+  async function handleSelectOfficer(officer: ConsulateOfficial) {
+    setCurrentOfficer(officer);
+
+    if (officer.id === currentOfficer?.id) {
+      return;
+    }
+
+    setIsActingAs(true);
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ actAsOfficerId: officer.id }),
+      });
+
+      if (response.ok) {
+        router.refresh();
+      }
+    } catch {
+      // Network failure — keep existing client-only officer switch, no
+      // refresh (existing behavior, unchanged).
+    } finally {
+      setIsActingAs(false);
+    }
+  }
 
   if (isLoading || !currentOfficer) {
     return (
@@ -73,7 +110,8 @@ export default function OfficerSwitcher() {
         {officers.map((officer) => (
           <DropdownMenuItem
             key={officer.id}
-            onClick={() => setCurrentOfficer(officer)}
+            onClick={() => handleSelectOfficer(officer)}
+            disabled={isActingAs}
             className={`flex items-start space-x-3 p-3 cursor-pointer ${
               officer.id === currentOfficer.id ? 'bg-blue-50' : ''
             }`}

@@ -22,7 +22,10 @@ interface OfficerContextType {
 
 const OfficerContext = createContext<OfficerContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'demo-selected-officer-id';
+// Exported so /signin (post-login officer seeding) and SidebarNavigation
+// (logout clearing) can read/write the exact same key without duplicating
+// the string literal.
+export const STORAGE_KEY = 'demo-selected-officer-id';
 
 interface OfficerProviderProps {
   children: ReactNode;
