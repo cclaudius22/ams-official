@@ -4,7 +4,9 @@
 
 ---
 
-## ⏸ RESUME HERE — 3 July 2026 (pit stop): auth phase COMPLETE on `feat/jwt-officer-gateway` @ `e89bee5`; Marshall to push; Tasks 4f/5/6 + acceptance remain
+## ⏸ RESUME HERE — 5 July 2026 (pit stop, updated): auth phase + 4f COMPLETE; branch **PUSHED** @ `d1683d5`; Tasks 5/6 + acceptance remain; `chore/green-gates` lands post-Task-6
+
+**Update 5 Jul (Marshall RC):** `feat/jwt-officer-gateway` pushed to origin @ **`d1683d5`** (upstream set, Chris-approved; `d1683d5` = Gemma quota brief docs; `56650e5` = Task 4f full country names, landed 4 Jul, review deferred to whole-branch). **`chore/green-gates`** (Marshall's lane, worktree `.claude/worktrees/green-gates`): eslint-9 toolchain repair + tsc 76→0 paydown — lands AFTER Task 6; until then Sam keeps reporting the 76 baseline and Tasks 5/6 keep hands off `package.json`/`bun.lock`/`eslint.config.mjs` + the two deleted-orphan files. Sequence to merge-ready: **Task 5 → Task 6 → green-gates + lint slice (Marshall) → §6 acceptance + whole-branch review (scope incl. green-gates diff, 4f, raw-code-surfaces scan) → Lenny re-audit → Chris merge approval.**
 
 **State:** branch `feat/jwt-officer-gateway` (off `main` @ `a735679`). **9 Sam commits** (`77fbc6b..e89bee5`), every task review-gated via subagent-driven-development (4e verdict was in flight at park — **authoritative task state = `.superpowers/sdd/progress.md`**, the gitignored ledger; read it before dispatching ANYTHING). **+3 Agent-2 charting commits** (`d089355`, `4f75063`, `5c49d1f`) — **mixed-lane branch**; Marshall collects Agent 2's release notes separately. Suite **275 pass / 24 skip**, `tsc --noEmit` **76 baseline (0 new)**. Run: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev`.
 
