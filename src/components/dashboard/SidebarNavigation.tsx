@@ -12,6 +12,7 @@ import {
   getRoleDisplayName,
   STORAGE_KEY as OFFICER_STORAGE_KEY,
 } from '@/contexts/OfficerContext';
+import { useOfficerQueueCount } from '@/hooks/useOfficerQueueCount';
 
 interface NavSectionProps {
   title: string;
@@ -96,6 +97,14 @@ export default function SidebarNavigation() {
   const officerInitials = currentOfficer ? getOfficerInitials(currentOfficer) : '...';
   const officerRole = currentOfficer ? getRoleDisplayName(currentOfficer.role) : '';
 
+  // Task 6 — "My Queue 23" was a hardcoded fake badge. Real count, shared with
+  // the gateway's "My Queue" tile via the same /api/applications total field
+  // (cheapest fetch: pageSize=1, fail-quiet — the sidebar renders on every
+  // /dashboard page). `String(...)` so a genuine 0 still renders (NavLink
+  // treats a falsy badge as "no badge", and the number 0 is falsy).
+  const { count: queueCount } = useOfficerQueueCount(currentOfficer?.id);
+  const queueBadge = queueCount !== null ? String(queueCount) : undefined;
+
   // Demo-only: clear the server auth cookie, drop the locally-remembered
   // officer selection so a fresh sign-in doesn't inherit the old one, then
   // send the user to /signin. The cookie clear is awaited so the following
@@ -135,12 +144,12 @@ export default function SidebarNavigation() {
         
         {/* Visa Processing Section */}
         <NavSection title="Visa Processing" icon="/icons/visa.svg">
-          <NavLink href="/dashboard/reviewer" badge="23">My Queue</NavLink>
+          <NavLink href="/dashboard/reviewer" badge={queueBadge}>My Queue</NavLink>
           <NavLink href="/dashboard/reviewer/rfis">My RFIs</NavLink>
           <NavLink href="#">Completed</NavLink>
-          <NavLink href="#" badge="3" badgeColor="text-red-600 bg-gray-100">Escalated</NavLink>
+          <NavLink href="#">Escalated</NavLink>
           <NavLink href="#">Decisions</NavLink>
-          <NavLink href="/dashboard/messages" badge="4" badgeColor="text-blue-600 bg-gray-100">Messages</NavLink>
+          <NavLink href="/dashboard/messages">Messages</NavLink>
         </NavSection>
 
         <div className="my-2 border-t" />
