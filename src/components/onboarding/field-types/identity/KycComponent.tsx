@@ -6,8 +6,18 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ShieldCheck, CheckCircle } from 'lucide-react';
 
+interface KycComponentProps {
+  field: {
+    fieldName: string;
+    label: string;
+    helpText?: string;
+    isRequired?: boolean;
+  };
+  disabled?: boolean;
+}
+
 // Form Component (used in actual forms)
-export const KycComponentField = ({ field, disabled = false }) => {
+export const KycComponentField = ({ field, disabled = false }: KycComponentProps) => {
   const { control } = useFormContext();
   
   return (
@@ -82,7 +92,7 @@ export const KycComponentField = ({ field, disabled = false }) => {
 };
 
 // Preview Component (used in preview mode - simplified version)
-export const KycComponentPreview = ({ field }) => {
+export const KycComponentPreview = ({ field }: KycComponentProps) => {
   return (
     <div className="space-y-2">
       <div className="font-medium text-sm">{field.label}</div>

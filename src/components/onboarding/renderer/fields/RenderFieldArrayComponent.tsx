@@ -10,21 +10,20 @@ import { Plus, Trash2 } from 'lucide-react';
 import { FieldConfig } from '@/components/onboarding/configurator/types'; // Adjust path
 import RenderFieldSwitch from '../RenderFieldSwitch'; // Import the switch to render sub-fields
 
-// Add 'config' with 'subFields' and 'addButtonLabel' to FieldConfig type if not already there
-// interface FieldConfig {
-//   // ... other properties
-//   config?: {
-//      subFields?: FieldConfig[];
-//      addButtonLabel?: string;
-//      minItems?: number;
-//      maxItems?: number;
-//      // ... other repeater specific configs
-//   }
-// }
-
+// FieldConfig extended locally with the repeater-specific 'config' property
+// (see note that previously lived here: subFields, addButtonLabel, min/maxItems)
+interface RepeaterFieldConfig extends FieldConfig {
+  config?: {
+    subFields?: FieldConfig[];
+    addButtonLabel?: string;
+    minItems?: number;
+    maxItems?: number;
+    // ... other repeater specific configs
+  };
+}
 
 interface RenderFieldArrayComponentProps {
-  fieldConfig: FieldConfig;
+  fieldConfig: RepeaterFieldConfig;
   control: any; // Control object from react-hook-form (passed down, but useFieldArray uses it too)
   // register, errors might be needed if passed directly, but context is often easier
 }

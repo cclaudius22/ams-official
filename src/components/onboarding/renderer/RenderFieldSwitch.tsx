@@ -17,7 +17,7 @@ import MockKycTrigger from './fields/MockKycTrigger';
 import MockFileUpload from './fields/MockFileUpload';
 
 // This is a fallback map for backwards compatibility
-const LEGACY_FIELD_MAP = {
+const LEGACY_FIELD_MAP: Record<string, React.ComponentType<any>> = {
   'text': RenderTextInput,
   'textarea': RenderTextArea,
   'date': RenderDatePicker,
@@ -31,8 +31,15 @@ const LEGACY_FIELD_MAP = {
   'file': MockFileUpload,
 };
 
+// Props are intentionally loose: callers pass heterogeneous legacy shapes
+// (FieldRenderer passes `field`; RenderFieldArrayComponent passes `fieldConfig` only)
+interface RenderFieldSwitchProps {
+  field?: any;
+  [key: string]: any;
+}
+
 // This component renders a field based on its type
-const RenderFieldSwitch = ({ field, ...props }) => {
+const RenderFieldSwitch = ({ field, ...props }: RenderFieldSwitchProps) => {
   // Try to get field type from registry first
   const fieldType = getFieldType(field.type);
   

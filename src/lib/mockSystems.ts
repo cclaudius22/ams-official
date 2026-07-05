@@ -110,7 +110,7 @@ const MOCK_DATA = {
   };
   
   function getRandomDelay(system: string) {
-    const delay = SYSTEM_DELAYS[system] || { min: 1000, max: 2000 };
+    const delay = SYSTEM_DELAYS[system as keyof typeof SYSTEM_DELAYS] || { min: 1000, max: 2000 };
     return Math.random() * (delay.max - delay.min) + delay.min;
   }
   
@@ -120,22 +120,22 @@ const MOCK_DATA = {
   
     switch(system) {
       case 'document':
-        return MOCK_DATA.passports[documentId] || { status: "not_found" };
-      
+        return (MOCK_DATA.passports as Record<string, any>)[documentId] || { status: "not_found" };
+
       case 'interpol':
-        return MOCK_DATA.interpol[documentId] || { status: "no_record" };
-      
+        return (MOCK_DATA.interpol as Record<string, any>)[documentId] || { status: "no_record" };
+
       case 'sanctions':
-        return MOCK_DATA.sanctions[documentId] || { listed: false };
-      
+        return (MOCK_DATA.sanctions as Record<string, any>)[documentId] || { listed: false };
+
       case 'immigration':
-        return MOCK_DATA.immigration[documentId] || { status: "no_adverse_history" };
-      
+        return (MOCK_DATA.immigration as Record<string, any>)[documentId] || { status: "no_adverse_history" };
+
       case 'biometric':
-        return MOCK_DATA.biometric[documentId] || { matches: [], confidence: 0 };
-      
+        return (MOCK_DATA.biometric as Record<string, any>)[documentId] || { matches: [], confidence: 0 };
+
       case 'travel':
-        return MOCK_DATA.travelHistory[documentId] || [];
+        return (MOCK_DATA.travelHistory as Record<string, any>)[documentId] || [];
       
       default:
         return { error: "System not available" };
