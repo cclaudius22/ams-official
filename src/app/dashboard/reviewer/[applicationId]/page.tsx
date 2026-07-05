@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useMemo, useEffect } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
+import Link from 'next/link'
 import ApplicationHeader from '@/components/application/ApplicationHeader'
 import RecommendationSummaryPanel from '@/components/application/RecommendationSummaryPanel'
 import GlassBoxTracePanel from '@/components/application/GlassBoxTracePanel'
@@ -110,6 +111,7 @@ function disViewToApplicationData(disView: DISApplicationView, fallbackId: strin
 
 export default function OfficialReviewPage() {
   const params = useParams();
+  const router = useRouter();
   const applicationId = params.applicationId as string;
   // --- State management ---
   const [notes, setNotes] = useState<Record<string, string>>({});
@@ -124,6 +126,15 @@ export default function OfficialReviewPage() {
   const [scanResult, setScanResult] = useState<AIScanResult>(mockScanResult);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Task 5 — per-case ownership guard. The deep review fetch below returns
+  // 403 when the signed-in officer isn't assigned this case (admin bypasses
+  // this entirely, server-side). That's a hard stop: render a dedicated
+  // "not yours" state instead of falling through to the mock-data fallbacks
+  // below (which exist for OTHER failure modes — a 403 must never look like
+  // a loaded case). A 401 means the session is no longer valid — redirect to
+  // sign-in rather than showing any case content.
+  const [accessDenied, setAccessDenied] = useState(false);
 
   // DIS integration state (Phase 2 — task 2.0)
   // disView is the canonical DIS processing result. scanResult above is derived
@@ -152,6 +163,7 @@ export default function OfficialReviewPage() {
 
       setIsLoading(true);
       setError(null);
+      setAccessDenied(false);
 
       // Special case: Demo applications show mock data with full details
       if (demoApplicationIds.includes(applicationId)) {
@@ -173,6 +185,25 @@ export default function OfficialReviewPage() {
       try {
         const reviewRes = await fetch(`/api/ams-demo/applications/${applicationId}/review`);
         if (!active) return;
+
+        // Task 5 — 401: the session is no longer valid. Redirect to sign-in
+        // rather than rendering any case content (mock or otherwise).
+        if (reviewRes.status === 401) {
+          setIsLoading(false);
+          router.push('/signin');
+          return;
+        }
+
+        // Task 5 — 403: this case is assigned to a different officer (admin
+        // bypasses the guard server-side, so this can only mean "not yours").
+        // Stop here — do NOT fall through to the DIS/application-detail
+        // fetches below, which would otherwise paint over this with mock data.
+        if (reviewRes.status === 403) {
+          setAccessDenied(true);
+          setIsLoading(false);
+          return;
+        }
+
         if (reviewRes.ok) {
           const reviewJson = await reviewRes.json();
           if (!active) return;
@@ -291,7 +322,7 @@ export default function OfficialReviewPage() {
     return () => {
       active = false;
     };
-  }, [applicationId]);
+  }, [applicationId, router]);
 
   // --- State for NEW Dialogs ---
   const [showContactDialog, setShowContactDialog] = useState(false);
@@ -426,6 +457,34 @@ export default function OfficialReviewPage() {
 
       return { name, email, phoneNumber };
     }, [applicationData.sections?.passport?.data, applicationData.applicantDetails]); // Dependency on passport data
+
+  // --- Access-denied state (Task 5 — per-case ownership guard) ---
+  // Checked before the loading state: the fetch effect sets isLoading=false
+  // in the same pass it sets accessDenied=true, so by the time either is
+  // read here both are already settled. Never falls through to the mock-data
+  // rendering path below.
+  if (accessDenied) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-50">
+        <div className="max-w-md space-y-4 rounded-lg border bg-white p-8 text-center shadow-sm">
+          <AlertCircle className="mx-auto h-10 w-10 text-amber-500" />
+          <h1 className="text-lg font-semibold text-gray-800">
+            This case is assigned to another officer
+          </h1>
+          <p className="text-sm text-gray-500">
+            You don&apos;t have access to review application {applicationId}. Only the
+            assigned officer (or an admin) can open it.
+          </p>
+          <Link
+            href="/dashboard/reviewer"
+            className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to my queue
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   // --- Loading state ---
   if (isLoading) {
