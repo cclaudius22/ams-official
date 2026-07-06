@@ -4,7 +4,15 @@
 
 ---
 
-## ⏸ RESUME HERE — 5 July 2026 (pit stop, updated): auth phase + 4f COMPLETE; branch **PUSHED** @ `d1683d5`; Tasks 5/6 + acceptance remain; `chore/green-gates` lands post-Task-6
+## ✅ MERGE-READY — 7 July 2026: `feat/jwt-officer-gateway` @ `67ec59c` — all gates green; awaiting Lenny re-audit → Chris merge approval
+
+**Verdict chain @ pushed tip `67ec59c`:** command gates firsthand (vitest **316/24/0** · `tsc --noEmit` **0** · `bun run build` completes · lint **live surfaces 0 errors**, estate debt 164-in-src deferred per Chris) · behavioral acceptance **PASS 8/8** (fresh boot; report `.superpowers/sdd/acceptance-67ec59c.md`) · whole-branch review (most-capable model): **READY TO MERGE = YES**, 0 Critical, 4f covered clean, green-gates deletions zero-importer safe. Task ledger `.superpowers/sdd/progress.md` = full record.
+
+**Open by lane:** LENNY — 3 standing asks (amended design-note re-audit; corpus alpha-2-vs-alpha-3 generator ticket; 4c scenario check w/ Ricardo's empty RFI lane) + this evidence pack. MARSHALL — pre-Cloud-Run security gate list now includes **anonymous data APIs** (`/api/applications`, `/api/assignments/*` — pre-existing, page-gating only); vestigial `@eslint/eslintrc` dep. CHRIS — merge approval; SLA product decision (`docs/cc-notes/2026-07-06-sla-policy-module.md`, 3 concrete tickets, non-blocking); passport-panel "Pakistan (PK)" question. PRE-DEMO — stale 848 backlog constants in Agent 2's analytics tabs (real figure ~869 post-4c). POST-MERGE — hygiene PR batch (ledger triage) + robustness slice (alert()→banner, intake label, top-bar badges, honest OV/DIS empty state on bulk cases).
+
+---
+
+## ⏸ 5 July 2026 (pit stop, updated): auth phase + 4f COMPLETE; branch **PUSHED** @ `d1683d5`; Tasks 5/6 + acceptance remain; `chore/green-gates` lands post-Task-6
 
 **Update 5 Jul (Marshall RC):** `feat/jwt-officer-gateway` pushed to origin @ **`d1683d5`** (upstream set, Chris-approved; `d1683d5` = Gemma quota brief docs; `56650e5` = Task 4f full country names, landed 4 Jul, review deferred to whole-branch). **`chore/green-gates`** (Marshall's lane, worktree `.claude/worktrees/green-gates`): eslint-9 toolchain repair + tsc 76→0 paydown — lands AFTER Task 6; until then Sam keeps reporting the 76 baseline and Tasks 5/6 keep hands off `package.json`/`bun.lock`/`eslint.config.mjs` + the two deleted-orphan files. Sequence to merge-ready: **Task 5 → Task 6 → green-gates + lint slice (Marshall) → §6 acceptance + whole-branch review (scope incl. green-gates diff, 4f, raw-code-surfaces scan) → Lenny re-audit → Chris merge approval.**
 
