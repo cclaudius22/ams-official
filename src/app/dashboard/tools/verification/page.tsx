@@ -28,10 +28,20 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 
+// Loose result shape — each mock system returns different fields (see lib/mockSystems)
+interface SystemCheckResult {
+  status?: string;
+  error?: string;
+  redNotice?: boolean;
+  listed?: boolean;
+  matches?: unknown[];
+  [key: string]: unknown;
+}
+
 export default function VerificationHub() {
   const [documentId, setDocumentId] = useState('');
   const [checkingSystem, setCheckingSystem] = useState<string | null>(null);
-  const [results, setResults] = useState<Record<string, any>>({});
+  const [results, setResults] = useState<Record<string, SystemCheckResult>>({});
   const [showAlert, setShowAlert] = useState(false);
   const [inputType, setInputType] = useState<'passport' | 'name' | 'photo'>('passport');
   const [filePreview, setFilePreview] = useState<string | null>(null);
@@ -178,7 +188,7 @@ export default function VerificationHub() {
     return systemInputType === inputType;
   };
 
-  const formatResult = (result: any) => {
+  const formatResult = (result: SystemCheckResult) => {
     if (!result) return null;
 
     if (result.error)
@@ -400,7 +410,7 @@ export default function VerificationHub() {
   );
 }
 
-function SystemStatus({ isChecking, result }: { isChecking: boolean; result?: any }) {
+function SystemStatus({ isChecking, result }: { isChecking: boolean; result?: SystemCheckResult }) {
   if (isChecking) {
     return (
       <Badge variant="outline" className="bg-blue-100 text-blue-700">

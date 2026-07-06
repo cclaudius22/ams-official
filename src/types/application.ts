@@ -1,5 +1,6 @@
 // src/types/application.ts
 import type { DISApplicationView, DISApplicationStatus, QueueState } from '@/api-contracts/dis';
+import type { TimelineEvent } from '@/api-contracts/applications';
 
 export interface ApplicationStage {
     stage: string;
@@ -16,7 +17,8 @@ export interface ApplicationStage {
   export interface ApplicationSection {
     status: string;
     validationStatus: string;
-    data: any;
+    /** Section payload varies by section type; sectionId identifies which renderer applies */
+    data: { sectionId?: string } & Record<string, unknown>;
     updatedAt: string;
   }
 
@@ -40,8 +42,8 @@ export interface ApplicationStage {
     status: string;
     sections: Record<string, ApplicationSection>;
     progress: ApplicationProgress;
-    metadata: any;
-    timeline: Array<any>;
+    metadata: Record<string, unknown>;
+    timeline: TimelineEvent[];
     // Contact/applicant fields
     applicantDetails?: ApplicantDetails;
     email?: string;

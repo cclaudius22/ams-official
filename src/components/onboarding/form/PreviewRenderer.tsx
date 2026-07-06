@@ -5,11 +5,18 @@ import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
-import { OnboardingConfiguration } from '@/types/onboarding';
+import { OnboardingConfiguration, OnboardingStep } from '@/types/onboarding';
 import RenderStepWrapper from '../renderer/RenderStepWrapper';
+import type { StepConfig } from '../configurator/types';
 
 // Progress indicator component
-const ProgressIndicator = ({ steps, currentStep, onStepChange }) => {
+interface ProgressIndicatorProps {
+  steps: OnboardingStep[];
+  currentStep: number;
+  onStepChange: (stepIndex: number) => void;
+}
+
+const ProgressIndicator = ({ steps, currentStep, onStepChange }: ProgressIndicatorProps) => {
   return (
     <div className="flex items-center justify-between mb-8">
       {steps.map((step, index) => (
@@ -130,8 +137,9 @@ const PreviewRenderer: React.FC<PreviewRendererProps> = ({
             />
             
             {/* Use our registry-enabled RenderStepWrapper */}
-            <RenderStepWrapper 
-              stepConfig={visibleSteps[currentStep]}
+            {/* Legacy shape mismatch (OnboardingStep vs StepConfig); cast preserves existing runtime behavior */}
+            <RenderStepWrapper
+              stepConfig={visibleSteps[currentStep] as unknown as StepConfig}
               mode="preview"
             />
             

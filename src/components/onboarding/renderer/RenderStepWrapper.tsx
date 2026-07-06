@@ -2,7 +2,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import FieldRenderer from './FieldRenderer';
-import { StepConfig } from '../configurator/types';
+import { StepConfig, FieldConfig } from '../configurator/types';
 
 interface RenderStepWrapperProps {
   stepConfig: StepConfig;
@@ -44,18 +44,19 @@ const RenderStepWrapper: React.FC<RenderStepWrapperProps> = ({
     
     // Group condition
     if (condition.type === 'AND' && Array.isArray(condition.conditions)) {
-      return condition.conditions.every(c => evaluateCondition(c, data));
+      return condition.conditions.every((c: any) => evaluateCondition(c, data));
     }
-    
+
     if (condition.type === 'OR' && Array.isArray(condition.conditions)) {
-      return condition.conditions.some(c => evaluateCondition(c, data));
+      return condition.conditions.some((c: any) => evaluateCondition(c, data));
     }
     
     return true;
   };
   
   // Filter fields based on conditional visibility if applicable
-  const visibleFields = stepConfig.fields.filter(field => {
+  // (conditionalVisibility is a legacy runtime property not present on FieldConfig)
+  const visibleFields = stepConfig.fields.filter((field: FieldConfig & { conditionalVisibility?: any }) => {
     // If field has conditional visibility, evaluate it
     if (field.conditionalVisibility) {
       return evaluateCondition(field.conditionalVisibility, formData);

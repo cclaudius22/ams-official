@@ -135,12 +135,16 @@ const PriorityIndicator = ({ priority }: { priority: string }) => {
   );
 };
 
+// Derive record types from the mock data (replace with API types later)
+type ApplicationRecord = (typeof mockApplicationData)[keyof typeof mockApplicationData];
+type CollaborationRecord = (typeof mockCollaborationData)[keyof typeof mockCollaborationData];
+
 export default function ApplicationCollaborationPage() {
   const params = useParams();
   const applicationId = params.applicationId as string;
-  
-  const [application, setApplication] = useState<any>(null);
-  const [collaboration, setCollaboration] = useState<any>(null);
+
+  const [application, setApplication] = useState<ApplicationRecord | null>(null);
+  const [collaboration, setCollaboration] = useState<CollaborationRecord | null>(null);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {

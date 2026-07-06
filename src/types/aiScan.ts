@@ -6,7 +6,7 @@ export interface ScanIssue {
     type: 'missing' | 'invalid' | 'inconsistent' | 'suspicious' | 'incomplete';
     severity: 'low' | 'medium' | 'high' | 'critical';
     message: string;
-    context?: any;
+    context?: Record<string, unknown>;
   }
   
   export interface ScanRecommendation {
