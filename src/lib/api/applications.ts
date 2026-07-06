@@ -5,7 +5,7 @@ export async function getApplication(id: string) {
     return response.json();
   }
   
-  export async function updateApplication(id: string, data: any) {
+  export async function updateApplication(id: string, data: unknown) {
     const response = await fetch(`/api/applications/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },

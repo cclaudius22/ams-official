@@ -52,7 +52,7 @@ export default function AdvancedFilterPanel({
 
   if (!isOpen && !isAnimating) return null;
 
-  const updateFilter = (filterType: keyof LiveQueueFilters, value: any) => {
+  const updateFilter = <K extends keyof LiveQueueFilters>(filterType: K, value: LiveQueueFilters[K]) => {
     setLocalFilters(prev => ({
       ...prev,
       [filterType]: value

@@ -164,7 +164,7 @@ export const mockLiveQueue: LiveApplication[] = [
     visaType: ['Tourist', 'Business', 'Student', 'Work', 'Family'][i % 5],
     category: i % 2 === 0 ? 'Type C' : undefined,
     submittedAt: `${Math.floor(i / 2) + 2} hours ago`,
-    status: ['In Progress', 'Approved', 'Pending', 'Rejected'][i % 4] as any,
+    status: (['In Progress', 'Approved', 'Pending', 'Rejected'] as const)[i % 4],
     assignedTo: i % 3 === 0 ? undefined : {
       id: mockOfficials[i % mockOfficials.length].id,
       name: mockOfficials[i % mockOfficials.length].name

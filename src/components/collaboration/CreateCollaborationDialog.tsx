@@ -47,10 +47,30 @@ const mockTeamMembers = [
   { id: 'user-6', name: 'Thomas Brown', role: 'Security Specialist', avatar: null }
 ];
 
+export interface CollaborationParticipant {
+  id: string;
+  name: string;
+  role: string;
+  avatar: string | null;
+}
+
+export interface CollaborationData {
+  id: string;
+  applicationId: string;
+  applicantName: string;
+  status: string;
+  priority: string;
+  lastActivity: string;
+  participants: CollaborationParticipant[];
+  pendingTasks: number;
+  completedTasks: number;
+  description?: string;
+}
+
 interface CreateCollaborationDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCreateCollaboration: (collaborationData: any) => void;
+  onCreateCollaboration: (collaborationData: CollaborationData) => void;
 }
 
 export default function CreateCollaborationDialog({ 

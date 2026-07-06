@@ -165,7 +165,7 @@ const ChatInputForm = ({
          // A simple way is to get the form element and call requestSubmit()
          // or pass the onSubmit function down and call it directly.
          // Let's pass onSubmit directly for simplicity here.
-         onSubmit(e as any); // Cast needed as it's not a true form event origin
+         onSubmit(e as React.FormEvent); // Cast needed as it's not a true form event origin
       }
     }
   };
@@ -339,13 +339,13 @@ export function RAGChat() {
         citations: data.citations // Expecting citations from the backend
       }]);
 
-    } catch (error: any) {
+    } catch (error) {
       console.error('Chat submission error:', error);
       setIsLoading(false); // Ensure loading is off on error
       // Add error message to chat
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: `Sorry, I encountered an error: ${error.message || 'Please try again.'}`
+        content: `Sorry, I encountered an error: ${error instanceof Error && error.message ? error.message : 'Please try again.'}`
       }]);
     }
     // Note: scrollToBottom will be triggered by the useEffect watching `messages` and `isLoading`

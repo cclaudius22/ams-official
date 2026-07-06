@@ -11,13 +11,9 @@ import OfficerSwitcher from './OfficerSwitcher';
 import { usePathname } from 'next/navigation'; // To conditionally show back button
 import { useOfficer, getOfficerFullName, getOfficerInitials } from '@/contexts/OfficerContext';
 
-interface DashboardHeaderProps {
-  // Props to customize header content if needed later
-  // userName?: string;
-  // userRole?: string;
-}
-
-export default function DashboardHeader({}: DashboardHeaderProps) {
+// Takes no props yet — add a DashboardHeaderProps interface here when the
+// header needs customisation (e.g. userName, userRole).
+export default function DashboardHeader() {
   const pathname = usePathname();
   const { currentOfficer, isLoading } = useOfficer();
   // Example state for availability - move to global state/context later if needed across app

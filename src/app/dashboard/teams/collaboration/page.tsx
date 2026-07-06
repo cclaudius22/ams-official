@@ -16,7 +16,7 @@ import {
   AlertTriangle,
   Plus
 } from 'lucide-react';
-import CreateCollaborationDialog from '@/components/collaboration/CreateCollaborationDialog';
+import CreateCollaborationDialog, { CollaborationData, CollaborationParticipant } from '@/components/collaboration/CreateCollaborationDialog';
 
 // Mock data for collaborations
 const mockCollaborations = [
@@ -116,7 +116,7 @@ const PriorityIndicator = ({ priority }: { priority: string }) => {
 };
 
 // Participant avatars component
-const ParticipantAvatars = ({ participants }: { participants: any[] }) => {
+const ParticipantAvatars = ({ participants }: { participants: CollaborationParticipant[] }) => {
   const maxDisplay = 3;
   const displayParticipants = participants.slice(0, maxDisplay);
   const remaining = participants.length - maxDisplay;
@@ -148,7 +148,7 @@ const ParticipantAvatars = ({ participants }: { participants: any[] }) => {
 export default function CollaborationHubPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
-  const [collaborations, setCollaborations] = useState(mockCollaborations);
+  const [collaborations, setCollaborations] = useState<CollaborationData[]>(mockCollaborations);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   
   // Filter collaborations based on search query and status filter
