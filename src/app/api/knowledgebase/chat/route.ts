@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 // Removed OpenAI import: import { OpenAI } from 'openai';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai'; // <-- Import Google AI SDK
 
-// ---> Use require for the CommonJS module <---
-const { retrieveRelevantChunks } = require('@/lib/api/visaRag'); // Adjust path if needed
+// ---> Import from the CommonJS module <---
+import { retrieveRelevantChunks } from '@/lib/api/visaRag'; // Adjust path if needed
 
 // ---> Import visa data source <---
 import { ukVisaTypes, VisaType } from '@/lib/mockvisas'; 
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
       relevantChunks = await retrieveRelevantChunks(searchQuery, "local", RAG_TOP_N, null);
       console.log(`[API Route] RAG retrieved ${relevantChunks.length} chunks based on semantic similarity.`);
       if (relevantChunks.length > 0) console.log(`[API Route] Top RAG chunk score: ${relevantChunks[0].score?.toFixed(4)}`);
-    } catch (error: any) { /* ... error handling ... */ relevantChunks = []; }
+    } catch { /* ... error handling ... */ relevantChunks = []; }
 
     // 4. Build Context String for LLM
     const context = relevantChunks.length > 0
@@ -135,10 +135,10 @@ User Question: ${message}`;
              answer = "Sorry, there was an issue communicating with the AI service.";
         }
 
-    } catch(error: any) {
+    } catch(error) {
         console.error("[API Route] Error calling Google Gemini API:", error);
         // Provide a generic error message to the client
-        answer = `Sorry, an error occurred while processing your request with the AI service. ${error.message || ''}`;
+        answer = `Sorry, an error occurred while processing your request with the AI service. ${error instanceof Error && error.message ? error.message : ''}`;
          // Optionally, you could return a 500 error here instead of just changing the answer text
         // return NextResponse.json({ error: `Failed to process chat request via Gemini: ${error.message}` }, { status: 500 });
     }
@@ -155,10 +155,10 @@ User Question: ${message}`;
       // citations: undefined // Explicitly not sending citations
     });
 
-  } catch (err: any) {
+  } catch (err) {
     // Catch errors from RAG or other parts before the Gemini call
     console.error('[API Route] Unhandled Error in POST handler:', err);
-    const errorMessage = err.message || 'An internal server error occurred.';
+    const errorMessage = err instanceof Error && err.message ? err.message : 'An internal server error occurred.';
     const clientErrorMessage = process.env.NODE_ENV === 'production'
       ? 'An internal server error occurred while processing your request.'
       : `Failed to process chat request: ${errorMessage}`;

@@ -60,7 +60,12 @@ export default function MessagesPage() {
     }, [allThreads]);
 
     // Handle sending a new message
-    const handleSendMessage = (messageData: any) => {
+    const handleSendMessage = (messageData: {
+        recipient: MessageSender;
+        subject: string;
+        body: string;
+        attachments?: File[];
+    }) => {
         // In a real implementation, this would call an API
         console.log('Sending message:', messageData);
         
@@ -85,7 +90,7 @@ export default function MessagesPage() {
                     body: messageData.body,
                     timestamp: new Date().toISOString(),
                     read: true,
-                    attachments: messageData.attachments ? messageData.attachments.map((file: any) => ({
+                    attachments: messageData.attachments ? messageData.attachments.map((file) => ({
                         name: file.name,
                         url: '#',
                         size: `${Math.round(file.size / 1024)} KB`

@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import {
   Clock, Search, Filter, RefreshCw, UserCog,
-  ChevronLeft, ChevronRight, Download, Loader2, Sparkles, Wand2, CheckCircle, XCircle, RotateCcw
+  ChevronLeft, ChevronRight, Download, Inbox, Loader2, Sparkles, Wand2, CheckCircle, XCircle, RotateCcw
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
@@ -22,6 +22,7 @@ import { LiveApplication, LiveQueueFilters, LiveQueueStats } from '@/types/liveQ
 import { ConsulateOfficial } from '@/api-contracts/users'
 import type { AutoAssignResult } from '@/app/api/assignments/auto-assign-all/route'
 import type { ProcessIntakeResult } from '@/app/api/assignments/process-intake/route'
+import { formatCountry } from '@/lib/formatCountry'
 
 // Calculate queue stats from applications
 function calculateQueueStats(applications: LiveApplication[] | undefined): LiveQueueStats {
@@ -471,7 +472,7 @@ export default function LiveQueuePage() {
               <Button
                 onClick={handleProcessIntake}
                 disabled={isProcessing}
-                className="bg-violet-600 hover:bg-violet-700 text-white"
+                className="bg-[#2d5a9e] hover:bg-[#1c3d73] text-white"
               >
                 {isProcessing ? (
                   <>
@@ -480,7 +481,7 @@ export default function LiveQueuePage() {
                   </>
                 ) : (
                   <>
-                    <Sparkles className="h-4 w-4 mr-2" />
+                    <Inbox className="h-4 w-4 mr-2" />
                     Process intake ({applications.length})
                   </>
                 )}
@@ -600,7 +601,11 @@ export default function LiveQueuePage() {
                   paginatedApplications.map(application => (
                     <ApplicationRow
                       key={application.id}
-                      application={application}
+                      // Display-only: officers see the full country name, not the ISO
+                      // code. `application` here is a render-time copy — the underlying
+                      // `applications` state (and all filter/comparison logic, which
+                      // reads from that state) keeps the raw code untouched.
+                      application={{ ...application, country: formatCountry(application.country) }}
                       isSelected={selectedApplications.includes(application.id)}
                       onCheckboxChange={() => toggleApplicationSelection(application.id)}
                     />

@@ -41,17 +41,27 @@ import { mapRfiQueueItem } from './rfiQueueAdapter'
 import type { RfiLaneItem, RfiQueueCapable } from './rfiQueueAdapter'
 
 /**
+ * Task 4c (Chris directive): Rachel Johnson (officer-demo) is the single demo
+ * officer for enriched deep review — ALL 18 deep_set cases are hers, assigned
+ * at initialize() (see `assignDeepSetCasesToRachel`). She is excluded from
+ * bulk allocation (`excludeFromBulkAllocation` on her seed record, enforced by
+ * `allocateBatch`), so her queue contains ONLY these 18 — no Global Talent,
+ * Student, Senior/Specialist, or bulk skilled-worker apps.
+ */
+const DEEP_SET_OFFICER_ID = 'officer-demo'
+
+/**
  * Pre-auth ownership convention: the corpus models no officer assignment on the
- * deep_set RFI heroes (`caseworker_id` is null). Until the auth phase wires real
- * per-officer ownership, the three HO-SW skilled-worker heroes are split across
- * the two skilled-worker demo officers by case id — both Rachel Johnson
- * (officer-demo) and Ricardo Martinez (officer-2) hold a skilled-worker
- * specialisation. Officers not listed here get an empty lane.
+ * deep_set RFI heroes (`caseworker_id` is null). All 3 RFI-enabled heroes route
+ * to Rachel Johnson (officer-demo) per Task 4c — including 00014, moved off
+ * Ricardo Martinez (officer-2) so Rachel's RFI lane is complete and Ricardo's
+ * RFI lane goes empty (Chris approved). Officers not listed here get an empty
+ * lane.
  */
 const RFI_LANE_ASSIGNMENTS: Record<string, string> = {
   'HO-SW-DEEP-2026-00012': 'officer-demo', // Rachel Johnson — missing payslip month 2
   'HO-SW-DEEP-2026-00013': 'officer-demo', // Rachel Johnson — insufficient bank statement month 2
-  'HO-SW-DEEP-2026-00014': 'officer-2', // Ricardo Martinez — CoS salary mismatch
+  'HO-SW-DEEP-2026-00014': 'officer-demo', // Rachel Johnson — CoS salary mismatch (moved from officer-2, Task 4c)
 }
 
 export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCapable, RfiQueueCapable {
@@ -92,6 +102,30 @@ export class AmsDemoProvider implements ApplicationDataProvider, DeepSetReviewCa
     }
     this.initialized = true
     console.log(`[AmsDemoProvider] Loaded ${this.cache.size} apps (bulk only; documents not read)`)
+
+    // Task 4c — surface the 18 deep_set cases in the main queue too, dedicated
+    // to Rachel Johnson (officer-demo). Without this they're only reachable via
+    // getDeepSetReview()/getRfiQueue(); the queue/allocation layer (and hence
+    // GET /api/applications) never saw them. Loaded eagerly here (not lazily)
+    // so `assignedTo=officer-demo` returns exactly these 18 from cold start.
+    await this.assignDeepSetCasesToRachel()
+  }
+
+  /**
+   * Loads the deep_set corpus into the main application cache (same mapper as
+   * bulk — the raw shape is corpus-compatible) and pre-assigns every case to
+   * Rachel Johnson (officer-demo). Idempotent: safe to call once from
+   * initialize(); ensureDeepSetLoaded() guards the underlying file read.
+   */
+  private async assignDeepSetCasesToRachel(): Promise<void> {
+    await this.ensureDeepSetLoaded()
+    for (const [id, raw] of this.deepSetRaw) {
+      if (!this.cache.has(id)) {
+        const live = mapDisAlignedApp(raw)
+        if (live.id) this.cache.set(live.id, live)
+      }
+      this.assignments.set(id, DEEP_SET_OFFICER_ID)
+    }
   }
 
   isInitialized(): boolean {

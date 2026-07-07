@@ -4,6 +4,30 @@
 
 ---
 
+## ✅ MERGE-READY — 7 July 2026: `feat/jwt-officer-gateway` @ `67ec59c` — all gates green; awaiting Lenny re-audit → Chris merge approval
+
+**Verdict chain @ pushed tip `67ec59c`:** command gates firsthand (vitest **316/24/0** · `tsc --noEmit` **0** · `bun run build` completes · lint **live surfaces 0 errors**, estate debt 164-in-src deferred per Chris) · behavioral acceptance **PASS 8/8** (fresh boot; report `.superpowers/sdd/acceptance-67ec59c.md`) · whole-branch review (most-capable model): **READY TO MERGE = YES**, 0 Critical, 4f covered clean, green-gates deletions zero-importer safe. Task ledger `.superpowers/sdd/progress.md` = full record.
+
+**Open by lane:** LENNY — 3 standing asks (amended design-note re-audit; corpus alpha-2-vs-alpha-3 generator ticket; 4c scenario check w/ Ricardo's empty RFI lane) + this evidence pack. MARSHALL — pre-Cloud-Run security gate list now includes **anonymous data APIs** (`/api/applications`, `/api/assignments/*` — pre-existing, page-gating only); vestigial `@eslint/eslintrc` dep. CHRIS — merge approval; SLA product decision (`docs/cc-notes/2026-07-06-sla-policy-module.md`, 3 concrete tickets, non-blocking); passport-panel "Pakistan (PK)" question. PRE-DEMO — stale 848 backlog constants in Agent 2's analytics tabs (real figure ~869 post-4c). POST-MERGE — hygiene PR batch (ledger triage) + robustness slice (alert()→banner, intake label, top-bar badges, honest OV/DIS empty state on bulk cases).
+
+---
+
+## ⏸ 5 July 2026 (pit stop, updated): auth phase + 4f COMPLETE; branch **PUSHED** @ `d1683d5`; Tasks 5/6 + acceptance remain; `chore/green-gates` lands post-Task-6
+
+**Update 5 Jul (Marshall RC):** `feat/jwt-officer-gateway` pushed to origin @ **`d1683d5`** (upstream set, Chris-approved; `d1683d5` = Gemma quota brief docs; `56650e5` = Task 4f full country names, landed 4 Jul, review deferred to whole-branch). **`chore/green-gates`** (Marshall's lane, worktree `.claude/worktrees/green-gates`): eslint-9 toolchain repair + tsc 76→0 paydown — lands AFTER Task 6; until then Sam keeps reporting the 76 baseline and Tasks 5/6 keep hands off `package.json`/`bun.lock`/`eslint.config.mjs` + the two deleted-orphan files. Sequence to merge-ready: **Task 5 → Task 6 → green-gates + lint slice (Marshall) → §6 acceptance + whole-branch review (scope incl. green-gates diff, 4f, raw-code-surfaces scan) → Lenny re-audit → Chris merge approval.**
+
+**State:** branch `feat/jwt-officer-gateway` (off `main` @ `a735679`). **9 Sam commits** (`77fbc6b..e89bee5`), every task review-gated via subagent-driven-development (4e verdict was in flight at park — **authoritative task state = `.superpowers/sdd/progress.md`**, the gitignored ledger; read it before dispatching ANYTHING). **+3 Agent-2 charting commits** (`d089355`, `4f75063`, `5c49d1f`) — **mixed-lane branch**; Marshall collects Agent 2's release notes separately. Suite **275 pass / 24 skip**, `tsc --noEmit` **76 baseline (0 new)**. Run: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev`.
+
+**Landed (Sam):** JWT two-login (seeded officer/admin, **branded `/signin`** per landing design system) · **demo-wide route access for BOTH roles** (Chris 3 Jul — design-note §3 amendment; exec-no-PII *deferred not abandoned*; unauth still bounced, authed `/signin` bounces to role landing) · **act-as officer switching** (session-required after security review `e89bee5`; switcher reverts + surfaces failed re-mints) · **Rachel Johnson = dedicated deep-review officer** (all 18 `HO-SW-DEEP-*` incl. 00014 moved off Ricardo; bulk-exempt via seed flag + `allocateBatch`; **no-fallback guarantee test** pins 18/18 real DIS+OV) · **queue country = applicant nationality** (source order `passport_data.nationality → issuing_country → nationality_code`, pass-through, filters follow).
+
+**Lenny asks (pit-stop handoff):** (1) **re-audit the amended design note** — demo-wide access supersedes his audited exec-no-PII premise; his finding #5 (ownership guard) NOT yet landed (= Task 5); (2) **corpus canon deviation** — all 1,018 records carry ISO-2 in structured nationality fields while their own MRZ strings (and DIS canon per Confluence DD/41582602 + DDL `CHAR(3)`) are alpha-3 → generator ticket is his call; AMS adapter is pass-through + alpha-3-pinned either way; (3) **4c scenario check** — 00014→Rachel empties Ricardo's RFI lane; confirm corpus scenario intent survives.
+
+**NEXT (in order):** Task 4f (full country names in queue UI via `Intl.DisplayNames`; codes stay in data) → Task 5 (per-case ownership guard **with admin bypass** per amendment + token-first `officerId` in `/api/ams-demo/rfis`) → Task 6 (gateway doorway tiles; derive counts — kills the hardcoded "23") → spec §6 acceptance run (as amended: no admin-PII-redirect step) + whole-branch review + evidence pack. Then Chris-approved follow-ups: livequeue robustness slice (alert()→banner, intake-count label, sidebar badges, honest OV/DIS empty state on bulk cases — the "Rani Kumari" fallback) and the server-pagination decision.
+
+**Known at park:** OV panel on bulk (non-deep_set) cases still shows the synthetic Rani narrative (LB-6, Chris-approved to fix in the robustness slice, deep_set unaffected). Stray untracked `docs/devdocs/gemma4-azure-inference-quota.md` appeared 3 Jul — not Sam's, owner unknown (likely OV/Azure LB-6 work), left untouched.
+
+---
+
 ## ⏸ RESUME HERE — 1 July 2026: landing re-skin + officer RFI lane LANDED; branch merge-ready @ `62e98d0`; auth/gateway build = FRESH CHAT
 
 **State:** branch `feat/dis-integration-v3` **pushed & in sync at HEAD `62e98d0`**. Marshall (RC) release pass = **GREEN, merge-ready**; merge-to-main pending Chris's named approval (**clean fast-forward** — `main` `4690f3b` is a direct ancestor). Run: `DATA_PROVIDER=ams-demo AMS_DEMO_CORPUS_PATH=data/demo-corpus PORT=3000 bun run dev`.

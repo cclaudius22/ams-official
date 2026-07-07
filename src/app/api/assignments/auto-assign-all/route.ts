@@ -12,8 +12,9 @@
 import { NextResponse } from 'next/server'
 import { getDataProvider } from '@/data/providers'
 import { allocateBatch, type AllocatableApp } from '@/services/assignment/allocate-batch'
+import { OFFICER_DAILY_DECISION_CAP } from '@/lib/officerQueue'
 
-const CAP_PER_OFFICER = 25
+const CAP_PER_OFFICER = OFFICER_DAILY_DECISION_CAP
 
 export interface AutoAssignResult {
   assigned: number

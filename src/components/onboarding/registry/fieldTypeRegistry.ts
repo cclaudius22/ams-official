@@ -10,6 +10,9 @@ export interface FieldTypeDefinition {
   formComponent: ComponentType<any>;
   previewComponent: ComponentType<any>;
   defaultProps: Record<string, any>;
+  hasOptions?: boolean;
+  hasConditionalLogic?: boolean;
+  hasCustomValidation?: boolean;
 }
 
 const fieldTypeRegistry: Record<string, FieldTypeDefinition> = {};

@@ -1,25 +1,36 @@
 /**
  * Chart theme — the single source of truth for chart colour.
  *
- * Replaces the per-file palettes that were scattered across the dashboard
- * (`SUBTLE_COLORS` ×2, `COLORS`, `BLUE_GREEN_SCHEME`, `CATEGORICAL_SCHEME`,
- * `STATUS_COLORS`, `VISA_COLORS`, `AREA_/SLA_CHART_COLORS`). Every chart
- * primitive resolves colour from here so the estate reads as one system.
+ * Quiet-estate register (Chris, 3 Jul 2026): colour appears only where it carries
+ * meaning. Visa types are ALL one ink — identity comes from labels, not hue — and
+ * the semantic set is muted to deep, editorial tones. Every value here passed the
+ * dataviz validator (lightness band, chroma floor, CVD separation, 3:1 contrast on
+ * white); see docs/cc-notes/2026-07-03-quiet-estate-palette.md before changing one.
  *
  * Canon: this is aggregate-analytics colour only. The recommendation enum is
  * consumed from the published contract — never re-declared here.
  */
 import type { RecommendationOutcome } from '@/api-contracts/queue-contract'
 
-/** Canonical categorical series palette (Tailwind *-400 family, dark-mode friendly). */
+/**
+ * The one chart ink — every visa type, every single-series mark. Deep ink blue
+ * (Chris's pick, 3 Jul, after seeing the brand-indigo alternative live; the Backlog
+ * heatmap keeps its own indigo by his explicit instruction).
+ */
+export const CHART_INK = '#2d5a9e'
+
+/**
+ * Categorical palette for the rare chart with GENUINE multi-category identity
+ * (e.g. reason donuts). Slot 1 is the ink; order is the CVD-safety mechanism
+ * (validated adjacent ΔE 12.3 under protanopia/deuteranopia) — don't reorder.
+ */
 export const CHART_PALETTE: string[] = [
-  '#60a5fa', // blue-400
-  '#34d399', // emerald-400
-  '#facc15', // yellow-400
-  '#fb923c', // orange-400
-  '#a78bfa', // violet-400
-  '#fb7185', // rose-400
-  '#9ca3af', // gray-400
+  '#2d5a9e', // ink blue (= CHART_INK)
+  '#ad8737', // bronze ochre
+  '#54439c', // dark violet
+  '#0e8a72', // deep teal
+  '#cf7099', // dusty rose
+  '#4a7a3d', // moss
 ]
 
 /** Stable, wrapping colour for the nth series. Handles negative indices safely. */
@@ -29,69 +40,66 @@ export function seriesColor(index: number): string {
   return CHART_PALETTE[i]
 }
 
-/** Deterministic string → palette index (fallback colouring for unrecognised keys). */
-function hashIndex(s: string, mod: number): number {
-  let h = 0
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0
-  return h % mod
+/**
+ * One-hue ordinal ramp of the ink, light→dark (validated: monotone L, ΔL ≥ 0.06,
+ * light end ≥ 2:1 on white). For ordered categories — process stages, tiers — and
+ * any future stacked-by-visa-type surface (visa types stay one HUE by rule).
+ */
+export const INK_RAMP: string[] = ['#8fb0d9', '#6f94c4', '#4f77ae', '#2d5a9e', '#1c3d73']
+
+/** Ramp step for category `index` of `count`: first category darkest, spreading lighter. */
+export function inkStep(index: number, count: number): string {
+  const last = INK_RAMP.length - 1
+  const t = count <= 1 ? 0 : Math.min(Math.max(index, 0), count - 1) / (count - 1)
+  return INK_RAMP[last - Math.round(t * last)]
 }
 
 /**
- * Stable colour per canonical visa type — the same hue everywhere a type appears
- * (e.g. skilled_worker is always indigo). Keyed by the registry's canonical key.
- * A cohesive jewel family, deliberately offset from the reserved semantic hues.
+ * Every visa type wears the chart ink — all one colour (identity is the row/legend
+ * label's job). Keyed API kept so call-sites and any future per-type exceptions
+ * don't churn; unknown keys get the same ink, never a fallback rainbow.
  */
-const VISA_TYPE_COLOR_MAP: Record<string, string> = {
-  skilled_worker_visa: '#6366f1', // indigo — hero (the live phase-1 route)
-  student_visa: '#0ea5e9', // sky
-  senior_specialist_worker_visa: '#8b5cf6', // violet
-  spouse_partner_visa: '#14b8a6', // teal
-  global_talent_visa: '#ec4899', // pink
-  innovator_founder_visa: '#f59e0b', // amber
-}
-
-export function visaTypeColor(visaTypeId: string): string {
-  return VISA_TYPE_COLOR_MAP[visaTypeId] ?? seriesColor(hashIndex(visaTypeId, CHART_PALETTE.length))
+export function visaTypeColor(_visaTypeId: string): string {
+  return CHART_INK
 }
 
 /** Reserved semantic colours — fixed meaning, never used as decorative series colours. */
 export const SEMANTIC_COLORS = {
-  positive: '#10b981', // emerald-500 — approve / terminal positive
-  negative: '#ef4444', // red-500 — reject / terminal negative
-  warning: '#f59e0b', // amber-500 — manual review / pending / waiting
-  info: '#3b82f6', // blue-500 — in progress
+  positive: '#1f5f40', // deep forest — approve / terminal positive
+  negative: '#7f2422', // oxblood — reject / terminal negative
+  warning: '#d47a16', // saffron — manual review / pending / waiting
+  info: '#6b93c4', // slate blue — in progress
   neutral: '#94a3b8', // slate-400 — other / unknown
 } as const
 
 /** Semantic colour for the queue lifecycle, bucketed by meaning. */
 const STATUS_COLOR_MAP: Record<string, string> = {
-  // pre-decision / waiting → amber
-  Received: '#f59e0b',
-  Processed: '#f59e0b',
-  Pending: '#f59e0b',
-  'Pending Assignment': '#f59e0b',
-  'Awaiting Allocation': '#f59e0b',
-  'Awaiting Info': '#f59e0b',
-  // in flight → blue
-  'In Progress': '#3b82f6',
-  Escalated: '#3b82f6',
-  // terminal positive → emerald
-  Approved: '#10b981',
-  Decided: '#10b981',
-  // terminal negative → red
-  Rejected: '#ef4444',
+  // pre-decision / waiting → saffron
+  Received: SEMANTIC_COLORS.warning,
+  Processed: SEMANTIC_COLORS.warning,
+  Pending: SEMANTIC_COLORS.warning,
+  'Pending Assignment': SEMANTIC_COLORS.warning,
+  'Awaiting Allocation': SEMANTIC_COLORS.warning,
+  'Awaiting Info': SEMANTIC_COLORS.warning,
+  // in flight → slate blue
+  'In Progress': SEMANTIC_COLORS.info,
+  Escalated: SEMANTIC_COLORS.info,
+  // terminal positive → forest
+  Approved: SEMANTIC_COLORS.positive,
+  Decided: SEMANTIC_COLORS.positive,
+  // terminal negative → oxblood
+  Rejected: SEMANTIC_COLORS.negative,
 }
-const STATUS_FALLBACK = '#9ca3af' // gray-400
 
 export function statusColor(status: string): string {
-  return STATUS_COLOR_MAP[status] ?? STATUS_FALLBACK
+  return STATUS_COLOR_MAP[status] ?? SEMANTIC_COLORS.neutral
 }
 
 /** Recommendation → semantic colour. Consumes the canonical enum (never re-declared). */
 const RECOMMENDATION_COLOR_MAP: Record<RecommendationOutcome, string> = {
-  RECOMMEND_APPROVE: '#10b981', // emerald-500
-  RECOMMEND_REJECT: '#ef4444', // red-500
-  MANUAL_REVIEW: '#f59e0b', // amber-500
+  RECOMMEND_APPROVE: SEMANTIC_COLORS.positive,
+  RECOMMEND_REJECT: SEMANTIC_COLORS.negative,
+  MANUAL_REVIEW: SEMANTIC_COLORS.warning,
 }
 
 export function recommendationColor(outcome: RecommendationOutcome): string {

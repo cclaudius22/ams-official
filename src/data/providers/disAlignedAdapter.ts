@@ -28,6 +28,28 @@ export function deriveRecommendation(raw: { recommendation?: unknown; anomaly_ty
   return ANOMALY_TO_REC[anomaly] ?? 'MANUAL_REVIEW'
 }
 
+/**
+ * Applicant nationality / passport country, in source order:
+ * passport_data.nationality → passport_data.issuing_country → applicant.nationality_code.
+ * Deliberately does NOT read `country_code` — in this corpus that field is the
+ * UK/destination context (always "GB"), not the applicant's nationality.
+ * Falls back to 'Unknown' when none of the sources are present.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function resolveApplicantCountry(raw: any): string {
+  const candidates = [
+    raw?.passport_data?.nationality,
+    raw?.passport_data?.issuing_country,
+    raw?.applicant?.nationality_code,
+  ]
+  for (const candidate of candidates) {
+    if (typeof candidate === 'string' && candidate.trim().length > 0) {
+      return candidate
+    }
+  }
+  return 'Unknown'
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function mapDisAlignedApp(raw: any): LiveApplication {
   const visaTypeId = normalizeVisaType(String(raw?.visa_type ?? '')) ?? String(raw?.visa_type ?? 'unknown')
@@ -36,7 +58,7 @@ export function mapDisAlignedApp(raw: any): LiveApplication {
   return {
     id: String(raw?.source_application_id ?? ''),
     applicantName: `${first} ${last}`.trim(),
-    country: String(raw?.country_code ?? ''),
+    country: resolveApplicantCountry(raw),
     visaType: visaTypeLabel(visaTypeId),
     submittedAt: String(raw?.submitted_at ?? ''),
     status: 'Received',

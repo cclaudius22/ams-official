@@ -54,4 +54,17 @@ describe('allocateBatch', () => {
     expect(r.assignments.every((a) => a.officerId === null)).toBe(true)
     expect(r.byOfficer['ken']).toBeUndefined()
   })
+
+  // Task 4c — Rachel Johnson (officer-demo) is the dedicated deep-review
+  // officer: her reviewer queue must contain ONLY the 18 deep_set cases, so
+  // bulk allocation must skip her even though she specializes in
+  // skilled_worker_visa and would otherwise be the least-loaded eligible pick.
+  it('skips officers flagged excludeFromBulkAllocation, even when they are the least-loaded specialist', () => {
+    const rachel = { ...off('officer-demo', ['skilled_worker_visa'], 0), excludeFromBulkAllocation: true as const }
+    const ricardo = off('officer-2', ['skilled_worker_visa'], 10)
+    const r = allocateBatch(apps(5), [rachel, ricardo], { capPerOfficer: 30 })
+    expect(r.byOfficer['officer-demo']).toBeUndefined()
+    expect(r.assignments.every((a) => a.officerId === 'officer-2')).toBe(true)
+    expect(r.byOfficer['officer-2'].count).toBe(5)
+  })
 })

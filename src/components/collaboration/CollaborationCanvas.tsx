@@ -20,7 +20,7 @@ import ActivityTimeline from './ActivityTimeline';
 
 interface CollaborationCanvasProps {
   applicationId: string;
-  applicationData?: any; // Replace with proper type
+  applicationData?: unknown; // Replace with proper type (currently unused by the canvas)
 }
 
 export default function CollaborationCanvas({ applicationId, applicationData }: CollaborationCanvasProps) {

@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { X } from 'lucide-react'
 import { LiveQueueFilters } from '@/types/liveQueue'
+import { formatCountry } from '@/lib/formatCountry'
 
 interface AdvancedFilterPanelProps {
   isOpen: boolean
@@ -51,7 +52,7 @@ export default function AdvancedFilterPanel({
 
   if (!isOpen && !isAnimating) return null;
 
-  const updateFilter = (filterType: keyof LiveQueueFilters, value: any) => {
+  const updateFilter = <K extends keyof LiveQueueFilters>(filterType: K, value: LiveQueueFilters[K]) => {
     setLocalFilters(prev => ({
       ...prev,
       [filterType]: value
@@ -174,7 +175,7 @@ export default function AdvancedFilterPanel({
                       className="cursor-pointer hover:bg-primary/50"
                       onClick={() => toggleArrayFilter('country', country)}
                     >
-                      {country}
+                      {formatCountry(country)}
                     </Badge>
                   ))}
                 </div>

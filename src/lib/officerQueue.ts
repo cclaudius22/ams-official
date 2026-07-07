@@ -54,6 +54,13 @@ const STATUS_TAB: Record<string, ApplicationReview['status']> = {
 
 export const SLA_WORKING_DAYS = 15
 
+/**
+ * A day's DECISION capacity per officer (docs/devdocs/officer-capacity-model.md; provisional —
+ * firm up with UKVI). Single source for the allocator cap AND any capacity-scaled display
+ * (e.g. the Officer-Workload chart bands) so the two can't drift apart.
+ */
+export const OFFICER_DAILY_DECISION_CAP = 25
+
 /** Days remaining against the 15-working-day standard (calendar-day approximation for the demo). `null` if no date. */
 export function slaDaysRemaining(submittedAt: string | undefined, now: Date, slaDays = SLA_WORKING_DAYS): number | null {
   if (!submittedAt) return null

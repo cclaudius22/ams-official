@@ -4,8 +4,15 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useOfficer, getOfficerFullName, getOfficerInitials, getRoleDisplayName } from '@/contexts/OfficerContext';
+import { usePathname, useRouter } from 'next/navigation';
+import {
+  useOfficer,
+  getOfficerFullName,
+  getOfficerInitials,
+  getRoleDisplayName,
+  STORAGE_KEY as OFFICER_STORAGE_KEY,
+} from '@/contexts/OfficerContext';
+import { useOfficerQueueCount } from '@/hooks/useOfficerQueueCount';
 
 interface NavSectionProps {
   title: string;
@@ -82,12 +89,37 @@ const NavLink: React.FC<NavLinkProps> = ({
 };
 
 export default function SidebarNavigation() {
+  const router = useRouter();
   const { currentOfficer, isLoading } = useOfficer();
 
   // Get officer display info
   const officerName = currentOfficer ? getOfficerFullName(currentOfficer) : 'Loading...';
   const officerInitials = currentOfficer ? getOfficerInitials(currentOfficer) : '...';
   const officerRole = currentOfficer ? getRoleDisplayName(currentOfficer.role) : '';
+
+  // Task 6 — "My Queue 23" was a hardcoded fake badge. Real count, shared with
+  // the gateway's "My Queue" tile via the same /api/applications total field
+  // (cheapest fetch: pageSize=1, fail-quiet — the sidebar renders on every
+  // /dashboard page). `String(...)` so a genuine 0 still renders (NavLink
+  // treats a falsy badge as "no badge", and the number 0 is falsy).
+  const { count: queueCount } = useOfficerQueueCount(currentOfficer?.id);
+  const queueBadge = queueCount !== null ? String(queueCount) : undefined;
+
+  // Demo-only: clear the server auth cookie, drop the locally-remembered
+  // officer selection so a fresh sign-in doesn't inherit the old one, then
+  // send the user to /signin. The cookie clear is awaited so the following
+  // navigation is gated correctly by src/middleware.ts (no stale-cookie
+  // window where /signin would bounce straight back to the dashboard).
+  async function handleLogout() {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch {
+      // Demo-only: proceed to /signin even if the network call fails —
+      // a logout click should never get stuck.
+    }
+    window.localStorage.removeItem(OFFICER_STORAGE_KEY);
+    router.push('/signin');
+  }
 
   return (
     <div className="w-64 bg-white border-r h-screen overflow-y-auto">
@@ -112,12 +144,12 @@ export default function SidebarNavigation() {
         
         {/* Visa Processing Section */}
         <NavSection title="Visa Processing" icon="/icons/visa.svg">
-          <NavLink href="/dashboard/reviewer" badge="23">My Queue</NavLink>
+          <NavLink href="/dashboard/reviewer" badge={queueBadge}>My Queue</NavLink>
           <NavLink href="/dashboard/reviewer/rfis">My RFIs</NavLink>
           <NavLink href="#">Completed</NavLink>
-          <NavLink href="#" badge="3" badgeColor="text-red-600 bg-gray-100">Escalated</NavLink>
+          <NavLink href="#">Escalated</NavLink>
           <NavLink href="#">Decisions</NavLink>
-          <NavLink href="/dashboard/messages" badge="4" badgeColor="text-blue-600 bg-gray-100">Messages</NavLink>
+          <NavLink href="/dashboard/messages">Messages</NavLink>
         </NavSection>
 
         <div className="my-2 border-t" />
@@ -140,7 +172,7 @@ export default function SidebarNavigation() {
         <div className="mt-auto pt-6">
           <button 
             className="w-full flex items-center px-3 py-2.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors"
-            onClick={() => console.log('Log out clicked')}
+            onClick={handleLogout}
           >
             <svg 
               className="w-5 h-5 mr-2" 

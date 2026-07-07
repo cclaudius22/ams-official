@@ -140,6 +140,14 @@ export interface ConsulateOfficial extends User {
   avgProcessingTime: number
   slaCompliance: number
   specializations?: string[]
+  /**
+   * When true, this officer is excluded from capacity-aware bulk allocation
+   * (`allocateBatch`) regardless of specialization/load — e.g. Rachel Johnson
+   * (officer-demo), whose reviewer queue is dedicated to the enriched deep_set
+   * corpus only (Task 4c). Additive/optional so it defaults to false (included)
+   * for every other officer.
+   */
+  excludeFromBulkAllocation?: boolean
 }
 
 export interface SuperAdmin extends User {

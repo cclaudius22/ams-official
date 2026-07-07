@@ -1,145 +1,100 @@
-// src/hooks/useProcessingMetrics.ts 
-import { useState, useCallback, useMemo } from 'react';
-import { subDays, format } from 'date-fns'; // Using date-fns for date manipulation
+// Processing Metrics mock — DIS-domain simulation (still mock; real wiring = the
+// deferred data-wiring track). Vocabulary is locked to the operating model:
+// canonical visa registry, two clocks (active touch-time vs elapsed SLA), ~85/15
+// triage, decision effort by recommendation outcome, the 7 real external checks.
+// Spec test: src/__tests__/processing-metrics-domain.test.ts
+import { useState, useCallback } from 'react';
+import { subDays, format } from 'date-fns';
+import { VISA_TYPES } from '@/config/visaTypes';
 
-// --- Color Palette (reuse or define specific ones) ---
-const SUBTLE_COLORS = [
-    '#60a5fa', '#34d399', '#facc15', '#fb923c', '#a78bfa', '#fb7185', '#9ca3af',
-    '#818cf8', '#f472b6', '#fde047' // Add more if needed
-];
-const STATUS_COLORS = { // Example for stages if needed, can reuse others
-    Intake: '#a78bfa',      // violet-400
-    'Initial Review': '#60a5fa', // blue-400
-    'Security Check': '#fb923c', // orange-400
-    Adjudication: '#34d399', // emerald-400
-    'Final QA': '#facc15',      // yellow-400
-    Decision: '#10b981',      // emerald-500 (final success)
-    Waiting: '#9ca3af',      // gray-400
-    Active: '#60a5fa'       // blue-400
-};
-const MANUAL_AUTO_COLORS = ['#818cf8', '#34d399']; // Example: indigo-400, emerald-400
+// --- Helpers ---
+const between = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-// --- Helper Functions ---
-const generateTimeSeries = (days: number, minY: number, maxY: number) => {
-    return Array.from({ length: days }).map((_, i) => ({
+const generateTimeSeries = (days: number, minY: number, maxY: number) =>
+    Array.from({ length: days }).map((_, i) => ({
         date: format(subDays(new Date(), days - 1 - i), 'MMM dd'),
-        value: Math.floor(Math.random() * (maxY - minY + 1)) + minY,
+        value: between(minY, maxY),
     }));
+
+// --- The simulation (exported pure so the domain vocabulary is testable) ---
+export const simulateProcessingMetrics = () => {
+    const clearShare = between(83, 88); // the ~85/15 triage claim
+    return {
+        // Decision SLA (15 working days), last 30 days
+        slaAttainmentTrend: generateTimeSeries(30, 85, 99),
+        // Canonical taxonomy — labels come from the registry so they can't drift
+        slaByVisaType: VISA_TYPES.map((v) => ({ name: v.label, value: between(80, 98) })),
+        // Why elapsed-SLA is at risk, in decision-lane terms (RFI clock-stop aside)
+        slaMissReasons: [
+            { name: 'Officer capacity', value: between(30, 45) },
+            { name: 'Complex case', value: between(20, 30) },
+            { name: 'RFI round-trip', value: between(15, 25) },
+            { name: 'Escalation', value: between(5, 15) },
+        ],
+        // Officer decision effort per DIS recommendation outcome (the capacity model:
+        // ~10m clear-approve / ~20m clear-reject / ~45m manual+RFI)
+        decisionEffortByOutcome: [
+            { name: 'Clear approve', avgMinutes: between(8, 12) },
+            { name: 'Clear reject', avgMinutes: between(18, 22) },
+            { name: 'Manual + RFI', avgMinutes: between(40, 50) },
+        ],
+        // Two clocks: where the elapsed days actually go. The machine row is a sliver
+        // by design — DIS processes in under a minute; the human lane is the bottleneck.
+        queueVsActiveTime: [
+            { name: 'Machine pipeline', queueTime: 0, activeTime: 0.001 },
+            { name: 'Awaiting allocation', queueTime: between(2, 4), activeTime: 0 },
+            { name: 'Officer review', queueTime: between(1, 3) / 2, activeTime: between(3, 7) / 10 },
+            { name: 'RFI round-trip', queueTime: between(3, 6), activeTime: between(1, 3) / 10 },
+        ],
+        // First-pass clear rate across the 7 real DIS external checks
+        externalChecksClearRate: [
+            { name: 'Certificate of Sponsorship', value: between(90, 98) },
+            { name: 'Identity & passport', value: between(94, 99) },
+            { name: 'Sanctions & watchlist', value: between(96, 99) },
+            { name: 'PNC (criminal record)', value: between(95, 99) },
+            { name: 'TB certificate', value: between(88, 96) },
+            { name: 'English proficiency', value: between(90, 97) },
+            { name: 'Financial evidence', value: between(88, 95) },
+        ],
+        // Phase-1 honest framing: DIS recommends, officers decide — nothing is auto-decided.
+        triageSplit: [
+            { name: 'Clear recommendation', value: clearShare },
+            { name: 'Manual review', value: 100 - clearShare },
+        ],
+        // Kept as-is per Chris (3 Jul): Top Escalation Reasons
+        escalationReasons: [
+            { name: 'Complex Nationality', value: between(5, 40) },
+            { name: 'Sanctions Hit', value: between(5, 40) },
+            { name: 'Missing Docs', value: between(5, 40) },
+            { name: 'Fraud Flags', value: between(5, 40) },
+            { name: 'Policy Edge Case', value: between(5, 40) },
+        ],
+        escalatedResolutionTime: between(3, 7), // days
+    };
 };
 
-const generateCategoricalData = (categories: string[], minY: number, maxY: number, valueKey = 'value') => {
-    return categories.map(name => ({
-        name,
-        [valueKey]: Math.floor(Math.random() * (maxY - minY + 1)) + minY,
-    }));
-};
-
-// --- Simulation Functions ---
-const simulateSlaAttainmentTrend = () => generateTimeSeries(30, 85, 99); // Last 30 days, %
-const simulateSlaByVisaType = () => generateCategoricalData(['Student', 'Work', 'Tourist', 'Family', 'Business', 'Other'], 80, 98);
-const simulateSlaByTeam = () => generateCategoricalData(['Alpha Team', 'Bravo Team', 'Charlie Team', 'Delta Team'], 75, 99);
-const simulateProcessingTimeDistribution = () => [
-    { name: '<50% SLA', value: Math.floor(Math.random() * 40) + 30 },
-    { name: '50-75% SLA', value: Math.floor(Math.random() * 20) + 15 },
-    { name: '75-100% SLA', value: Math.floor(Math.random() * 15) + 10 },
-    { name: '>100% SLA', value: Math.floor(Math.random() * 10) + 5 } // The misses
-];
-const simulateSlaMissReasons = () => generateCategoricalData(['Applicant Delay', 'Complexity', 'System Issue', 'Missing Docs', 'Staff Shortage'], 5, 50);
-
-const simulateCycleTimeByStage = () => generateCategoricalData(['Intake', 'Initial Review', 'Security Check', 'Adjudication', 'Final QA', 'Decision'], 1, 5, 'avgDays'); // Avg days per stage
-const simulateQueueVsActiveTime = () => ['Intake', 'Initial Review', 'Security Check', 'Adjudication', 'Final QA'].map(name => ({
-    name,
-    queueTime: Math.floor(Math.random() * 4) + 0.5, // Avg days waiting
-    activeTime: Math.floor(Math.random() * 2) + 0.5, // Avg days active work
-}));
-const simulateStageCompletionRate = () => { // Cumulative % passing
-    let cumulativeRate = 100;
-    const stages = ['Intake', 'Initial Review', 'Security Check', 'Adjudication', 'Final QA', 'Decision'];
-    return stages.map(name => {
-        const passRate = Math.random() * 0.1 + 0.9; // 90-100% pass rate per stage
-        cumulativeRate *= passRate;
-        return { name, completionRate: Math.round(cumulativeRate * 10) / 10 }; // Round to 1 decimal
-    });
-};
-const simulateBacklogByStage = () => generateCategoricalData(['Intake', 'Initial Review', 'Security Check', 'Adjudication', 'Final QA'], 10, 150, 'backlogCount');
-
-const simulateManualVsAuto = () => generateCategoricalData(['Manual', 'Automated'], 30, 70);
-const simulateAutomationAccuracy = () => Math.floor(Math.random() * 5) + 95; // 95-99% accuracy
-const simulateEscalationRateTrend = () => generateTimeSeries(30, 3, 12); // Last 30 days, % escalated
-const simulateEscalationReasons = () => generateCategoricalData(['Complex Nationality', 'Sanctions Hit', 'Missing Docs', 'Fraud Flags', 'Policy Edge Case'], 5, 40);
-const simulateEscalatedResolutionTime = () => Math.floor(Math.random() * 5) + 3; // 3-7 days avg resolution
+export type ProcessingMetricsData = ReturnType<typeof simulateProcessingMetrics>;
 
 // --- The Hook ---
 export const useProcessingMetrics = () => {
-    const [data, setData] = useState(() => ({ // Initialize with simulated data
-        slaAttainmentTrend: simulateSlaAttainmentTrend(),
-        slaByVisaType: simulateSlaByVisaType(),
-        slaByTeam: simulateSlaByTeam(),
-        processingTimeDistribution: simulateProcessingTimeDistribution(),
-        slaMissReasons: simulateSlaMissReasons(),
-        cycleTimeByStage: simulateCycleTimeByStage(),
-        queueVsActiveTime: simulateQueueVsActiveTime(),
-        stageCompletionRate: simulateStageCompletionRate(),
-        backlogByStage: simulateBacklogByStage(),
-        manualVsAuto: simulateManualVsAuto(),
-        automationAccuracy: simulateAutomationAccuracy(),
-        escalationRateTrend: simulateEscalationRateTrend(),
-        escalationReasons: simulateEscalationReasons(),
-        escalatedResolutionTime: simulateEscalatedResolutionTime(),
-    }));
+    const [data, setData] = useState<ProcessingMetricsData>(() => simulateProcessingMetrics());
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // TODO: Replace simulation with actual data fetching based on filters (date range, etc.)
-    const fetchData = useCallback(async (/* filters */) => {
+    // TODO: replace simulation with the contract adapter (data-wiring track)
+    const fetchData = useCallback(async () => {
         setIsLoading(true);
         setError(null);
         try {
-            // Simulate API call delay
-            await new Promise(resolve => setTimeout(resolve, 800));
-            // Regenerate simulated data on fetch
-            setData({
-                slaAttainmentTrend: simulateSlaAttainmentTrend(),
-                slaByVisaType: simulateSlaByVisaType(),
-                slaByTeam: simulateSlaByTeam(),
-                processingTimeDistribution: simulateProcessingTimeDistribution(),
-                slaMissReasons: simulateSlaMissReasons(),
-                cycleTimeByStage: simulateCycleTimeByStage(),
-                queueVsActiveTime: simulateQueueVsActiveTime(),
-                stageCompletionRate: simulateStageCompletionRate(),
-                backlogByStage: simulateBacklogByStage(),
-                manualVsAuto: simulateManualVsAuto(),
-                automationAccuracy: simulateAutomationAccuracy(),
-                escalationRateTrend: simulateEscalationRateTrend(),
-                escalationReasons: simulateEscalationReasons(),
-                escalatedResolutionTime: simulateEscalatedResolutionTime(),
-            });
+            await new Promise((resolve) => setTimeout(resolve, 800));
+            setData(simulateProcessingMetrics());
         } catch (err) {
-            setError("Failed to load processing metrics.");
+            setError('Failed to load processing metrics.');
             console.error(err);
         } finally {
             setIsLoading(false);
         }
     }, []);
 
-    // Initial fetch simulation (or trigger based on filters later)
-    // useEffect(() => { fetchData(); }, [fetchData]);
-
-    // Memoize processed data if complex transformations are needed
-    const processedData = useMemo(() => {
-        // Example: Assign colors dynamically if needed, otherwise handled in chart
-         const slaMissReasonsWithColors = data.slaMissReasons.map((item, index) => ({
-            ...item,
-            fill: SUBTLE_COLORS[index % SUBTLE_COLORS.length],
-        }));
-         const manualVsAutoWithColors = data.manualVsAuto.map((item, index) => ({
-            ...item,
-            fill: MANUAL_AUTO_COLORS[index % MANUAL_AUTO_COLORS.length],
-        }));
-
-        return { ...data, slaMissReasons: slaMissReasonsWithColors, manualVsAuto: manualVsAutoWithColors };
-    }, [data]);
-
-
-    return { ...processedData, isLoading, error, fetchData };
+    return { ...data, isLoading, error, fetchData };
 };

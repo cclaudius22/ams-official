@@ -39,6 +39,7 @@ export function StackedBar({
           <CartesianGrid stroke={GRID.stroke} vertical={false} />
           <XAxis
             dataKey={indexKey}
+            interval={0}
             tick={{ fontSize: AXIS.tickFontSize, fill: AXIS.tickFill }}
             axisLine={AXIS.axisLine}
             tickLine={AXIS.tickLine}

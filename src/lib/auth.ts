@@ -14,6 +14,7 @@ export interface JWTPayload {
   email: string;
   role: string;
   organizationId: string;
+  officerId?: string;
   iat?: number;
   exp?: number;
 }

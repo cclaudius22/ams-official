@@ -2,15 +2,15 @@
 import { useState, useMemo, useCallback } from 'react'
 import { Clock, RefreshCw } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { VISA_TYPES } from '@/config/visaTypes'
 import {
   AreaTrend,
   HBar,
   Donut,
   LineWithTarget,
   ChartCard,
-  seriesColor,
+  CHART_INK,
   statusColor,
-  visaTypeColor,
   SEMANTIC_COLORS,
 } from '@/components/charts'
 
@@ -25,10 +25,9 @@ const generateRawTimeSeriesData = () =>
     approved: Math.floor(Math.random() * 15),
     rejected: Math.floor(Math.random() * 5),
   }))
-const generateRawProcessingTimeData = () => {
-  const types = ['Business', 'Student', 'Tourist', 'Work', 'Family', 'Diplomatic', 'Transit', 'Investor', 'Journalist', 'Medical', 'Spouse', 'Other Visa']
-  return types.map((type) => ({ name: type, avgTime: Math.floor(Math.random() * 120) + 30 }))
-}
+// Canonical taxonomy — labels from the registry so they can't drift (exported for the spec test).
+export const generateRawProcessingTimeData = () =>
+  VISA_TYPES.map((v) => ({ name: v.label, avgTime: Math.floor(Math.random() * 120) + 30 }))
 const generateRawStatusDistributionData = () => [
   { name: 'Pending', value: Math.floor(Math.random() * 50) + 20 },
   { name: 'In Progress', value: Math.floor(Math.random() * 60) + 30 },
@@ -119,14 +118,15 @@ const useVisaMetrics = () => {
 
 // --- Time-series series definitions (stable colour-as-meaning) ---
 const TODAY_SERIES = [
-  { key: 'applications', label: 'Received', color: visaTypeColor('skilled_worker_visa') },
+  { key: 'applications', label: 'Received', color: CHART_INK },
   { key: 'approved', label: 'Approved', color: SEMANTIC_COLORS.positive },
   { key: 'rejected', label: 'Rejected', color: SEMANTIC_COLORS.negative },
 ]
 
-// Colour bars by palette, but render the aggregated "Other" bucket as neutral.
-const barColor = (entry: Record<string, unknown>, index: number) =>
-  entry.isOther ? SEMANTIC_COLORS.neutral : seriesColor(index)
+// Quiet estate: nominal single-series bars wear the one ink (each row is already
+// labelled — hue has no identity job here); the aggregated "Other" bucket stays neutral.
+const barColor = (entry: Record<string, unknown>) =>
+  entry.isOther ? SEMANTIC_COLORS.neutral : CHART_INK
 
 // --- Main Component ---
 const LiveMetricsSection = () => {
