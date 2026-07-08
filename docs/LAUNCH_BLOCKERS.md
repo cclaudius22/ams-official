@@ -2,7 +2,7 @@
 
 **Purpose:** the single list of things that are **fine for demo / Phase 1** but **must be resolved before REAL production** (real applicants, real decisions). If it's a stand-in today, this is where we record what it takes to make it real — so nothing mocked ever reaches a live case unnoticed.
 
-**Last updated:** 2026-06-22
+**Last updated:** 2026-07-08
 
 ## How to read this
 
@@ -41,6 +41,7 @@ The **OV Assessment panel needs BOTH** — it cannot show a real score until the
 | **LB-4** | **`deloitte` provider not wired** | Running on `mock` / `replica` providers (local Postgres replica of Deloitte's DDL). | The live `deloitte` provider must be built and pointed at the real DIS read API in the production environment. |
 | **LB-5** | **Advisory per-case scores** | Deferred / opt-in; officer view is status-led (no numeric DIS grades). | Confirm the final per-case scoring-display policy before production. |
 | **LB-6** | **OV Assessment panel (Rootedness/Intent model)** | **Mocked** — the OV trained risk models are not yet deployed; the panel shows synthetic scores. This is the deliberate scores-shown exception (V5 §7a). | Deploy the OV models for inference on **Azure** (compute-once → store → read); point the OV read path at real stored assessments. **A synthesised risk score must never be shown on a live applicant.** |
+| **LB-7** | **SLA policy / operational clocks (Policy Manager)** | **Placeholder copy** — the officer gateway "SLA policy" tile reads "Defined in Policy Manager" (`c4562eb`, 8 Jul). No operational SLA is computed: the earlier calendar-day derivation drifted into "everything overdue" as real time passed the curated corpus dates, so it was replaced with honest illustrative copy. Derivation helpers (`src/lib/officerGatewayStats.ts`) exist + tested but are unwired. | A first-class **Policy Manager** module for client-configured SLA rules: visa route / product type, workflow stage, SLA duration, **working-day calendar**, public holidays, RFI pause/resume, escalation thresholds, overdue definitions, effective-date versioning, audit trail. Replace the calendar-day helper (`slaDaysRemaining`) with **true working-day maths** once it exists. **No SLA figure may be presented as the client's operational policy until configured through Policy Manager.** Spec: `docs/cc-notes/2026-07-06-sla-policy-module.md`. |
 
 ---
 

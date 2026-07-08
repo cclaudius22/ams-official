@@ -72,7 +72,7 @@ The derivation helpers (`src/lib/officerGatewayStats.ts`) and their tests are ke
 
 Acceptance met: `/dashboard/reviewer` no longer headlines "18 overdue"/"everything overdue"; SLA copy is honest and points to future Policy Manager configuration.
 
-## Post-demo ticket — Policy Manager / SLA configuration (OPEN)
+## Post-demo ticket — Policy Manager / SLA configuration (OPEN — tracked as LB-7 in docs/LAUNCH_BLOCKERS.md)
 
 Build a first-class Policy Manager module for client-configured SLA rules:
 
