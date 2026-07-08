@@ -58,3 +58,34 @@ Preferred product fix: build SLA Policy configuration as a first-class module ra
 
 Owner note: item 1 is cross-cutting demo infrastructure (Sam's lane, small); item 2 is a focused util fix + test retarget (Sam's lane); corpus date refresh is the alternative lever (Lenny's lane) if the anchor is rejected.
 
+## Decision (Chris, 8 Jul) — fix with COPY, not maths
+
+For the demo we are **not** building the anchor or the working-day maths. The corpus made a clean anchor impossible anyway: deep_set is uniformly submitted 2026-06-04 (≈15-working-day deadline 25 Jun), while bulk runs to 24 Jun and the RFI heroes respond 27 Jun — so no single fixed "today" keeps deep_set not-overdue *and* the other date-relative states coherent. Building the maths now "but not integrating it is the worst middle ground: more code, more tests, more drift, no demo value" (Chris).
+
+**Shipped instead:** the officer-gateway "SLA position" tile (`src/app/dashboard/reviewer/page.tsx`) no longer derives an SLA headline from corpus dates. It now reads:
+
+- Title: **SLA policy**
+- Headline: **Defined in Policy Manager**
+- Subtext: **Client SLA rules, working calendars, and escalation thresholds are configured centrally.**
+
+The derivation helpers (`src/lib/officerGatewayStats.ts`) and their tests are kept intact but **unwired** from the page — they are the seed for the post-demo work below. The demo-today anchor is deferred to *optional* status (only if we later need date-relative demo states elsewhere, e.g. the RFI lane — which today is stable because heroes are `returned`).
+
+Acceptance met: `/dashboard/reviewer` no longer headlines "18 overdue"/"everything overdue"; SLA copy is honest and points to future Policy Manager configuration.
+
+## Post-demo ticket — Policy Manager / SLA configuration (OPEN)
+
+Build a first-class Policy Manager module for client-configured SLA rules:
+
+- visa route / product type
+- workflow stage
+- SLA duration
+- working-day calendar
+- public holidays
+- RFI pause/resume
+- escalation thresholds
+- overdue definitions
+- effective dates / versioning
+- audit trail
+
+Also replace the current calendar-day helper (`slaDaysRemaining` in `src/lib/officerQueue.ts`) with a **true working-day calculation** once Policy Manager exists. Working-day maths and the demo-today anchor both remain open, tracked here — deferred, not dropped.
+

@@ -12,7 +12,6 @@ import {
 } from 'lucide-react';
 import { useOfficer } from '@/contexts/OfficerContext';
 import type { RfiLaneItem } from '@/data/providers/rfiQueueAdapter';
-import { deriveSlaPosition, slaPositionHeadline, slaPositionSubtext } from '@/lib/officerGatewayStats';
 
 /**
  * Officer gateway (Task 6, design-note §3 amended). This used to open on
@@ -20,9 +19,16 @@ import { deriveSlaPosition, slaPositionHeadline, slaPositionSubtext } from '@/li
  * slaWarningsCount and an "SLA Breach Alert" banner that had no data behind
  * them. All of that is gone: every number below is either a real count from
  * an API the rest of the app already trusts (/api/applications,
- * /api/ams-demo/rfis) or a pure derivation over that real data
- * (src/lib/officerGatewayStats.ts, over the existing SLA helpers in
- * src/lib/officerQueue.ts). If a stat has no real source, it does not render.
+ * /api/ams-demo/rfis). If a stat has no real source, it does not render.
+ *
+ * SLA: the "SLA policy" tile does NOT derive an operational SLA figure from
+ * corpus dates — that drifted into "everything overdue" as real calendar time
+ * passed the curated demo dates. SLA is illustrative/future-configured, so the
+ * tile points to the forthcoming Policy Manager (client SLA rules, working-day
+ * calendars, escalation thresholds). The derivation helpers still exist
+ * (src/lib/officerGatewayStats.ts, tested) but are intentionally unwired here;
+ * full derivation + true working-day math are tracked as a post-demo ticket:
+ * docs/cc-notes/2026-07-06-sla-policy-module.md.
  *
  * Identity: scoped to `useOfficer()`'s current officer throughout. An admin
  * session has no personal case queue, so visiting this page renders whatever
@@ -30,21 +36,14 @@ import { deriveSlaPosition, slaPositionHeadline, slaPositionSubtext } from '@/li
  * amendment) — acceptable demo behavior, not a crash.
  */
 
-interface AssignedCaseDate {
-  submittedAt?: string;
-}
-
 export default function ReviewerDashboardPage() {
   const { currentOfficer, isLoading: officerLoading } = useOfficer();
   const officerId = currentOfficer?.id ?? 'officer-demo';
 
-  // --- "My Queue" tile + "SLA position" tile: ONE fetch serves both. The
-  // /api/applications envelope's `total` is the REAL assigned-case count
-  // (My Queue tile and the sidebar badge both trace back to this same
-  // field — see useOfficerQueueCount); the returned page of cases feeds the
-  // SLA derivation below so we don't fetch the list twice.
+  // --- "My Queue" tile: the /api/applications envelope's `total` is the REAL
+  // assigned-case count (My Queue tile and the sidebar badge both trace back
+  // to this same field — see useOfficerQueueCount).
   const [queueTotal, setQueueTotal] = useState<number | null>(null);
-  const [queueCases, setQueueCases] = useState<AssignedCaseDate[]>([]);
   const [queueLoading, setQueueLoading] = useState(true);
   const [queueError, setQueueError] = useState<string | null>(null);
 
@@ -54,14 +53,13 @@ export default function ReviewerDashboardPage() {
     setQueueLoading(true);
     setQueueError(null);
 
-    const params = new URLSearchParams({ assignedTo: officerId, pageSize: '50' });
+    const params = new URLSearchParams({ assignedTo: officerId, pageSize: '1' });
     fetch(`/api/applications?${params}`)
       .then((res) => res.json())
       .then((json) => {
         if (cancelled) return;
         if (json?.success) {
           setQueueTotal(typeof json.total === 'number' ? json.total : (json.data?.length ?? 0));
-          setQueueCases((json.data ?? []) as AssignedCaseDate[]);
         } else {
           setQueueError(json?.error || 'Failed to load your queue');
         }
@@ -77,8 +75,6 @@ export default function ReviewerDashboardPage() {
       cancelled = true;
     };
   }, [officerId, officerLoading]);
-
-  const slaPosition = deriveSlaPosition(queueCases.map((c) => c.submittedAt), new Date());
 
   // --- My RFIs strip + tile (Task 5/8) — real lane data from
   // GET /api/ams-demo/rfis. Token-first: for a signed-in OFFICER session the
@@ -197,27 +193,23 @@ export default function ReviewerDashboardPage() {
             </Card>
           </Link>
 
-          {/* SLA position — derived from the officer's real assigned cases
-              (src/lib/officerGatewayStats.ts over src/lib/officerQueue.ts's
-              SLA helpers). Status-led: a working-day count or overdue count,
-              never a numeric grade. */}
+          {/* SLA policy — illustrative, not operational truth. The gateway
+              deliberately does NOT derive an SLA figure from corpus dates
+              (that drifted into "everything overdue" as real time passed the
+              curated demo dates). Points to the forthcoming Policy Manager;
+              real derivation + working-day math tracked post-demo
+              (docs/cc-notes/2026-07-06-sla-policy-module.md). */}
           <Card className="bg-white h-full">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-               <CardTitle className="text-sm font-medium">SLA position</CardTitle>
+               <CardTitle className="text-sm font-medium">SLA policy</CardTitle>
                <Clock className="h-4 w-4 text-muted-foreground" />
              </CardHeader>
              <CardContent>
-               <div
-                 className={`text-2xl font-bold ${
-                   !queueLoading && !queueError && slaPosition && slaPosition.nearestDays <= 0
-                     ? 'text-red-600'
-                     : 'text-gray-900'
-                 }`}
-               >
-                 {queueLoading || queueError ? '—' : slaPositionHeadline(slaPosition)}
+               <div className="text-lg font-semibold text-gray-900">
+                 Defined in Policy Manager
                </div>
                <p className="text-xs text-muted-foreground">
-                 {queueError ? "Couldn't load your queue" : queueLoading ? 'Loading…' : slaPositionSubtext(slaPosition)}
+                 Client SLA rules, working calendars, and escalation thresholds are configured centrally.
                </p>
              </CardContent>
           </Card>
