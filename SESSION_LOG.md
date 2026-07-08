@@ -14,15 +14,16 @@ approve branch <branch-name> for <purpose>
 
 Task approval is **not** branch approval. Do not infer branch approval from phrases like "fix it", "start", "continue", "ticket", "demo-ready", "SLA", "lint", or "audit". Do not reuse old branches. Do not create quick-fix branches. If a branch seems necessary, stop and ask Chris for the explicit approval phrase above.
 
-**Main is the base:** `main` now carries the auth/gateway merge (`a090d25`) plus three post-merge control/fix commits:
+**Main is the base:** `main` now carries the auth/gateway merge (`a090d25`) plus four post-merge control/fix commits:
 
 - `4189215` — live queue Process Intake counts only the 1,000 `Received` bulk intake apps; Rachel's 18 deep_set cases stay `In Progress`. Regression test added.
 - `d70f74e` — removed stale hard-coded "N active cases" from the Demo Mode officer switcher.
 - `573e14c` — V5 spec updated with `## 0. Plan anchor`; V5 is the main DIS integration plan, `ams-demo` is only a demo adapter.
+- `c4562eb` — officer gateway "SLA position" tile → honest **"SLA policy · Defined in Policy Manager"** copy; no longer derives an SLA figure from corpus dates, killing the accidental "everything overdue" headline (real calendar time had drifted past the curated 4 Jun deep_set dates). Derivation helpers (`officerGatewayStats`) kept + tested but unwired; anchor + working-day math deferred to the post-demo Policy Manager ticket. Copy-not-maths per Chris. Gates green (tsc 0 · build 0 · lint 0-err on surface · 317 tests); browser eyeball skipped to wrap up; awaits Lenny audit + Marshall push.
 
 **Strategic focus:** `docs/specs/2026-06-11-dis-integration-spec-v5.md` is the main plan. Demo/UX/auth/SLA work can extend the product, but every task must say whether it advances, bypasses, or is neutral to V5. Production readiness is still judged against V5 + `docs/LAUNCH_BLOCKERS.md`.
 
-**Demo-ready tickets still open, on `main`:** SLA demo date anchor; SLA working-day math or honest relabel; stale analytics constants; honest OV/DIS empty state for bulk cases; anonymous data API hardening before any public/Cloud Run deploy.
+**Demo-ready tickets still open, on `main`:** SLA overdue-headline **FIXED 8 Jul** (`c4562eb`, copy-not-maths — gateway tile now points to Policy Manager); SLA demo date anchor + true working-day math **moved POST-DEMO** into the Policy Manager module ticket (`docs/cc-notes/2026-07-06-sla-policy-module.md`); stale analytics constants; honest OV/DIS empty state for bulk cases; anonymous data API hardening before any public/Cloud Run deploy.
 
 ---
 
