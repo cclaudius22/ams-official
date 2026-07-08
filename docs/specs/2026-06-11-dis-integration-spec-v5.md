@@ -7,6 +7,42 @@
 
 ---
 
+## 0. Plan anchor — current operating rule (8 July 2026)
+
+This V5 spec remains the **main plan and integration anchor** for the AMS Officer Dashboard.
+
+Later demo, UX, auth, queue, and usability work may extend the product, but it does **not** replace this plan. If work drifts for executive-demo reasons, agents must record the drift and the return path back to V5.
+
+### Current reality after the July auth/demo merge
+
+| Area | Current state | V5 interpretation |
+|---|---|---|
+| `/api/dis/applications/**` read routes | Built behind `DISDataProvider` (`mock` / `replica`; `deloitte` still unimplemented) | This is the V5 production integration lane. Keep advancing it. |
+| `DATA_PROVIDER=ams-demo` | Self-contained executive demo corpus, queue, Rachel deep-review lane, RFI scaffold, demo JWT | Demo adapter only. It must not be treated as completing live DIS integration. |
+| Officer gateway / sign-in / route gate | Demo auth and dashboard access are now on `main` | Useful product shell around V5, but not a substitute for production RBAC or data API hardening. |
+| Deep-set DIS/OV content | Enriched in-repo curated cases | Demo evidence layer. Production must read real DIS facts through V5 provider seam and real OV assessments through Azure store/read. |
+| SLA indicators | Illustrative demo logic, with SLA policy module ticketed separately | Product policy extension, not part of V5's DIS data contract. |
+
+### Non-negotiable focus rule
+
+For every new task, agents must state which lane it belongs to:
+
+1. **V5 DIS integration** — `/api/dis/**`, `DISDataProvider`, `mock -> replica -> deloitte`, signed documents, live DIS read contracts.
+2. **Demo adapter** — `DATA_PROVIDER=ams-demo`, curated corpus, Rachel lane, demo-only auth, demo RFI surfaces.
+3. **Product shell** — navigation, gateway, login UX, role-routing, usability.
+4. **Policy/configuration** — SLA policy, RBAC policy, client-government configuration.
+5. **Gates/cleanup** — typecheck, lint, build, security gates, dependency hygiene.
+
+If a task touches lane 2, 3, 4, or 5, it must still explain whether it advances, bypasses, or is neutral to lane 1. V5 integration is the default strategic objective.
+
+### Current V5 status
+
+- **Done / present:** V5 route shape and provider seam; local mock/replica provider path; DIS panel contracts; status-led display policy; OV assessment contract shape.
+- **Demo-only / not production proof:** `ams-demo` corpus, Rachel deep-set ownership, demo JWT accounts, RFI scaffold state, enriched curated OV assessments.
+- **Still required for real applicants:** `deloitte` provider, live DIS read API mapping, real GCS signed URLs, real OV Azure compute-once -> store -> read path, production RBAC/data API hardening, production launch-blocker closure.
+
+The executive demo may run through `ams-demo`, but production readiness must be judged against this V5 section and `docs/LAUNCH_BLOCKERS.md`.
+
 ## 1. What changed since V4 — the one-paragraph version
 
 The 11 June audit established: **zero officer-facing read endpoints exist** in spec, code, or deployment — the only live surfaces are intake (`POST /api/v1/applications`) and a Status API (`GET /api/v1/applications/{id}/status`, deployed 10 June, in no repo). The live decisions table is named **`recommendations`**. The `applications.status` lifecycle assumed by both V4 and the Officer UI contract doc **does not exist as-built** (Section 4). `REJECTED` is disabled in code. `/api/rules/reload` does not exist. The read layer's ownership is contested (email to Deloitte 11 June, deadline 12 June) — so V5 defines the read contracts **ownership-neutrally**: they are simultaneously our mock layer, Deloitte's build spec if they accept scope, and our own read-service spec if they don't. Phase 2A proceeds on mocks tonight either way.
