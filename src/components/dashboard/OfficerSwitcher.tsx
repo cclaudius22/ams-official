@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronDown, User, Beaker } from 'lucide-react';
+import { ChevronDown, Beaker } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -170,9 +170,6 @@ export default function OfficerSwitcher() {
                   <span className="text-xs text-gray-500 truncate">
                     {getSpecializationsDisplay(officer)}
                   </span>
-                </div>
-                <div className="text-xs text-gray-400 mt-1">
-                  {officer.activeApplications} active cases
                 </div>
               </div>
             </DropdownMenuItem>
