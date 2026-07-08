@@ -26,18 +26,18 @@ export async function POST() {
       RECOMMEND_REJECT: 0,
       MANUAL_REVIEW: 0,
     }
+    const intake = apps.filter((app) => app.status === 'Received')
+
     let processed = 0
-    for (const app of apps) {
-      if (app.status === 'Received') {
-        await provider.updateApplicationStatus(app.id, 'Processed')
-        processed++
-      }
+    for (const app of intake) {
+      await provider.updateApplicationStatus(app.id, 'Processed')
+      processed++
       if (app.recommendation && app.recommendation in distribution) {
         distribution[app.recommendation]++
       }
     }
 
-    return NextResponse.json({ success: true, data: { processed, total: apps.length, distribution } })
+    return NextResponse.json({ success: true, data: { processed, total: intake.length, distribution } })
   } catch (error) {
     console.error('[API] POST /assignments/process-intake error:', error)
     return NextResponse.json({ success: false, error: 'Failed to process intake' }, { status: 500 })

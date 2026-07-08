@@ -357,6 +357,12 @@ export default function LiveQueuePage() {
     applications.filter(app => app.status === 'Processed' && !app.assignedTo).length,
     [applications]
   );
+  const receivedCount = useMemo(() =>
+    applications.filter(app => app.status === 'Received').length,
+    [applications]
+  );
+  const showProcessIntake = receivedCount > 0;
+  const showAutoAllocate = processedUnassignedCount > 0;
 
   // Reset visibility derives from the actual queue state so it survives a reload
   // (the client-only `processed`/`autoAssignResult` flags reset on remount).
@@ -468,7 +474,7 @@ export default function LiveQueuePage() {
             <Button variant="outline" disabled={selectedApplications.length === 0} onClick={handleAssign}>
               <UserCog className="h-4 w-4 mr-2" /> Assign ({selectedApplications.length})
             </Button>
-            {!processed && (
+            {showProcessIntake && (
               <Button
                 onClick={handleProcessIntake}
                 disabled={isProcessing}
@@ -482,12 +488,12 @@ export default function LiveQueuePage() {
                 ) : (
                   <>
                     <Inbox className="h-4 w-4 mr-2" />
-                    Process intake ({applications.length})
+                    Process intake ({receivedCount})
                   </>
                 )}
               </Button>
             )}
-            {processed && processedUnassignedCount > 0 && (
+            {showAutoAllocate && (
               <Button
                 onClick={handleAutoAssignAll}
                 disabled={isAutoAssigning}
