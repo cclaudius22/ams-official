@@ -4,6 +4,28 @@
 
 ---
 
+## ⏸ RESUME HERE — 8 July 2026: main-only branch control + V5 focus restored
+
+**Current operating rule:** all agents work from `main` only. No agent may create, checkout, continue, or push a feature branch unless Chris explicitly approves it in this exact form:
+
+```text
+approve branch <branch-name> for <purpose>
+```
+
+Task approval is **not** branch approval. Do not infer branch approval from phrases like "fix it", "start", "continue", "ticket", "demo-ready", "SLA", "lint", or "audit". Do not reuse old branches. Do not create quick-fix branches. If a branch seems necessary, stop and ask Chris for the explicit approval phrase above.
+
+**Main is the base:** `main` now carries the auth/gateway merge (`a090d25`) plus three post-merge control/fix commits:
+
+- `4189215` — live queue Process Intake counts only the 1,000 `Received` bulk intake apps; Rachel's 18 deep_set cases stay `In Progress`. Regression test added.
+- `d70f74e` — removed stale hard-coded "N active cases" from the Demo Mode officer switcher.
+- `573e14c` — V5 spec updated with `## 0. Plan anchor`; V5 is the main DIS integration plan, `ams-demo` is only a demo adapter.
+
+**Strategic focus:** `docs/specs/2026-06-11-dis-integration-spec-v5.md` is the main plan. Demo/UX/auth/SLA work can extend the product, but every task must say whether it advances, bypasses, or is neutral to V5. Production readiness is still judged against V5 + `docs/LAUNCH_BLOCKERS.md`.
+
+**Demo-ready tickets still open, on `main`:** SLA demo date anchor; SLA working-day math or honest relabel; stale analytics constants; honest OV/DIS empty state for bulk cases; anonymous data API hardening before any public/Cloud Run deploy.
+
+---
+
 ## ✅ MERGE-READY — 7 July 2026: `feat/jwt-officer-gateway` @ `67ec59c` — all gates green; awaiting Lenny re-audit → Chris merge approval
 
 **Verdict chain @ pushed tip `67ec59c`:** command gates firsthand (vitest **316/24/0** · `tsc --noEmit` **0** · `bun run build` completes · lint **live surfaces 0 errors**, estate debt 164-in-src deferred per Chris) · behavioral acceptance **PASS 8/8** (fresh boot; report `.superpowers/sdd/acceptance-67ec59c.md`) · whole-branch review (most-capable model): **READY TO MERGE = YES**, 0 Critical, 4f covered clean, green-gates deletions zero-importer safe. Task ledger `.superpowers/sdd/progress.md` = full record.
